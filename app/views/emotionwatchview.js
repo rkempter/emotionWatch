@@ -3,18 +3,42 @@ define([
 	"jquery", 
 	"backbone", 
 	"raphael",
-], function(_, $, Backbone, Raphael) {
+	'constants'
+], function(_, $, Backbone, Raphael, Constants) {
 
 	var emotionWatchView = Backbone.View.extend({
 
-		el: 'svg:g',
+		el: 'div',
 
 		initialize: function(options) {
+			console.log("initialize");
+			console.log("paper: "+this.model.get("paper"));
 
-			this.emotionCircle = this.drawCircle(this.model.emotionCircleRadius);
-			this.timeCircle = this.drawCircle(this.model.timeCircleRadius);
+			console.log(this.model);
+
+			this.emotionCircle = this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY"));
+			this.emotionCircle.attr({ 
+				"stroke-width": Constants.emotionCircleWidth, 
+				"stroke": Constants.emotionCircleColor,
+			});
+
+			this.timeCircle = this.drawCircle(this.model.get("emotionCircleRadius")+40, this.model.get("positionX"), this.model.get("positionY"));
+			this.timeCircle.attr({ 
+				"stroke-width": Constants.timeCircleWidth, 
+				"stroke": Constants.timeCircleBaseColor,
+			});
+
 			this.emotionShape = this.drawEmotionShape();
+			this.emotionShape.attr({ 
+				"fill": Constants.emotionShapeFillColor,
+				"stroke": Constants.emotionShapeStrokeColor,
+			});
+
 			this.timeShape = this.drawTimeShape();
+			this.timeShape.attr({ 
+				"stroke-width": Constants.timeCircleWidth, 
+				"stroke": Constants.timeCircleTimeColor,
+			});
 
 			$(el).append(this.emotionCircle);
 			$(el).append(this.timeCircle);
@@ -29,14 +53,16 @@ define([
 		},
 
 		drawCircle: function(radius, positionX, positionY) {
-			var cirlce = this.paper.circle(positionX, positionY, radius);
+			var circle = this.model.get("paper").circle(positionX, positionY, radius);
 
 			return circle;
 		},
 
 		drawEmotionShape: function() {
-			var currentShapePath = this.model.getCurrentShapePath();
-			var shape = this.paper.path(currentShapePath);
+			// Set DataSet?
+			var currentShapePath = this.model.getCurrentEmotionShapePath();
+			console.log(currentShapePath);
+			var shape = this.model.get("paper").path(currentShapePath);
 
 			return shape;
 		},
@@ -44,13 +70,14 @@ define([
 		drawTimeShape: function() {
 			var currentTimeLineAngle = this.model.getTimeLineAngle();
 			var currentTimeLinePath = this.model.getTimeLinePath(currentTimeLineAngle);
-			var timeLineShape = this.paper.path(currentTimeLinePath);
+			var timeLineShape = this.model.get("paper").path(currentTimeLinePath);
 
 			return timeLineShape;
 		},
 
 		render: function() {
 			var newPath = this.model.getCurrentEmotionShapePath();
+			console.log(newPath);
 
 			this.emotionShape.animate({
 				path: newPath
@@ -63,7 +90,6 @@ define([
 
 			// Do the same for colors
 		},
-
 	});
 
 	return emotionWatchView;

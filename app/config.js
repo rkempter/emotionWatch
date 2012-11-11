@@ -15,8 +15,9 @@ require.config({
     lodash: "../assets/js/libs/lodash",
     backbone: "../assets/js/libs/backbone",
     underscore: "../assets/js/libs/underscore",
-    raphael: "../assets/js/libs/raphael-min",
+    raphael: "../assets/js/libs/raphael.amd",
     queue: "../assets/js/libs/Queue.compressed",
+    constants: "constants",
 
     // models
     emotionwatch: "models/emotionWatch",

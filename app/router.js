@@ -14,8 +14,18 @@ function(app, paperView) {
 
     index: function() {
       console.log('indexpage');
-      app.showView('#content', new paperView() );
-    }
+      this.showView('#main', new paperView() );
+    },
+
+    showView: function (selector, view) {
+        if(this.currentView) 
+          this.currentView.close();
+ 
+        $(selector).html(view.render());
+        this.currentView = view;
+        
+        return view;
+    },
   });
 
   return Router;

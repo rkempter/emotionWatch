@@ -6,28 +6,33 @@ define(
 	'jquery',
 	'emotionwatch',
 	'emotionwatchview',
+	'constants'
 	]
-	, function(_, Backbone, Raphael, $, emotionWatch, emotionWatchView) {
+	, function(_, Backbone, Raphael, $, emotionWatch, emotionWatchView, Constants) {
 
 		var PaperView = Backbone.View.extend({
 
 			initialize: function() {
 				var self = this;
-
+				
 				// @todo: Use a config file!!
-				self.paper = Raphael("paper", 1200, 800);
+				self.paper = Raphael(10, 10, Constants.paperWidth, Constants.paperHeight);
 				self.el = self.paper.canvas;
 				self.$el = $(self.el);
 
-				//self.emotionWatch = new emotionWatch({paper: self, "topic": "#gymnastics"});
-				//self.emotionWatch.on('add', self.emotionWatchAdded, self);
-			},
+				console.log("Paper: "+self.paper);
 
-			// emotionWatchAdded: function(node) {
-			// 	var view = new emotionWatchView({model: emotionWatch});
-			// }
+				var view = new emotionWatchView(
+							{ model: new emotionWatch({ 
+								paper: self.paper, 
+								  emotionCircleRadius: 300, 
+								  positionX: 400, 
+								  positionY: 400
+								}) 
+							});
+			},
 		});
 
-		return new PaperView();
+		return PaperView;
 	}
 )
