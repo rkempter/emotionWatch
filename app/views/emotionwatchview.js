@@ -2,7 +2,7 @@ define([
 	"underscore",
 	"jquery", 
 	"backbone", 
-	"raphael"
+	"raphael",
 ], function(_, $, Backbone, Raphael) {
 
 	var emotionWatchView = Backbone.View.extend({

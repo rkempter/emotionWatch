@@ -1,9 +1,9 @@
 define(
 	[
-	'order!underscore',
-	'order!backbone',
-	'order!raphael',
-	'order!jquery',
+	'underscore',
+	'backbone',
+	'raphael',
+	'jquery',
 	'emotionwatch',
 	'emotionwatchview',
 	]
@@ -19,13 +19,13 @@ define(
 				self.el = self.paper.canvas;
 				self.$el = $(self.el);
 
-				self.emotionWatch = new emotionWatch({paper: self});
-				self.emotionWatch.on('add', self.emotionWatchAdded, self);
+				//self.emotionWatch = new emotionWatch({paper: self, "topic": "#gymnastics"});
+				//self.emotionWatch.on('add', self.emotionWatchAdded, self);
 			},
 
-			emotionWatchAdded: function(node) {
-				var view = new emotionWatchView({model: emotionWatch});
-			}
+			// emotionWatchAdded: function(node) {
+			// 	var view = new emotionWatchView({model: emotionWatch});
+			// }
 		});
 
 		return new PaperView();

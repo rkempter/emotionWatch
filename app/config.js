@@ -14,11 +14,12 @@ require.config({
     jquery: "../assets/js/libs/jquery",
     lodash: "../assets/js/libs/lodash",
     backbone: "../assets/js/libs/backbone",
-    raphael: "../assets/js/libs/raphael",
+    underscore: "../assets/js/libs/underscore",
+    raphael: "../assets/js/libs/raphael-min",
     queue: "../assets/js/libs/Queue.compressed",
 
     // models
-    emotionwatch: "model/emotionWatch",
+    emotionwatch: "models/emotionWatch",
 
     // views
 

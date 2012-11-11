@@ -1,10 +1,10 @@
 define([
   // Application.
   "app",
-  "emotionwatchview"
+  "paperview"
 ],
 
-function(app) {
+function(app, paperView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -13,7 +13,8 @@ function(app) {
     },
 
     index: function() {
-      app.showView('#content', new emotionWatchView() );
+      console.log('indexpage');
+      app.showView('#content', new paperView() );
     }
   });
 
