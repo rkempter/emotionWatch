@@ -7,12 +7,19 @@ define([
 
 	var emotionWatchView = Backbone.View.extend({
 
+		el: 'svg:g',
+
 		initialize: function(options) {
 
 			this.emotionCircle = this.drawCircle(this.model.emotionCircleRadius);
 			this.timeCircle = this.drawCircle(this.model.timeCircleRadius);
 			this.emotionShape = this.drawEmotionShape();
 			this.timeShape = this.drawTimeShape();
+
+			$(el).append(this.emotionCircle);
+			$(el).append(this.timeCircle);
+			$(el).append(this.emotionShape);
+			$(el).append(this.timeShape);
 
 			this.model.on("click", this.render(), this);
 		},
@@ -58,5 +65,7 @@ define([
 		},
 
 	});
+
+	return emotionWatchView;
 
 });
