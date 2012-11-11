@@ -13,12 +13,7 @@ function(app) {
     },
 
     index: function() {
-      app.showView('#content', new emotionWatchView(
-        { model: new emotionWatch({
-          "topic": "#gymnastics"
-          })
-        }
-      ));
+      app.showView('#content', new emotionWatchView() );
     }
   });
 
