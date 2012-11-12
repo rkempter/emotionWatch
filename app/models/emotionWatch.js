@@ -6,51 +6,68 @@ define([
 
   var emotionWatch = Backbone.Model.extend({
     defaults: {
-      startDate: new Date("March 10, 1998 22:48:00"),
-      endDate: new Date("March 11, 1998 22:48:00"),
+      startDate: new Date("July 29, 2012 16:00:00"),
+      endDate: new Date("July 29, 2012 20:00:00"),
+      currentDateTime: new Date("July 29, 2012 16:21:00"),
       timeStep: 60,
       dataQueue: null,
       centerPoint: {"x": 400, "y": 400},
       currentDataSet: null,
       topic: "#gymnastics",
+      windowSize: 10,
+      threshhold: 5,
     },
 
     initialize: function(options) {
-      this.fetch();
+      this.getData();
+      this.trigger("setdataset");
     },
 
     urlRoot: function() {
       // Should we send the id as well?
-      console.log("fetch");
       return "http://localhost:8080/emotionTweets";
     },
 
     getData: function() {
-      this.fetch({
-        id: this.get("cid"),
-        topic: this.get("topic"),
-        currentTime: this.get("currentTime"),
-        timeStep: this.get("timeStep"),
-      });
+        console.log("Fetch data");
+        this.fetch({ 
+            data: $.param({
+              id: this.get("cid"),
+              topic: this.get("topic"),
+              currentDateTime: this.get("currentDateTime"),
+              timeStep: this.get("timeStep"),
+              windowSize: this.get("windowSize"),
+            })
+        });
     },
 
     parse: function(response) {
       console.log("Parsing");
-      if(!this.has("queue")) {
-        var queue = new Queue();
-        this.set("queue", queue);
-      }
+      
       console.log(response[0]);
       this.get("queue").enqueue(response);
 
       this.setCurrentDataSet();
     },
 
+    checkQueueLength: function() {
+        if(!this.has("queue")) {
+            var queue = new Queue();
+            this.set("queue", queue);
+        } else {
+            var queue = this.get("queue");
+        }
+        if(queue.getLength() < this.get("treshhold")) {
+            this.fetch();
+        }
+    },
+
     setCurrentDataSet: function() {
-      this.set("currentDataSet", this.get("queue").dequeue());
-      console.log("Dataset set.");
-      console.log("Dataset is the following: "+this.get("currentDataSet"));
-      this.trigger("setdataset");
+        if(this.get("queue") > 0) {
+            this.set("currentDataSet", this.get("queue").dequeue());
+        }
+
+        this.checkQueueLength();
     },
 
     getTimeLineAngle: function() {
@@ -115,6 +132,20 @@ define([
         pathString += " Z";
         
         return pathString
+    },
+
+    startWatch: function() {
+        console.log("Start Watch");
+        var self = this;
+        this.interval = setInterval(function() {
+            self.setCurrentDataSet();
+            self.trigger("change");
+        });
+    },
+
+    stopWatch: function() {
+        console.log("Stop Watch");
+        clearInterval(this.interval);
     },
 
 
