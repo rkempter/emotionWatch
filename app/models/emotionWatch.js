@@ -10,14 +10,19 @@ define([
       endDate: new Date("March 11, 1998 22:48:00"),
       timeStep: 60,
       dataQueue: null,
-      centerPoint: null,
+      centerPoint: {"x": 400, "y": 400},
       currentDataSet: null,
       topic: "#gymnastics",
     },
 
+    initialize: function(options) {
+      this.fetch();
+    },
+
     urlRoot: function() {
       // Should we send the id as well?
-      return "http://localhost:8080/emotionWatch/";
+      console.log("fetch");
+      return "http://localhost:8080/emotionTweets";
     },
 
     getData: function() {
@@ -30,19 +35,22 @@ define([
     },
 
     parse: function(response) {
-      console.log(response);
+      console.log("Parsing");
       if(!this.has("queue")) {
         var queue = new Queue();
         this.set("queue", queue);
       }
+      console.log(response[0]);
+      this.get("queue").enqueue(response);
 
-      for(var row in response.data) {
-        this.get("queue").enqueue(row);
-      }
+      this.setCurrentDataSet();
     },
 
     setCurrentDataSet: function() {
       this.set("currentDataSet", this.get("queue").dequeue());
+      console.log("Dataset set.");
+      console.log("Dataset is the following: "+this.get("currentDataSet"));
+      this.trigger("setdataset");
     },
 
     getTimeLineAngle: function() {
@@ -75,29 +83,31 @@ define([
     },
 
     getPoint: function(value, iteration) {
-        var x = this.centerPoint.x + this.radius * value * Math.cos(Constants.angle / 12 *iteration);
-        var y = this.centerPoint.y + this.radius * value * Math.sin(Constants.angle / 12 *iteration);
+        var x = this.get("centerPoint").x + this.get("emotionCircleRadius") * value * Math.cos(Constants.angle / 12 *iteration);
+        var y = this.get("centerPoint").y + this.get("emotionCircleRadius") * value * Math.sin(Constants.angle / 12 *iteration);
         var point = { "x": x, "y": y };
-
+        console.log(point);
         return point;
     },
 
     getRelativePoint: function(pointNew, pointPrev) {
-        var diffX = Number((pointNew[0] - pointPrev[0]).toFixed(0));
-        var diffY = Number((pointNew[1] - pointPrev[1]).toFixed(0));
+        var diffX = Number((pointNew.x - pointPrev.x).toFixed(0));
+        var diffY = Number((pointNew.y - pointPrev.y).toFixed(0));
         var difference = { "x": diffX, "y": diffY };
 
         return difference;
     },
 
     getCurrentEmotionShapePath: function() {
-        var firstPoint = getPoint(this.currentDataSet[0], 0);
+        var dataSet = this.get("currentDataSet");
+        console.log("CurrentDataSet: "+dataSet);
+        var firstPoint = this.getPoint(dataSet[0].value, 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
 
         for(var i = 1; i < 12; i++) {
-          var currentPoint = getPoint(this.currentDataSet[i], i);
-          var pathDiff = getPointDifference(currentPoint, previous);
+          var currentPoint = this.getPoint(dataSet[i].value, i);
+          var pathDiff = this.getRelativePoint(currentPoint, previous);
           pathString += " l "+pathDiff.x+" "+pathDiff.y;
           previous = currentPoint;
         }

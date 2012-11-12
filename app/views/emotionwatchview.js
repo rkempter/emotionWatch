@@ -12,6 +12,7 @@ define([
 
 		initialize: function(options) {
 			console.log("initialize");
+			this.model.on("setdataset", this.createEmotionShape, this);
 			console.log("paper: "+this.model.get("paper"));
 
 			console.log(this.model);
@@ -28,28 +29,17 @@ define([
 				"stroke": Constants.timeCircleBaseColor,
 			});
 
-			this.emotionShape = this.drawEmotionShape();
-			this.emotionShape.attr({ 
-				"fill": Constants.emotionShapeFillColor,
-				"stroke": Constants.emotionShapeStrokeColor,
-			});
-
-			this.timeShape = this.drawTimeShape();
-			this.timeShape.attr({ 
-				"stroke-width": Constants.timeCircleWidth, 
-				"stroke": Constants.timeCircleTimeColor,
-			});
-
-			$(el).append(this.emotionCircle);
-			$(el).append(this.timeCircle);
-			$(el).append(this.emotionShape);
-			$(el).append(this.timeShape);
-
+			// this.timeShape = this.drawTimeShape();
+			// this.timeShape.attr({ 
+			// 	"stroke-width": Constants.timeCircleWidth, 
+			// 	"stroke": Constants.timeCircleTimeColor,
+			// });
+			
 			this.model.on("click", this.render(), this);
 		},
 
 		events: {
-
+			'change:currentDataSet': "createEmotionShape",
 		},
 
 		drawCircle: function(radius, positionX, positionY) {
@@ -65,6 +55,15 @@ define([
 			var shape = this.model.get("paper").path(currentShapePath);
 
 			return shape;
+		},
+
+		createEmotionShape: function() {
+			console.log('event triggered');
+			this.emotionShape = this.drawEmotionShape();
+			this.emotionShape.attr({ 
+				"fill": Constants.emotionShapeFillColor,
+				"stroke": Constants.emotionShapeStrokeColor,
+			});
 		},
 
 		drawTimeShape: function() {
