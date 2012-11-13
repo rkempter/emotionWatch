@@ -16,11 +16,13 @@ define([
       topic: "#gymnastics",
       windowSize: 10,
       threshhold: 5,
+      initialized: false,
+      iterationLength: 4500,
+      queue: new Queue(),
     },
 
     initialize: function(options) {
       this.getData();
-      this.trigger("setdataset");
     },
 
     urlRoot: function() {
@@ -42,39 +44,50 @@ define([
     },
 
     parse: function(response) {
-      console.log("Parsing");
-      
-      console.log(response[0]);
-      this.get("queue").enqueue(response);
-
-      this.setCurrentDataSet();
+        console.log("response length "+response.length);
+        
+        for(var i = 0; i < response.length; i++) {
+            this.get("queue").enqueue(response[i]);
+        }
     },
 
     checkQueueLength: function() {
-        if(!this.has("queue")) {
-            var queue = new Queue();
-            this.set("queue", queue);
-        } else {
-            var queue = this.get("queue");
-        }
-        if(queue.getLength() < this.get("treshhold")) {
+        console.log("Length: "+this.get("queue").getLength());
+        console.log("Threshold: "+this.get("threshhold"));
+        if(parseInt(this.get("queue").getLength()) < parseInt(this.get("threshhold"))) {
+            console.log("FETCH");
             this.fetch();
         }
     },
 
+    setCurrentTime: function() {
+        var sec = this.get("currentDateTime").getTime() + this.get("step") * 1000;
+        this.set("currentDateTime", new Date(sec));
+    },
+
     setCurrentDataSet: function() {
-        if(this.get("queue") > 0) {
+        console.log("Queue length is "+this.get("queue").getLength());
+        if(this.get("queue").getLength() > 0) {
+            console.log("set queue");
             this.set("currentDataSet", this.get("queue").dequeue());
         }
 
+        if(false == this.get("initialized")) {
+            this.trigger("setdataset");
+            this.set("initialized", true);
+        }
+
         this.checkQueueLength();
+        this.setCurrentTime();
     },
 
     getTimeLineAngle: function() {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
-      var currentTimeSec = (this.get("currentDate").getTime() - this.get("startDate").getTime()) / 1000;
+      var currentTimeSec = (this.get("currentDateTime").getTime() - this.get("startDate").getTime()) / 1000;
+      console.log("Timespan "+timeSpan);
+      console.log("currentTimeSec "+currentTimeSec);
 
-      return (currentTimeSec / timeSpan * angle);
+      return parseFloat(currentTimeSec / timeSpan * Constants.angle);
     },
 
     getAngleFromPoint: function(point) {
@@ -139,8 +152,8 @@ define([
         var self = this;
         this.interval = setInterval(function() {
             self.setCurrentDataSet();
-            self.trigger("change");
-        });
+            self.trigger("changevalues");
+        }, this.get("iterationLength"));
     },
 
     stopWatch: function() {

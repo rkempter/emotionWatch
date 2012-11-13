@@ -14,10 +14,11 @@ define([
             console.log("initialize");
 
             this.model.on("setdataset", this.createEmotionShape, this);
-            this.model.on("change", this.render, this);
+            this.model.on("change:currentDataSet", this.animateEmotionShape, this);
+            this.model.on("change:currentDateTime", this.animateTimeLine, this);
 
-            this.emotionCircle = this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY"));
-            this.emotionCircle.attr({ 
+            this.model.set("emotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY")));
+            this.model.get("emotionCircle").attr({ 
                 "stroke-width": Constants.emotionCircleWidth, 
                 "stroke": Constants.emotionCircleColor,
             });
@@ -59,8 +60,8 @@ define([
 
         createEmotionShape: function() {
             console.log('event triggered');
-            this.emotionShape = this.drawEmotionShape();
-            this.emotionShape.attr({ 
+            this.model.set("emotionShape", this.drawEmotionShape());
+            this.model.get("emotionShape").attr({ 
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor,
             });
@@ -74,13 +75,34 @@ define([
             return timeLineShape;
         },
 
-        render: function() {
+        animateEmotionShape: function() {
             var newPath = this.model.getCurrentEmotionShapePath();
             console.log(newPath);
+            if(this.model.get("emotionShape")) {
+                this.model.get("emotionShape").animate({
+                    path: newPath
+                }, this.model.get("iterationLength"));
+            }
 
-            this.emotionShape.animate({
-                path: newPath
-            }, this.model.iterationLength);
+            // var newTimeShape = this.model.getCurrentTimeLinePath();
+            // this.timeCircle.animate({
+            //  path: newTimeShape
+            // }, this.model.iterationLength);
+
+            // Do the same for colors
+        },
+
+        animateTimeLine: function() {
+            console.log("time changed");
+            var newAngle = this.model.getTimeLineAngle();
+
+            // var newPath = this.model.getCurrentEmotionShapePath();
+            // console.log(newPath);
+            // if(this.model.get("emotionShape")) {
+            //     this.model.get("emotionShape").animate({
+            //         path: newPath
+            //     }, this.model.get("iterationLength"));
+            // }
 
             // var newTimeShape = this.model.getCurrentTimeLinePath();
             // this.timeCircle.animate({
