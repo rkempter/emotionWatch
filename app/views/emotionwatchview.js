@@ -53,7 +53,7 @@ define([
 
         drawTimeLineShape: function() {
             var currentTimeLinePath = this.model.getCurrentTimeLinePath();
-            var shape = this.model.get("paper").path(["M", this.model.get("centerPoint").x, this.model.get("centerPoint").y-this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference]);
+            var shape = this.model.get("paper").path(["M", this.model.get("centerPoint").x, this.model.get("centerPoint").y-this.model.get("emotionCircleRadius")-Constants.timeCircleRadiusDifference]);
 
             return shape;
         },
@@ -95,23 +95,6 @@ define([
                  path: newTimeShape
                 }, this.model.get("iterationLength"));
             }
-
-            // Do the same for colors
-
-            // var newPath = this.model.getCurrentEmotionShapePath();
-            // console.log(newPath);
-            // if(this.model.get("emotionShape")) {
-            //     this.model.get("emotionShape").animate({
-            //         path: newPath
-            //     }, this.model.get("iterationLength"));
-            // }
-
-            // var newTimeShape = this.model.getCurrentTimeLinePath();
-            // this.timeCircle.animate({
-            //  path: newTimeShape
-            // }, this.model.iterationLength);
-
-            // Do the same for colors
         },
     });
 
