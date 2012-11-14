@@ -53,7 +53,7 @@ define([
 
         drawTimeLineShape: function() {
             var currentTimeLinePath = this.model.getCurrentTimeLinePath();
-            var shape = this.model.get("paper").path(["M", this.model.get("centerPoint").x, this.model.get("centerPoint").y-this.model.get("emotionCircleRadius")-Constants.timeCircleRadiusDifference]);
+            var shape = this.model.get("paper").path(currentTimeLinePath);
 
             return shape;
         },
