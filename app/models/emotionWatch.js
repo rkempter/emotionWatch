@@ -14,7 +14,7 @@ define([
       centerPoint: {"x": 400, "y": 400},
       currentDataSet: null,
       topic: "#gymnastics",
-      windowSize: 10,
+      windowSize: 9,
       threshhold: 5,
       initialized: false,
       iterationLength: 4500,
@@ -45,7 +45,6 @@ define([
 
     parse: function(response) {
         console.log("response length "+response.length);
-        
         for(var i = 0; i < response.length; i++) {
             this.get("queue").enqueue(response[i]);
         }
@@ -55,13 +54,12 @@ define([
         console.log("Length: "+this.get("queue").getLength());
         console.log("Threshold: "+this.get("threshhold"));
         if(parseInt(this.get("queue").getLength()) < parseInt(this.get("threshhold"))) {
-            console.log("FETCH");
-            this.fetch();
+            this.getData();
         }
     },
 
     setCurrentTime: function() {
-        var sec = this.get("currentDateTime").getTime() + this.get("step") * 1000;
+        var sec = this.get("currentDateTime").getTime() + this.get("timeStep") * 1000;
         this.set("currentDateTime", new Date(sec));
     },
 
@@ -78,14 +76,13 @@ define([
         }
 
         this.checkQueueLength();
-        this.setCurrentTime();
+        return;
     },
 
     getTimeLineAngle: function() {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
       var currentTimeSec = (this.get("currentDateTime").getTime() - this.get("startDate").getTime()) / 1000;
-      console.log("Timespan "+timeSpan);
-      console.log("currentTimeSec "+currentTimeSec);
+      
 
       return parseFloat(currentTimeSec / timeSpan * Constants.angle);
     },
@@ -116,7 +113,7 @@ define([
         var x = this.get("centerPoint").x + this.get("emotionCircleRadius") * value * Math.cos(Constants.angle / 12 *iteration);
         var y = this.get("centerPoint").y + this.get("emotionCircleRadius") * value * Math.sin(Constants.angle / 12 *iteration);
         var point = { "x": x, "y": y };
-        console.log(point);
+
         return point;
     },
 
@@ -147,10 +144,36 @@ define([
         return pathString
     },
 
+    getCurrentTimeLinePath: function() {
+        var newAngle = this.getTimeLineAngle();
+        var radius = this.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference;
+        console.log("CurrentTimeLinePath Radius "+radius);
+        
+        var sx = this.get("centerPoint").x;
+        var sy = this.get("centerPoint").y - radius; // Y is 0 at the top of the canvas
+    
+        var endPointX = this.get("centerPoint").x + radius * Math.sin(newAngle);
+        var endPointY = this.get("centerPoint").y - radius * Math.cos(newAngle);
+    
+        var halfTimeFlag = 0;
+    
+        if (newAngle > Constants.angle / 2) {
+          halfTimeFlag = +1;
+        }
+        if (newAngle >= Constants.angle) {
+          newAngle = Constants.angle - 0.1;
+          that.seconds = 0;
+        }
+
+        return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];
+    },
+
     startWatch: function() {
         console.log("Start Watch");
         var self = this;
         this.interval = setInterval(function() {
+            console.log("----- New Timestep -----");
+            self.setCurrentTime();
             self.setCurrentDataSet();
             self.trigger("changevalues");
         }, this.get("iterationLength"));

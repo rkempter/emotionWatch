@@ -14,6 +14,7 @@ define([
             console.log("initialize");
 
             this.model.on("setdataset", this.createEmotionShape, this);
+            this.model.on("setdataset", this.createTimeLineShape, this);
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
 
@@ -23,17 +24,11 @@ define([
                 "stroke": Constants.emotionCircleColor,
             });
 
-            this.timeCircle = this.drawCircle(this.model.get("emotionCircleRadius")+40, this.model.get("positionX"), this.model.get("positionY"));
+            this.timeCircle = this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference, this.model.get("positionX"), this.model.get("positionY"));
             this.timeCircle.attr({ 
                 "stroke-width": Constants.timeCircleWidth, 
                 "stroke": Constants.timeCircleBaseColor,
             });
-
-            // this.timeShape = this.drawTimeShape();
-            // this.timeShape.attr({ 
-            //  "stroke-width": Constants.timeCircleWidth, 
-            //  "stroke": Constants.timeCircleTimeColor,
-            // });
             
             this.model.startWatch();
             
@@ -50,10 +45,15 @@ define([
         },
 
         drawEmotionShape: function() {
-            // Set DataSet?
             var currentShapePath = this.model.getCurrentEmotionShapePath();
-            console.log(currentShapePath);
             var shape = this.model.get("paper").path(currentShapePath);
+
+            return shape;
+        },
+
+        drawTimeLineShape: function() {
+            var currentTimeLinePath = this.model.getCurrentTimeLinePath();
+            var shape = this.model.get("paper").path(["M", this.model.get("centerPoint").x, this.model.get("centerPoint").y-this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference]);
 
             return shape;
         },
@@ -67,12 +67,12 @@ define([
             });
         },
 
-        drawTimeShape: function() {
-            var currentTimeLineAngle = this.model.getTimeLineAngle();
-            var currentTimeLinePath = this.model.getTimeLinePath(currentTimeLineAngle);
-            var timeLineShape = this.model.get("paper").path(currentTimeLinePath);
-
-            return timeLineShape;
+        createTimeLineShape: function() {
+            this.model.set("timeLineShape", this.drawTimeLineShape());
+            this.model.get("timeLineShape").attr({ 
+                "stroke": Constants.timeCircleTimeColor,
+                "stroke-width": Constants.timeCircleWidth,
+            });
         },
 
         animateEmotionShape: function() {
@@ -82,19 +82,21 @@ define([
                 this.model.get("emotionShape").animate({
                     path: newPath
                 }, this.model.get("iterationLength"));
-            }
-
-            // var newTimeShape = this.model.getCurrentTimeLinePath();
-            // this.timeCircle.animate({
-            //  path: newTimeShape
-            // }, this.model.iterationLength);
-
-            // Do the same for colors
+            }            
         },
 
         animateTimeLine: function() {
             console.log("time changed");
-            var newAngle = this.model.getTimeLineAngle();
+
+            var newTimeShape = this.model.getCurrentTimeLinePath();
+            console.log("newTimeShape "+newTimeShape);
+            if(this.model.get("timeLineShape")) {
+                this.model.get("timeLineShape").animate({
+                 path: newTimeShape
+                }, this.model.get("iterationLength"));
+            }
+
+            // Do the same for colors
 
             // var newPath = this.model.getCurrentEmotionShapePath();
             // console.log(newPath);
