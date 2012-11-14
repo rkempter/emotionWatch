@@ -16,11 +16,11 @@ define(['backbone'], function(Backbone) {
 		// Time Circle Properties
 		timeCircleWidth: '10px',
 		timeCircleBaseColor: '#ccc',
-		timeCircleTimeColor: '##2590A6',
+		timeCircleTimeColor: '#2590A6',
+        timeCircleRadiusDifference: 40,
 
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',
 		emotionShapeStrokeColor: '#aaaaaa',
-
 	}
 })
