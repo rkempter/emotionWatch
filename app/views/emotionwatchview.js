@@ -21,7 +21,7 @@ define([
             
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
-            
+
             this.model.set("emotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY")));
             this.model.get("emotionCircle").attr({ 
                 "stroke-width": Constants.emotionCircleWidth, 
@@ -34,7 +34,7 @@ define([
                 "stroke": Constants.timeCircleBaseColor,
             });
 
-            this.model.bindRaphaelEvents();
+            this.bindRaphaelEvents();
             
             this.model.startWatch();
             
@@ -62,7 +62,7 @@ define([
             this.model.get("timeCircle").mouseout(function(event) {
                 self.model.get("timeText").attr('opacity', 0);
             })   
-        }
+        },
 
         /**
          * Function draws a circle on the paper
