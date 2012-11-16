@@ -1,7 +1,7 @@
 define(['backbone'], function(Backbone) {
 
 	return{
-		paperWidth: 800,
+		paperWidth: 1200,
 		paperHeight: 800,
 
 		iterationLength: 4000,

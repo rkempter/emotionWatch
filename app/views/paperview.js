@@ -16,7 +16,7 @@ define(
 				var self = this;
 				
 				// @todo: Use a config file!!
-				self.paper = Raphael(10, 10, Constants.paperWidth, Constants.paperHeight);
+				self.paper = Raphael(0, 0, Constants.paperWidth, Constants.paperHeight);
 				self.el = self.paper.canvas;
 				self.$el = $(self.el);
 
@@ -26,7 +26,7 @@ define(
 							{ model: new emotionWatch({ 
 								paper: self.paper, 
 								  emotionCircleRadius: 300, 
-								  positionX: 400, 
+								  positionX: 600, 
 								  positionY: 400
 								}) 
 							});

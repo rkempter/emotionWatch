@@ -11,7 +11,7 @@ define([
       currentDateTime: new Date("July 29, 2012 16:21:00"),
       timeStep: 60,
       dataQueue: null,
-      centerPoint: {"x": 400, "y": 400},
+      centerPoint: {"x": 600, "y": 400},
       currentDataSet: null,
       topic: "#gymnastics",
       windowSize: 9,
@@ -90,15 +90,27 @@ define([
     getAngleFromPoint: function(point) {
       var x = this.get("centerPoint").x;
       var y = this.get("centerPoint").y;
+
+      var diffX = point.x - x;
+      var diffY = point.y - y;
+      var addAngle = 0;
+
+      if(diffX > 0 && diffY < 0) {
+        addAngle = Constants.angle/4;
+      } else if(diffX > 0 && diffY > 0) {
+        addAngle = Constants.angle/4;
+      } else {
+        addAngle = Constants.angle/4 * 3;
+      }
       
-      var angle = Math.tan((point.y - y) / (point.x-x));
+      return angle = Math.atan(diffY / diffX)+addAngle;
     },
 
     getTimeFromAngle: function(angle) {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
       var timeSec = parseInt(timeSpan / (2*Math.PI) * angle);
 
-      return (new Date()).setTime(timeSec*1000);
+      return (new Date(timeSec*1000));
     },
 
     duplicateWatch: function() {
