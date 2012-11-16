@@ -21,15 +21,26 @@ define([
       queue: new Queue(),
     },
 
+    /**
+     * Initialization: Fetch first data from the server
+     */
+
     initialize: function(options) {
       this.getData();
     },
+
+    /**
+     * URL of the server
+     */
 
     urlRoot: function() {
       // Should we send the id as well?
       return "http://localhost:8080/emotionTweets";
     },
 
+    /**
+     * Requests new data from the server
+     */
     getData: function() {
         console.log("Fetch data");
         this.fetch({ 
@@ -43,6 +54,9 @@ define([
         });
     },
 
+    /**
+     * Parses the received data into the queue
+     */
     parse: function(response) {
         console.log("response length "+response.length);
         for(var i = 0; i < response.length; i++) {
@@ -50,19 +64,31 @@ define([
         }
     },
 
+    /**
+     * CheckQueueLength: Checks if the length of the data queue is longer than
+     * a predefined threshold. If not, model fetches more data.
+     */
     checkQueueLength: function() {
-        console.log("Length: "+this.get("queue").getLength());
-        console.log("Threshold: "+this.get("threshhold"));
-        if(parseInt(this.get("queue").getLength()) < parseInt(this.get("threshhold"))) {
+        if(this.get("queue").getLength() < this.get("threshhold")) {
             this.getData();
         }
     },
 
+     /**
+     * setCurrentTime: Adds the timeStep to the previous time to advance in time.
+     * Sets the new time to the variable currentDateTime.
+     */
     setCurrentTime: function() {
         var sec = this.get("currentDateTime").getTime() + this.get("timeStep") * 1000;
         this.set("currentDateTime", new Date(sec));
     },
 
+    /**
+     *
+     * Sets the next dataset in the queue as currentDataSet. If model hasn't been initialized yet,
+     * we trigger the event "setdataset" to create the Raphael elements.
+     *
+     */
     setCurrentDataSet: function() {
         console.log("Queue length is "+this.get("queue").getLength());
         if(this.get("queue").getLength() > 0) {
@@ -76,8 +102,13 @@ define([
         }
 
         this.checkQueueLength();
-        return;
     },
+
+    /**
+     * Returns the angle between starttime and currenttime.
+     *
+     * @return angle
+     */
 
     getTimeLineAngle: function() {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
@@ -87,6 +118,13 @@ define([
       return parseFloat(currentTimeSec / timeSpan * Constants.angle);
     },
 
+    /**
+     * Computes the angle of a point on the timeLine. Angle starts on the top of the circle.
+     *
+     * @param point
+     * @return angle
+     */
+     
     getAngleFromPoint: function(point) {
       var x = this.get("centerPoint").x;
       var y = this.get("centerPoint").y;
@@ -106,6 +144,13 @@ define([
       return angle = Math.atan(diffY / diffX)+addAngle;
     },
 
+    /**
+     * Computes the time from a given angle.
+     *
+     * @param angle
+     * @return date
+     */
+     
     getTimeFromAngle: function(angle) {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
       var timeSec = parseInt(timeSpan / (2*Math.PI) * angle);
@@ -113,14 +158,16 @@ define([
       return (new Date(timeSec*1000));
     },
 
-    duplicateWatch: function() {
-      var newWatch = new emotionWatch({
-        currentDataSet: this.get("currentDataSet"),
-      });
 
-      return newWatch;
-    },
-
+    /**
+     * Computes a point of the emotion Shape
+     *
+     * @param value
+     * @param iteration
+     *
+     * @return point
+     */
+     
     getPoint: function(value, iteration) {
         var x = this.get("centerPoint").x + this.get("emotionCircleRadius") * value * Math.cos(Constants.angle / 12 *iteration);
         var y = this.get("centerPoint").y + this.get("emotionCircleRadius") * value * Math.sin(Constants.angle / 12 *iteration);
@@ -129,6 +176,14 @@ define([
         return point;
     },
 
+    /**
+     * Computes coordinates of a point relative to another point
+     *
+     * @param pointNew
+     * @param pointPrev
+     * @return difference
+     */
+     
     getRelativePoint: function(pointNew, pointPrev) {
         var diffX = Number((pointNew.x - pointPrev.x).toFixed(0));
         var diffY = Number((pointNew.y - pointPrev.y).toFixed(0));
@@ -137,9 +192,14 @@ define([
         return difference;
     },
 
+    /**
+     * Returns the path of the emotion shape
+     *
+     * @return pathString
+     */
+     
     getCurrentEmotionShapePath: function() {
         var dataSet = this.get("currentDataSet");
-        console.log("CurrentDataSet: "+dataSet);
         var firstPoint = this.getPoint(dataSet[0].value, 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
@@ -156,6 +216,12 @@ define([
         return pathString
     },
 
+    /**
+     * Returns the path of the timeline
+     *
+     * @return pathString
+     */
+     
     getCurrentTimeLinePath: function() {
         var newAngle = this.getTimeLineAngle();
         var radius = this.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference;
@@ -180,20 +246,43 @@ define([
         return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];
     },
 
+    /**
+     * Starts the emotion watch
+     *
+     */
+     
     startWatch: function() {
         console.log("Start Watch");
         var self = this;
         this.interval = setInterval(function() {
-            console.log("----- New Timestep -----");
             self.setCurrentTime();
             self.setCurrentDataSet();
             self.trigger("changevalues");
         }, this.get("iterationLength"));
     },
 
+    /**
+     * Stops the emotion watch
+     *
+     */
+     
     stopWatch: function() {
         console.log("Stop Watch");
         clearInterval(this.interval);
+    },
+
+    /**
+     * Create a new emotion watch
+     *
+     * @return emotionWatch
+     */
+     
+    duplicateWatch: function() {
+      var newWatch = new emotionWatch({
+        currentDataSet: this.get("currentDataSet"),
+      });
+
+      return newWatch;
     },
 
 

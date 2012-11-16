@@ -18,10 +18,10 @@ define([
             this.model.on("setdataset", this.createTimeLineShape, this);
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
-
             
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
+            
             this.model.set("emotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY")));
             this.model.get("emotionCircle").attr({ 
                 "stroke-width": Constants.emotionCircleWidth, 
@@ -34,25 +34,7 @@ define([
                 "stroke": Constants.timeCircleBaseColor,
             });
 
-            this.model.get("timeCircle").click(function(event) {
-                if(self.model.has("interval")) {
-                    clearInterval(self.model.get("interval"));
-                }
-                var element = self.model.get("paper").canvas;
-                var point = { "x": Math.floor((event.pageX-$(element).offset().left)), "y": event.pageY };
-
-                var angle = self.model.getAngleFromPoint(point);
-                console.log("Angle "+angle);
-                var dateTime = self.model.getTimeFromAngle(angle);
-                console.log("This is the time: "+dateTime);
-            });
-
-            this.model.get("timeCircle").mouseover(function(event) {
-                self.showTime(event);
-            });
-            this.model.get("timeCircle").mouseout(function(event) {
-                self.model.get("timeText").attr('opacity', 0);
-            })
+            this.model.bindRaphaelEvents();
             
             this.model.startWatch();
             
@@ -61,6 +43,26 @@ define([
         events: {
 
         },
+
+        /**
+         *
+         * Binds Raphael Events to Raphael elements.
+         *
+         */
+        bindRaphaelEvents: function() {
+            self = this;
+
+            this.model.get("timeCircle").click(function(event) {
+                self.jumptTime(event);
+            });
+
+            this.model.get("timeCircle").mouseover(function(event) {
+                self.showTime(event);
+            });
+            this.model.get("timeCircle").mouseout(function(event) {
+                self.model.get("timeText").attr('opacity', 0);
+            })   
+        }
 
         /**
          * Function draws a circle on the paper
@@ -106,7 +108,6 @@ define([
          * return shape
          */
         createEmotionShape: function() {
-            console.log('event triggered');
             this.model.set("emotionShape", this.drawEmotionShape());
             this.model.get("emotionShape").attr({ 
                 "fill": Constants.emotionShapeFillColor,
@@ -132,12 +133,28 @@ define([
          */
         animateEmotionShape: function() {
             var newPath = this.model.getCurrentEmotionShapePath();
-            console.log(newPath);
+
             if(this.model.get("emotionShape")) {
                 this.model.get("emotionShape").animate({
                     path: newPath
                 }, this.model.get("iterationLength"));
             }            
+        },
+
+        /**
+         * Is triggered after a click on the timeline. Time jumps to new point.
+         *
+         * @param event
+         */
+        jumpTime: function(event) {
+            if(this.model.has("interval")) {
+                clearInterval(this.model.get("interval"));
+            }
+            var element = this.model.get("paper").canvas;
+            var point = { "x": Math.floor((event.pageX-$(element).offset().left)), "y": event.pageY };
+
+            var angle = this.model.getAngleFromPoint(point);
+            var dateTime = this.model.getTimeFromAngle(angle);
         },
 
         /**
@@ -166,10 +183,8 @@ define([
          *
          */
         animateTimeLine: function() {
-            console.log("time changed");
-
             var newTimeShape = this.model.getCurrentTimeLinePath();
-            console.log("newTimeShape "+newTimeShape);
+
             if(this.model.get("timeLineShape")) {
                 this.model.get("timeLineShape").animate({
                  path: newTimeShape
@@ -187,14 +202,11 @@ define([
          * @return adjustedPoint
          */
         getTextFieldPosition: function(angle, point) {
-            console.log(angle/Constants.angle*360);
-
             if(angle <= Constants.angle / 2) {
                 point.x += 120;
             } else {
                 point.x -= 120;
             }
-
             return point;
         },
     });
