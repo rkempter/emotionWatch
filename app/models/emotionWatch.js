@@ -272,6 +272,32 @@ define([
     },
 
     /**
+     * Bigger data window
+     */
+
+    fastForward: function() {
+        this.stopWatch();
+        var currentTimeStep = this.get("timeStep");
+        this.set("timeStep", currentTimeStep * 2);
+
+        this.set("queue", new Queue());
+        this.getData();
+    },
+
+    /**
+     * Smaller data window
+     */
+
+    slowForward: function() {
+        this.stopWatch();
+        var currentTimeStep = this.get("timeStep");
+        this.set("timeStep", currentTimeStep / 2);
+
+        this.set("queue", new Queue());
+        this.getData();
+    },
+
+    /**
      * Create a new emotion watch
      *
      * @return emotionWatch

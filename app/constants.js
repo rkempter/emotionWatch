@@ -2,7 +2,7 @@ define(['backbone'], function(Backbone) {
 
 	return{
 		paperWidth: 1200,
-		paperHeight: 800,
+		paperHeight: 900,
 
 		iterationLength: 4000,
 		animationType: 'ease-out',
