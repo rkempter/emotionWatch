@@ -153,7 +153,8 @@ define([
      
     getTimeFromAngle: function(angle) {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
-      var timeSec = parseInt(timeSpan / (2*Math.PI) * angle);
+      console.log("TImespan: "+timeSpan);
+      var timeSec = this.get("startDate").getTime() / 1000 + parseInt(timeSpan / Constants.angle) * angle;
 
       return (new Date(timeSec*1000));
     },
@@ -244,6 +245,18 @@ define([
         }
 
         return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];
+    },
+
+    /**
+     *
+     */
+     
+    jumpToTime: function(dateTime) {
+        this.stopWatch;
+        this.set("currentDateTime", dateTime);
+        this.set("queue", new Queue());
+        this.getData();
+        // StartWatch
     },
 
     /**

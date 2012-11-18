@@ -54,7 +54,7 @@ define([
             self = this;
 
             this.model.get("timeCircle").click(function(event) {
-                self.jumptTime(event);
+                self.jumpToTime(event);
             });
 
             this.model.get("timeCircle").mouseover(function(event) {
@@ -63,7 +63,7 @@ define([
             
             this.model.get("timeCircle").mouseout(function(event) {
                 self.model.get("timeText").attr('opacity', 0);
-            })   
+            });
         },
 
         /**
@@ -148,7 +148,7 @@ define([
          *
          * @param event
          */
-        jumpTime: function(event) {
+        jumpToTime: function(event) {
             if(this.model.has("interval")) {
                 clearInterval(this.model.get("interval"));
             }
@@ -157,6 +157,8 @@ define([
 
             var angle = this.model.getAngleFromPoint(point);
             var dateTime = this.model.getTimeFromAngle(angle);
+
+            this.model.jumpToTime(dateTime);
         },
 
         /**
