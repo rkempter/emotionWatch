@@ -22,5 +22,7 @@ define(['backbone'], function(Backbone) {
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',
 		emotionShapeStrokeColor: '#aaaaaa',
+
+		labels: new Array('Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'),
 	}
 })
