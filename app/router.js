@@ -1,31 +1,74 @@
 define([
   // Application.
   "app",
-  "paperview"
+  "paperview",
+  "searchview",
+  "navigationview",
 ],
 
-function(app, paperView) {
+function(app, paperView, searchView, navigationView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index"
+      "": "index",
+      "about/": "about",
+      "search/:topic": "search",
     },
 
     index: function() {
+      // app.useLayout().setView('paper', new paperView() );
+      // app.useLayout().setView('searchbar', new searchView() );
       console.log('indexpage');
-      this.showView('#main', new paperView() );
+      // this.showView('#main', new paperView() );
+
     },
 
-    showView: function (selector, view) {
-        if(this.currentView) 
-          this.currentView.close();
- 
-        $(selector).html(view.render());
-        this.currentView = view;
-        
-        return view;
+    search: function( topic ) {
+      var paperViewElement = new paperView();
+      var paperObject = paperViewElement.getPaper();
+      var emotionView = new emotionWatchView(
+        { model: new emotionWatch({ 
+            paper: paperObject, 
+            emotionCircleRadius: 300,
+            topic: topic,
+            startDate: new Date('July 28, 2012 18:00:00'),
+            currentDateTime: new Date('July 28, 2012 18:00:00'),
+            endDate: new Date('July 28, 2012 22:00:00'),
+            centerPoint: {"x": 600, "y": 400},
+            positionX: 600, 
+            positionY: 400
+          }) 
+        });
+
+      app.useLayout().setViews({
+        ".paper": new paperView({
+        })
+      });
     },
+
+    about: function() {
+      app.useLayout().setViews({
+        ".navigation": new searchView({"template": "search-topbar"} )
+      }).render();
+    },
+
+    // showView: function (selector, view) {
+    //     if(this.currentView) 
+    //       this.currentView.close();
+ 
+    //     $(selector).html(view.render());
+    //     this.currentView = view;
+        
+    //     return view;
+    // },
+    initialize: function() {
+      app.useLayout().setViews({
+        ".search": new searchView(),
+        ".navigation": new navigationView(),
+        ".paper": new paperView(),
+      }).render();
+    }
   });
 
   return Router;
