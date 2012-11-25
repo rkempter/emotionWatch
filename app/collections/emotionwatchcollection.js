@@ -9,12 +9,6 @@ define([
 
         model: emotionWatch,
 
-        initialize: function() {
-            this.bind('add', function() {
-                console.log(this.toJSON());
-            });
-        },
-
     });
 
     return emotionWatchCollection;

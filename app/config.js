@@ -28,11 +28,11 @@ require.config({
     emotionwatchcollection: "collections/emotionwatchcollection",
 
     // views
-
     paperview: "views/paperview",
     emotionwatchview: "views/emotionwatchview",
     searchview: "views/searchview",
     navigationview: "views/navigationview",
+    emotionwatchcollectionview: "views/emotionwatchcollectionview",
 
     templates: "templates",
     printletters: "plugins/Raphael-printletters",

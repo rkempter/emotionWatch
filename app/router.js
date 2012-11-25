@@ -4,9 +4,10 @@ define([
   "paperview",
   "searchview",
   "navigationview",
+  "emotionwatchcollectionview"
 ],
 
-function(app, paperView, searchView, navigationView) {
+function(app, paperView, searchView, navigationView, emotionWatchCollectionView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -53,20 +54,12 @@ function(app, paperView, searchView, navigationView) {
       }).render();
     },
 
-    // showView: function (selector, view) {
-    //     if(this.currentView) 
-    //       this.currentView.close();
- 
-    //     $(selector).html(view.render());
-    //     this.currentView = view;
-        
-    //     return view;
-    // },
     initialize: function() {
       app.useLayout().setViews({
         ".search": new searchView(),
         ".navigation": new navigationView(),
         ".paper": new paperView(),
+        ".test": new emotionWatchCollectionView( {collection: app.emotionWatchCollection} ),
       }).render();
     }
   });
