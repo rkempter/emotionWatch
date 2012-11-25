@@ -1,5 +1,5 @@
-define(
-	[
+define([
+	'app',
 	'underscore',
 	'backbone',
 	'raphael',
@@ -8,28 +8,19 @@ define(
 	'emotionwatchview',
 	'constants'
 	]
-	, function(_, Backbone, Raphael, $, emotionWatch, emotionWatchView, Constants) {
+	, function(app, _, Backbone, Raphael, $, emotionWatch, emotionWatchView, Constants) {
 
 		var PaperView = Backbone.View.extend({
 
 			initialize: function() {
 				var self = this;
 				
-				// @todo: Use a config file!!
-				self.paper = Raphael(0, 0, Constants.paperWidth, Constants.paperHeight);
-				self.el = self.paper.canvas;
+				self.el = app.paper.canvas;
 				self.$el = $(self.el);
 
-				console.log("Paper: "+self.paper);
+				console.log("Paper: "+app.paper);
 
-				var view = new emotionWatchView(
-							{ model: new emotionWatch({ 
-								paper: self.paper, 
-								  emotionCircleRadius: 300, 
-								  positionX: 600, 
-								  positionY: 400
-								}) 
-							});
+				
 			},
 		});
 
