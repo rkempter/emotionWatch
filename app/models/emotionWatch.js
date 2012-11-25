@@ -5,19 +5,21 @@ define([
 ], function(_, Backbone, Constants) {
 
   var emotionWatch = Backbone.Model.extend({
+    
     defaults: {
       startDate: new Date("July 29, 2012 16:00:00"),
       endDate: new Date("July 29, 2012 20:00:00"),
       currentDateTime: new Date("July 29, 2012 16:21:00"),
-      timeStep: 60,
+      network: "twitter",
+      timeStep: 120,
       dataQueue: null,
-      centerPoint: {"x": 600, "y": 400},
       currentDataSet: null,
       topic: "#gymnastics",
       windowSize: 9,
       threshhold: 5,
       initialized: false,
       iterationLength: 4500,
+      animationType: "ease-out",
       queue: new Queue(),
     },
 
@@ -26,7 +28,8 @@ define([
      */
 
     initialize: function(options) {
-      this.getData();
+      console.log('initialization');
+      //this.getData();
     },
 
     /**
@@ -49,6 +52,7 @@ define([
               topic: this.get("topic"),
               currentDateTime: this.get("currentDateTime"),
               timeStep: this.get("timeStep"),
+              network: this.get("network"),
               windowSize: this.get("windowSize"),
             })
         });
@@ -60,7 +64,12 @@ define([
     parse: function(response) {
         console.log("response length "+response.length);
         for(var i = 0; i < response.length; i++) {
-            this.get("queue").enqueue(response[i]);
+          var data = response[i].data;
+          console.log(data);
+            this.get("queue").enqueue(data);
+            if(false == this.get("initialized")) {
+                this.trigger("setdataset");
+            }
         }
     },
 
@@ -90,18 +99,19 @@ define([
      *
      */
     setCurrentDataSet: function() {
+        console.log("Dataset set");
         console.log("Queue length is "+this.get("queue").getLength());
         if(this.get("queue").getLength() > 0) {
             console.log("set queue");
             this.set("currentDataSet", this.get("queue").dequeue());
-        }
-
-        if(false == this.get("initialized")) {
-            this.trigger("setdataset");
-            this.set("initialized", true);
+            if(false == this.get("initialized")) {
+              this.set("initialized", true);
+              this.trigger("currentDataSetDone");
+            }
         }
 
         this.checkQueueLength();
+        
     },
 
     /**
@@ -267,6 +277,7 @@ define([
     startWatch: function() {
         console.log("Start Watch");
         var self = this;
+        self.trigger("changevalues");
         this.interval = setInterval(function() {
             self.setCurrentTime();
             self.setCurrentDataSet();
