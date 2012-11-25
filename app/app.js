@@ -3,19 +3,26 @@ define([
   "jquery",
   "lodash",
   "backbone",
-  "queue",
+  "emotionwatchcollection",
+  "raphael",
+  "constants",
 
   // Plugins.
+  "queue",
   "plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone) {
+function($, _, Backbone, emotionWatchCollection, Raphael, Constants) {
 
   // Provide a global location to place configuration settings and module
   // creation.
   var app = {
     // The root path to run the application.
-    root: "/"
+    root: "/",
+    // Global emotionWatchCollection
+    emotionWatchCollection: new emotionWatchCollection(),
+    // Global SVG Canvas
+    paper: Raphael(0, 100, Constants.paperWidth, Constants.paperHeight),
   };
 
   // Localize or create a new JavaScript Template object.
@@ -58,7 +65,7 @@ function($, _, Backbone) {
     useLayout: function(options) {
       // Create a new Layout with options.
       var layout = new Backbone.Layout(_.extend({
-        el: "body"
+        el: "#main"
       }, options));
 
       // Cache the refererence.
