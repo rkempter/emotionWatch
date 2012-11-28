@@ -23,9 +23,13 @@ require.config({
 
     // models
     emotionwatch: "models/emotionWatch",
+    tweetmodel: "models/tweetmodel",
+    eventmodel: "models/eventmodel",
 
     // collection
     emotionwatchcollection: "collections/emotionwatchcollection",
+    tweetcollection: "collections/tweetcollection",
+    eventcollection: "collections/eventcollection",
 
     // views
     paperview: "views/paperview",
@@ -33,9 +37,10 @@ require.config({
     searchview: "views/searchview",
     navigationview: "views/navigationview",
     emotionwatchcollectionview: "views/emotionwatchcollectionview",
+    tweetcollectionview: "views/tweet/tweetcollectionview",
 
     templates: "templates",
-    printletters: "plugins/Raphael-printletters",
+    printletters: "../assets/js/plugins/Raphael-printletters",
 
     //sanchez: "../assets/js/libs/sanchez_400.font",
     
@@ -49,16 +54,16 @@ require.config({
     },
 
     raphael: {
-      exports: "Raphael",
+      exports: "Raphael"
     },
 
     // Backbone.LayoutManager depends on Backbone.
     "plugins/backbone.layoutmanager": ["backbone"],
     // Raphael.printLetters depends on Raphael
-    printletters: {
-      deps: ["raphael"],
-      exports: 'Raphael.fn.printLetters'
-    },
+    // printletters: {
+    //   deps: ["raphael"],
+    //   exports: 'Raphael.fn.printLetters'
+    // },
   }
 
 });

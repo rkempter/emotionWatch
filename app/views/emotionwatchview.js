@@ -6,7 +6,7 @@ define([
     'constants',
 
     // plugins
-    //"plugins/Raphael-printletters"
+    "plugins/Raphael-printletters"
 ], function(_, $, Backbone, Raphael, Constants) {
 
     var emotionWatchView = Backbone.View.extend({
@@ -19,36 +19,36 @@ define([
             var self = this;
             console.log("initialize");
             
-            this.model.on("setdataset", this.model.setCurrentTime(), this);
-            this.model.on("setdataset", this.model.setCurrentDataSet(), this);
+            // this.model.on("setdataset", this.model.setCurrentTime(), this);
+            // this.model.on("setdataset", this.model.setCurrentDataSet(), this);
             this.model.on("currentDataSetDone", this.createEmotionShape, this);
             this.model.on("currentDataSetDone", this.createTimeLineShape, this);
             this.model.on("currentDataSetDone", function() {console.log("currentDataSet changed")}, this);
-            this.model.on("currentDataSetDone", this.model.startWatch(), this);
-            this.model.on("change:currentDataSet", this.animateEmotionShape, this);
-            this.model.on("change:currentDateTime", this.animateTimeLine, this);
+            //this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            // this.model.on("change:currentDataSet", this.animateEmotionShape, this);
+            // this.model.on("change:currentDateTime", this.animateTimeLine, this);
 
             this.model.on("change:initialized", function() { console.log("now initialied") }, this);
             
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
 
-            this.model.set("emotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("positionX"), this.model.get("positionY")));
+            this.model.set("emotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("emotionCircle").attr({ 
-                "stroke-width": Constants.emotionCircleWidth, 
+                "stroke-width": this.model.get("emotionCircleRadius")*0.13, 
                 "stroke": Constants.emotionCircleColor,
             });
 
-            this.model.set("timeCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference, this.model.get("positionX"), this.model.get("positionY")));
+            this.model.set("timeCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("timeCircle").attr({ 
                 "stroke-width": Constants.timeCircleWidth, 
                 "stroke": Constants.timeCircleBaseColor,
             });
 
             
-            this.drawLabelTexts();
+            //this.drawLabelTexts();
 
-            this.drawWatchControls();
+            //this.drawWatchControls();
             
         },
 
@@ -262,7 +262,8 @@ define([
                 var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 14);
                 
                 var pathString = [["M", point.x, point.y], ["A", radius, radius, 0, 0, 1, nextPoint.x, nextPoint.y]];
-                //var path = paper.path(pathString);
+                
+                // var path = paper.path(pathString);
                 
                 // var text1 = paper.printLetters(point.x, point.y, textToPrint, paper.getFont("my underwood"), 30, null, null, path).attr({
                 //     fill : "red",
@@ -301,6 +302,10 @@ define([
             this.model.get("controlsBackward").click(function(event) {
                 self.model.slowForward();
             });
+        },
+
+        startWatch: function() {
+            this.model.startWatch();
         },
     });
 

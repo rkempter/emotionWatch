@@ -1,7 +1,7 @@
 define([
-  'underscore',
+  'lodash',
   'backbone',
-  'constants'
+  'constants',
 ], function(_, Backbone, Constants) {
 
   var emotionWatch = Backbone.Model.extend({
@@ -111,7 +111,6 @@ define([
         }
 
         this.checkQueueLength();
-        
     },
 
     /**

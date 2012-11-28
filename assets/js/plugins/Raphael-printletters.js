@@ -20,7 +20,8 @@
     };
 
     /** print letter by letter, and return the set of letters (paths), just like the old raphael print() method did. */
-    var Raphael = window.Raphael;
+    console.log(window);
+    var Raphael = window.R;
     Raphael.fn.printLetters = function(x, y, str, font, size,
             letter_spacing, line_height, onpath) {
         letter_spacing=letter_spacing||size/1.5;
