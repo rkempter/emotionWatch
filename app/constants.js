@@ -1,7 +1,7 @@
 define(['backbone'], function(Backbone) {
 
 	return{
-		paperWidth: 1200,
+		paperWidth: 1400,
 		paperHeight: 900,
 
 		iterationLength: 4000,
@@ -22,5 +22,7 @@ define(['backbone'], function(Backbone) {
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',
 		emotionShapeStrokeColor: '#aaaaaa',
+
+		labels: new Array('Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'),
 	}
 })

@@ -1,0 +1,9 @@
+<ul>
+<% _.each(tweets, function(tweet) { %>
+    <li>
+    <p><%= tweet.get('user') %></p>
+    <p><%= tweet.get('tweet') %></p>
+    <p><%= tweet.get('datetime') %></p>
+    </li>
+<% }); %>
+</ul>

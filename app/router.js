@@ -1,31 +1,84 @@
 define([
   // Application.
   "app",
-  "paperview"
+  "paperview",
+  "searchview",
+  "navigationview",
+  "emotionwatchcollectionview",
+  "tweetcollectionview",
+  "emotionwatchcollection",
 ],
 
-function(app, paperView) {
+function(app, paperView, searchView, navigationView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index"
+      "": "index",
+      "about/": "about",
+      "search/:topic": "search",
+      "pattern": "pattern",
     },
 
     index: function() {
-      console.log('indexpage');
-      this.showView('#main', new paperView() );
+      app.useLayout('main-layout').setViews({
+        ".search": new searchView(),
+        ".navigation": new navigationView(),
+        ".paper": new paperView(),
+        ".info": new tweetCollectionView(),
+        //".watch": new emotionWatchCollectionView( {collection: app.emotionWatchCollection} ),
+      }).render();
     },
 
-    showView: function (selector, view) {
-        if(this.currentView) 
-          this.currentView.close();
- 
-        $(selector).html(view.render());
-        this.currentView = view;
-        
-        return view;
+    pattern: function( keyword ) {
+      console.log("In route pattern with keyword: "+keyword);
+      app.useLayout('pattern-layout').setViews({
+        ".watch": new emotionWatchCollectionView( { collection: new emotionWatchCollection({
+            'radius': 100,
+            'startdate': new Date('July 28, 2012 18:00:00'),
+            'enddate': new Date('July 28, 2012 22:00:00'),
+            'keyword': '#gymnastics',
+            'network': 'twitter',
+          }) 
+      }),
+        ".navigation": new navigationView(),
+        ".search": new searchView(),
+        ".paper": new paperView(),
+      }).render();
     },
+
+    search: function( topic ) {
+      var paperViewElement = new paperView();
+      var paperObject = paperViewElement.getPaper();
+      var emotionView = new emotionWatchView(
+        { model: new emotionWatch({ 
+            paper: paperObject, 
+            emotionCircleRadius: 300,
+            topic: topic,
+            startDate: new Date('July 28, 2012 18:00:00'),
+            currentDateTime: new Date('July 28, 2012 18:00:00'),
+            endDate: new Date('July 28, 2012 22:00:00'),
+            centerPoint: {"x": 600, "y": 400},
+            positionX: 600, 
+            positionY: 400
+          }) 
+        });
+
+      app.useLayout().setViews({
+        ".paper": new paperView({
+        })
+      }).render();
+    },
+
+    about: function() {
+      app.useLayout().setViews({
+        ".navigation": new searchView({"template": "search-topbar"} )
+      }).render();
+    },
+
+    initialize: function() {
+
+    }
   });
 
   return Router;

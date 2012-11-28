@@ -3,19 +3,24 @@ define([
   "jquery",
   "lodash",
   "backbone",
-  "queue",
+  "raphael",
+  "constants",
 
   // Plugins.
+  "queue",
   "plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone) {
+function($, _, Backbone, Raphael, Constants) {
 
   // Provide a global location to place configuration settings and module
   // creation.
   var app = {
     // The root path to run the application.
-    root: "/"
+    root: "/",
+
+    // Global SVG Canvas
+    paper: Raphael(0, 100, Constants.paperWidth, Constants.paperHeight),
   };
 
   // Localize or create a new JavaScript Template object.
@@ -55,10 +60,24 @@ function($, _, Backbone) {
     },
 
     // Helper for using layouts.
-    useLayout: function(options) {
+    useLayout: function(name, options) {
+      // Enable variable arity by allowing the first argument to be the options
+      // object and omitting the name argument.
+      if (_.isObject(name)) {
+        options = name;
+      }
+
+      // Ensure options is an object.
+      options = options || {};
+
+      // If a name property was specified use that as the template.
+      if (_.isString(name)) {
+        options.template = name;
+      }
+
       // Create a new Layout with options.
       var layout = new Backbone.Layout(_.extend({
-        el: "body"
+        el: "#main"
       }, options));
 
       // Cache the refererence.
