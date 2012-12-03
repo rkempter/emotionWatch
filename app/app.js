@@ -20,7 +20,6 @@ function($, _, Backbone, Raphael, Constants) {
     root: "/",
 
     // Global SVG Canvas
-    paper: Raphael(0, 100, Constants.paperWidth, Constants.paperHeight),
   };
 
   // Localize or create a new JavaScript Template object.

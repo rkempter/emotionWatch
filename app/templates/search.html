@@ -1,13 +1,37 @@
-<div id="create">
-  <form id="search-form" class="form-inline">
-    <select>
-      <option value="July 28, 2012 18:00:00">28.07.2012</option>
-      <option value="July 29, 2012 18:00:00">29.07.2012</option>
-      <option value="July 30, 2012 18:00:00">30.07.2012</option>
-      <option value="July 31, 2012 18:00:00">31.07.2012</option>
-      <option value="August 01, 2012 18:00:00">01.08.2012</option>
-    </select>
-    <input type="text" id="keyword" class="input-medium" placeholder="Topic">
-    <button type="submit" class="search-btn btn">Create new emotion watch</button>
-  </form>
+<div id="container">
+  <ul class="nav nav-tabs" id="myTab">
+    <li><a href="#event-tab">Event based watch</a></li>
+    <li><a href="#search-tab">Search based watch</a></li>
+  </ul>
+ 
+  <div class="tab-content">
+    <div class="tab-pane active" id="event-tab">
+      <form id="event-form" class="form-inline">
+        <div class="event-selector"></div>
+      </form>
+    </div>
+    <div class="tab-pane" id="search-tab">
+      <form id="search-form" class="form-inline">
+        <select>
+          <option value="July 28, 2012 18:00:00">28.07.2012</option>
+          <option value="July 29, 2012 18:00:00">29.07.2012</option>
+          <option value="July 30, 2012 18:00:00">30.07.2012</option>
+          <option value="July 31, 2012 18:00:00">31.07.2012</option>
+          <option value="August 01, 2012 18:00:00">01.08.2012</option>
+        </select>
+        <select id="network-event-selector">
+            <option value="twitter">Twitter</option>
+            <option value="weibo">Weibo</option>
+        </select>
+        <input type="text" id="keyword" class="input-medium" placeholder="Topic">
+        <button type="submit" class="search-btn btn">Create new emotion watch</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12" style="margin-top: 10px;">
+        <button id="start-watch" class="btn btn-success">Start Watch</button>
+        <button id="stop-watch" class="btn btn-danger">Stop Watch</button>
+    </div>
+  </div>
 </div>

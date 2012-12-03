@@ -38,6 +38,7 @@ require.config({
     navigationview: "views/navigationview",
     emotionwatchcollectionview: "views/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
+    eventcollectionview: "views/event/eventcollectionview",
 
     templates: "templates",
     printletters: "../assets/js/plugins/Raphael-printletters",
@@ -59,6 +60,7 @@ require.config({
 
     // Backbone.LayoutManager depends on Backbone.
     "plugins/backbone.layoutmanager": ["backbone"],
+    "plugins/bootstrap-tab": ["jquery"],
     // Raphael.printLetters depends on Raphael
     // printletters: {
     //   deps: ["raphael"],

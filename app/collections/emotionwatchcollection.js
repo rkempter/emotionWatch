@@ -31,9 +31,11 @@ define([
 
             var width = app.paper.width;
 
-            console.log("Paper width: "+width);
+            console.log("Paper width: "+Constants.paperWidth);
             
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
+
+            console.log("Elements per line: "+this.elementsPerLine);
 
             this.fetch({
                 data: $.param({
@@ -80,12 +82,10 @@ define([
         },
 
         getCoordinateX: function(nbr) {
-            var totalNbr = this.models ? this.models.length : 0;
             return (nbr % this.elementsPerLine);
         },
 
         getCoordinateY: function(nbr) {
-            var totalNbr = this.models ? this.models.length : 0;
             return Math.floor( (nbr) / this.elementsPerLine);
         },
 

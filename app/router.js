@@ -4,12 +4,13 @@ define([
   "paperview",
   "searchview",
   "navigationview",
+  "emotionwatchview",
   "emotionwatchcollectionview",
   "tweetcollectionview",
   "emotionwatchcollection",
 ],
 
-function(app, paperView, searchView, navigationView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
+function(app, paperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -24,23 +25,13 @@ function(app, paperView, searchView, navigationView, emotionWatchCollectionView,
       app.useLayout('main-layout').setViews({
         ".search": new searchView(),
         ".navigation": new navigationView(),
-        ".paper": new paperView(),
-        ".info": new tweetCollectionView(),
-        //".watch": new emotionWatchCollectionView( {collection: app.emotionWatchCollection} ),
+        ".watch": new paperView( { "parent": ".watch" } ),
       }).render();
     },
 
     pattern: function( keyword ) {
       console.log("In route pattern with keyword: "+keyword);
       app.useLayout('pattern-layout').setViews({
-        ".watch": new emotionWatchCollectionView( { collection: new emotionWatchCollection({
-            'radius': 100,
-            'startdate': new Date('July 28, 2012 18:00:00'),
-            'enddate': new Date('July 28, 2012 22:00:00'),
-            'keyword': '#gymnastics',
-            'network': 'twitter',
-          }) 
-      }),
         ".navigation": new navigationView(),
         ".search": new searchView(),
         ".paper": new paperView(),

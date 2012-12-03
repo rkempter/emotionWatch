@@ -1,8 +1,9 @@
 define([
+  'app',
   'lodash',
   'backbone',
   'constants',
-], function(_, Backbone, Constants) {
+], function(app, _, Backbone, Constants) {
 
   var emotionWatch = Backbone.Model.extend({
     
@@ -62,14 +63,12 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-        console.log("response length "+response.length);
         for(var i = 0; i < response.length; i++) {
           var data = response[i].data;
-          console.log(data);
-            this.get("queue").enqueue(data);
-            if(false == this.get("initialized")) {
-                this.trigger("setdataset");
-            }
+          this.get("queue").enqueue(data);
+          if(false == this.get("initialized")) {
+              this.trigger("setdataset");
+          }
         }
     },
 
@@ -90,6 +89,8 @@ define([
     setCurrentTime: function() {
         var sec = this.get("currentDateTime").getTime() + this.get("timeStep") * 1000;
         this.set("currentDateTime", new Date(sec));
+
+        app.trigger('change:currentDateTime', this.get('currentDateTime'));
     },
 
     /**
@@ -99,10 +100,8 @@ define([
      *
      */
     setCurrentDataSet: function() {
-        console.log("Dataset set");
         console.log("Queue length is "+this.get("queue").getLength());
         if(this.get("queue").getLength() > 0) {
-            console.log("set queue");
             this.set("currentDataSet", this.get("queue").dequeue());
             if(false == this.get("initialized")) {
               this.set("initialized", true);
@@ -162,7 +161,6 @@ define([
      
     getTimeFromAngle: function(angle) {
       var timeSpan = (this.get("endDate").getTime() - this.get("startDate").getTime()) / 1000;
-      console.log("TImespan: "+timeSpan);
       var timeSec = this.get("startDate").getTime() / 1000 + parseInt(timeSpan / Constants.angle) * angle;
 
       return (new Date(timeSec*1000));
@@ -235,7 +233,6 @@ define([
     getCurrentTimeLinePath: function() {
         var newAngle = this.getTimeLineAngle();
         var radius = this.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference;
-        console.log("CurrentTimeLinePath Radius "+radius);
         
         var sx = this.get("centerPoint").x;
         var sy = this.get("centerPoint").y - radius; // Y is 0 at the top of the canvas
@@ -250,7 +247,7 @@ define([
         }
         if (newAngle >= Constants.angle) {
           newAngle = Constants.angle - 0.1;
-          that.seconds = 0;
+          this.seconds = 0;
         }
 
         return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];

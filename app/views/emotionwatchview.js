@@ -1,4 +1,5 @@
 define([
+    "app",
     "underscore",
     "jquery", 
     "backbone", 
@@ -7,7 +8,7 @@ define([
 
     // plugins
     "plugins/Raphael-printletters"
-], function(_, $, Backbone, Raphael, Constants) {
+], function(app, _, $, Backbone, Raphael, Constants) {
 
     var emotionWatchView = Backbone.View.extend({
 
@@ -18,17 +19,17 @@ define([
             
             var self = this;
             console.log("initialize");
+
+            app.on('start:watch', function() {
+                self.model.startWatch();
+            });
+
+            app.on('stop:watch', function() {
+                self.model.stopWatch();
+            });
             
-            // this.model.on("setdataset", this.model.setCurrentTime(), this);
-            // this.model.on("setdataset", this.model.setCurrentDataSet(), this);
             this.model.on("currentDataSetDone", this.createEmotionShape, this);
             this.model.on("currentDataSetDone", this.createTimeLineShape, this);
-            this.model.on("currentDataSetDone", function() {console.log("currentDataSet changed")}, this);
-            //this.model.on("currentDataSetDone", this.model.startWatch(), this);
-            // this.model.on("change:currentDataSet", this.animateEmotionShape, this);
-            // this.model.on("change:currentDateTime", this.animateTimeLine, this);
-
-            this.model.on("change:initialized", function() { console.log("now initialied") }, this);
             
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
@@ -44,16 +45,22 @@ define([
                 "stroke-width": Constants.timeCircleWidth, 
                 "stroke": Constants.timeCircleBaseColor,
             });
-
-            
-            //this.drawLabelTexts();
-
-            //this.drawWatchControls();
-            
         },
 
         events: {
 
+        },
+
+        cleanup: function() {
+            this.model.off(null, null, this);
+        },
+
+        activateWatch: function() {
+            this.model.on("setdataset", this.model.setCurrentTime(), this);
+            this.model.on("setdataset", this.model.setCurrentDataSet(), this);
+            this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            this.model.on("change:currentDataSet", this.animateEmotionShape, this);
+            this.model.on("change:currentDateTime", this.animateTimeLine, this);
         },
 
         /**
@@ -246,7 +253,6 @@ define([
          */
         drawLabelTexts: function() {
             var labelTexts = Constants.labels;
-            console.log(labelTexts.length);
             var textToPrint = 'Lorem Ipsum';
             var paper = this.model.get("paper");
             
@@ -274,34 +280,6 @@ define([
             }
 
             this.model.set("labels", labels);
-        },
-
-        /**
-         * Creates the animation controls and binds the click-events
-         * to the corresponding action in the model
-         */
-        drawWatchControls: function() {
-            self = this;
-            this.model.set("controlsStart", this.model.get("paper").text(this.model.get("centerPoint").x, this.model.get("centerPoint").y + this.model.get("emotionCircleRadius")+60, "Start"));
-            this.model.set("controlsStop", this.model.get("paper").text(this.model.get("centerPoint").x, this.model.get("centerPoint").y + this.model.get("emotionCircleRadius")+80, "Stop"));
-            this.model.set("controlsForward", this.model.get("paper").text(this.model.get("centerPoint").x, this.model.get("centerPoint").y + this.model.get("emotionCircleRadius")+100, "Forwards"));
-            this.model.set("controlsBackward", this.model.get("paper").text(this.model.get("centerPoint").x, this.model.get("centerPoint").y + this.model.get("emotionCircleRadius")+120, "Backwards"));
-        
-            this.model.get("controlsStart").click(function(event) {
-                self.model.startWatch();
-            });
-
-            this.model.get("controlsStop").click(function(event) {
-                self.model.stopWatch();
-            });
-
-            this.model.get("controlsForward").click(function(event) {
-                self.model.fastForward();
-            });
-
-            this.model.get("controlsBackward").click(function(event) {
-                self.model.slowForward();
-            });
         },
 
         startWatch: function() {

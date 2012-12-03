@@ -2,31 +2,22 @@ define([
     "backbone",
     "underscore",
     "jquery",
-    "eventmodel",
-], function(Backbone, _, $, eventModel) {
+], function(Backbone, _, $) {
 
     var eventCollection = Backbone.Collection.extend({
 
         initialize: function(options) {
-            this.currentTime = options.currentTime || null;
+            this.fetch();
         },
 
-        urlRoot: function() {
-            return "http://localhost:8080/events";
+        url: function() {
+            return "http://localhost:8080/allEvents";
         },
 
-        setCurrentTime: function(datetime) {
-            this.set("datetime", datetime);
-
-            this.fetch({ data: $.param({ datetime: this.get("datetime") }) });
-
-            // Check for each element in the collection, if still up to date
-        },
-
-        removeElement: function(model) {
-
+        parse: function(response) {
+            this.add(response);
         },
     })
 
-    return eventModel;
+    return eventCollection;
 });

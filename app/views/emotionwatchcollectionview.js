@@ -15,7 +15,6 @@ define([
         },
 
         renderEmotionWatch: function(watch) {
-            console.log('render simple model');
             var modelView = new emotionWatchView( { model: watch } );
             modelView.createEmotionShape();
             modelView.createTimeLineShape();
