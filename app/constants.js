@@ -13,6 +13,9 @@ define(['backbone'], function(Backbone) {
 		emotionCircleWidth: '40px',
 		emotionCircleColor: '#000000',
 
+		circleRadius: '300px',
+		frequencyRadius: '50px',
+
 		// Time Circle Properties
 		timeCircleWidth: '10px',
 		timeCircleBaseColor: '#ccc',

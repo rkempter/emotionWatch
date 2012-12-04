@@ -43,6 +43,8 @@ require.config({
     templates: "templates",
     printletters: "../assets/js/plugins/Raphael-printletters",
 
+    util: "util",
+
     //sanchez: "../assets/js/libs/sanchez_400.font",
     
   },
