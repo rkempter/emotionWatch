@@ -4,11 +4,12 @@ define([
     "jquery", 
     "backbone", 
     "raphael",
+    "tweetfrequencyview",
     'constants',
 
     // plugins
     "plugins/Raphael-printletters"
-], function(app, _, $, Backbone, Raphael, Constants) {
+], function(app, _, $, Backbone, Raphael, tweetFrequencyView, Constants) {
 
     var emotionWatchView = Backbone.View.extend({
 
@@ -45,6 +46,16 @@ define([
                 "stroke-width": Constants.timeCircleWidth, 
                 "stroke": Constants.timeCircleBaseColor,
             });
+
+            // Initialize new frequency view
+            self.frequencyView = new tweetFrequencyView({
+                centerPoint: self.model.get("centerPoint"),
+                startDateTime: self.model.get("startDate"),
+                endDateTime: self.model.get("endDate"),
+                network: self.model.get("network"),
+                interval: self.model.get("timeStep"),
+            });
+            // Put start & endtime into frequency view
         },
 
         events: {

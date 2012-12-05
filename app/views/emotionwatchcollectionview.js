@@ -1,6 +1,6 @@
 define([
     "backbone",
-    "underscore",
+    "lodash",
     "jquery",
     "emotionwatchview",
     "emotionwatchcollection",

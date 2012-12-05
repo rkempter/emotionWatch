@@ -60,7 +60,6 @@ define([
         },
 
         parse: function(response) {
-            console.log(response);
             this.add(response);
         },
     });

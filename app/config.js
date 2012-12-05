@@ -39,9 +39,12 @@ require.config({
     emotionwatchcollectionview: "views/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     eventcollectionview: "views/event/eventcollectionview",
+    tweetfrequencyview: "views/tweet/tweetfrequencyview",
 
     templates: "templates",
     printletters: "../assets/js/plugins/Raphael-printletters",
+
+    util: "util",
 
     //sanchez: "../assets/js/libs/sanchez_400.font",
     
