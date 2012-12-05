@@ -1,4 +1,4 @@
-(function($) {
+(function() {
     
     var util = {
 
@@ -38,7 +38,7 @@
        *
        * @return angle
        */
-      getTimeLineAngle: function(startDateTime, endDateTime, currentDateTime) {
+      getAngleFromTime: function(startDateTime, endDateTime, currentDateTime) {
         var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
         var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
         
@@ -65,7 +65,7 @@
           return point;
       },
 
-    }
+    };
 
     return util;
 });

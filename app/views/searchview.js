@@ -106,7 +106,6 @@ define([
             this.startDateTime = $('#events option:selected').attr('data-startDateTime');
             this.endDateTime = $('#events option:selected').attr('data-endDateTime');
             this.network = $('#network-event-selector option:selected ').attr('value');
-            console.log('network: '+this.network);
 
             var route = Backbone.history.fragment;
 

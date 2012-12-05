@@ -25,20 +25,10 @@ define([
     },
 
     /**
-     * Initialization: Fetch first data from the server
-     */
-
-    initialize: function(options) {
-      console.log('initialization');
-      //this.getData();
-    },
-
-    /**
      * URL of the server
      */
 
     urlRoot: function() {
-      // Should we send the id as well?
       return "http://localhost:8080/emotionTweets";
     },
 
