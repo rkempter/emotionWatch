@@ -9,18 +9,15 @@ define(['backbone'], function(Backbone) {
 
 		angle: 2*Math.PI,
 
-		// Emotion Circle Properties
-		emotionCircleWidth: '40px',
-		emotionCircleColor: '#000000',
-
-		circleRadius: 360,
-		frequencyRadius: 50,
+		circleRadius: 250,
+		frequencyRadius: 40,
 
 		// Time Circle Properties
-		timeCircleWidth: '10px',
+		timeCircleWidth: 20,
 		timeCircleBaseColor: '#ccc',
 		timeCircleTimeColor: '#2590A6',
-        timeCircleRadiusDifference: 40,
+        timeCircleRadiusDifference: 10,
+
 
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',

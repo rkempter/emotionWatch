@@ -30,6 +30,7 @@ require.config({
     emotionwatchcollection: "collections/emotionwatchcollection",
     tweetcollection: "collections/tweetcollection",
     eventcollection: "collections/eventcollection",
+    tweetfrequencycollection: "collections/tweetfrequencycollection",
 
     // views
     paperview: "views/paperview",
@@ -40,6 +41,7 @@ require.config({
     tweetcollectionview: "views/tweet/tweetcollectionview",
     eventcollectionview: "views/event/eventcollectionview",
     tweetfrequencyview: "views/tweet/tweetfrequencyview",
+
 
     templates: "templates",
     printletters: "../assets/js/plugins/Raphael-printletters",

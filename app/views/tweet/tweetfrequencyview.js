@@ -9,87 +9,35 @@ define([
     
     var tweetFrequencyView = Backbone.View.extend({
 
-        initialize: function(options) {
-            console.log("Creation of frequency");
+        template: "datetimefreq",
 
-            options = options || {};
-            var self = this;
+        initialize: function() {
+          this.radius = Constants.circleRadius + Constants.timeCircleWidth;
+          this.frequencyRadius = Constants.frequencyRadius;
+          this.startDateTime = this.model.get("startDateTime");
+          this.endDateTime = this.model.get("endDateTime");
+          this.localStartDateTime = this.model.get("localStartDateTime");
+          this.localEndDateTime = this.model.get("localEndDateTime");
+          this.val = this.model.get("scaling");
+          this.centerPoint = this.model.get("centerPoint");
 
-            this.centerPoint = options.centerPoint || undefined;
-            this.startDateTime = options.startDateTime || undefined;
-            this.endDateTime = options.endDateTime || undefined;
-            this.interval = options.interval || undefined;
-            this.network = options.network || 'twitter';
-            this.paper = app.paper;
-            this.radius = Constants.circleRadius;
-            this.frequencyRadius = Constants.frequencyRadius;
+          // console.log(this.model.toJSON());
 
-
-            var frequencyModel = Backbone.Model.extend({
-                urlRoot: function() {
-                    return 'http://localhost:8080/frequency';
-                },
-
-                parse: function(response) {
-                    var max = _.max(response, function(element) { return element.frequency; });
-                    this.set("frequencies", response);
-                    this.set("frequencyMax", max['frequency']);
-                    this.trigger("add");
-                }
-            });
-
-            this.model = new frequencyModel();
-
-            this.model.fetch({
-                data: $.param({
-                    network: self.network,
-                    windowsize: self.interval,
-                    startDateTime: self.startDateTime,
-                    endDateTime: self.endDateTime,
-                })
-            });
-
-            this.model.on('add', self.drawElements, self);
+          this.drawElement();  
         },
 
-        drawElements: function() {
-            console.log("Start drawing elements");
+        drawElement: function() {
             var self = this;
-            var frequencyElementSet = app.paper.set();
-
-            var frequencies = this.model.get('frequencies');
-            var max = this.model.get('frequencyMax');
-            var i = 0;
-
-            for(var i = 0; i < frequencies.length; i++) {
-                var value = frequencies[i].frequency;
-                console.log("Frequency: "+value);
-                console.log("Value: "+parseFloat(value / max));
-                var scaling = parseFloat(value / max);
-                
-                var localStartDateTime = new Date(this.startDateTime.getTime() + i * this.interval * 1000);
-                var localEndDateTime = new Date(this.startDateTime.getTime() + (i+1) * this.interval * 1000);
-
-                var element = self.drawElement(scaling, localStartDateTime, localEndDateTime);
-                frequencyElementSet.push(element);
-            }
-        },
-
-        drawElement: function(value, localStartDateTime, localEndDateTime) {
             var smallRadius = 0;
-            var bigRadius = this.frequencyRadius;
+            var bigRadius = Constants.frequencyRadius;
 
-            console.log("Value: "+value);
+            var leftAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime);
+            var rightAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime);
 
-            var leftAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, localStartDateTime);
-            var rightAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, localEndDateTime);
-
-            var rightBottomPoint = this.getPoint(this.centerPoint, value, leftAngle, smallRadius);
-            var rightTopPoint = this.getPoint(this.centerPoint, value, leftAngle, bigRadius);
-            var leftBottomPoint = this.getPoint(this.centerPoint, value, rightAngle, smallRadius);
-            var leftTopPoint = this.getPoint(this.centerPoint, value, rightAngle, bigRadius);
-            
-            console.log(rightBottomPoint);
+            var rightBottomPoint = this.getPoint(this.centerPoint, this.val, leftAngle, smallRadius);
+            var rightTopPoint = this.getPoint(this.centerPoint, this.val, leftAngle, bigRadius);
+            var leftBottomPoint = this.getPoint(this.centerPoint, this.val, rightAngle, smallRadius);
+            var leftTopPoint = this.getPoint(this.centerPoint, this.val, rightAngle, bigRadius);
 
             var path = new Array();
             path.push(["M", rightTopPoint.x, rightTopPoint.y]);
@@ -98,7 +46,30 @@ define([
             path.push(["A", smallRadius, smallRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
             path.push(["Z"]);
 
-            var element = this.paper.path(path);
+            var element = app.paper.path(path);
+
+            element.attr({
+              "stroke-width": 1,
+              "stroke": "#a0a0a0",
+              "fill": "#b1b1b1"
+            });
+
+            element.mouseover(function() {
+              self.render();
+              this.attr({
+                "fill": "#A65363",
+                
+              });
+            });
+
+            element.mouseout(function() {
+              self.hide();
+              this.attr({
+                "fill": "#b1b1b1",
+              });
+            });
+
+            this.model.set("element", element);
 
             return element;
 
@@ -165,6 +136,16 @@ define([
           var point = { "x": x, "y": y };
 
           return point;
+      },
+
+      render: function(template) {
+          var output = template( { startDateTime: this.model.get("startDateTime"), endDateTime: this.model.get("endDateTime"), frequency: this.model.get("value") } );
+          $(".date-time-freq").html( output );
+          $(".date-time-freq").show();
+      },
+
+      hide: function() {
+        $(".date-time-freq").hide();
       },
 
     });

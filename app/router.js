@@ -25,7 +25,7 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
       app.useLayout('main-layout').setViews({
         ".search": new searchView(),
         ".navigation": new navigationView(),
-        ".watch": new paperView( { "parent": ".watch" } ),
+        ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
       }).render();
     },
 

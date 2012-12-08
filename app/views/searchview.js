@@ -39,7 +39,7 @@ define([
         createIndexWatch: function() {
             var watch = new emotionWatch({ 
                                 paper: app.paper, 
-                                emotionCircleRadius: 300,
+                                emotionCircleRadius: 250,
                                 startDate: new Date(this.startDateTime),
                                 currentDateTime: new Date(this.startDateTime),
                                 endDate: new Date(this.endDateTime),
@@ -52,7 +52,7 @@ define([
             view.activateWatch();
             view.drawLabelTexts();
 
-            this.insertViews({".watches": view});
+            this.insertViews( { ".date-time-freq": view } );
         },
 
         createIndexTweets: function() {

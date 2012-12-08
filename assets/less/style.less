@@ -7,11 +7,23 @@
     }
 
     .watch{
+        position: relative;
         svg {
             position: relative !important;
         }
         width: 50%;
         float: right;
         height: 500px;
+
+        .date-time-freq{
+            width: 50%;
+            position: absolute;
+            text-align: center;
+            left: 50%;
+            margin-left: -25%;
+            z-index: 2;
+            top: 100px;
+            #translucent > .background(#fff, 0.5);
+        }
     }
 }
