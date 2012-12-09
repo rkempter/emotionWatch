@@ -39,8 +39,7 @@ define([
             //     self.hideTimeFreq();
             // });
             
-            this.model.on("currentDataSetDone", this.createEmotionShape, this);
-            this.model.on("currentDataSetDone", this.createTimeLineShape, this);
+            this.model.on("parsed", this.createEmotionShape, this);
             
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
@@ -85,39 +84,6 @@ define([
         },
 
         /**
-         *
-         * Binds Raphael Events to Raphael elements.
-         *
-         */
-        bindTimeLineEvents: function() {
-            self = this;
-
-            this.model.get("timeCircle").click(function(event) {
-                self.jumpToTime(event);
-            });
-
-            this.model.get("timeCircle").mouseover(function(event) {
-                self.showTime(event);
-            });
-            
-            this.model.get("timeCircle").mouseout(function(event) {
-                self.model.get("timeText").attr('opacity', 0);
-            });
-
-            this.model.get("timeLineShape").mouseover(function(event) {
-                self.showTime(event);
-            });
-
-            this.model.get("timeLineShape").mouseout(function(event) {
-                self.model.get("timeText").attr('opacity', 0);
-            })
-
-            this.model.get("timeLineShape").click(function(event) {
-                self.jumpToTime(event);
-            });
-        },
-
-        /**
          * Function draws a circle on the paper
          *
          * @param radius
@@ -137,20 +103,9 @@ define([
          * return shape
          */
         drawEmotionShape: function() {
+            console.log("Emotionshape drawing");
             var currentShapePath = this.model.getCurrentEmotionShapePath();
             var shape = this.model.get("paper").path(currentShapePath);
-
-            return shape;
-        },
-
-        /**
-         * Draws the timeline shape (used only at initialization)
-         *
-         * return shape
-         */
-        drawTimeLineShape: function() {
-            var currentTimeLinePath = this.model.getCurrentTimeLinePath();
-            var shape = this.model.get("paper").path(currentTimeLinePath);
 
             return shape;
         },
@@ -166,21 +121,6 @@ define([
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor,
             });
-        },
-
-        /**
-         * Initializes the timeline shape (used only at initialization)
-         *
-         * return shape
-         */
-        createTimeLineShape: function() {
-            this.model.set("timeLineShape", this.drawTimeLineShape());
-            this.model.get("timeLineShape").attr({ 
-                "stroke": Constants.timeCircleTimeColor,
-                "stroke-width": Constants.timeCircleWidth,
-            });
-
-            this.bindTimeLineEvents();
         },
 
         /**
@@ -212,59 +152,6 @@ define([
             var dateTime = this.model.getTimeFromAngle(angle);
 
             this.model.jumpToTime(dateTime);
-        },
-
-        /**
-         * When event mouseover is triggered on the timeline, we show the time at that
-         * specific position
-         *
-         * @param event
-         */
-        showTime: function(event) {
-            var element = this.model.get("paper").canvas;
-            this.model.get("timeText").attr('opacity', 1);
-            var point = { "x": Math.floor((event.pageX-$(element).offset().left)), "y": event.pageY };
-            var angle = this.model.getAngleFromPoint(point);
-
-            var adjustedPoint = this.getTextFieldPosition(angle, point);
-
-            var time = this.model.getTimeFromAngle(angle);
-            var text = this.model.get("timeText");
-            text.attr('x', adjustedPoint.x);
-            text.attr('y', adjustedPoint.y);
-            text.attr('text', time);
-        },
-
-        /**
-         * Handles the animation of the timeline
-         *
-         */
-        animateTimeLine: function() {
-            var newTimeShape = this.model.getCurrentTimeLinePath();
-
-            if(this.model.get("timeLineShape")) {
-                this.model.get("timeLineShape").animate({
-                 path: newTimeShape
-                }, this.model.get("iterationLength"));
-            }
-        },
-
-        /**
-         * Returns the text field position based on the angle
-         * (Left or right side)
-         *
-         * @param angle
-         * @param point
-         *
-         * @return adjustedPoint
-         */
-        getTextFieldPosition: function(angle, point) {
-            if(angle <= Constants.angle / 2) {
-                point.x += 120;
-            } else {
-                point.x -= 120;
-            }
-            return point;
         },
 
 

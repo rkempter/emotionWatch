@@ -21,8 +21,44 @@ define([
       initialized: false,
       iterationLength: 4500,
       animationType: "ease-out",
-      queue: new Queue(),
+      queue: {},
     },
+
+    initialize: function() {
+      this.fetch({ 
+          data: $.param({
+            id: this.get("cid"),
+            topic: this.get("topic"),
+            startDateTime: this.get("startDate"),
+            endDateTime: this.get("endDate"),
+            timeStep: this.get("timeStep"),
+            network: this.get("network"),
+          })
+      });
+
+          /**
+       * You first need to create a formatting function to pad numbers to two digits…
+       **/
+      function twoDigits(d) {
+          if(0 <= d && d < 10) return "0" + d.toString();
+          if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+          return d.toString();
+      }
+
+      /**
+       * …and then create the method to output the date string as desired.
+       * Some people hate using prototypes this way, but if you are going
+       * to apply this to more than one Date object, having it as a prototype
+       * makes sense.
+       **/
+      Date.prototype.toMysqlFormat = function() {
+          return this.getFullYear() + "-" + twoDigits(1 + this.getMonth()) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
+      };
+    },
+
+
+
+
 
     /**
      * URL of the server
@@ -33,43 +69,22 @@ define([
     },
 
     /**
-     * Requests new data from the server
-     */
-    getData: function() {
-        console.log("Fetch data");
-        this.fetch({ 
-            data: $.param({
-              id: this.get("cid"),
-              topic: this.get("topic"),
-              currentDateTime: this.get("currentDateTime"),
-              timeStep: this.get("timeStep"),
-              network: this.get("network"),
-              windowSize: this.get("windowSize"),
-            })
-        });
-    },
-
-    /**
      * Parses the received data into the queue
      */
     parse: function(response) {
-        for(var i = 0; i < response.length; i++) {
-          var data = response[i].data;
-          this.get("queue").enqueue(data);
-          if(false == this.get("initialized")) {
-              this.trigger("setdataset");
-          }
-        }
-    },
+      console.log(response);
 
-    /**
-     * CheckQueueLength: Checks if the length of the data queue is longer than
-     * a predefined threshold. If not, model fetches more data.
-     */
-    checkQueueLength: function() {
-        if(this.get("queue").getLength() < this.get("threshhold")) {
-            this.getData();
+      for(var i = 0; i < response.length; i++) {
+        var emotions = response[i].emotions;
+        var dateTime = new Date(response[i].dateTime);
+        console.log(dateTime.toMysqlFormat());
+        this.get("queue")[dateTime.toMysqlFormat()] = emotions;
+        if(false == this.get("initialized")) {
+            this.trigger("setdataset");
         }
+      }
+      this.setCurrentDataSet();
+      this.trigger("parsed");
     },
 
      /**
@@ -90,16 +105,10 @@ define([
      *
      */
     setCurrentDataSet: function() {
-        console.log("Queue length is "+this.get("queue").getLength());
-        if(this.get("queue").getLength() > 0) {
-            this.set("currentDataSet", this.get("queue").dequeue());
-            if(false == this.get("initialized")) {
-              this.set("initialized", true);
-              this.trigger("currentDataSetDone");
-            }
-        }
-
-        this.checkQueueLength();
+        var dateTime = this.get("currentDateTime");
+        this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
+        console.log("CurrentDataSet");
+        console.log(this.get("currentDataSet"));
     },
 
     /**
@@ -198,61 +207,22 @@ define([
      
     getCurrentEmotionShapePath: function() {
         var dataSet = this.get("currentDataSet");
-        var firstPoint = this.getPoint(dataSet[0].value, 0);
-        var pathString = "M "+firstPoint.x+" "+firstPoint.y;
-        var previous = firstPoint;
+        if(undefined !== dataSet) {
+          var firstPoint = this.getPoint(dataSet[0].value, 0);
+          var pathString = "M "+firstPoint.x+" "+firstPoint.y;
+          var previous = firstPoint;
 
-        for(var i = 1; i < 12; i++) {
-          var currentPoint = this.getPoint(dataSet[i].value, i);
-          var pathDiff = this.getRelativePoint(currentPoint, previous);
-          pathString += " l "+pathDiff.x+" "+pathDiff.y;
-          previous = currentPoint;
+          for(var i = 1; i < 12; i++) {
+            var currentPoint = this.getPoint(dataSet[i].value, i);
+            var pathDiff = this.getRelativePoint(currentPoint, previous);
+            pathString += " l "+pathDiff.x+" "+pathDiff.y;
+            previous = currentPoint;
+          }
+
+          pathString += " Z";
+          
+          return pathString
         }
-
-        pathString += " Z";
-        
-        return pathString
-    },
-
-    /**
-     * Returns the path of the timeline
-     *
-     * @return pathString
-     */
-     
-    getCurrentTimeLinePath: function() {
-        var newAngle = this.getTimeLineAngle();
-        var radius = this.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference;
-        
-        var sx = this.get("centerPoint").x;
-        var sy = this.get("centerPoint").y - radius; // Y is 0 at the top of the canvas
-    
-        var endPointX = this.get("centerPoint").x + radius * Math.sin(newAngle);
-        var endPointY = this.get("centerPoint").y - radius * Math.cos(newAngle);
-    
-        var halfTimeFlag = 0;
-    
-        if (newAngle > Constants.angle / 2) {
-          halfTimeFlag = +1;
-        }
-        if (newAngle >= Constants.angle) {
-          newAngle = Constants.angle - 0.1;
-          this.seconds = 0;
-        }
-
-        return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];
-    },
-
-    /**
-     *
-     */
-     
-    jumpToTime: function(dateTime) {
-        this.stopWatch;
-        this.set("currentDateTime", dateTime);
-        this.set("queue", new Queue());
-        this.getData();
-        // StartWatch
     },
 
     /**
