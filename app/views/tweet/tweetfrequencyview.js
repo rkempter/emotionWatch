@@ -120,8 +120,9 @@ define([
         },
 
         mouseover: function() {
-          if(this.model.get("active") !== 1) {
-            this.render();
+          this.render();
+          if(this.model.get("active") === 0) {
+
             this.model.get("element").attr({
               "fill": "#A65363",
             });
@@ -133,7 +134,8 @@ define([
         },
 
         mouseout: function() {
-          if(this.model.get("active") !== 1) {
+          this.hide();
+          if(this.model.get("active") === 0) {
             this.model.get("element").attr({
               "fill": "#b1b1b1",
             });
@@ -142,7 +144,7 @@ define([
               "fill": "#AC7B74",
             });
 
-            this.hide();
+            
           }
         },
 
