@@ -45,7 +45,7 @@ define([
                                 startDate: new Date(this.startDateTime),
                                 currentDateTime: new Date(this.startDateTime),
                                 endDate: new Date(this.endDateTime),
-                                centerPoint: {"x": 400, "y": 400},
+                                centerPoint: {"x": 550, "y": 400},
                                 topic: this.keyword,
                                 network: this.network,
                             });

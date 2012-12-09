@@ -44,11 +44,13 @@ define([
             this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
             this.model.get("timeText").attr("opacity", 0);
 
-            this.model.set("timeCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
-            this.model.get("timeCircle").attr({ 
-                "stroke-width": Constants.timeCircleWidth, 
-                "stroke": Constants.timeCircleBaseColor,
+            this.model.set("centerCircle", this.drawCircle(Constants.centerZeroCircleRadius, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
+            this.model.get("centerCircle").attr({ 
+                "stroke-width": 1, 
+                "stroke": "#a0a0a0",
+                "fill": "#000"
             });
+            this.model.get("centerCircle").toFront();
 
             this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("timeCircleBorder").attr({ 
@@ -120,7 +122,7 @@ define([
             this.model.get("emotionShape").attr({ 
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor,
-            });
+            }).toBack();
         },
 
         /**

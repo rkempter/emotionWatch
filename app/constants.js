@@ -18,6 +18,8 @@ define(['backbone'], function(Backbone) {
 		timeCircleTimeColor: '#2590A6',
         timeCircleRadiusDifference: 10,
 
+        centerZeroCircleRadius: 20,
+
 
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',
