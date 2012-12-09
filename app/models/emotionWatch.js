@@ -25,6 +25,7 @@ define([
     },
 
     initialize: function() {
+      var self = this;
       this.fetch({ 
           data: $.param({
             id: this.get("cid"),
@@ -34,6 +35,13 @@ define([
             timeStep: this.get("timeStep"),
             network: this.get("network"),
           })
+      });
+
+      app.on("set:globalTime", function(dateTime) {
+        console.log("Global Time arrived: "+dateTime);
+        self.setCurrentTime(dateTime);
+        self.setCurrentDataSet();
+        self.trigger("changevalues");
       });
 
           /**
@@ -54,6 +62,8 @@ define([
       Date.prototype.toMysqlFormat = function() {
           return this.getFullYear() + "-" + twoDigits(1 + this.getMonth()) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
       };
+
+      this.startWatch();
     },
 
 
@@ -72,18 +82,17 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log(response);
-
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;
         var dateTime = new Date(response[i].dateTime);
-        console.log(dateTime.toMysqlFormat());
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
         if(false == this.get("initialized")) {
             this.trigger("setdataset");
         }
       }
+      this.setCurrentTime(this.get("startDate"));
       this.setCurrentDataSet();
+
       this.trigger("parsed");
     },
 
@@ -91,11 +100,9 @@ define([
      * setCurrentTime: Adds the timeStep to the previous time to advance in time.
      * Sets the new time to the variable currentDateTime.
      */
-    setCurrentTime: function() {
-        var sec = this.get("currentDateTime").getTime() + this.get("timeStep") * 1000;
-        this.set("currentDateTime", new Date(sec));
-
-        app.trigger('change:currentDateTime', this.get('currentDateTime'));
+    setCurrentTime: function(dateTime) {
+        this.set("currentDateTime", new Date(dateTime.toMysqlFormat()));
+        this.trigger('change:currentDateTime', this.get('currentDateTime'));
     },
 
     /**
@@ -107,8 +114,6 @@ define([
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
         this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
-        console.log("CurrentDataSet");
-        console.log(this.get("currentDataSet"));
     },
 
     /**
@@ -231,13 +236,10 @@ define([
      */
      
     startWatch: function() {
-        console.log("Start Watch");
         var self = this;
         self.trigger("changevalues");
         this.interval = setInterval(function() {
-            self.setCurrentTime();
-            self.setCurrentDataSet();
-            self.trigger("changevalues");
+          app.trigger("change:globalTime");
         }, this.get("iterationLength"));
     },
 

@@ -4,8 +4,9 @@ define([
     "lodash",
     "jquery",
     "tweetfrequencyview",
+    "tweetfrequencymodel",
     "Constants",
-], function(app, Backbone, _, $, tweetFrequencyView, Constants) {
+], function(app, Backbone, _, $, tweetFrequencyView, tweetFrequencyModel, Constants) {
 
     var tweetFrequencyCollection = Backbone.Collection.extend({
 
@@ -18,8 +19,19 @@ define([
             this.endDateTime = options.endDateTime || undefined;
             this.interval = options.interval || undefined;
             this.network = options.network || 'twitter';
+            this.modelIndex = 0;
             
             this.viewPointer = new Array();
+
+            app.on('jumpToTime', function(params) {
+                var cid = params.cid;
+                self.activateModel(cid);
+            });
+
+            app.on('change:globalTime', function() {
+                console.log("Global Time change");
+                self.setGlobalTime();
+            });
 
             self.fetch({
                 data: $.param({
@@ -38,6 +50,7 @@ define([
         parse: function(frequencies) {
             var self = this;
             var max = _.max(frequencies, function(element) { return element.frequency; });
+            var models = new Array();
 
             for(var i = 0; i < frequencies.length; i++) {
                 var value = frequencies[i].frequency;
@@ -46,7 +59,7 @@ define([
                 var localStartDateTime = new Date(self.startDateTime.getTime() + i * self.interval * 1000);
                 var localEndDateTime = new Date(self.startDateTime.getTime() + (i+1) * self.interval * 1000);
 
-                var model = new Backbone.Model({
+                var model = new tweetFrequencyModel({
                     "value": value,
                     "scaling": scaling,
                     "localStartDateTime": localStartDateTime,
@@ -56,12 +69,46 @@ define([
                     "centerPoint": self.centerPoint,
                 });
 
+                models.push(model);
+
                 var view = new tweetFrequencyView({
                     model: model
                 });
                 
                 self.viewPointer.push(view);
             }
+
+            return models;
+        },
+
+        setGlobalTime: function() {
+            var self = this;
+
+            if(undefined != self.activeSlot) {
+                self.activeSlot.visited();
+            }
+           
+            var dateTime = self.models[self.modelIndex].get("localStartDateTime");
+            
+            app.trigger("set:globalTime", dateTime);
+           
+            self.activeSlot = self.models[self.modelIndex];
+            
+            if(null !== self.activeSlot) {
+                self.activeSlot.activate();
+            }
+
+            self.modelIndex++;
+        },
+
+        activateModel: function(cid) {
+            var model = this.getByCid(cid);
+            model.activate();
+        },
+
+        visitedModel: function(cid) {
+            var model = this.getByCid(cid);
+            model.visited();
         },
     });
 

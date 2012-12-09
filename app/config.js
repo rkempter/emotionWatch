@@ -25,6 +25,7 @@ require.config({
     emotionwatch: "models/emotionWatch",
     tweetmodel: "models/tweetmodel",
     eventmodel: "models/eventmodel",
+    tweetfrequencymodel: "models/tweetfrequencymodel",
 
     // collection
     emotionwatchcollection: "collections/emotionwatchcollection",

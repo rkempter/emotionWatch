@@ -30,6 +30,11 @@ define([
                 self.model.stopWatch();
             });
 
+            app.on('jumpToTime', function(params) {
+                console.log("Set time with parameters:");
+                console.log(params);
+            });
+
             // app.on('show:dateTimeFreq', function(params) {
             //     console.log(params);
             //     self.render(params);
@@ -78,9 +83,7 @@ define([
         },
 
         activateWatch: function() {
-            this.model.on("setdataset", this.model.setCurrentTime(), this);
-            this.model.on("setdataset", this.model.setCurrentDataSet(), this);
-            this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            //this.model.on("currentDataSetDone", this.model.startWatch(), this);
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
         },

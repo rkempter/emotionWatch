@@ -12,6 +12,7 @@ define([
         template: "datetimefreq",
 
         initialize: function() {
+          var self = this;
           this.radius = Constants.circleRadius + Constants.timeCircleWidth;
           this.frequencyRadius = Constants.frequencyRadius;
           this.startDateTime = this.model.get("startDateTime");
@@ -32,6 +33,11 @@ define([
 
           this.drawElement(); 
           this.drawTimeSlot(); 
+
+          this.model.on("reset", self.changeToReset, self);
+          this.model.on("activate", self.changeToActive, self);
+          this.model.on("visited", self.changeToVisited, self);
+
         },
 
         drawElement: function() {
@@ -68,6 +74,8 @@ define([
             });
 
             this.model.set("element", element);
+
+            self.bindFrequencyEvents();
 
             return element;
 
@@ -107,49 +115,96 @@ define([
           });
 
           this.model.set("timeSlot", timeSlot);
+
+          self.bindTimeSlotEvents();
         },
 
         mouseover: function() {
           this.render();
-          this.model.get("element").attr({
-            "fill": "#A65363",
-          });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#A63112",
-          });
+          if(this.model.get("active") === 0) {
+
+            this.model.get("element").attr({
+              "fill": "#A65363",
+            });
+            this.model.get("timeSlot").attr({
+              "stroke-width": 0,
+              "fill": "#A63112",
+            });
+          }
         },
 
         mouseout: function() {
+          this.hide();
+          if(this.model.get("active") === 0) {
+            this.model.get("element").attr({
+              "fill": "#b1b1b1",
+            });
+            this.model.get("timeSlot").attr({
+              "stroke-width": 0,
+              "fill": "#AC7B74",
+            });
+
+            
+          }
+        },
+
+        changeToVisited: function() {
+          console.log("Change to visited?");
+          if(this.model.get("active") === 1) {
+            this.model.set("active", 2);
+            this.model.get("element").attr({
+              "fill": "#cccccc",
+            });
+            this.model.get("timeSlot").attr({
+              "fill": "#cccccc",
+            });
+          }
+        },
+
+        changeToActive: function() {
+          this.model.set("active", 1);
           this.model.get("element").attr({
-            "fill": "#b1b1b1",
+            "fill": "#000",
+          });
+          this.model.get("timeSlot").attr({
+            "fill": "#000",
+          });
+        },
+
+         changeToReset: function() {
+          this.model.set("active", 0);
+          this.model.get("element").attr({
+            "stroke-width": 1,
+            "stroke": "#a0a0a0",
+            "fill": "#b1b1b1"
           });
           this.model.get("timeSlot").attr({
             "stroke-width": 0,
             "fill": "#AC7B74",
           });
-
-          this.hide();
         },
 
-        changeToVisited: function() {
-          this.model.get("element").attr({
+        bindTimeSlotEvents: function() {
+          var self = this;
 
+          var timeSlotElement = self.model.get("timeSlot");
+
+          timeSlotElement.click(function() {
+            app.trigger("jumpToTime", self.model.get("startDateTime"));
           });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#ab4123",
+        },
+
+        bindFrequencyEvents: function() {
+          var self = this;
+
+          var element = self.model.get("element");
+
+          element.click(function() {
+            var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
+            app.trigger("jumpToTime", options);
           });
         },
 
-        changeToActive: function() {
-          this.model.get("element").attr({
-
-          });
-          this.model.get("timeSlot").attr({
-
-          });
-        },
 
         /**
        * Computes the time from a given angle.
