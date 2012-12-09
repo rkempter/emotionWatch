@@ -21,9 +21,17 @@ define([
           this.val = this.model.get("scaling");
           this.centerPoint = this.model.get("centerPoint");
 
+          this.model.set("active", 0);
+
+          // this.model.on("change:active", )
+
+          this.leftAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime);
+          this.rightAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime);
+
           // console.log(this.model.toJSON());
 
-          this.drawElement();  
+          this.drawElement(); 
+          this.drawTimeSlot(); 
         },
 
         drawElement: function() {
@@ -31,13 +39,10 @@ define([
             var smallRadius = 0;
             var bigRadius = Constants.frequencyRadius;
 
-            var leftAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime);
-            var rightAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime);
-
-            var rightBottomPoint = this.getPoint(this.centerPoint, this.val, leftAngle, smallRadius);
-            var rightTopPoint = this.getPoint(this.centerPoint, this.val, leftAngle, bigRadius);
-            var leftBottomPoint = this.getPoint(this.centerPoint, this.val, rightAngle, smallRadius);
-            var leftTopPoint = this.getPoint(this.centerPoint, this.val, rightAngle, bigRadius);
+            var rightBottomPoint = this.getPoint(this.centerPoint, this.val, this.leftAngle, this.radius, smallRadius);
+            var rightTopPoint = this.getPoint(this.centerPoint, this.val, this.leftAngle, this.radius, bigRadius);
+            var leftBottomPoint = this.getPoint(this.centerPoint, this.val, this.rightAngle, this.radius, smallRadius);
+            var leftTopPoint = this.getPoint(this.centerPoint, this.val, this.rightAngle, this.radius, bigRadius);
 
             var path = new Array();
             path.push(["M", rightTopPoint.x, rightTopPoint.y]);
@@ -55,24 +60,95 @@ define([
             });
 
             element.mouseover(function() {
-              self.render();
-              this.attr({
-                "fill": "#A65363",
-                
-              });
+              self.mouseover();
             });
 
             element.mouseout(function() {
-              self.hide();
-              this.attr({
-                "fill": "#b1b1b1",
-              });
+              self.mouseout();
             });
 
             this.model.set("element", element);
 
             return element;
 
+        },
+
+        drawTimeSlot: function() {
+          var self = this;
+          var smallRadius = 0;
+          var bigRadius = Constants.timeCircleWidth;
+          var baseRadius = Constants.circleRadius;//Constants.timeCircleRadiusDifference;
+
+          var rightBottomPoint = this.getPoint(this.centerPoint, 1, this.leftAngle, baseRadius, smallRadius);
+          var rightTopPoint = this.getPoint(this.centerPoint, 1, this.leftAngle, baseRadius, bigRadius);
+          var leftBottomPoint = this.getPoint(this.centerPoint, 1, this.rightAngle, baseRadius, smallRadius);
+          var leftTopPoint = this.getPoint(this.centerPoint, 1, this.rightAngle, baseRadius, bigRadius);
+        
+          var path = new Array();
+          path.push(["M", rightTopPoint.x, rightTopPoint.y]);
+          path.push(["A", Constants.circleRadius+Constants.timeCircleWidth, Constants.circleRadius+Constants.timeCircleWidth, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
+          path.push(["L", leftBottomPoint.x, leftBottomPoint.y]);
+          path.push(["A", Constants.circleRadius, Constants.circleRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
+          path.push(["Z"]);
+
+          var timeSlot = app.paper.path(path);
+
+          timeSlot.attr({
+            "stroke-width": 0,
+            "fill": "#AC7B74",
+          });
+
+          timeSlot.mouseover(function() {
+            self.mouseover();
+          });
+
+          timeSlot.mouseout(function() {
+            self.mouseout();
+          });
+
+          this.model.set("timeSlot", timeSlot);
+        },
+
+        mouseover: function() {
+          this.render();
+          this.model.get("element").attr({
+            "fill": "#A65363",
+          });
+          this.model.get("timeSlot").attr({
+            "stroke-width": 0,
+            "fill": "#A63112",
+          });
+        },
+
+        mouseout: function() {
+          this.model.get("element").attr({
+            "fill": "#b1b1b1",
+          });
+          this.model.get("timeSlot").attr({
+            "stroke-width": 0,
+            "fill": "#AC7B74",
+          });
+
+          this.hide();
+        },
+
+        changeToVisited: function() {
+          this.model.get("element").attr({
+
+          });
+          this.model.get("timeSlot").attr({
+            "stroke-width": 0,
+            "fill": "#ab4123",
+          });
+        },
+
+        changeToActive: function() {
+          this.model.get("element").attr({
+
+          });
+          this.model.get("timeSlot").attr({
+
+          });
         },
 
         /**
@@ -130,16 +206,16 @@ define([
        * @return point
        */
        
-      getPoint: function(centerPoint, value, angle, radius) {
-          var x = centerPoint.x + (this.radius + radius * value) * Math.cos(angle);
-          var y = centerPoint.y + (this.radius + radius * value) * Math.sin(angle);
+      getPoint: function(centerPoint, value, angle, baseRadius, radius) {
+          var x = centerPoint.x + (baseRadius + radius * value) * Math.cos(angle);
+          var y = centerPoint.y + (baseRadius + radius * value) * Math.sin(angle);
           var point = { "x": x, "y": y };
 
           return point;
       },
 
       render: function(template) {
-          var output = template( { startDateTime: this.model.get("startDateTime"), endDateTime: this.model.get("endDateTime"), frequency: this.model.get("value") } );
+          var output = template( { startDateTime: this.model.get("localStartDateTime"), endDateTime: this.model.get("localEndDateTime"), frequency: this.model.get("value") } );
           $(".date-time-freq").html( output );
           $(".date-time-freq").show();
       },

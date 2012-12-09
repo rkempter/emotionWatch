@@ -13,8 +13,10 @@ define([
     "tweetcollectionview",
     "eventcollectionview",
     "eventcollection",
-    "plugins/bootstrap-tab"
-], function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection) {
+    "videoview",
+    "plugins/bootstrap-tab",
+
+], function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView) {
 
     var searchView = Backbone.View.extend({
 
@@ -55,6 +57,13 @@ define([
             this.insertViews( { ".date-time-freq": view } );
         },
 
+        createIndexVideo: function() {
+            console.log("Videoview creation");
+            var video = new videoView();
+
+            this.insertViews( { "#player": video } );
+        },
+
         createIndexTweets: function() {
             console.log("create Index tweets");
             this.insertViews({ ".info": new tweetCollectionView({
@@ -92,6 +101,7 @@ define([
                 case "": 
                     this.createIndexWatch();
                     this.createIndexTweets();
+                    this.createIndexVideo();
                     break;
                 case "pattern":
                     this.createPatternCollection();
@@ -113,6 +123,7 @@ define([
                 case "": 
                     this.createIndexWatch();
                     this.createIndexTweets();
+                    this.createIndexVideo();
                     break;
                 case "pattern":
                     this.createPatternCollection();

@@ -67,5 +67,5 @@
 
     };
 
-    return util;
+    return new util;
 });
