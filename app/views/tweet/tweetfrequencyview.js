@@ -12,6 +12,7 @@ define([
         template: "datetimefreq",
 
         initialize: function() {
+          var self = this;
           this.radius = Constants.circleRadius + Constants.timeCircleWidth;
           this.frequencyRadius = Constants.frequencyRadius;
           this.startDateTime = this.model.get("startDateTime");
@@ -32,6 +33,10 @@ define([
 
           this.drawElement(); 
           this.drawTimeSlot(); 
+
+          this.model.on("activate", self.changeToActive);
+          this.model.on("visited", self.changeToVisited);
+
         },
 
         drawElement: function() {
@@ -68,6 +73,8 @@ define([
             });
 
             this.model.set("element", element);
+
+            self.bindFrequencyEvents();
 
             return element;
 
@@ -107,6 +114,8 @@ define([
           });
 
           this.model.set("timeSlot", timeSlot);
+
+          self.bindTimeSlotEvents();
         },
 
         mouseover: function() {
@@ -133,6 +142,7 @@ define([
         },
 
         changeToVisited: function() {
+          this.model.set("active", 2);
           this.model.get("element").attr({
 
           });
@@ -143,13 +153,36 @@ define([
         },
 
         changeToActive: function() {
+          this.model.set("active", 1);
           this.model.get("element").attr({
-
+            "fill": "#000",
           });
           this.model.get("timeSlot").attr({
-
+            "fill": "#000",
           });
         },
+
+        bindTimeSlotEvents: function() {
+          var self = this;
+
+          var timeSlotElement = self.model.get("timeSlot");
+
+          timeSlotElement.click(function() {
+            app.trigger("jumpToTime", self.model.get("startDateTime"));
+          });
+        },
+
+        bindFrequencyEvents: function() {
+          var self = this;
+
+          var element = self.model.get("element");
+
+          element.click(function() {
+            var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
+            app.trigger("jumpToTime", options);
+          });
+        },
+
 
         /**
        * Computes the time from a given angle.

@@ -72,12 +72,9 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log(response);
-
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;
         var dateTime = new Date(response[i].dateTime);
-        console.log(dateTime.toMysqlFormat());
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
         if(false == this.get("initialized")) {
             this.trigger("setdataset");
@@ -107,8 +104,6 @@ define([
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
         this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
-        console.log("CurrentDataSet");
-        console.log(this.get("currentDataSet"));
     },
 
     /**
@@ -231,7 +226,6 @@ define([
      */
      
     startWatch: function() {
-        console.log("Start Watch");
         var self = this;
         self.trigger("changevalues");
         this.interval = setInterval(function() {

@@ -30,6 +30,11 @@ define([
                 self.model.stopWatch();
             });
 
+            app.on('jumpToTime', function(params) {
+                console.log("Set time with parameters:");
+                console.log(params);
+            });
+
             // app.on('show:dateTimeFreq', function(params) {
             //     console.log(params);
             //     self.render(params);

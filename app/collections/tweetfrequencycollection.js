@@ -4,8 +4,9 @@ define([
     "lodash",
     "jquery",
     "tweetfrequencyview",
+    "tweetfrequencymodel",
     "Constants",
-], function(app, Backbone, _, $, tweetFrequencyView, Constants) {
+], function(app, Backbone, _, $, tweetFrequencyView, tweetFrequencyModel, Constants) {
 
     var tweetFrequencyCollection = Backbone.Collection.extend({
 
@@ -20,6 +21,11 @@ define([
             this.network = options.network || 'twitter';
             
             this.viewPointer = new Array();
+
+            app.on('jumpToTime', function(params) {
+                var cid = params.cid;
+                self.activateModel(cid);
+            });
 
             self.fetch({
                 data: $.param({
@@ -46,7 +52,7 @@ define([
                 var localStartDateTime = new Date(self.startDateTime.getTime() + i * self.interval * 1000);
                 var localEndDateTime = new Date(self.startDateTime.getTime() + (i+1) * self.interval * 1000);
 
-                var model = new Backbone.Model({
+                var model = new tweetFrequencyModel({
                     "value": value,
                     "scaling": scaling,
                     "localStartDateTime": localStartDateTime,
@@ -61,7 +67,22 @@ define([
                 });
                 
                 self.viewPointer.push(view);
+
+                self.add(model);
             }
+
+            console.log(self);
+        },
+
+        activateModel: function(cid) {
+            var model = this.getByCid(cid);
+            console.log(cid);
+            model.activate();
+        },
+
+        visitedModel: function(cid) {
+            var model = this.getByCid(cid);
+            model.visited();
         },
     });
 
