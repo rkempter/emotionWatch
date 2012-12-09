@@ -83,17 +83,26 @@ define([
 
         setGlobalTime: function() {
             var self = this;
-            console.log("index: "+self.modelIndex);
-            console.log("Model: "+self.models[self.modelIndex]);
+
+            if(undefined != self.activeSlot) {
+                self.activeSlot.visited();
+            }
+           
             var dateTime = self.models[self.modelIndex].get("localStartDateTime");
-            console.log("GlobalTimechange to "+dateTime);
+            
             app.trigger("set:globalTime", dateTime);
+           
+            self.activeSlot = self.models[self.modelIndex];
+            
+            if(null !== self.activeSlot) {
+                self.activeSlot.activate();
+            }
+
             self.modelIndex++;
         },
 
         activateModel: function(cid) {
             var model = this.getByCid(cid);
-            console.log(cid);
             model.activate();
         },
 

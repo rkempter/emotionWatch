@@ -34,8 +34,9 @@ define([
           this.drawElement(); 
           this.drawTimeSlot(); 
 
+          this.model.on("reset", self.changeToReset, self);
           this.model.on("activate", self.changeToActive, self);
-          app.on("visited", self.changeToVisited, self);
+          this.model.on("visited", self.changeToVisited, self);
 
         },
 
@@ -146,6 +147,7 @@ define([
         },
 
         changeToVisited: function() {
+          console.log("Change to visited?");
           if(this.model.get("active") === 1) {
             this.model.set("active", 2);
             this.model.get("element").attr({
@@ -164,6 +166,19 @@ define([
           });
           this.model.get("timeSlot").attr({
             "fill": "#000",
+          });
+        },
+
+         changeToReset: function() {
+          this.model.set("active", 0);
+          this.model.get("element").attr({
+            "stroke-width": 1,
+            "stroke": "#a0a0a0",
+            "fill": "#b1b1b1"
+          });
+          this.model.get("timeSlot").attr({
+            "stroke-width": 0,
+            "fill": "#AC7B74",
           });
         },
 

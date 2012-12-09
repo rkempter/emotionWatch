@@ -81,7 +81,7 @@ define([
         },
 
         activateWatch: function() {
-            this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            //this.model.on("currentDataSetDone", this.model.startWatch(), this);
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
         },
