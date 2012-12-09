@@ -34,8 +34,8 @@ define([
           this.drawElement(); 
           this.drawTimeSlot(); 
 
-          this.model.on("activate", self.changeToActive);
-          this.model.on("visited", self.changeToVisited);
+          this.model.on("activate", self.changeToActive, self);
+          app.on("visited", self.changeToVisited, self);
 
         },
 
@@ -119,37 +119,42 @@ define([
         },
 
         mouseover: function() {
-          this.render();
-          this.model.get("element").attr({
-            "fill": "#A65363",
-          });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#A63112",
-          });
+          if(this.model.get("active") !== 1) {
+            this.render();
+            this.model.get("element").attr({
+              "fill": "#A65363",
+            });
+            this.model.get("timeSlot").attr({
+              "stroke-width": 0,
+              "fill": "#A63112",
+            });
+          }
         },
 
         mouseout: function() {
-          this.model.get("element").attr({
-            "fill": "#b1b1b1",
-          });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#AC7B74",
-          });
+          if(this.model.get("active") !== 1) {
+            this.model.get("element").attr({
+              "fill": "#b1b1b1",
+            });
+            this.model.get("timeSlot").attr({
+              "stroke-width": 0,
+              "fill": "#AC7B74",
+            });
 
-          this.hide();
+            this.hide();
+          }
         },
 
         changeToVisited: function() {
-          this.model.set("active", 2);
-          this.model.get("element").attr({
-
-          });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#ab4123",
-          });
+          if(this.model.get("active") === 1) {
+            this.model.set("active", 2);
+            this.model.get("element").attr({
+              "fill": "#cccccc",
+            });
+            this.model.get("timeSlot").attr({
+              "fill": "#cccccc",
+            });
+          }
         },
 
         changeToActive: function() {

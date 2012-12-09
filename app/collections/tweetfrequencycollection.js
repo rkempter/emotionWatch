@@ -19,12 +19,18 @@ define([
             this.endDateTime = options.endDateTime || undefined;
             this.interval = options.interval || undefined;
             this.network = options.network || 'twitter';
+            this.modelIndex = 0;
             
             this.viewPointer = new Array();
 
             app.on('jumpToTime', function(params) {
                 var cid = params.cid;
                 self.activateModel(cid);
+            });
+
+            app.on('change:globalTime', function() {
+                console.log("Global Time change");
+                self.setGlobalTime();
             });
 
             self.fetch({
@@ -44,6 +50,7 @@ define([
         parse: function(frequencies) {
             var self = this;
             var max = _.max(frequencies, function(element) { return element.frequency; });
+            var models = new Array();
 
             for(var i = 0; i < frequencies.length; i++) {
                 var value = frequencies[i].frequency;
@@ -62,16 +69,26 @@ define([
                     "centerPoint": self.centerPoint,
                 });
 
+                models.push(model);
+
                 var view = new tweetFrequencyView({
                     model: model
                 });
                 
                 self.viewPointer.push(view);
-
-                self.add(model);
             }
 
-            console.log(self);
+            return models;
+        },
+
+        setGlobalTime: function() {
+            var self = this;
+            console.log("index: "+self.modelIndex);
+            console.log("Model: "+self.models[self.modelIndex]);
+            var dateTime = self.models[self.modelIndex].get("localStartDateTime");
+            console.log("GlobalTimechange to "+dateTime);
+            app.trigger("set:globalTime", dateTime);
+            self.modelIndex++;
         },
 
         activateModel: function(cid) {
