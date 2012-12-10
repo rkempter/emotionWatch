@@ -24,12 +24,10 @@ define([
             this.viewPointer = new Array();
 
             app.on('jumpToTime', function(params) {
-                var cid = params.cid;
-                self.activateModel(cid);
+                self.jumpToGlobalTime(params.cid);
             });
 
             app.on('change:globalTime', function() {
-                console.log("Global Time change");
                 self.setGlobalTime();
             });
 
@@ -94,6 +92,30 @@ define([
            
             self.activeSlot = self.models[self.modelIndex];
             
+            if(null !== self.activeSlot) {
+                self.activeSlot.activate();
+            }
+
+            self.modelIndex++;
+        },
+
+        jumpToGlobalTime: function(cid) {
+            var self = this;
+            var model = self.getByCid(cid);
+
+            if(undefined != self.activeSlot) {
+                self.activeSlot.visited();
+            }
+            console.log(self.modelIndex);
+            self.modelIndex = _.indexOf(self.models, model);
+            console.log(self.modelIndex);
+            var dateTime = model.get("localStartDateTime");
+            console.log(dateTime);
+
+            app.trigger("set:globalTime", dateTime);
+
+            self.activeSlot = model;
+
             if(null !== self.activeSlot) {
                 self.activeSlot.activate();
             }

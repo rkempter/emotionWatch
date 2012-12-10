@@ -25,7 +25,7 @@ define([
                 })
             });
 
-            app.on('change:currentDateTime', function(currentDateTime) {
+            app.on('set:globalTime', function(currentDateTime) {
                 self.datetime = currentDateTime;
                 self.reset();
                 self.fetch({ 
