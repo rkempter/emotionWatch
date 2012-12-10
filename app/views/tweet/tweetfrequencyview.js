@@ -247,7 +247,7 @@ define([
         var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
         
 
-        return parseFloat(currentTimeSec / timeSpan * Constants.angle);
+        return parseFloat(currentTimeSec / timeSpan * Constants.angle) - Constants.angle / 4;
       },
 
       /**
