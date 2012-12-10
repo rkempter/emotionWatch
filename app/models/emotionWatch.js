@@ -24,11 +24,16 @@ define([
       queue: {},
     },
 
+
+    /**
+     * Initializes the watch and fetches data
+     * from the server
+     *
+     */
     initialize: function() {
       var self = this;
       this.fetch({ 
           data: $.param({
-            id: this.get("cid"),
             topic: this.get("topic"),
             startDateTime: this.get("startDate"),
             endDateTime: this.get("endDate"),
@@ -210,24 +215,37 @@ define([
      * @return pathString
      */
      
-    getCurrentEmotionShapePath: function() {
-        var dataSet = this.get("currentDataSet");
-        if(undefined !== dataSet) {
-          var firstPoint = this.getPoint(dataSet[0].value, 0);
-          var pathString = "M "+firstPoint.x+" "+firstPoint.y;
-          var previous = firstPoint;
-
-          for(var i = 1; i < 12; i++) {
-            var currentPoint = this.getPoint(dataSet[i].value, i);
-            var pathDiff = this.getRelativePoint(currentPoint, previous);
-            pathString += " l "+pathDiff.x+" "+pathDiff.y;
-            previous = currentPoint;
-          }
-
-          pathString += " Z";
-          
-          return pathString
+    getCurrentEmotionShapePath: function(options) {
+      var dateTime = options.dateTime || null;
+      console.log("Datetime:");
+      console.log(dateTime);
+      var dataSet = null;
+      if(null == dateTime) {
+        dataSet = this.get("currentDataSet");
+      } else {
+        var dateTime = options.dateTime || null;
+        console.log("OPtions empty, get time "+dateTime);
+        if(null !== dateTime) {
+          dataSet = this.get("queue")[dateTime.toMysqlFormat()];
         }
+      }
+
+      if(null !== dataSet) {
+        var firstPoint = this.getPoint(dataSet[0].value, 0);
+        var pathString = "M "+firstPoint.x+" "+firstPoint.y;
+        var previous = firstPoint;
+
+        for(var i = 1; i < 12; i++) {
+          var currentPoint = this.getPoint(dataSet[i].value, i);
+          var pathDiff = this.getRelativePoint(currentPoint, previous);
+          pathString += " l "+pathDiff.x+" "+pathDiff.y;
+          previous = currentPoint;
+        }
+
+        pathString += " Z";
+          
+        return pathString
+      }
     },
 
     /**

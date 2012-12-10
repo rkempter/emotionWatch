@@ -40,6 +40,10 @@ define([
 
         },
 
+        /**
+         * Method draws the frequency part on the paper.
+         *
+         */
         drawElement: function() {
             var self = this;
             var smallRadius = 0;
@@ -81,6 +85,10 @@ define([
 
         },
 
+        /**
+         * Draws the timeSlot element
+         *
+         */
         drawTimeSlot: function() {
           var self = this;
           var smallRadius = 0;
@@ -120,6 +128,8 @@ define([
         },
 
         mouseover: function() {
+          var dateTime = this.model.get("localStartDateTime");
+          app.trigger("preview:mouseover", dateTime);
           this.render();
           if(this.model.get("active") === 0) {
 
@@ -134,6 +144,9 @@ define([
         },
 
         mouseout: function() {
+          var dateTime = this.model.get("localStartDateTime");
+
+          app.trigger("preview:mouseout", dateTime);
           this.hide();
           if(this.model.get("active") === 0) {
             this.model.get("element").attr({
