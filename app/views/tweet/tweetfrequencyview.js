@@ -20,16 +20,13 @@ define([
           this.localStartDateTime = this.model.get("localStartDateTime");
           this.localEndDateTime = this.model.get("localEndDateTime");
           this.val = this.model.get("scaling");
-          this.centerPoint = this.model.get("centerPoint");
+
+          this.pixelLength = $(window).width();
 
           this.model.set("active", 0);
 
-          // this.model.on("change:active", )
-
-          this.leftAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime);
-          this.rightAngle = this.getAngleFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime);
-
-          // console.log(this.model.toJSON());
+          this.startPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime), "y": 100 };
+          this.endPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime), "y": 100 };
 
           this.drawElement(); 
           this.drawTimeSlot(); 
@@ -49,20 +46,19 @@ define([
             var smallRadius = 0;
             var bigRadius = Constants.frequencyRadius;
 
-            var rightBottomPoint = this.getPoint(this.centerPoint, this.val, this.leftAngle, this.radius, smallRadius);
-            var rightTopPoint = this.getPoint(this.centerPoint, this.val, this.leftAngle, this.radius, bigRadius);
-            var leftBottomPoint = this.getPoint(this.centerPoint, this.val, this.rightAngle, this.radius, smallRadius);
-            var leftTopPoint = this.getPoint(this.centerPoint, this.val, this.rightAngle, this.radius, bigRadius);
+            var leftBottomPoint = this.startPoint;
+            var leftTopPoint = this.getLinearPoint(this.startPoint, this.val, 100);
+            var rightBottomPoint = this.endPoint;
+            var rightTopPoint = this.getLinearPoint(this.endPoint, this.val, 100);
 
             var path = new Array();
-            path.push(["M", rightTopPoint.x, rightTopPoint.y]);
-            path.push(["L", leftTopPoint.x, leftTopPoint.y]);
-            //path.push(["A", bigRadius, bigRadius, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
-            path.push(["L", leftBottomPoint.x, leftBottomPoint.y]);
-            path.push(["A", smallRadius, smallRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
+            path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
+            path.push(["L", leftTopPoint.x, leftBottomPoint.y]);
+            path.push(["L", rightTopPoint.x, rightTopPoint.y]);
+            path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
             path.push(["Z"]);
 
-            var element = app.paper.path(path);
+            var element = app.frequencyPaper.path(path);
 
             element.attr({
               "stroke-width": 1,
@@ -96,20 +92,19 @@ define([
           var bigRadius = Constants.timeCircleWidth;
           var baseRadius = Constants.circleRadius;//Constants.timeCircleRadiusDifference;
 
-          var rightBottomPoint = this.getPoint(this.centerPoint, 1, this.leftAngle, baseRadius, smallRadius);
-          var rightTopPoint = this.getPoint(this.centerPoint, 1, this.leftAngle, baseRadius, bigRadius);
-          var leftBottomPoint = this.getPoint(this.centerPoint, 1, this.rightAngle, baseRadius, smallRadius);
-          var leftTopPoint = this.getPoint(this.centerPoint, 1, this.rightAngle, baseRadius, bigRadius);
+          var leftBottomPoint = this.startPoint;
+          var leftTopPoint = this.getLinearPoint(this.startPoint, this.val, 100);
+          var rightBottomPoint = this.endPoint;
+          var rightTopPoint = this.getLinearPoint(this.endPoint, this.val, 100);
         
           var path = new Array();
-          path.push(["M", rightTopPoint.x, rightTopPoint.y]);
+          path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
           path.push(["L", leftTopPoint.x, leftTopPoint.y]);
-          //path.push(["A", Constants.circleRadius+Constants.timeCircleWidth, Constants.circleRadius+Constants.timeCircleWidth, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
-          path.push(["L", leftBottomPoint.x, leftBottomPoint.y]);
-          path.push(["A", Constants.circleRadius, Constants.circleRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
+          path.push(["L", rightTopPoint.x, rightTopPoint.y]);
+          path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
           path.push(["Z"]);
 
-          var timeSlot = app.paper.path(path);
+          var timeSlot = app.frequencyPaper.path(path);
 
           timeSlot.attr({
             "stroke-width": 0,
@@ -130,37 +125,37 @@ define([
         },
 
         mouseover: function() {
-          var dateTime = this.model.get("localStartDateTime");
-          app.trigger("preview:mouseover", dateTime);
-          this.render();
-          if(this.model.get("active") === 0) {
+          // var dateTime = this.model.get("localStartDateTime");
+          // app.trigger("preview:mouseover", dateTime);
+          // this.render();
+          // if(this.model.get("active") === 0) {
 
-            this.model.get("element").attr({
-              "fill": "#A65363",
-            });
-            this.model.get("timeSlot").attr({
-              "stroke-width": 0,
-              "fill": "#A63112",
-            });
-          }
+          //   this.model.get("element").attr({
+          //     "fill": "#A65363",
+          //   });
+          //   this.model.get("timeSlot").attr({
+          //     "stroke-width": 0,
+          //     "fill": "#A63112",
+          //   });
+          // }
         },
 
         mouseout: function() {
-          var dateTime = this.model.get("localStartDateTime");
+          // var dateTime = this.model.get("localStartDateTime");
 
-          app.trigger("preview:mouseout", dateTime);
-          this.hide();
-          if(this.model.get("active") === 0) {
-            this.model.get("element").attr({
-              "fill": "#b1b1b1",
-            });
-            this.model.get("timeSlot").attr({
-              "stroke-width": 0,
-              "fill": "#AC7B74",
-            });
+          // app.trigger("preview:mouseout", dateTime);
+          // this.hide();
+          // if(this.model.get("active") === 0) {
+          //   this.model.get("element").attr({
+          //     "fill": "#b1b1b1",
+          //   });
+          //   this.model.get("timeSlot").attr({
+          //     "stroke-width": 0,
+          //     "fill": "#AC7B74",
+          //   });
 
             
-          }
+          // }
         },
 
         changeToVisited: function() {
@@ -204,9 +199,9 @@ define([
 
           var timeSlotElement = self.model.get("timeSlot");
 
-          timeSlotElement.click(function() {
-            app.trigger("jumpToTime", self.model.get("startDateTime"));
-          });
+          // timeSlotElement.click(function() {
+          //   app.trigger("jumpToTime", self.model.get("startDateTime"));
+          // });
         },
 
         bindFrequencyEvents: function() {
@@ -214,26 +209,19 @@ define([
 
           var element = self.model.get("element");
 
-          element.click(function() {
-            var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
-            app.trigger("jumpToTime", options);
-          });
+          // element.click(function() {
+          //   var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
+          //   app.trigger("jumpToTime", options);
+          // });
         },
 
 
-        /**
-       * Computes the time from a given angle.
-       *
-       * @param angle
-       * @param startDateTime of circle
-       * @param endDateTime of circle
-       * @return date
-       */
-      getTimeFromAngle: function(angle, startDateTime, endDateTime) {
-        var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
-        var timeSec = startDateTime.getTime() / 1000 + parseInt(timeSpan / Constants.angle) * angle;
 
-        return (new Date(timeSec*1000));
+      getPointFromTime: function(startDateTime, endDateTime, currentDateTime) {
+        var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
+        var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
+        
+        return parseInt(currentTimeSec / timeSpan * this.pixelLength);
       },
 
       /**
@@ -250,38 +238,16 @@ define([
 
         return difference;
       },
+      
 
+      getLinearPoint: function(refPoint, value, maxHeight) {
+        var y = parseFloat(refPoint.y - maxHeight * value);
+        var x = refPoint.x;
 
-      /**
-       * Returns the angle between starttime and currenttime.
-       *
-       * @return angle
-       */
-      getAngleFromTime: function(startDateTime, endDateTime, currentDateTime) {
-        var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
-        var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
-        
+        var point = { "x": x, "y": y };
+        console.log(point);
 
-        return parseFloat(currentTimeSec / timeSpan * Constants.angle) - Constants.angle / 4;
-      },
-
-      /**
-       * Computes a point of the emotion Shape
-       *
-       * @param centerPoint
-       * @param value
-       * @param angle
-       * @param radius
-       *
-       * @return point
-       */
-       
-      getPoint: function(centerPoint, value, angle, baseRadius, radius) {
-          var x = centerPoint.x + (baseRadius + radius * value) * Math.cos(angle);
-          var y = centerPoint.y + (baseRadius + radius * value) * Math.sin(angle);
-          var point = { "x": x, "y": y };
-
-          return point;
+        return point;
       },
 
       render: function(template) {

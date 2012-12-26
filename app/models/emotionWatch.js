@@ -71,10 +71,6 @@ define([
       this.startWatch();
     },
 
-
-
-
-
     /**
      * URL of the server
      */
@@ -87,6 +83,7 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
+      console.log("Response:");
       console.log(response);
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;

@@ -47,12 +47,21 @@ define([
 
         parse: function(frequencies) {
             var self = this;
-            var max = _.max(frequencies, function(element) { return element.frequency; });
+            console.log(frequencies);
+
+            var max = 0;
+            for(var i = 0; i < frequencies.length; i++) {
+                var freq = parseInt(frequencies[i].frequency)
+                if(max < freq) {
+                    max = freq;
+                }
+            }
+
             var models = new Array();
 
             for(var i = 0; i < frequencies.length; i++) {
                 var value = frequencies[i].frequency;
-                var scaling = parseFloat(value / max.frequency);
+                var scaling = parseFloat(value / max);  
                 
                 var localStartDateTime = new Date(self.startDateTime.getTime() + i * self.interval * 1000);
                 var localEndDateTime = new Date(self.startDateTime.getTime() + (i+1) * self.interval * 1000);

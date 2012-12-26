@@ -2,6 +2,7 @@ define([
   // Application.
   "app",
   "paperview",
+  "frequencypaperview",
   "searchview",
   "navigationview",
   "emotionwatchview",
@@ -10,7 +11,7 @@ define([
   "emotionwatchcollection",
 ],
 
-function(app, paperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
+function(app, paperView, frequencyPaperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -25,6 +26,7 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
       app.useLayout('main-layout').setViews({
         ".navigation": new navigationView(),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
+        ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
       }).render();
     },
 

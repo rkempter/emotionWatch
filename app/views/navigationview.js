@@ -137,9 +137,12 @@ define([
             event.preventDefault();
             app.paper.clear();
             this.keyword = $('#search-hashtag #hashtag-field').attr('value');
-            this.startDateTime = $('#search-hashtag #start-date-time').val();
-            this.endDateTime = $('#search-hashtag #end-date-time').val();
+            this.startDateTime = $('#search-hashtag #start-date-time').attr('value');
+            this.endDateTime = $('#search-hashtag #end-date-time').attr('value');
             this.network = $('#search-hashtag #network option:selected').attr('value');
+
+            console.log(this.startDateTime);
+            console.log(new Date(this.startDateTime));
 
             var route = Backbone.history.fragment;
 
