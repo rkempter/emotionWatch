@@ -1,29 +1,248 @@
-@import "/bootstrap/bootstrap.less";
+// @import "/bootstrap/bootstrap.less";
 
-#index{
-    .info{
-        width: 50%;
+/***** Variables *****/
+
+@white: #fff;
+@black: #000;
+
+/** Emotions **/
+
+@love: #fff;
+@pride: #fff;
+@surprise: #fff;
+@excitement: #fff;
+@joy: #fff;
+@like: #fff;
+@shame: #fff;
+@shock: #fff;
+@anxiety: #fff;
+@sadness: #fff;
+@dislike: #fff;
+@anger: #cc2b46;
+
+
+body{
+    background: @anger;
+    color: @white;
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+
+/***** Typography *****/
+
+h2{
+    font-weight: normal;
+    font-size: 24px;
+    margin: 5px 0;
+    padding: 0;
+}
+
+select{
+    font-size: 14px;
+}
+
+/** Top Navigation **/
+
+.top-navigation{
+    @nav-height: 35px;
+    font-size: 14px;
+    
+    height: @nav-height;
+    background-color: @black;
+    line-height: @nav-height;
+
+    .logo{
+        margin-left: 25px;
         float: left;
     }
+
+    .menu{
+        margin-right: 25px;
+    }
+
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    li{
+        float: left;
+        margin-left: 20px;
+        line-height: @nav-height;
+        position: relative;
+    }
+
+    #search-hashtag, #search-event{
+        display: none;
+        position: absolute;
+        z-index: 100;
+        top: @nav-height;
+        left: 0;
+        background-color: @black;
+        width: 300px;
+
+        h2{
+            font-size: 16px;
+            font-weight: normal;
+        }
+    }
+
+    li:hover #search-hashtag, li:hover #search-event{
+        display: block;
+    }
+}
+
+
+/***** Basic Layout *****/
+
+#left-column{
+    width: 29.838709677%;
+    float: left;
+}
+
+#middle-column{
+    width: 40.322580645%;
+    float: left;
+}
+
+#right-column{
+    width: 29.838709677%;
+    float: right;
+}
+
+#bottom{
+    clear:both;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 100%;
+    position:absolute;
+    bottom: 0px;
+}
+
+.inner{
+    padding: 20px;
+}
+
+/** Watch **/
+
+#index{
 
     .watch{
         position: relative;
         svg {
             position: relative !important;
         }
-        width: 50%;
+        width: 100%;
         float: right;
         height: 500px;
 
         .date-time-freq{
-            width: 50%;
+            width: 30%;
             position: absolute;
             text-align: center;
             left: 50%;
-            margin-left: -25%;
+            margin-left: -10%;
             z-index: 2;
-            top: 100px;
-            #translucent > .background(#fff, 0.5);
+            top: 170px;
+            background: rgba(255, 255, 255, 0.5);
         }
     }
 }
+
+/** Timeline **/
+
+/** Tweets / Weibos **/
+
+.title-box{
+    width: 100%;
+    border-bottom: 1px solid @white;
+
+    select{
+        float: right;
+        margin-top: -27px;
+    }
+}
+
+.tweets{
+
+    li{
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2px 5px 2px 40px;
+        margin: 10px 0;
+
+        span.date{
+            position: absolute;
+            left: -20px;
+            top: -5px  ;
+            display: block;
+            background-color: @black;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            width: 50px;
+            border-radius: 30px;
+
+            &.love{
+                border: 2px solid @white;
+            }
+            
+            &.anger{
+                border: 2px solid @anger;
+            }
+
+            &.pride{
+                border: 2px solid @pride;
+            }
+
+            &.surprise{
+                border: 2px solid @surprise;
+            }
+
+            &.excitement{
+                border: 2px solid @excitement;
+            }
+
+            &.joy{
+                border: 2px solid @joy;
+            }
+
+            &.like{
+                border: 2px solid @like;
+            }
+
+            &.shame{
+                border: 2px solid @shame;
+            }
+
+            &.shock{
+                border: 2px solid @shock;
+            }
+
+            &.anxiety{
+                border: 2px solid @anxiety;
+            }
+
+            &.sadness{
+                border: 2px solid @sadness;
+            }
+
+            &.dislike{
+                border: 2px solid @dislike;
+            }
+
+        }
+    }
+
+}
+
+/** Video **/
+
+/** Time **/

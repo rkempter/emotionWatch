@@ -1,26 +1,29 @@
-<h2>Tweets <small>Emotional Category: <%= emotion %></h2>
-<select id="emotion-category" class="pull-right" style="margin-top: -40px;">
-    <option value="all">Show all</option>
-    <option value="love">Love</option>
-    <option value="pride">Pride</option>
-    <option value="surprise">Surprise</option>
-    <option value="excitement">Excitement</option>
-    <option value="joy">Joy</option>
-    <option value="like">Like</option>
-    <option value="anger">Anger</option>
-    <option value="shame">Shame</option>
-    <option value="shock">Shock</option>
-    <option value="anxiety">Anxiety</option>
-    <option value="sadness">Sadness</option>
-    <option value="dislike">Dislike</option>
-</select>
-<ul class="unstyled">
-<% _.each(tweets, function(tweet) { %>
-    <li>
-        <blockquote class="tweet">
+<div class="inner">
+    <div class="title-box">
+        <h2>Tweets / weibos</h2>
+        <select id="emotion-category">
+            <option value="all">Show all</option>
+            <option value="love">Love</option>
+            <option value="pride">Pride</option>
+            <option value="surprise">Surprise</option>
+            <option value="excitement">Excitement</option>
+            <option value="joy">Joy</option>
+            <option value="like">Like</option>
+            <option value="anger">Anger</option>
+            <option value="shame">Shame</option>
+            <option value="shock">Shock</option>
+            <option value="anxiety">Anxiety</option>
+            <option value="sadness">Sadness</option>
+            <option value="dislike">Dislike</option>
+        </select>
+    </div>
+    <ul class="unstyled">
+    <% _.each(tweets, function(tweet) { %>
+        <li>
+            <span class="date">14:33</span>
             <p><%= tweet.get('tweet') %>
             <small><%= tweet.get('user') %>, <%= tweet.get('datetime') %> (<%= tweet.get('id') %>)</small>
-        </blockquote>
-    </li>
-<% }); %>
-</ul>
+        </li>
+    <% }); %>
+    </ul>
+</div>

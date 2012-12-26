@@ -1,22 +1,25 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <a class="brand" href="#">Olympics Emotion Project</a>
-    <ul class="nav">
-      <li>
-        <a href="/">Home</a>
+<div class="top-navigation">
+  <div class="logo">The Olympic Emotion Project</div>
+  <div class="menu">
+    <ul>
+      <li>Search event
+        <div class="search-tab" id="search-event">  
+          test
+        </div>
       </li>
-      <li>
-        <a href="#settings">Settings</a>
+      <li>Search hashtag / athlete
+        <div class="search-tab" id="search-hashtag">
+          <h2>Search for events, athletes or hashtags</h2>
+          <input type="text" id="hashtag-field" placeholder="Type a hashtag or athletes twitter name" />
+          <label for="start-date-time">Enter the Start date & time</label>
+          <input type="datetime" name="start-date-time" value="2012-08-03 19:30:00">
+          <label for="start-date-time">Enter the end date & time</label>
+          <input type="datetime" name="end-date-time" value="2012-08-03 20:50:00">
+          <button id="hashtag-search-button">Start visualization"</button>
+        </div>
       </li>
-      <li class="">
-        <a href="#search">Search</a>
-      </li>
-      <li class="">
-        <a href="#pattern">Pattern</a>
-      </li>
-      <li>
-        <a href="#about">About</a>
-      </li>
+      <li>About the project</li>
+      <li>Github</li>
     </ul>
   </div>
 </div>

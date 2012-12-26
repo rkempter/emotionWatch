@@ -23,7 +23,6 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
 
     index: function() {
       app.useLayout('main-layout').setViews({
-        ".search": new searchView(),
         ".navigation": new navigationView(),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
       }).render();
@@ -33,7 +32,6 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
       console.log("In route pattern with keyword: "+keyword);
       app.useLayout('pattern-layout').setViews({
         ".navigation": new navigationView(),
-        ".search": new searchView(),
         ".paper": new paperView(),
       }).render();
     },

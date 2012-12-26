@@ -56,7 +56,8 @@ define([
 
             var path = new Array();
             path.push(["M", rightTopPoint.x, rightTopPoint.y]);
-            path.push(["A", bigRadius, bigRadius, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
+            path.push(["L", leftTopPoint.x, leftTopPoint.y]);
+            //path.push(["A", bigRadius, bigRadius, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
             path.push(["L", leftBottomPoint.x, leftBottomPoint.y]);
             path.push(["A", smallRadius, smallRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
             path.push(["Z"]);
@@ -102,7 +103,8 @@ define([
         
           var path = new Array();
           path.push(["M", rightTopPoint.x, rightTopPoint.y]);
-          path.push(["A", Constants.circleRadius+Constants.timeCircleWidth, Constants.circleRadius+Constants.timeCircleWidth, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
+          path.push(["L", leftTopPoint.x, leftTopPoint.y]);
+          //path.push(["A", Constants.circleRadius+Constants.timeCircleWidth, Constants.circleRadius+Constants.timeCircleWidth, 0, 0, 1, leftTopPoint.x, leftTopPoint.y]);
           path.push(["L", leftBottomPoint.x, leftBottomPoint.y]);
           path.push(["A", Constants.circleRadius, Constants.circleRadius, 0, 0, 1, rightBottomPoint.x, rightBottomPoint.y]);
           path.push(["Z"]);

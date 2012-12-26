@@ -2,12 +2,18 @@ define([
     "backbone",
     "underscore",
     "jquery",
-], function(Backbone, _, $) {
+    "eventmodel"
+], function(Backbone, _, $, eventModel) {
 
     var eventCollection = Backbone.Collection.extend({
 
+        model: eventModel,
+
         initialize: function(options) {
-            this.fetch();
+            var self = this;
+            this.fetch({success: function() {
+                self.trigger('collection:complete');
+            }});
         },
 
         url: function() {

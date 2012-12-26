@@ -2,24 +2,24 @@ define([
     "backbone",
     "jquery",
     "lodash",
-    "tweetcollection",
-], function(Backbone, $, _, tweetCollection) {
+], function(Backbone, $, _) {
 
     var eventCollectionView = Backbone.View.extend({
 
         template: 'eventview',
 
         initialize: function(options) {
-            _.bindAll(this, 'render');
-            this.collection.on('add', this.render);
+
+            this.collection.bind('collection:complete', this.render, this);
         },
 
         render: function() {
-            this.template = window.JST['app/templates/eventview.html']( { events: this.collection.models } );
-            $('.event-selector').html( this.template );
+            var self = this;
+            self.template = window.JST['app/templates/eventview.html']( { events: self.collection.models } );
+            $('.search-event').html( self.template );
+            console.log( self.template );
         },  
-
-    })
+    });
 
     return eventCollectionView;
 });

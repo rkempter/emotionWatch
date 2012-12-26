@@ -10,7 +10,7 @@ define(['backbone'], function(Backbone) {
 		angle: 2*Math.PI,
 
 		circleRadius: 250,
-		frequencyRadius: 40,
+		frequencyRadius: 20,
 
 		// Time Circle Properties
 		timeCircleWidth: 20,
