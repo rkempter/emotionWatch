@@ -20,7 +20,7 @@
     <ul class="unstyled">
     <% _.each(tweets, function(tweet) { %>
         <li>
-            <span class="date">14:33</span>
+            <span class="date <%= tweet.get('emotion') %>">14:33</span>
             <p><%= tweet.get('tweet') %>
             <small><%= tweet.get('user') %>, <%= tweet.get('datetime') %> (<%= tweet.get('id') %>)</small>
         </li>

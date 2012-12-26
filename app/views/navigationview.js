@@ -14,9 +14,11 @@ define([
     "eventcollectionview",
     "eventcollection",
     "videoview",
+    "timeview",
+    "titleview",
     "plugins/bootstrap-tab",
 
-], function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView) {
+], function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView, timeView, titleView) {
 
     var navigationView = Backbone.View.extend({
 
@@ -77,6 +79,22 @@ define([
             });
         },
 
+        createTimeView: function() {
+            this.insertViews({ ".time-block": new timeView({
+                el: ".time-block",
+                })
+            });
+        },
+
+        createTitleView: function() {
+            this.insertViews( {
+                "#middle-column .keyword-title": new titleView({
+                    title: this.keyword,
+                    el: '#middle-column .keyword-title',
+                })
+            });
+        },
+
         createPatternCollection: function() {
             this.insertViews({".watch": new emotionWatchCollectionView({ 
                 collection: new emotionWatchCollection({
@@ -103,6 +121,7 @@ define([
                     this.createIndexWatch();
                     this.createIndexTweets();
                     this.createIndexVideo();
+                    this.createTimeView();
                     break;
                 case "pattern":
                     this.createPatternCollection();
@@ -125,6 +144,8 @@ define([
                     this.createIndexWatch();
                     this.createIndexTweets();
                     this.createIndexVideo();
+                    this.createTimeView();
+                    this.createTitleView(this.keyword);
                     break;
                 case "pattern":
                     this.createPatternCollection();
@@ -141,9 +162,6 @@ define([
             this.endDateTime = $('#search-hashtag #end-date-time').attr('value');
             this.network = $('#search-hashtag #network option:selected').attr('value');
 
-            console.log(this.startDateTime);
-            console.log(new Date(this.startDateTime));
-
             var route = Backbone.history.fragment;
 
             switch(route) {
@@ -151,6 +169,8 @@ define([
                     this.createIndexWatch();
                     this.createIndexTweets();
                     this.createIndexVideo();
+                    this.createTimeView();
+                    this.createTitleView();
                     break;
                 case "pattern":
                     this.createPatternCollection();

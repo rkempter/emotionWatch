@@ -245,7 +245,6 @@ define([
         var x = refPoint.x;
 
         var point = { "x": x, "y": y };
-        console.log(point);
 
         return point;
       },

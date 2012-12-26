@@ -1,7 +1,7 @@
 /***** Variables *****/
 /** Emotions **/
 body {
-  background: #cc2b46;
+  background: #a52834;
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -19,6 +19,12 @@ h2 {
 }
 select {
   font-size: 14px;
+}
+/***** Title *****/
+h1.title {
+  text-align: center;
+  font-size: 50px;
+  margin: 20px 0 0 0;
 }
 /** Top Navigation **/
 .top-navigation {
@@ -125,6 +131,10 @@ select {
   padding: 2px 5px 2px 40px;
   margin: 10px 0;
 }
+.tweets li p {
+  margin: 3px 0;
+  font-size: 13px;
+}
 .tweets li span.date {
   position: absolute;
   left: -20px;
@@ -137,41 +147,91 @@ select {
   width: 50px;
   border-radius: 30px;
 }
-.tweets li span.date.love {
-  border: 2px solid #ffffff;
+.tweets li span.date.guilt {
+  border: 2px solid #002da7;
 }
-.tweets li span.date.anger {
-  border: 2px solid #cc2b46;
+.tweets li span.date.disappointment {
+  border: 2px solid #0032a7;
 }
-.tweets li span.date.pride {
-  border: 2px solid #ffffff;
+.tweets li span.date.envy {
+  border: 2px solid #004eac;
 }
-.tweets li span.date.surprise {
-  border: 2px solid #ffffff;
+.tweets li span.date.disgust {
+  border: 2px solid #187aac;
 }
-.tweets li span.date.excitement {
-  border: 2px solid #ffffff;
+.tweets li span.date.contempt {
+  border: 2px solid #43acb0;
+}
+.tweets li span.date.irritation {
+  border: 2px solid #3ea67c;
+}
+.tweets li span.date.involvement {
+  border: 2px solid #3fa652;
+}
+.tweets li span.date.amusement {
+  border: 2px solid #40a630;
 }
 .tweets li span.date.joy {
-  border: 2px solid #ffffff;
+  border: 2px solid #6da529;
 }
-.tweets li span.date.like {
-  border: 2px solid #ffffff;
+.tweets li span.date.tenderness {
+  border: 2px solid #b1992d;
 }
-.tweets li span.date.shame {
-  border: 2px solid #ffffff;
+.tweets li span.date.wonderment {
+  border: 2px solid #ac6b1e;
 }
-.tweets li span.date.shock {
-  border: 2px solid #ffffff;
+.tweets li span.date.relief {
+  border: 2px solid #a83f14;
 }
-.tweets li span.date.anxiety {
-  border: 2px solid #ffffff;
+.tweets li span.date.surprise {
+  border: 2px solid #a5270f;
+}
+.tweets li span.date.longing {
+  border: 2px solid #a52834;
+}
+.tweets li span.date.pity {
+  border: 2px solid #a32e68;
 }
 .tweets li span.date.sadness {
-  border: 2px solid #ffffff;
+  border: 2px solid #a3379c;
 }
-.tweets li span.date.dislike {
-  border: 2px solid #ffffff;
+.tweets li span.date.worry {
+  border: 2px solid #7e36ac;
+}
+.tweets li span.date.shame {
+  border: 2px solid #4c2fab;
 }
 /** Video **/
+#player {
+  width: 100%;
+}
 /** Time **/
+#start-stop-control {
+  width: 50px;
+  height: 50px;
+  background: #000;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  position: absolute;
+  line-height: 50px;
+  text-align: center;
+  left: -30px;
+  top: -10px;
+}
+.time-box {
+  position: relative;
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px;
+}
+.time-box .date {
+  font-size: 30px;
+  text-align: right;
+  display: block;
+}
+.time-box .time {
+  font-size: 60px;
+  text-align: right;
+  display: block;
+}

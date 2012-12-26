@@ -17,6 +17,7 @@ define(['backbone'], function(Backbone) {
 		timeCircleBaseColor: '#ccc',
 		timeCircleTimeColor: '#2590A6',
         timeCircleRadiusDifference: 10,
+        timeCircleMaxThickness: 50,
 
         centerZeroCircleRadius: 20,
 
@@ -26,5 +27,45 @@ define(['backbone'], function(Backbone) {
 		emotionShapeStrokeColor: '#aaaaaa',
 
 		labels: new Array('Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'),
+	
+		nullEmotion:
+			[
+				{ emotion: "love",
+				  value: 0 
+				},
+				{ emotion: "pride",
+				  value: 0 
+				},
+				{ emotion: "surprise",
+				  value: 0 
+				},
+				{ emotion: "excitement",
+				  value: 0 
+				},
+				{ emotion: "joy",
+				  value: 0 
+				},
+				{ emotion: "like",
+				  value: 0 
+				},
+				{ emotion: "anger",
+				  value: 0 
+				},
+				{ emotion: "shame",
+				  value: 0 
+				},
+				{ emotion: "shock",
+				  value: 0 
+				},
+				{ emotion: "anxiety",
+				  value: 0 
+				},
+				{ emotion: "sadness",
+				  value: 0 
+				},
+				{ emotion: "dislike",
+				  value: 0 
+				},
+			]
 	}
 })

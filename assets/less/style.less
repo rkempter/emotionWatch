@@ -7,22 +7,29 @@
 
 /** Emotions **/
 
-@love: #fff;
-@pride: #fff;
-@surprise: #fff;
-@excitement: #fff;
-@joy: #fff;
-@like: #fff;
-@shame: #fff;
-@shock: #fff;
-@anxiety: #fff;
-@sadness: #fff;
-@dislike: #fff;
-@anger: #cc2b46;
-
+@involvement: #3fa652;
+@amusement: #40a630;
+@pride: #4da62a;
+@joy: #6da529;
+@enjoyment: #94aa2d;
+@tenderness: #b1992d;
+@wonderment: #ac6b1e;
+@relief: #a83f14;
+@surprise: #a5270f;
+@longing: #a52834;
+@pity: #a32e68;
+@sadness: #a3379c;
+@worry: #7e36ac;
+@shame: #4c2fab;
+@guilt: #002da7;
+@disappointment: #0032a7;
+@envy: #004eac;
+@disgust: #187aac;
+@contempt: #43acb0;
+@irritation: #3ea67c;
 
 body{
-    background: @anger;
+    background: @longing;
     color: @white;
     margin: 0;
     padding: 0;
@@ -44,6 +51,14 @@ h2{
 
 select{
     font-size: 14px;
+}
+
+/***** Title *****/
+
+h1.title{
+    text-align: center;
+    font-size: 50px;
+    margin: 20px 0 0 0;
 }
 
 /** Top Navigation **/
@@ -178,6 +193,11 @@ select{
         padding: 2px 5px 2px 40px;
         margin: 10px 0;
 
+        p{
+            margin: 3px 0;
+            font-size: 13px;
+        }
+
         span.date{
             position: absolute;
             left: -20px;
@@ -190,52 +210,76 @@ select{
             width: 50px;
             border-radius: 30px;
 
-            &.love{
-                border: 2px solid @white;
+            &.guilt{
+                border: 2px solid @guilt;
+            }
+
+            &.disappointment{
+                border: 2px solid @disappointment;
+            }
+
+            &.envy{
+                border: 2px solid @envy;
+            }
+
+            &.disgust{
+                border: 2px solid @disgust;
+            }
+
+            &.contempt{
+                border: 2px solid @contempt;
+            }
+
+            &.irritation{
+                border: 2px solid @irritation;
+            }
+
+            &.involvement{
+                border: 2px solid @involvement;
             }
             
-            &.anger{
-                border: 2px solid @anger;
-            }
-
-            &.pride{
-                border: 2px solid @pride;
-            }
-
-            &.surprise{
-                border: 2px solid @surprise;
-            }
-
-            &.excitement{
-                border: 2px solid @excitement;
+            &.amusement{
+                border: 2px solid @amusement;
             }
 
             &.joy{
                 border: 2px solid @joy;
             }
 
-            &.like{
-                border: 2px solid @like;
+            &.tenderness{
+                border: 2px solid @tenderness;
             }
 
-            &.shame{
-                border: 2px solid @shame;
+            &.wonderment{
+                border: 2px solid @wonderment;
             }
 
-            &.shock{
-                border: 2px solid @shock;
+            &.relief{
+                border: 2px solid @relief;
             }
 
-            &.anxiety{
-                border: 2px solid @anxiety;
+            &.surprise{
+                border: 2px solid @surprise;
+            }
+
+            &.longing{
+                border: 2px solid @longing;
+            }
+
+            &.pity{
+                border: 2px solid @pity;
             }
 
             &.sadness{
                 border: 2px solid @sadness;
             }
 
-            &.dislike{
-                border: 2px solid @dislike;
+            &.worry{
+                border: 2px solid @worry;
+            }
+
+            &.shame{
+                border: 2px solid @shame;
             }
 
         }
@@ -245,4 +289,40 @@ select{
 
 /** Video **/
 
+#player{
+    width: 100%;
+}
+
 /** Time **/
+
+#start-stop-control{
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    position: absolute;
+    line-height: 50px;
+    text-align: center;
+    left: -30px;
+    top: -10px;
+}
+
+.time-box{
+    position: relative;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px;
+
+    .date{
+        font-size: 30px;
+        text-align: right;
+        display: block;
+    }
+    .time{
+        font-size: 60px;
+        text-align: right;
+        display: block;
+    }
+}

@@ -22,6 +22,7 @@ define([
       iterationLength: 4500,
       animationType: "ease-out",
       queue: {},
+      freqQueue: {},
     },
 
 
@@ -45,6 +46,7 @@ define([
       app.on("set:globalTime", function(dateTime) {
         console.log("Global Time arrived: "+dateTime);
         self.setCurrentTime(dateTime);
+        self.setCurrentFrequencyRatio(dateTime);
         self.setCurrentDataSet();
         self.trigger("changevalues");
       });
@@ -83,12 +85,16 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log("Response:");
-      console.log(response);
+      this.set("maxFrequency", 0);
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;
+        var freq = response[i].frequency;
+        if(freq > this.get("maxFrequency")) {
+          this.set("maxFrequency", freq);
+        }
         var dateTime = new Date(response[i].dateTime);
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
+        this.get("freqQueue")[dateTime.toMysqlFormat()] = freq;
         if(false == this.get("initialized")) {
             this.trigger("setdataset");
         }
@@ -99,13 +105,25 @@ define([
       this.trigger("parsed");
     },
 
-     /**
+    /**
      * setCurrentTime: Adds the timeStep to the previous time to advance in time.
      * Sets the new time to the variable currentDateTime.
      */
     setCurrentTime: function(dateTime) {
         this.set("currentDateTime", new Date(dateTime.toMysqlFormat()));
         this.trigger('change:currentDateTime', this.get('currentDateTime'));
+    },
+
+    
+    setCurrentFrequencyRatio: function(dateTime) {
+      var dateTime = this.get("currentDateTime");
+      if(undefined == this.get("freqQueue")[dateTime.toMysqlFormat()]) {
+        this.set("currentFrequencyRatio", 0)
+      } else {
+        this.set("currentFrequencyRatio", this.get("freqQueue")[dateTime.toMysqlFormat()] / this.get("maxFrequency") );
+      }
+      console.log("Frequency ratio:");
+      console.log(this.get("currentFrequencyRatio"));
     },
 
     /**
@@ -116,7 +134,11 @@ define([
      */
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
-        this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
+        if(undefined == this.get("queue")[dateTime.toMysqlFormat()]) {
+          this.set("currentDataSet", Constants.nullEmotion)
+        } else {
+          this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
+        }
     },
 
     /**
@@ -215,14 +237,11 @@ define([
      
     getCurrentEmotionShapePath: function(options) {
       var dateTime = options.dateTime || null;
-      console.log("Datetime:");
-      console.log(dateTime);
       var dataSet = null;
       if(null == dateTime) {
         dataSet = this.get("currentDataSet");
       } else {
         var dateTime = options.dateTime || null;
-        console.log("OPtions empty, get time "+dateTime);
         if(null !== dateTime) {
           dataSet = this.get("queue")[dateTime.toMysqlFormat()];
         }
