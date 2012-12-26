@@ -13,7 +13,6 @@ define([
             _.bindAll(this, 'render');
 
             this.collection.bind('add', this.render, this);
-
         },
 
         events: {

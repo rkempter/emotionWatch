@@ -2,6 +2,7 @@ define([
   // Application.
   "app",
   "paperview",
+  "frequencypaperview",
   "searchview",
   "navigationview",
   "emotionwatchview",
@@ -10,7 +11,7 @@ define([
   "emotionwatchcollection",
 ],
 
-function(app, paperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
+function(app, paperView, frequencyPaperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -23,9 +24,9 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
 
     index: function() {
       app.useLayout('main-layout').setViews({
-        ".search": new searchView(),
         ".navigation": new navigationView(),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
+        ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
       }).render();
     },
 
@@ -33,7 +34,6 @@ function(app, paperView, searchView, navigationView, emotionWatchView, emotionWa
       console.log("In route pattern with keyword: "+keyword);
       app.useLayout('pattern-layout').setViews({
         ".navigation": new navigationView(),
-        ".search": new searchView(),
         ".paper": new paperView(),
       }).render();
     },

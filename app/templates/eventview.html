@@ -1,17 +1,10 @@
-<div class="row">
-    <div class="span12">
-        <select id="events">
-           <!--  <% _.each(events, function(event) { %>
-                <option data-startdatetime="<%= event.get('startDateTime') %>" data-enddatetime="<%= event.get('endDateTime') %>" data-hashtag="#gymnastics"><%= event.get('sport') %> - <%= event.get('event') %> - <%= event.get('gender') %> (<%= event.get('eventDate') %>)</option>
-            <% }); %> -->
-            <option data-startdatetime="2012-07-28 19:30:00" data-enddatetime="2012-07-28 21:35:00" data-hashtag="#gymnastics">Swimming 2012-07-28 19:30:00 - 2012-07-28 21:35:00</option>
-            <option data-startdatetime="2012-07-31 19:30:00" data-enddatetime="2012-07-31 21:30:00" data-hashtag="#gymnastics">Swimming 2012-07-31 19:30:00 - 2012-07-31 21:30:00</option>
-            <option data-startdatetime="2012-08-02 16:30:00" data-enddatetime="2012-08-02 18:30:00" data-hashtag="#gymnastics">Individual All-Around: final, victory ceremony 2012-08-02 16:30:00 - 2012-08-02 18:30:00</option>
-        </select>
-        <select id="network-event-selector">
-            <option value="twitter">Twitter</option>
-            <option value="weibo">Weibo</option>
-        </select>
-        <button type="submit" class="search-event-btn btn">Create new emotion watch</button>
-    </div>
-</div>
+<select id="events">
+     <% _.each(events, function(event) { %>
+         <option data-startdatetime="<%= event.get('startDateTime') %>" data-enddatetime="<%= event.get('endDateTime') %>" data-hashtag="#gymnastics"><%= event.get('sport') %> - <%= event.get('event') %> - <%= event.get('gender') %> (<%= event.get('eventDate') %>)</option>
+     <% }); %>
+ </select>
+ <select id="network-event-selector">
+     <option value="twitter">Twitter</option>
+     <option value="weibo">Weibo</option>
+ </select>
+ <button type="submit" class="search-event-btn btn">Create new emotion watch</button>

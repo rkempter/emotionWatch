@@ -35,6 +35,7 @@ require.config({
 
     // views
     paperview: "views/paperview",
+    frequencypaperview: "views/frequencypaperview",
     videoview: "views/videoview",
     emotionwatchview: "views/emotionwatchview",
     searchview: "views/searchview",
