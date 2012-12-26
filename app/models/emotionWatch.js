@@ -122,8 +122,6 @@ define([
       } else {
         this.set("currentFrequencyRatio", this.get("freqQueue")[dateTime.toMysqlFormat()] / this.get("maxFrequency") );
       }
-      console.log("Frequency ratio:");
-      console.log(this.get("currentFrequencyRatio"));
     },
 
     /**
@@ -134,11 +132,14 @@ define([
      */
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
-        if(undefined == this.get("queue")[dateTime.toMysqlFormat()]) {
+        var dataset = this.get("queue")[dateTime.toMysqlFormat()]
+        if(undefined == dataset) {
           this.set("currentDataSet", Constants.nullEmotion)
         } else {
-          this.set("currentDataSet", this.get("queue")[dateTime.toMysqlFormat()]);
+          this.set("currentDataSet", dataset);
         }
+
+        this.getDominantEmotion();
     },
 
     /**
@@ -193,6 +194,22 @@ define([
       var timeSec = this.get("startDate").getTime() / 1000 + parseInt(timeSpan / Constants.angle) * angle;
 
       return (new Date(timeSec*1000));
+    },
+
+    getDominantEmotion: function() {
+      var dataset = this.get("currentDataSet");
+
+      var emotion = null;
+      var max = 0;
+      for(var i = 0; i < dataset.length; i++) {
+        var emotionset = dataset[i];
+        if(max < dataset[i].value) {
+          max = dataset[i].value;
+          emotion = dataset[i].emotion;
+        }
+      }
+
+      $('body').attr('class', emotion);
     },
 
 
