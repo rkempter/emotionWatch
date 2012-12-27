@@ -32,11 +32,21 @@ define([
             'click #search-hashtag #hashtag-search-button': 'triggerHashtagSearch',
         },
 
-        initialize: function() {
+        initialize: function(options) {
             this.insertViews({ "#search-event": new eventCollectionView({
                     collection: new eventCollection(),
                 })
             });
+            var options = options || {};
+            var keyword = options.keyword || null;
+
+            if(null !== keyword) {
+                this.hashtag = '#'+keyword;
+                this.createIndexWatch();
+                this.createIndexTweets();
+                this.createIndexVideo();
+                this.createTimeView();
+            }
 
             this.hashtag = "#gymnastics"
         },
@@ -116,8 +126,10 @@ define([
 
             var route = Backbone.history.fragment;
 
+            console.log(route);
+
             switch(route) {
-                case "": 
+                case "search": 
                     this.createIndexWatch();
                     this.createIndexTweets();
                     this.createIndexVideo();
@@ -164,8 +176,10 @@ define([
 
             var route = Backbone.history.fragment;
 
+            console.log(route);
+
             switch(route) {
-                case "":
+                case "search":
                     this.createIndexWatch();
                     this.createIndexTweets();
                     this.createIndexVideo();

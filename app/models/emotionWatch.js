@@ -8,9 +8,9 @@ define([
   var emotionWatch = Backbone.Model.extend({
     
     defaults: {
-      startDate: new Date("July 29, 2012 16:00:00"),
-      endDate: new Date("July 29, 2012 20:00:00"),
-      currentDateTime: new Date("July 29, 2012 16:21:00"),
+      startDate: new Date("July 27, 2012 16:00:00"),
+      endDate: new Date("August 31, 2012 20:00:00"),
+      currentDateTime: new Date("July 27, 2012 16:21:00"),
       network: "twitter",
       timeStep: 120,
       dataQueue: null,

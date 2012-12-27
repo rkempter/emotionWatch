@@ -60,7 +60,40 @@ define([
         },
 
         parse: function(response) {
+            for(var i = 0; i < response.length; i++) {
+                var text = response[i].tweet;
+                console.log(text);
+                text = this.replaceHashtags(text);
+                console.log(text);
+                text = this.replaceUsers(text);
+                console.log(text);
+                response[i].tweet = text;
+            }
             this.add(response);
+        },
+
+        replaceHashtags: function(text) {
+            console.log(text);
+            var hashtags = text.match(/\B#\w+/gi);
+            for(var i = 0; i < hashtags.length; i++) {
+                var url = './search/hashtag/'+hashtags[i];
+                var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
+                text = text.replace(hashtags[i], replacement);
+                console.log(text);
+            }
+
+            return text;
+        },
+
+        replaceUsers: function(text) {
+            var hashtags = text.match(/\B@\w+/gi);
+            for(var i = 0; i < hashtags.length; i++) {
+                var url = './search/user/'+hashtags[i];
+                var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
+                text = text.replace(hashtags[i], replacement);
+            }
+
+            return text;
         },
     });
 

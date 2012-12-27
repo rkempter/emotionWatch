@@ -21,6 +21,8 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       "": "index",
       "about/": "about",
       "search": "search",
+      "search/person/:name": "search",
+      "search/keyword/:keyword": "search",
       "pattern": "pattern",
     },
 
@@ -38,11 +40,14 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       }).render();
     },
 
-    search: function() {
+    search: function(keyword) {
+      var options = {};
+      options.keyword = keyword || null;
+
       app.useLayout('main-layout').setViews({
-        ".navigation": new navigationView(),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
+        ".navigation": new navigationView(options),
       }).render();
     },
 

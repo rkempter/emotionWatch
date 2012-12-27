@@ -145,6 +145,23 @@ svg {
   z-index: 100;
   text-align: center;
 }
+.welcome input {
+  margin: 5px auto;
+  width: 60%;
+  display: block;
+}
+.welcome .left {
+  margin: 0 2% 0 2%;
+  width: 45%;
+  float: left;
+}
+.welcome .right {
+  border-left: 1px solid #fff;
+  padding-left: 2%;
+  margin: 0 0 0 2%;
+  width: 45%;
+  float: right;
+}
 /** Watch **/
 #index .watch {
   position: relative;
