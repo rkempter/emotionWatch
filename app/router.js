@@ -9,20 +9,36 @@ define([
   "emotionwatchcollectionview",
   "tweetcollectionview",
   "emotionwatchcollection",
+  "welcomeview",
+  "emotioncollectionview",
 ],
 
-function(app, paperView, frequencyPaperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection) {
+function(app, paperView, frequencyPaperView, searchView, navigationView, emotionWatchView, emotionWatchCollectionView, tweetCollectionView, emotionWatchCollection, welcomeView, emotionCollectionView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
       "": "index",
       "about/": "about",
-      "search/:topic": "search",
+      "search": "search",
       "pattern": "pattern",
     },
 
     index: function() {
+      app.useLayout('frontpage').setViews({
+        ".paper": new emotionCollectionView({
+          "width": "100%",
+          "height": "100%",
+          "x": 0,
+          "y": 0,
+        }),
+        ".welcome": new welcomeView({
+          "el": ".welcome",
+        }),
+      }).render();
+    },
+
+    search: function() {
       app.useLayout('main-layout').setViews({
         ".navigation": new navigationView(),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
@@ -35,29 +51,6 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       app.useLayout('pattern-layout').setViews({
         ".navigation": new navigationView(),
         ".paper": new paperView(),
-      }).render();
-    },
-
-    search: function( topic ) {
-      var paperViewElement = new paperView();
-      var paperObject = paperViewElement.getPaper();
-      var emotionView = new emotionWatchView(
-        { model: new emotionWatch({ 
-            paper: paperObject, 
-            emotionCircleRadius: 300,
-            topic: topic,
-            startDate: new Date('July 28, 2012 18:00:00'),
-            currentDateTime: new Date('July 28, 2012 18:00:00'),
-            endDate: new Date('July 28, 2012 22:00:00'),
-            centerPoint: {"x": 600, "y": 400},
-            positionX: 600, 
-            positionY: 400
-          }) 
-        });
-
-      app.useLayout().setViews({
-        ".paper": new paperView({
-        })
       }).render();
     },
 

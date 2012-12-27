@@ -1,7 +1,7 @@
 /***** Variables *****/
 /** Emotions **/
 body {
-  background: #a52834;
+  background: #0173d6;
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -34,6 +34,9 @@ body.surprise {
 }
 body.worry {
   background: #7e36ac;
+}
+body.frontpage {
+  background: #0173d6;
 }
 ul {
   margin: 0 0 0 20px;
@@ -123,6 +126,24 @@ h1.title {
 }
 .inner {
   padding: 20px;
+}
+/***** FRONTPAGE *****/
+svg {
+  position: relative;
+  top: 0;
+}
+.welcome {
+  background: #0173d6;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  margin: -300px 28% 0 28%;
+  padding: 2%;
+  z-index: 100;
+  text-align: center;
 }
 /** Watch **/
 #index .watch {

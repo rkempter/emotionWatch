@@ -15,6 +15,8 @@ define([
 			initialize: function(options) {
 				var options = options || {};
 				var parent = options.parent || null;
+				var width = options.width || Constants.paperWidth;
+				var height = options.height || Constants.paperHeight;
 				var x = options.x || null;
 				var y = options.y || null;
 
@@ -22,9 +24,9 @@ define([
 					app.paper = Raphael($(parent), 0, "100%", 600);
 					app.paper.setViewBox(0, 0, 800, 800, false);
 				} else if(null !== x && null !== y) {
-					app.paper = Raphael(x, y, Constants.paperWidth, Constants.paperHeight);
+					app.paper = Raphael(x, y, width, height);
 				} else {
-					app.paper = Raphael(0, 140, Constants.paperWidth, Constants.paperHeight);
+					app.paper = Raphael(0, 140, width, height);
 				}
 
 				var self = this;

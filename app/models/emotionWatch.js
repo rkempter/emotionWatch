@@ -183,6 +183,35 @@ define([
     },
 
     /**
+     * Returns the path of the timeline
+     *
+     * @return pathString
+     */
+     
+    getCurrentTimeLinePath: function() {
+        var newAngle = this.getTimeLineAngle();
+        var radius = this.get("emotionCircleRadius")+Constants.timeCircleRadiusDifference;
+        
+        var sx = this.get("centerPoint").x;
+        var sy = this.get("centerPoint").y - radius; // Y is 0 at the top of the canvas
+    
+        var endPointX = this.get("centerPoint").x + radius * Math.sin(newAngle);
+        var endPointY = this.get("centerPoint").y - radius * Math.cos(newAngle);
+    
+        var halfTimeFlag = 0;
+    
+        if (newAngle > Constants.angle / 2) {
+          halfTimeFlag = +1;
+        }
+        if (newAngle >= Constants.angle) {
+          newAngle = Constants.angle - 0.1;
+          this.seconds = 0;
+        }
+
+        return [["M", sx, sy], ["A", radius, radius, 0, halfTimeFlag, 1, endPointX, endPointY]];
+    },
+
+    /**
      * Computes the time from a given angle.
      *
      * @param angle
