@@ -20,22 +20,28 @@ require.config({
     raphael: "../assets/js/libs/raphael.amd",
     queue: "../assets/js/libs/Queue.compressed",
     constants: "constants",
+    util: "util",
 
     // models
+    emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetmodel: "models/tweetmodel",
     eventmodel: "models/eventmodel",
     tweetfrequencymodel: "models/tweetfrequencymodel",
 
     // collection
+    emotioncollection: "collections/frontpage/emotioncollection",
     emotionwatchcollection: "collections/emotionwatchcollection",
     tweetcollection: "collections/tweetcollection",
     eventcollection: "collections/eventcollection",
     tweetfrequencycollection: "collections/tweetfrequencycollection",
 
     // views
+    emotioncollectionview: "views/frontpage/emotioncollectionview",
+    emotionview: "views/frontpage/emotionview",
     paperview: "views/paperview",
     timeview: "views/timeview",
+    welcomeview: "views/frontpage/welcomeview",
     titleview: "views/titleview",
     frequencypaperview: "views/frequencypaperview",
     videoview: "views/videoview",
@@ -51,7 +57,7 @@ require.config({
     templates: "templates",
     printletters: "../assets/js/plugins/Raphael-printletters",
 
-    util: "util",
+    
 
     //sanchez: "../assets/js/libs/sanchez_400.font",
     

@@ -27,9 +27,10 @@
 @disgust: #187aac;
 @contempt: #43acb0;
 @irritation: #3ea67c;
+@olympicBlue: #0173d6;
 
 body{
-    background: @longing;
+    background: @olympicBlue;
     color: @white;
     margin: 0;
     padding: 0;
@@ -69,6 +70,10 @@ body{
 
     &.worry{
         background: @worry;
+    }
+
+    &.frontpage{
+        background: @olympicBlue;
     }
 }
 
@@ -182,6 +187,48 @@ h1.title{
     padding: 20px;
 }
 
+
+/***** FRONTPAGE *****/
+
+svg{
+    position: relative;
+    top: 0;
+}
+
+.welcome{
+    background: @olympicBlue;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    border: 1px solid @white;
+    color: @white;
+    margin: -300px 28% 0 28%;
+    padding: 2%;
+    z-index: 100;
+    text-align: center;
+
+    input{
+        margin: 5px auto;
+        width: 60%;
+        display: block;
+    }
+
+    .left{
+        margin: 0 2% 0 2%;
+        width: 45%;
+        float: left;
+    }
+
+    .right{
+        border-left: 1px solid #fff;
+        padding-left: 2%;
+        margin: 0 0 0 2%;
+        width: 45%;
+        float: right;
+    }
+}
+
 /** Watch **/
 
 #index{
@@ -223,6 +270,10 @@ h1.title{
 }
 
 .tweets{
+
+    a{
+        color: @white;
+    }
 
     li{
         position: relative;
