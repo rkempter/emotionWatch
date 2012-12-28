@@ -13,6 +13,8 @@ define([
             app.paper = Raphael(0, 0, "100%", "100%");
 
             this.model = new emotionCollection();
+
+            this.el = app.paper.canvas;
         },
 
     });
