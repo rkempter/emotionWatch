@@ -41,6 +41,7 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
     },
 
     search: function(keyword) {
+      console.log("In search");
       var options = {};
       options.keyword = keyword || null;
 

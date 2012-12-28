@@ -74,9 +74,9 @@ define([
 
         replaceHashtags: function(text) {
             console.log(text);
-            var hashtags = text.match(/\B#\w+/gi);
+            var hashtags = text.match(/\B#\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
-                var url = './search/hashtag/'+hashtags[i];
+                var url = '/search/keyword/'+hashtags[i].slice(1);
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
                 text = text.replace(hashtags[i], replacement);
                 console.log(text);
@@ -86,9 +86,9 @@ define([
         },
 
         replaceUsers: function(text) {
-            var hashtags = text.match(/\B@\w+/gi);
+            var hashtags = text.match(/\B@\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
-                var url = './search/user/'+hashtags[i];
+                var url = '/search/user/'+hashtags[i].slice(1);
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
                 text = text.replace(hashtags[i], replacement);
             }

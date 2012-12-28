@@ -192,6 +192,9 @@ svg {
   float: right;
   margin-top: -27px;
 }
+.tweets a {
+  color: #ffffff;
+}
 .tweets li {
   position: relative;
   background-color: rgba(255, 255, 255, 0.1);

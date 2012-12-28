@@ -80,6 +80,12 @@ define([
             this.model.get("emotionShape").mouseout(function(){
                 self.mouseleave();
             });
+
+            this.model.get("emotionShape").click(function() {
+                console.log("Click");
+                app.router.navigate('search/keyword/'+self.model.get("label").slice(1), true);
+            });
+
             this.model.get("emotionShape").toBack();
         },
 
