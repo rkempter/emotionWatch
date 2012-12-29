@@ -24,7 +24,9 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       "search/person/:name": "search",
       "search/keyword/:keyword": "search",
       "search/:network/keyword/:keyword/:startDateTime/:endDateTime": 'search',
-      "search/:network/user/:user/:startdatetime/:enddatetime(/:currentdatetime)": 'search',
+      "search/:network/keyword/:keyword/:startDateTime/:endDateTime/:currentDateTime": 'search',
+      "search/:network/user/:user/:startdatetime/:enddatetime": 'search',
+      "search/:network/user/:user/:startdatetime/:enddatetime/:currentDateTime": 'search',
       "pattern": "pattern",
     },
 
