@@ -31,7 +31,8 @@ define([
      * from the server
      *
      */
-    initialize: function() {
+    initialize: function(options) {
+      console.log(options);
       var self = this;
       this.fetch({ 
           data: $.param({

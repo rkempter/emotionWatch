@@ -23,6 +23,8 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       "search": "search",
       "search/person/:name": "search",
       "search/keyword/:keyword": "search",
+      "search/:network/keyword/:keyword/:startDateTime/:endDateTime": 'search',
+      "search/:network/user/:user/:startdatetime/:enddatetime(/:currentdatetime)": 'search',
       "pattern": "pattern",
     },
 
@@ -34,16 +36,18 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
           "x": 0,
           "y": 0,
         }),
-        ".welcome": new welcomeView({
-          "el": ".welcome",
-        }),
+        ".welcome": new welcomeView(),
       }).render();
     },
 
-    search: function(keyword) {
+    search: function(network, keyword, startDateTime, endDateTime, currentDateTime) {
       console.log("In search");
       var options = {};
       options.keyword = keyword || null;
+      options.network = network || 'twitter',
+      options.startDateTime = startDateTime || "2012-07-26 00:00:00";
+      options.endDateTime = endDateTime || "2012-08-13 14:00:00";
+      options.currentDateTime = currentDateTime || options.startDateTime;
 
       app.useLayout('main-layout').setViews({
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),

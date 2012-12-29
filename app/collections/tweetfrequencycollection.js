@@ -20,6 +20,8 @@ define([
             this.interval = options.interval || undefined;
             this.network = options.network || 'twitter';
             this.modelIndex = 0;
+
+            console.log("Startdatetime: "+this.startDateTime);
             
             this.viewPointer = new Array();
 

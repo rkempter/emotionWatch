@@ -40,21 +40,29 @@ define([
             var options = options || {};
             var keyword = options.keyword || null;
 
+            this.startDateTime = parseInt(options.startDateTime) || "2012-07-26 00:00:00";
+            this.endDateTime = parseInt(options.endDateTime) || "2012-08-13 24:00:00";
+            this.currentDateTime = options.currentDateTime || this.startDateTime;
+            this.network = options.network || 'twitter';
+            this.timeStep = 24*60*60;
+
             if(null !== keyword) {
-                this.hashtag = '#'+keyword;
+                console.log(keyword);
+                this.keyword = '#'+keyword;
                 this.createIndexWatch();
                 this.createIndexTweets();
                 this.createIndexVideo();
                 this.createTimeView();
+                this.createTitleView();
             }
-
-            this.hashtag = "#gymnastics"
+            
         },
 
         createIndexWatch: function() {
             var watch = new emotionWatch({ 
                                 paper: app.paper, 
                                 emotionCircleRadius: 250,
+                                timeStep: this.timeStep,
                                 startDate: new Date(this.startDateTime),
                                 currentDateTime: new Date(this.startDateTime),
                                 endDate: new Date(this.endDateTime),
@@ -82,7 +90,7 @@ define([
             this.insertViews({ ".tweets": new tweetCollectionView({
                     el: ".tweets",
                     collection: new tweetCollection({
-                        hashtag: this.hashtag,
+                        hashtag: this.keyword,
                         network: this.network,
                     }),
                 })
@@ -91,7 +99,7 @@ define([
 
         createTimeView: function() {
             this.insertViews({ ".time-block": new timeView({
-                el: ".time-block",
+                    el: ".time-block",
                 })
             });
         },
@@ -122,7 +130,7 @@ define([
             event.preventDefault();
             app.paper.clear();
             this.keyword = $('#search-form #keyword').val();
-            this.startdate = $('#search-form select option:selected').attr('value');
+            this.startDateTime = $('#search-form select option:selected').attr('value');
 
             var route = Backbone.history.fragment;
 

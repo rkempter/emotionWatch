@@ -65,7 +65,6 @@ define([
 
             // Initialize new frequency view
             self.frequencyCollection = new tweetFrequencyCollection({
-                centerPoint: self.model.get("centerPoint"),
                 startDateTime: self.model.get("startDate"),
                 endDateTime: self.model.get("endDate"),
                 network: self.model.get("network"),
