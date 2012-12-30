@@ -21,6 +21,8 @@ define(['backbone'], function(Backbone) {
 
         centerZeroCircleRadius: 20,
 
+        patternCircleRadius: 100,
+
 
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',

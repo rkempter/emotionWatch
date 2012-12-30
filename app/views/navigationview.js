@@ -40,22 +40,45 @@ define([
             var options = options || {};
             var keyword = options.keyword || null;
 
+            var mode = options.mode || 'search';
+
             this.startDateTime = parseInt(options.startDateTime) || "2012-07-26 00:00:00";
             this.endDateTime = parseInt(options.endDateTime) || "2012-08-13 24:00:00";
             this.currentDateTime = options.currentDateTime || this.startDateTime;
             this.network = options.network || 'twitter';
             this.timeStep = 24*60*60;
 
-            if(null !== keyword) {
-                console.log(keyword);
-                this.keyword = '#'+keyword;
-                this.createIndexWatch();
-                this.createIndexTweets();
-                this.createIndexVideo();
-                this.createTimeView();
-                this.createTitleView();
+            switch(mode) {
+                case 'search':
+                    if(null !== keyword) {
+                        console.log(keyword);
+                        this.keyword = '#'+keyword;
+                        this.createSearchView();
+                    }
+                    break;
+                case 'pattern':
+                    if(null !== keyword) {
+                        console.log(keyword);
+                        this.keyword = '#'+keyword;
+                        this.createPatternView();
+                    }
+                    break;
             }
             
+        },
+
+        createSearchView: function() {
+            this.createIndexWatch();
+            this.createIndexTweets();
+            this.createIndexVideo();
+            this.createTimeView();
+            this.createTitleView();
+        },
+
+        createPatternView: function() {
+            this.createTitleView();
+            this.createTimeView(),
+            this.createPatternCollection();
         },
 
         createIndexWatch: function() {
@@ -114,13 +137,14 @@ define([
         },
 
         createPatternCollection: function() {
+            console.log("Create pattern view");
             this.insertViews({".watch": new emotionWatchCollectionView({ 
                 collection: new emotionWatchCollection({
-                    'radius': 100,
-                    'startdate': new Date(this.startDateTime),
-                    'enddate': new Date(this.endDateTime),
+                    'startDateTime': new Date(this.startDateTime),
+                    'endDateTime': new Date(this.endDateTime),
                     'keyword': this.keyword,
                     'network': this.network,
+                    'currentDateTIme': this.currentDateTime,
                   }) 
                 })
             });
@@ -188,11 +212,7 @@ define([
 
             switch(route) {
                 case "search":
-                    this.createIndexWatch();
-                    this.createIndexTweets();
-                    this.createIndexVideo();
-                    this.createTimeView();
-                    this.createTitleView();
+                    this.createSearchView();
                     break;
                 case "pattern":
                     this.createPatternCollection();

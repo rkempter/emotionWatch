@@ -27,7 +27,10 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       "search/:network/keyword/:keyword/:startDateTime/:endDateTime/:currentDateTime": 'search',
       "search/:network/user/:user/:startdatetime/:enddatetime": 'search',
       "search/:network/user/:user/:startdatetime/:enddatetime/:currentDateTime": 'search',
-      "pattern": "pattern",
+      "pattern/:network/keyword/:keyword/:startDateTime/:endDateTime": 'pattern',
+      "pattern/:network/keyword/:keyword/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
+      "pattern/:network/user/:user/:startdatetime/:enddatetime": 'pattern',
+      "pattern/:network/user/:user/:startdatetime/:enddatetime/:currentDateTime": 'pattern',
     },
 
     index: function() {
@@ -47,6 +50,7 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       var options = {};
       options.keyword = keyword || null;
       options.network = network || 'twitter',
+      options.mode = 'search';
       options.startDateTime = startDateTime || "2012-07-26 00:00:00";
       options.endDateTime = endDateTime || "2012-08-13 14:00:00";
       options.currentDateTime = currentDateTime || options.startDateTime;
@@ -58,11 +62,17 @@ function(app, paperView, frequencyPaperView, searchView, navigationView, emotion
       }).render();
     },
 
-    pattern: function( keyword ) {
+    pattern: function(network, keyword, startDateTime, endDateTime, currentDateTime ) {
       console.log("In route pattern with keyword: "+keyword);
+      var options = {};
+      options.keyword = keyword || null;
+      options.network = network || 'twitter',
+      options.mode = 'pattern';
+      options.startDateTime = startDateTime || "2012-07-26 00:00:00";
+      options.endDateTime = endDateTime || "2012-08-13 14:00:00";
+      options.currentDateTime = currentDateTime || options.startDateTime;
       app.useLayout('pattern-layout').setViews({
-        ".navigation": new navigationView(),
-        ".paper": new paperView(),
+        ".navigation": new navigationView(options),
       }).render();
     },
 

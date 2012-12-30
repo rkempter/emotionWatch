@@ -1,17 +1,25 @@
 define([
+    "app",
     "backbone",
+    "raphael",
     "lodash",
     "jquery",
     "emotionwatchview",
     "emotionwatchcollection",
-], function(Backbone, _, $, emotionWatchView, emotionWatchCollection) {
+], function(app, Backbone, Raphael, _, $, emotionWatchView, emotionWatchCollection) {
 
     var emotionWatchCollectionView = Backbone.View.extend({
 
         initialize: function() {
-            this.collection.bind('add', function(model) {
-                this.renderEmotionWatch(model);
-            }, this);
+            var height = $(window).height() - 200;
+            app.paper = Raphael(100, 0, "100%", 2000);
+            app.paper.setViewBox(0, 0, "100%", height, false);
+
+            // this.collection.bind('add', function(model) {
+            //     this.renderEmotionWatch(model);
+            // }, this);
+
+            this.collection.trigger('view:initialized');
         },
 
         renderEmotionWatch: function(watch) {
