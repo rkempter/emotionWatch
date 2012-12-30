@@ -67,7 +67,8 @@ define([
         },
 
         parse: function(response) {
-            console.log(response);
+            var totalNbrWatches = response.length;
+            this.adjustCanvasSize(response.length);
             var self = this;
             for(var i = 0; i < response.length; i++) {
                 console.log("Index: "+i+" Line: "+this.getCoordinateY(i)+" Position: "+this.getCoordinateX(i));
@@ -111,6 +112,16 @@ define([
                 this.add(model);
             }
             console.log(this.models);
+        },
+
+        adjustCanvasSize: function(nbr) {
+            var lines = Math.ceil(nbr / this.elementsPerLine);
+            console.log("Number of lines: "+lines);
+            console.log("Space between: "+this.spaceBetween);
+            var height = (this.spaceBetween+50) * 2 * lines+60;
+            console.log("Height of these lines: "+height);
+
+            app.paper.setSize("100%", height);
         },
 
         getCoordinateX: function(nbr) {

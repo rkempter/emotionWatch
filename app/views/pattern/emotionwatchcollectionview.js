@@ -12,7 +12,7 @@ define([
 
         initialize: function() {
             var height = $(window).height() - 200;
-            app.paper = Raphael(100, 0, "100%", 2000);
+            app.paper = Raphael(0, 100, "100%", 2000);
             app.paper.setViewBox(0, 0, "100%", height, false);
 
             // this.collection.bind('add', function(model) {
