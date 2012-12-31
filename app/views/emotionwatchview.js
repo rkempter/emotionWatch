@@ -8,6 +8,7 @@ define([
     'constants',
 
     // plugins
+    "plugins/jquery.scrollto",
     "plugins/Raphael-printletters"
 ], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants) {
 
@@ -21,55 +22,64 @@ define([
 
             this.previewShape = null;
 
-            app.on('start:watch', function() {
-                self.model.startWatch();
-            });
+            if(this.model.get("mode") == 'regular') {
+                this.drawRemainingElements();
 
-            app.on('stop:watch', function() {
-                self.model.stopWatch();
-            });
+                app.on('start:watch', function() {
+                    self.model.startWatch();
+                });
 
-            app.on('preview:mouseover', function(dateTime) {
-                self.createPreview(dateTime);
-            });
+                app.on('stop:watch', function() {
+                    self.model.stopWatch();
+                });
 
-            app.on('preview:mouseout', function(dateTime) {
-                self.removePreview(dateTime);
-            });
+                app.on('preview:mouseover', function(dateTime) {
+                    self.createPreview(dateTime);
+                });
+
+                app.on('preview:mouseout', function(dateTime) {
+                    self.removePreview(dateTime);
+                });
+                
+                this.model.on("parsed", this.createEmotionShape, this);
+            } else {
+                self.drawRemainingElements();
+                self.createEmotionShape();
+
             
-            this.model.on("parsed", this.createEmotionShape, this);
-            
-            this.model.set("timeText", this.model.get("paper").text(0, 0, "Test"));
-            this.model.get("timeText").attr("opacity", 0);
 
-            this.model.set("centerCircle", this.drawCircle(Constants.centerZeroCircleRadius, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
-            this.model.get("centerCircle").attr({ 
-                "stroke-width": 1, 
-                "stroke": "#a0a0a0",
-                "fill": "#000"
-            });
-            this.model.get("centerCircle").toFront();
+                self.model.get("setOfElements").click(function(event) {
+                    event.preventDefault();
+                    var keyword = self.model.get("topic");
+                    var startDateTime = self.model.get("startDate");
+                    var endDateTime = self.model.get("endDate");
+                    var currentDateTime = self.model.get("currentDateTime");
+                    var network = self.model.get("network");
 
-            this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+10, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
-            this.model.get("timeCircleBorder").attr({ 
-                "stroke-width": 20, 
-                "stroke": "#a0a0a0",
-            });
+                    var url = '/search/'+network+'/keyword/'+keyword+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
+                    app.router.navigate(url, true);
+                });
 
-            this.model.set("backgroundCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleMaxThickness / 2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
-            this.model.get("backgroundCircle").attr({ 
-                "stroke-width": Constants.timeCircleMaxThickness, 
-                "stroke": "#ffffff",
-                "opacity": 0.1,
-            });
+
+
+                
+
+                app.on('jumpToTime', function(params) {
+                    if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
+                        $.scrollTo(self.model.get("centerPoint").y-90, { duration: 1000 });
+                    }
+                });
+
+                this.model.on('scroll:model', function() {
+                    console.log("scrolled");
+                    console.log(self.model.get("centerPoint").y);
+                    $.scrollTo(self.model.get("centerPoint").y-90);
+                })
+
+            }
 
             // Initialize new frequency view
-            self.frequencyCollection = new tweetFrequencyCollection({
-                startDateTime: self.model.get("startDate"),
-                endDateTime: self.model.get("endDate"),
-                network: self.model.get("network"),
-                interval: self.model.get("timeStep"),
-            });
+            
             // Put start & endtime into frequency view
         },
 
@@ -86,6 +96,38 @@ define([
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDataSet", this.animateCircle, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
+        },
+
+        drawRemainingElements: function() {
+            this.model.set("centerCircle", this.drawCircle(Constants.centerZeroCircleRadius, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
+            this.model.get("centerCircle").attr({ 
+                "stroke-width": 1, 
+                "stroke": "#a0a0a0",
+                "fill": "#000"
+            });
+            this.model.get("centerCircle").toFront();
+
+            var strokeWidth = this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness || 20;
+
+            this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+strokeWidth/2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
+            this.model.get("timeCircleBorder").attr({
+                "stroke-width": strokeWidth,
+                "stroke": "#a0a0a0",
+            });
+
+            this.model.set("backgroundCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleMaxThickness / 2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
+            this.model.get("backgroundCircle").attr({ 
+                "stroke-width": Constants.timeCircleMaxThickness, 
+                "stroke": "#ffffff",
+                "opacity": 0.1,
+            });
+
+            this.model.set("setOfElements", app.paper.set());
+
+            this.model.get("setOfElements").push(
+                this.model.get("centerCircle"),
+                this.model.get("timeCircleBorder")
+            );
         },
 
         /**
@@ -138,6 +180,10 @@ define([
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor,
             }).toBack();
+
+            this.model.get("setOfElements").push(
+                this.model.get("emotionShape")
+            );
         },
 
         /**
@@ -171,9 +217,6 @@ define([
 
         animateCircle: function() {
             var thickness = parseFloat(this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness) || 1;
-            console.log("Thickness: "+thickness);
-
-            console.log("cx: "+ (this.model.get("emotionCircleRadius") + thickness / 2));
 
             if(this.model.get("timeCircleBorder")) {
                 this.model.get("timeCircleBorder").animate({

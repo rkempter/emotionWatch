@@ -14,6 +14,10 @@ define([
         visited: function() {
             this.trigger("visited");
         },
+
+        setReset: function() {
+            this.trigger("reset");
+        }
     });
 
     return tweetFrequencyModel;

@@ -15,13 +15,16 @@ define([
             var self = this;
 
             this.centerPoint = options.centerPoint || undefined;
-            this.startDateTime = options.startDateTime || undefined;
-            this.endDateTime = options.endDateTime || undefined;
-            this.interval = options.interval || undefined;
+            this.startDateTime = new Date(options.startDateTime);
+            console.log("Start "+this.startDateTime);
+            this.endDateTime = new Date(options.endDateTime);
+            console.log("End "+this.endDateTime);
+            this.currentDateTime = new Date(options.currentDateTime);
+            this.timeStep = options.timeStep || undefined;
             this.network = options.network || 'twitter';
             this.modelIndex = 0;
 
-            console.log("Startdatetime: "+this.startDateTime);
+            // console.log("Startdatetime: "+this.startDateTime);
             
             this.viewPointer = new Array();
 
@@ -29,17 +32,24 @@ define([
                 self.jumpToGlobalTime(params.cid);
             });
 
-            app.on('change:globalTime', function() {
-                self.setGlobalTime();
+            app.on('scroll:activate', function(id) {
+                self.modelIndex = id;
+                self.activateModels();
+                self.resetModels();
             });
+
+            // app.on('change:globalTime', function() {
+            //     self.setGlobalTime();
+            // });
 
             self.fetch({
                 data: $.param({
                     network: self.network,
-                    windowsize: self.interval,
+                    windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
                 })
+                    
             });
         },
 
@@ -49,24 +59,23 @@ define([
 
         parse: function(frequencies) {
             var self = this;
-            console.log(frequencies);
 
             var max = 0;
-            for(var i = 0; i < frequencies.length; i++) {
-                var freq = parseInt(frequencies[i].frequency)
+            for(var time in frequencies) {
+                var freq = parseInt(frequencies[time])
                 if(max < freq) {
                     max = freq;
                 }
             }
 
             var models = new Array();
+            var localStartDateTime = self.startDateTime;
+            var localEndDateTime = new Date(self.startDateTime.getTime() + self.timeStep * 1000);
 
-            for(var i = 0; i < frequencies.length; i++) {
-                var value = frequencies[i].frequency;
+            while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
+                var value = frequencies[localStartDateTime.getTime()] || 0;
+               
                 var scaling = parseFloat(value / max);  
-                
-                var localStartDateTime = new Date(self.startDateTime.getTime() + i * self.interval * 1000);
-                var localEndDateTime = new Date(self.startDateTime.getTime() + (i+1) * self.interval * 1000);
 
                 var model = new tweetFrequencyModel({
                     "value": value,
@@ -85,7 +94,12 @@ define([
                 });
                 
                 self.viewPointer.push(view);
+
+                localStartDateTime = new Date(localStartDateTime.getTime() + self.timeStep * 1000);
+                localEndDateTime = new Date(localEndDateTime.getTime() + self.timeStep * 1000);
             }
+
+            console.log("Length: "+this.models.length);
 
             return models;
         },
@@ -111,17 +125,15 @@ define([
         },
 
         jumpToGlobalTime: function(cid) {
+            console.log("GlobalTime");
             var self = this;
             var model = self.getByCid(cid);
 
             if(undefined != self.activeSlot) {
                 self.activeSlot.visited();
             }
-            console.log(self.modelIndex);
             self.modelIndex = _.indexOf(self.models, model);
-            console.log(self.modelIndex);
             var dateTime = model.get("localStartDateTime");
-            console.log(dateTime);
 
             app.trigger("set:globalTime", dateTime);
 
@@ -131,7 +143,26 @@ define([
                 self.activeSlot.activate();
             }
 
+            self.activateModels();
+            self.resetModels();
+
             self.modelIndex++;
+        },
+
+        activateModels: function() {
+            if(this.modelIndex > this.models.length) {
+                this.modelIndex = this.models.length;
+            }
+            for(var i = 0; i < this.modelIndex; i++) {
+                this.at(i).visited();
+            }
+        },
+
+        resetModels: function() {
+            var total = this.models.length;
+            for(var i = this.modelIndex+1; i < total; i++) {
+                this.at(i).setReset();
+            }
         },
 
         activateModel: function(cid) {

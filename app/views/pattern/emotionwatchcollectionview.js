@@ -13,13 +13,17 @@ define([
         initialize: function() {
             var height = $(window).height() - 200;
             app.paper = Raphael(0, 100, "100%", 2000);
+            
             app.paper.setViewBox(0, 0, "100%", height, false);
+            this.el = app.paper.canvas;
 
             // this.collection.bind('add', function(model) {
             //     this.renderEmotionWatch(model);
             // }, this);
 
             this.collection.trigger('view:initialized');
+
+            app.paper.clear();
         },
 
         renderEmotionWatch: function(watch) {

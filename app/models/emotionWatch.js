@@ -32,7 +32,6 @@ define([
      *
      */
     initialize: function(options) {
-      console.log(options);
       var self = this;
       var mode = options.mode || 'regular';
 
@@ -299,7 +298,6 @@ define([
       }
 
       if(null !== dataSet) {
-        console.log(dataSet);
         var firstPoint = this.getPoint(dataSet[0].value, 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;

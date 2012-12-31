@@ -76,9 +76,9 @@ define([
         },
 
         createPatternView: function() {
-            this.createTitleView();
-            this.createTimeView(),
-            this.createPatternCollection();
+            // this.createTitleView();
+            // this.createTimeView(),
+            // this.createPatternCollection();
         },
 
         createIndexWatch: function() {
@@ -157,8 +157,6 @@ define([
             this.startDateTime = $('#search-form select option:selected').attr('value');
 
             var route = Backbone.history.fragment;
-
-            console.log(route);
 
             switch(route) {
                 case "search": 

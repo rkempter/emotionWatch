@@ -17,16 +17,20 @@ define([
 
         initialize: function(options) {
             console.log("EmotionWatchCOllection");
+            console.log(options);
 
             this.radius = Constants.patternCircleRadius;
             this.startDateTime = new Date(options.startDateTime) || new Date("2012-07-26 00:00:00");
             this.endDateTime = new Date(options.endDateTime) || new Date("2012-08-13 24:00:00");
-            this.currentDateTime = options.currentDateTime || this.startDateTime;
+            this.currentDateTime = new Date(options.currentDateTime) || this.startDateTime;
             this.keyword = options.keyword || null;
             this.network = options.network || 'twitter';
             this.timeStep = options.timeStep || (this.endDateTime.getTime() - this.startDateTime.getTime()) / 24 / 1000;
 
             // Golden ratio
+
+            console.log("CurrentDateTIme: "+this.currentDateTime);
+
 
             console.log(this.radius);
 
@@ -39,6 +43,11 @@ define([
             this.bind('view:initialized', function() {
                 self.viewInitialized();
             });
+
+
+            _.bindAll(this, 'detect_scroll');
+            // bind to window
+            $(window).scroll(this.detect_scroll);
         },
 
         url: function() {
@@ -66,23 +75,29 @@ define([
             });
         },
 
+        detect_scroll: function() {
+            var y = $(document).scrollTop()+760;
+            var elements = Math.floor((parseInt(y)-60) / ((this.spaceBetween+60) * 2)) * this.elementsPerLine;
+            console.log(elements);
+            app.trigger("scroll:activate", elements);
+            // app.trigger('scroll:collection', y);
+        },
+
         parse: function(response) {
             var totalNbrWatches = response.length;
             this.adjustCanvasSize(response.length);
+
+            var max = _.max(response, function(frequency) {
+                return parseInt(frequency.frequency);
+            });
+            max = parseInt(max.frequency);
+            
             var self = this;
             for(var i = 0; i < response.length; i++) {
-                console.log("Index: "+i+" Line: "+this.getCoordinateY(i)+" Position: "+this.getCoordinateX(i));
-                var x = this.radius+ this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
+                var x = 60+ this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
-                console.log("X: "+x+" y: "+y);
-
-                var currentDateTime = new Date(response[i].startdate);
-
-                console.log("Datetime: "+response[i].currentDateTime);
-
-                console.log("Dataset:");
-                console.log(response[i].emotions);
+                var currentDateTime = new Date(response[i].dateTime);
 
                 var model = new emotionWatch({
                     mode: 'static',
@@ -95,30 +110,31 @@ define([
                     centerPoint: {"x": x, "y": y},
                     topic: self.keyword,
                     network: self.network,
+                    currentFrequencyRatio: parseInt(response[i].frequency) / max,
                 });
 
                 var view = new emotionWatchView({
                     model: model,
                 });
 
-                view.createEmotionShape();
-
                 self.viewPointer[model.cid] = view;
-
-                if(currentDateTime.getTime() < self.currentDateTime.getTime()) {
-                    model.trigger('show:model');
-                }
 
                 this.add(model);
             }
-            console.log(this.models);
+
+            app.trigger('show:model', self.currentDateTime.getTime());
+
+            var last = parseInt((self.currentDateTime.getTime()-self.startDateTime.getTime()) / (self.timeStep*1000))
+            console.log("The last one: "+last);
+            this.at(last).trigger('scroll:model');
+            console.log("Collection length: "+this.models.length);
         },
 
         adjustCanvasSize: function(nbr) {
             var lines = Math.ceil(nbr / this.elementsPerLine);
             console.log("Number of lines: "+lines);
             console.log("Space between: "+this.spaceBetween);
-            var height = (this.spaceBetween+50) * 2 * lines+60;
+            var height = (this.spaceBetween+50) * 2 * lines+300;
             console.log("Height of these lines: "+height);
 
             app.paper.setSize("100%", height);

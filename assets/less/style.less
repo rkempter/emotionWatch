@@ -108,6 +108,9 @@ h1.title{
 .top-navigation{
     @nav-height: 35px;
     font-size: 14px;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
     
     height: @nav-height;
     background-color: @black;
@@ -159,6 +162,10 @@ h1.title{
 
 /***** Basic Layout *****/
 
+.columns{
+    margin-top: 40px;
+}
+
 #left-column{
     width: 29.838709677%;
     float: left;
@@ -175,16 +182,28 @@ h1.title{
 }
 
 #bottom{
+    .date-time-freq{
+        position: absolute;
+        height: 100px;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
     clear:both;
     height: 100px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background: @olympicBlue;
+    opacity: 0.9;
+    z-index: 10;
     width: 100%;
-    position:absolute;
+    position: fixed;
     bottom: 0px;
 }
 
 .inner{
     padding: 20px;
+}
+
+#pattern #middle-column{
+    width: 100%;
 }
 
 
@@ -416,6 +435,28 @@ svg{
         font-size: 60px;
         text-align: right;
         display: block;
+    }
+}
+
+/**** PATTERN ****/
+
+#pattern {
+    path, circle{
+        cursor: pointer;
+    }
+
+    .date-time-freq{
+        path.visited{
+            fill: #cccccc;
+        }
+
+        path.active{
+            fill: #cccccc;
+        }
+
+        path{
+            fill: #ac7b74;
+        }
     }
 }
 

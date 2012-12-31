@@ -21,10 +21,6 @@ define([
             this.render();
         },
 
-        test: function() {
-            console.log('arsch');
-        },
-
         triggerEventSearch: function(event) {
             console.log('Event Search triggered');
         },
@@ -35,8 +31,8 @@ define([
             var startTime = $('#keyword-start-time').val();
             var endDate = $('#keyword-end-date').val();
             var endTime = $('#keyword-end-time').val();
-            var startDateTime = new Date(startDate+" "+startTime);
-            var endDateTime = new Date(endDate+" "+endTime);
+            var startDateTime = new Date(startDate+" "+startTime).getTime();
+            var endDateTime = new Date(endDate+" "+endTime).getTime();
             var keyword = $('#keyword').val().slice(1);
 
             var network = $('#keyword-network').val();
