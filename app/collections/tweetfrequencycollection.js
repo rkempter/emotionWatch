@@ -15,12 +15,11 @@ define([
             var self = this;
 
             this.centerPoint = options.centerPoint || undefined;
-            this.startDateTime = new Date(options.startDateTime);
-            console.log("Start "+this.startDateTime);
-            this.endDateTime = new Date(options.endDateTime);
-            console.log("End "+this.endDateTime);
-            this.currentDateTime = new Date(options.currentDateTime);
+            this.startDateTime = options.startDateTime;
+            this.endDateTime = options.endDateTime;
+            this.currentDateTime = options.currentDateTime;
             this.timeStep = options.timeStep || undefined;
+            this.mode = options.mode || 'regular';
             this.network = options.network || 'twitter';
             this.modelIndex = 0;
 
@@ -38,9 +37,11 @@ define([
                 self.resetModels();
             });
 
-            // app.on('change:globalTime', function() {
-            //     self.setGlobalTime();
-            // });
+            if(this.mode == 'regular') {
+                app.on('change:globalTime', function() {
+                    self.setGlobalTime();
+                });
+            }
 
             self.fetch({
                 data: $.param({

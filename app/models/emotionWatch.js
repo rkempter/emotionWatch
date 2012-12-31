@@ -33,9 +33,9 @@ define([
      */
     initialize: function(options) {
       var self = this;
-      var mode = options.mode || 'regular';
 
-      if(mode == 'regular') {
+      if(this.get('mode') == 'regular') {
+        console.log(this);
         this.fetch({ 
             data: $.param({
               topic: this.get("topic"),
@@ -74,7 +74,7 @@ define([
           return this.getFullYear() + "-" + twoDigits(1 + this.getMonth()) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
       };
 
-      this.startWatch();
+      
     },
 
     /**
@@ -89,6 +89,7 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
+      console.log(response);
       this.set("maxFrequency", 0);
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;
@@ -321,11 +322,14 @@ define([
      */
      
     startWatch: function() {
+      console.log('starting');
         var self = this;
         self.trigger("changevalues");
-        this.interval = setInterval(function() {
+        var interval = setInterval(function() {
           app.trigger("change:globalTime");
         }, this.get("iterationLength"));
+
+        this.set('interval', interval);
     },
 
     /**
@@ -335,7 +339,7 @@ define([
      
     stopWatch: function() {
         console.log("Stop Watch");
-        clearInterval(this.interval);
+        clearInterval(this.get('interval'));
     },
 
     /**

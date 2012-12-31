@@ -37,118 +37,8 @@ define([
                     collection: new eventCollection(),
                 })
             });
-            var options = options || {};
-            var keyword = options.keyword || null;
-
-            var mode = options.mode || 'search';
-
-            this.startDateTime = parseInt(options.startDateTime) || "2012-07-26 00:00:00";
-            this.endDateTime = parseInt(options.endDateTime) || "2012-08-13 24:00:00";
-            this.currentDateTime = options.currentDateTime || this.startDateTime;
-            this.network = options.network || 'twitter';
-            this.timeStep = 24*60*60;
-
-            switch(mode) {
-                case 'search':
-                    if(null !== keyword) {
-                        console.log(keyword);
-                        this.keyword = '#'+keyword;
-                        this.createSearchView();
-                    }
-                    break;
-                case 'pattern':
-                    if(null !== keyword) {
-                        console.log(keyword);
-                        this.keyword = '#'+keyword;
-                        this.createPatternView();
-                    }
-                    break;
-            }
-            
         },
 
-        createSearchView: function() {
-            this.createIndexWatch();
-            this.createIndexTweets();
-            this.createIndexVideo();
-            this.createTimeView();
-            this.createTitleView();
-        },
-
-        createPatternView: function() {
-            // this.createTitleView();
-            // this.createTimeView(),
-            // this.createPatternCollection();
-        },
-
-        createIndexWatch: function() {
-            var watch = new emotionWatch({ 
-                                paper: app.paper, 
-                                emotionCircleRadius: 250,
-                                timeStep: this.timeStep,
-                                startDate: new Date(this.startDateTime),
-                                currentDateTime: new Date(this.startDateTime),
-                                endDate: new Date(this.endDateTime),
-                                centerPoint: {"x": 400, "y": 400},
-                                topic: this.keyword,
-                                network: this.network,
-                            });
-            var view = new emotionWatchView( { model: watch } );
-
-            view.activateWatch();
-            view.drawLabelTexts();
-
-            this.insertViews( { ".date-time-freq": view } );
-        },
-
-        createIndexVideo: function() {
-            console.log("Videoview creation");
-            var video = new videoView();
-
-            this.insertViews( { "#player": video } );
-        },
-
-        createIndexTweets: function() {
-            console.log("create Index tweets");
-            this.insertViews({ ".tweets": new tweetCollectionView({
-                    el: ".tweets",
-                    collection: new tweetCollection({
-                        hashtag: this.keyword,
-                        network: this.network,
-                    }),
-                })
-            });
-        },
-
-        createTimeView: function() {
-            this.insertViews({ ".time-block": new timeView({
-                    el: ".time-block",
-                })
-            });
-        },
-
-        createTitleView: function() {
-            this.insertViews( {
-                "#middle-column .keyword-title": new titleView({
-                    title: this.keyword,
-                    el: '#middle-column .keyword-title',
-                })
-            });
-        },
-
-        createPatternCollection: function() {
-            console.log("Create pattern view");
-            this.insertViews({".watch": new emotionWatchCollectionView({ 
-                collection: new emotionWatchCollection({
-                    'startDateTime': new Date(this.startDateTime),
-                    'endDateTime': new Date(this.endDateTime),
-                    'keyword': this.keyword,
-                    'network': this.network,
-                    'currentDateTIme': this.currentDateTime,
-                  }) 
-                })
-            });
-        },
 
         triggerSearch: function(event) {
             event.preventDefault();
@@ -158,17 +48,7 @@ define([
 
             var route = Backbone.history.fragment;
 
-            switch(route) {
-                case "search": 
-                    this.createIndexWatch();
-                    this.createIndexTweets();
-                    this.createIndexVideo();
-                    this.createTimeView();
-                    break;
-                case "pattern":
-                    this.createPatternCollection();
-                    break;
-            };
+            // app.route.navigate()
         },
 
         triggerEventSearch: function(event) {
@@ -181,18 +61,7 @@ define([
 
             var route = Backbone.history.fragment;
 
-            switch(route) {
-                case "": 
-                    this.createIndexWatch();
-                    this.createIndexTweets();
-                    this.createIndexVideo();
-                    this.createTimeView();
-                    this.createTitleView(this.keyword);
-                    break;
-                case "pattern":
-                    this.createPatternCollection();
-                    break;
-            };
+            // app.route.navigate()
         },
 
         triggerHashtagSearch: function(event) {
@@ -206,16 +75,7 @@ define([
 
             var route = Backbone.history.fragment;
 
-            console.log(route);
-
-            switch(route) {
-                case "search":
-                    this.createSearchView();
-                    break;
-                case "pattern":
-                    this.createPatternCollection();
-                    break;
-            }
+            // app.route.navigate
         },
 
         triggerStartWatch: function() {

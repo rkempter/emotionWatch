@@ -42,11 +42,12 @@ define([
                 });
                 
                 this.model.on("parsed", this.createEmotionShape, this);
+
+                this.activateWatch();
+                this.drawLabelTexts();
             } else {
                 self.drawRemainingElements();
                 self.createEmotionShape();
-
-            
 
                 self.model.get("setOfElements").click(function(event) {
                     event.preventDefault();
@@ -59,10 +60,6 @@ define([
                     var url = '/search/'+network+'/keyword/'+keyword+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
                     app.router.navigate(url, true);
                 });
-
-
-
-                
 
                 app.on('jumpToTime', function(params) {
                     if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
@@ -92,7 +89,7 @@ define([
         },
 
         activateWatch: function() {
-            //this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            this.model.on("currentDataSetDone", this.model.startWatch(), this);
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDataSet", this.animateCircle, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);

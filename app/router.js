@@ -60,25 +60,57 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
     search: function(network, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       console.log("In search");
       var options = {};
-      options.keyword = keyword || null;
+      options.keyword = '#'+keyword || null;
       options.network = network || 'twitter',
-      options.mode = 'search';
+      options.mode = 'regular';
       options.timeStep = timeStep;
-      options.startDateTime = startDateTime || "2012-07-26 00:00:00";
-      options.endDateTime = endDateTime || "2012-08-13 14:00:00";
-      options.currentDateTime = currentDateTime || options.startDateTime;
-      options.timeStep = 24*60*60;
+      var startDateTime_raw = parseInt(startDateTime) ||  new Date("2012-07-26 00:00:00");
+      var endDateTime_raw =  parseInt(endDateTime) ||  new Date("2012-08-13 24:00:00");
+      var currentDateTime_raw =  parseInt(currentDateTime) || startDateTime_raw;
+
+      options.startDateTime = new Date(startDateTime_raw);
+      options.endDateTime = new Date(endDateTime_raw);
+      options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('main-layout').setViews({
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
         ".navigation": new navigationView(options),
-
+        "#player": new videoView(),
+        ".watches": new emotionWatchView({ 
+          model: new emotionWatch({ 
+            paper: app.paper, 
+            mode: options.mode,
+            emotionCircleRadius: 250,
+            timeStep: options.timeStep,
+            startDate: options.startDateTime,
+            currentDateTime: options.currentDateTime,
+            endDate: options.endDateTime,
+            centerPoint: {"x": 400, "y": 400},
+            topic: options.keyword,
+            network: options.network,
+          }) 
+        }),
+        ".tweets": new tweetCollectionView({
+          el: ".tweets",
+          collection: new tweetCollection(options),
+        }),
+        ".time-block": new timeView({
+            el: ".time-block",
+        }),
+        "#middle-column .keyword-title": new titleView({
+            model: new Backbone.Model({
+              title: options.keyword
+            }),
+            el: '#middle-column .keyword-title',
+        }),
+        ".bottom": new Backbone.View({
+          collection: new tweetFrequencyCollection(options),
+        }),
       }).render();
     },
 
     pattern: function(network, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
-      console.log("In route pattern with keyword: "+keyword);
       var options = {};
       options.keyword = keyword || null;
       options.network = network || 'twitter',
@@ -111,6 +143,45 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
         }),
       }).render();
     },
+
+    compare: function(keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
+      var options = {};
+      options.keyword = keyword || null;
+      options.network = network || 'twitter',
+      options.mode = 'compare';
+      options.startDateTime = parseInt(startDateTime) || "2012-07-26 00:00:00";
+      options.endDateTime = parseInt(endDateTime) || "2012-08-13 14:00:00";
+      options.timeStep = timeStep;
+      options.currentDateTime = parseInt(currentDateTime) || options.startDateTime;
+
+      app.useLayout('compare-layout').setViews({
+        ".weibo .date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
+        ".twitter .date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
+        ".navigation": new navigationView(options),
+        "#middle-column .keyword-title": new titleView({
+          model: new Backbone.Model({
+            title: options.keyword
+          }),
+          el: '#middle-column .keyword-title',
+        }),
+        ".twitter .bottom": new Backbone.View({
+          collection: new tweetFrequencyCollection(options),
+        }),
+        ".weibo .bottom": new Backbone.View({
+          collection: new tweetFrequencyCollection(options),
+        }),
+        ".watch": new emotionWatchCollectionView({ 
+          collection: new emotionWatchCollection({
+            'startDateTime': options.startDateTime,
+            'endDateTime': options.endDateTime,
+            'keyword': '#'+options.keyword,
+            'network': options.network,
+            'timeStep': options.timeStep,
+            'currentDateTime': options.currentDateTime,
+          }) 
+        }),
+      }).render();
+    }
 
     about: function() {
       app.useLayout().setViews({

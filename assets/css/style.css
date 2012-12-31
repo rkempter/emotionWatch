@@ -202,6 +202,32 @@ svg {
   background: rgba(255, 255, 255, 0.5);
 }
 /** Timeline **/
+#pattern path,
+#pattern circle {
+  cursor: pointer;
+}
+#pattern .date-time-freq path.visited {
+  fill: #cccccc;
+}
+#pattern .date-time-freq path.active {
+  fill: #cccccc;
+}
+#pattern .date-time-freq path {
+  fill: #ac7b74;
+}
+#index .date-time-freq path,
+#index .date-time-freq circle {
+  cursor: pointer;
+}
+#index .date-time-freq path.visited {
+  fill: #cccccc;
+}
+#index .date-time-freq path.active {
+  fill: #000000;
+}
+#index .date-time-freq path {
+  fill: #ac7b74;
+}
 /** Tweets / Weibos **/
 .title-box {
   width: 100%;
@@ -325,19 +351,6 @@ svg {
   display: block;
 }
 /**** PATTERN ****/
-#pattern path,
-#pattern circle {
-  cursor: pointer;
-}
-#pattern .date-time-freq path.visited {
-  fill: #cccccc;
-}
-#pattern .date-time-freq path.active {
-  fill: #cccccc;
-}
-#pattern .date-time-freq path {
-  fill: #ac7b74;
-}
 /**** Button ****/
 .btn {
   display: inline-block;

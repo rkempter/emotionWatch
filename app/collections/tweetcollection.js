@@ -10,18 +10,17 @@ define([
 
         initialize: function(options) {
             var self = this;
-            this.datetime = new Date('July 28, 2012 18:00:00');
-            this.windowsize = 120;
-            this.hashtag = options.hashtag || '#gymnastics';
             this.emotion = undefined;
-            this.network = options.network || 'twitter';
+            this.keyword = options.keyword;
+            this.timeStep = options.timeStep;
+            this.network = options.network;
             this.fetch({ 
                 data: $.param({ 
-                    datetime: this.datetime,
+                    datetime: options.currentDateTime,
                     emotion: this.emotion,
-                    hashtag: this.hashtag,
-                    windowsize: this.windowsize,
-                    network: self.network,
+                    hashtag: options.keyword,
+                    windowsize: options.timeStep,
+                    network: options.network,
                 })
             });
 
@@ -32,8 +31,8 @@ define([
                     data: $.param({ 
                         datetime: currentDateTime,
                         emotion: self.emotion,
-                        hashtag: self.hashtag,
-                        windowsize: self.windowsize,
+                        hashtag: self.keyword,
+                        windowsize: self.timeStep,
                         network: self.network,
                     })
                 });
@@ -48,8 +47,8 @@ define([
                 data: $.param({
                     datetime: self.datetime,
                     emotion: self.emotion,
-                    hashtag: self.hashtag,
-                    windowsize: self.windowsize,
+                    hashtag: self.keyword,
+                    windowsize: self.timeStep,
                     network: self.network,
                 })
             });
@@ -60,6 +59,7 @@ define([
         },
 
         parse: function(response) {
+            console.log(response);
             for(var i = 0; i < response.length; i++) {
                 var text = response[i].tweet;
                 console.log(text);
@@ -73,13 +73,11 @@ define([
         },
 
         replaceHashtags: function(text) {
-            console.log(text);
             var hashtags = text.match(/\B#\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
                 var url = '/search/keyword/'+hashtags[i].slice(1);
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
                 text = text.replace(hashtags[i], replacement);
-                console.log(text);
             }
 
             return text;
