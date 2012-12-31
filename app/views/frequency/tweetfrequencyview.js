@@ -28,58 +28,11 @@ define([
           this.startPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime), "y": 100 };
           this.endPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime), "y": 100 };
 
-          this.drawElement(); 
           this.drawTimeSlot(); 
 
           this.model.on("reset", self.changeToReset, self);
           this.model.on("activate", self.changeToActive, self);
           this.model.on("visited", self.changeToVisited, self);
-
-        },
-
-        /**
-         * Method draws the frequency part on the paper.
-         *
-         */
-        drawElement: function() {
-            var self = this;
-            var smallRadius = 0;
-            var bigRadius = Constants.frequencyRadius;
-
-            var leftBottomPoint = this.startPoint;
-            var leftTopPoint = this.getLinearPoint(this.startPoint, this.val, 100);
-            var rightBottomPoint = this.endPoint;
-            var rightTopPoint = this.getLinearPoint(this.endPoint, this.val, 100);
-
-            var path = new Array();
-            path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
-            path.push(["L", leftTopPoint.x, leftBottomPoint.y]);
-            path.push(["L", rightTopPoint.x, rightTopPoint.y]);
-            path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
-            path.push(["Z"]);
-
-            var element = app.frequencyPaper.path(path);
-
-            element.attr({
-              "stroke-width": 1,
-              "stroke": "#a0a0a0",
-              "fill": "#b1b1b1"
-            });
-
-            element.mouseover(function() {
-              self.mouseover();
-            });
-
-            element.mouseout(function() {
-              self.mouseout();
-            });
-
-            this.model.set("element", element);
-
-            self.bindFrequencyEvents();
-
-            return element;
-
         },
 
         /**
@@ -159,39 +112,22 @@ define([
         },
 
         changeToVisited: function() {
-          console.log("Change to visited?");
           if(this.model.get("active") === 1) {
             this.model.set("active", 2);
-            this.model.get("element").attr({
-              "fill": "#cccccc",
-            });
-            this.model.get("timeSlot").attr({
-              "fill": "#cccccc",
-            });
           }
+          this.model.get("timeSlot").node.setAttribute("class", "visited");
         },
 
         changeToActive: function() {
           this.model.set("active", 1);
-          this.model.get("element").attr({
-            "fill": "#000",
-          });
-          this.model.get("timeSlot").attr({
-            "fill": "#000",
-          });
+
+          this.model.get("timeSlot").node.setAttribute("class", "active");
         },
 
          changeToReset: function() {
           this.model.set("active", 0);
-          this.model.get("element").attr({
-            "stroke-width": 1,
-            "stroke": "#a0a0a0",
-            "fill": "#b1b1b1"
-          });
-          this.model.get("timeSlot").attr({
-            "stroke-width": 0,
-            "fill": "#AC7B74",
-          });
+
+          this.model.get("timeSlot").node.setAttribute("class", "");
         },
 
         bindTimeSlotEvents: function() {
@@ -199,27 +135,33 @@ define([
 
           var timeSlotElement = self.model.get("timeSlot");
 
-          // timeSlotElement.click(function() {
-          //   app.trigger("jumpToTime", self.model.get("startDateTime"));
-          // });
+          timeSlotElement.click(function() {
+            params = {};
+            params.dateTime = self.model.get("localStartDateTime");
+            params.cid = self.model.cid;
+            app.trigger("jumpToTime", params);
+            app.trigger("show:model", self.model.get("localStartDateTime"));
+          });
         },
 
-        bindFrequencyEvents: function() {
-          var self = this;
+        // bindFrequencyEvents: function() {
+        //   var self = this;
 
-          var element = self.model.get("element");
+        //   var element = self.model.get("element");
 
-          // element.click(function() {
-          //   var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
-          //   app.trigger("jumpToTime", options);
-          // });
-        },
+        //   element.click(function() {
+        //     var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
+        //     app.trigger("jumpToTime", options);
+        //   });
+        // },
 
 
 
       getPointFromTime: function(startDateTime, endDateTime, currentDateTime) {
         var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
         var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
+
+        // console.log("How long"+currentTimeSec / timeSpan);
         
         return parseInt(currentTimeSec / timeSpan * this.pixelLength);
       },

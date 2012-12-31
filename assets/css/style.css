@@ -61,6 +61,9 @@ h1.title {
 /** Top Navigation **/
 .top-navigation {
   font-size: 14px;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
   height: 35px;
   background-color: #000000;
   line-height: 35px;
@@ -104,6 +107,9 @@ h1.title {
   display: block;
 }
 /***** Basic Layout *****/
+.columns {
+  margin-top: 40px;
+}
 #left-column {
   width: 29.838709677%;
   float: left;
@@ -119,13 +125,24 @@ h1.title {
 #bottom {
   clear: both;
   height: 100px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background: #0173d6;
+  opacity: 0.9;
+  z-index: 10;
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
+}
+#bottom .date-time-freq {
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .inner {
   padding: 20px;
+}
+#pattern #middle-column {
+  width: 100%;
 }
 /***** FRONTPAGE *****/
 svg {
@@ -306,6 +323,20 @@ svg {
   font-size: 60px;
   text-align: right;
   display: block;
+}
+/**** PATTERN ****/
+#pattern path,
+#pattern circle {
+  cursor: pointer;
+}
+#pattern .date-time-freq path.visited {
+  fill: #cccccc;
+}
+#pattern .date-time-freq path.active {
+  fill: #cccccc;
+}
+#pattern .date-time-freq path {
+  fill: #ac7b74;
 }
 /**** Button ****/
 .btn {

@@ -31,7 +31,7 @@ require.config({
 
     // collection
     emotioncollection: "collections/frontpage/emotioncollection",
-    emotionwatchcollection: "collections/emotionwatchcollection",
+    emotionwatchcollection: "collections/pattern/emotionwatchcollection",
     tweetcollection: "collections/tweetcollection",
     eventcollection: "collections/eventcollection",
     tweetfrequencycollection: "collections/tweetfrequencycollection",
@@ -48,10 +48,10 @@ require.config({
     emotionwatchview: "views/emotionwatchview",
     searchview: "views/searchview",
     navigationview: "views/navigationview",
-    emotionwatchcollectionview: "views/emotionwatchcollectionview",
+    emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     eventcollectionview: "views/event/eventcollectionview",
-    tweetfrequencyview: "views/tweet/tweetfrequencyview",
+    tweetfrequencyview: "views/frequency/tweetfrequencyview",
 
 
     templates: "templates",
@@ -77,6 +77,7 @@ require.config({
     // Backbone.LayoutManager depends on Backbone.
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
+    "plugins/jquery.scrollto": ['jquery'],
     // Raphael.printLetters depends on Raphael
     // printletters: {
     //   deps: ["raphael"],

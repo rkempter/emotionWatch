@@ -32,25 +32,28 @@ define([
      *
      */
     initialize: function(options) {
-      console.log(options);
       var self = this;
-      this.fetch({ 
-          data: $.param({
-            topic: this.get("topic"),
-            startDateTime: this.get("startDate"),
-            endDateTime: this.get("endDate"),
-            timeStep: this.get("timeStep"),
-            network: this.get("network"),
-          })
-      });
+      var mode = options.mode || 'regular';
 
-      app.on("set:globalTime", function(dateTime) {
-        console.log("Global Time arrived: "+dateTime);
-        self.setCurrentTime(dateTime);
-        self.setCurrentFrequencyRatio(dateTime);
-        self.setCurrentDataSet();
-        self.trigger("changevalues");
-      });
+      if(mode == 'regular') {
+        this.fetch({ 
+            data: $.param({
+              topic: this.get("topic"),
+              startDateTime: this.get("startDate"),
+              endDateTime: this.get("endDate"),
+              timeStep: this.get("timeStep"),
+              network: this.get("network"),
+            })
+        });
+
+        app.on("set:globalTime", function(dateTime) {
+          console.log("Global Time arrived: "+dateTime);
+          self.setCurrentTime(dateTime);
+          self.setCurrentFrequencyRatio(dateTime);
+          self.setCurrentDataSet();
+          self.trigger("changevalues");
+        });
+      }
 
           /**
        * You first need to create a formatting function to pad numbers to two digits…

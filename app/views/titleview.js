@@ -12,14 +12,8 @@ define([
 
         template: 'titletemplate',
 
-        initialize: function(options) {
-            this.el = options.el || {};
-            this.model = new Backbone.Model();
-            this.model.set("title", options.title || {} );
-            this.render();
-        },
-
         render: function() {
+            console.log(this.model.get("title"));
             var output = window.JST['app/templates/titletemplate.html']( { title: this.model.get("title") } );
             $( this.el ).html( output );
         },
