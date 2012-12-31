@@ -181,7 +181,7 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
           }) 
         }),
       }).render();
-    }
+    },
 
     about: function() {
       app.useLayout().setViews({
