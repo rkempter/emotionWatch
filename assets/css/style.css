@@ -58,6 +58,16 @@ h1.title {
   font-size: 50px;
   margin: 20px 0 0 0;
 }
+.display-type {
+  margin-top: 10px;
+  text-align: center;
+}
+.display-type a {
+  color: #ffffff;
+}
+.display-type a:hover {
+  color: #000000;
+}
 /** Top Navigation **/
 .top-navigation {
   font-size: 14px;
