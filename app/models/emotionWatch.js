@@ -74,7 +74,7 @@ define([
           return this.getFullYear() + "-" + twoDigits(1 + this.getMonth()) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
       };
 
-      
+      this.startWatch();
     },
 
     /**
@@ -325,21 +325,6 @@ define([
       console.log('starting');
         var self = this;
         self.trigger("changevalues");
-        var interval = setInterval(function() {
-          app.trigger("change:globalTime");
-        }, this.get("iterationLength"));
-
-        this.set('interval', interval);
-    },
-
-    /**
-     * Stops the emotion watch
-     *
-     */
-     
-    stopWatch: function() {
-        console.log("Stop Watch");
-        clearInterval(this.get('interval'));
     },
 
     /**

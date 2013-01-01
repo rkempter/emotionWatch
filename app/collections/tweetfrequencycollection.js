@@ -86,6 +86,8 @@ define([
                     "startDateTime": self.startDateTime,
                     "endDateTime": self.endDateTime,
                     "centerPoint": self.centerPoint,
+                    "mode": self.mode,
+                    "paper": app.frequencyPaper[this.network],
                 });
 
                 models.push(model);

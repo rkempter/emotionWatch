@@ -22,30 +22,7 @@ define([
 
             this.previewShape = null;
 
-            if(this.model.get("mode") == 'regular') {
-                this.drawRemainingElements();
-
-                app.on('start:watch', function() {
-                    self.model.startWatch();
-                });
-
-                app.on('stop:watch', function() {
-                    self.model.stopWatch();
-                });
-
-                app.on('preview:mouseover', function(dateTime) {
-                    self.createPreview(dateTime);
-                });
-
-                app.on('preview:mouseout', function(dateTime) {
-                    self.removePreview(dateTime);
-                });
-                
-                this.model.on("parsed", this.createEmotionShape, this);
-
-                this.activateWatch();
-                this.drawLabelTexts();
-            } else {
+            if(this.model.get("mode") !== 'regular') {
                 self.drawRemainingElements();
                 self.createEmotionShape();
 
@@ -73,6 +50,21 @@ define([
                     $.scrollTo(self.model.get("centerPoint").y-90);
                 })
 
+            } else {
+                this.drawRemainingElements();
+
+                app.on('preview:mouseover', function(dateTime) {
+                    self.createPreview(dateTime);
+                });
+
+                app.on('preview:mouseout', function(dateTime) {
+                    self.removePreview(dateTime);
+                });
+                
+                this.model.on("parsed", this.createEmotionShape, this);
+
+                this.activateWatch();
+                this.drawLabelTexts();
             }
 
             // Initialize new frequency view
@@ -89,7 +81,10 @@ define([
         },
 
         activateWatch: function() {
-            this.model.on("currentDataSetDone", this.model.startWatch(), this);
+            app.trigger('start:watch');
+            // this.model.on("currentDataSetDone", function() {
+            //     app.trigger('start:watch');
+            // });
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDataSet", this.animateCircle, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
@@ -119,7 +114,7 @@ define([
                 "opacity": 0.1,
             });
 
-            this.model.set("setOfElements", app.paper.set());
+            this.model.set("setOfElements", this.model.get('paper').set());
 
             this.model.get("setOfElements").push(
                 this.model.get("centerCircle"),
@@ -136,6 +131,7 @@ define([
          *
          */
         drawCircle: function(radius, positionX, positionY) {
+            console.log(this.model.get("paper"));
             var circle = this.model.get("paper").circle(positionX, positionY, radius);
 
             return circle;
@@ -258,7 +254,7 @@ define([
             options.dateTime = dateTime;
             var previewShape = this.model.getCurrentEmotionShapePath(options);
 
-            this.previewShape = app.paper.path(previewShape);
+            this.previewShape = this.model.get('paper').path(previewShape);
 
             this.previewShape.attr({
                 "fill": Constants.emotionShapeFillColor,

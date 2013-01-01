@@ -21,7 +21,13 @@ define([
           this.localEndDateTime = this.model.get("localEndDateTime");
           this.val = this.model.get("scaling");
 
-          this.pixelLength = $(window).width();
+          console.log(this.model.get('mode'));
+
+          if(this.model.get('mode') == 'compare') {
+            this.pixelLength = $(window).width() / 2;
+          } else {
+            this.pixelLength = $(window).width();
+          }
 
           this.model.set("active", 0);
 
@@ -57,7 +63,7 @@ define([
           path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
           path.push(["Z"]);
 
-          var timeSlot = app.frequencyPaper.path(path);
+          var timeSlot = this.model.get("paper").path(path);
 
           timeSlot.attr({
             "stroke-width": 0,

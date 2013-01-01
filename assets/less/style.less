@@ -162,48 +162,51 @@ h1.title{
 
 /***** Basic Layout *****/
 
-.columns{
-    margin-top: 40px;
-}
+#index{
 
-#left-column{
-    width: 29.838709677%;
-    float: left;
-}
-
-#middle-column{
-    width: 40.322580645%;
-    float: left;
-}
-
-#right-column{
-    width: 29.838709677%;
-    float: right;
-}
-
-#bottom{
-    .date-time-freq{
-        position: absolute;
-        height: 100px;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.1);
+    .columns{
+        margin-top: 40px;
     }
-    clear:both;
-    height: 100px;
-    background: @olympicBlue;
-    opacity: 0.9;
-    z-index: 10;
-    width: 100%;
-    position: fixed;
-    bottom: 0px;
-}
 
-.inner{
-    padding: 20px;
-}
+    #left-column{
+        width: 29.838709677%;
+        float: left;
+    }
 
-#pattern #middle-column{
-    width: 100%;
+    #middle-column{
+        width: 40.322580645%;
+        float: left;
+    }
+
+    #right-column{
+        width: 29.838709677%;
+        float: right;
+    }
+
+    #bottom{
+        .date-time-freq{
+            position: absolute;
+            height: 100px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        clear:both;
+        height: 100px;
+        background: @olympicBlue;
+        opacity: 0.9;
+        z-index: 10;
+        width: 100%;
+        position: fixed;
+        bottom: 0px;
+    }
+
+    .inner{
+        padding: 20px;
+    }
+
+    #pattern #middle-column{
+        width: 100%;
+    }
 }
 
 
@@ -480,7 +483,56 @@ svg{
 
 /**** PATTERN ****/
 
+/**** COMPARE ****/
 
+#compare{
+    .columns{
+
+        h2{
+            text-align: center;
+        }
+
+        .bottom{
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            height: 100px;
+        }
+
+        .watch{
+            position: relative;
+            margin-top: 140px;
+        }
+    }
+
+    #middle-column{
+        position: absolute;
+        left: 50%;
+        top: 35px;
+        margin-left: -200px;
+        width: 350px;
+    }
+
+    #left-column{
+        width: 50%;
+        float: left;
+
+        .bottom{
+            left: 0;
+            width: 50%;
+        }
+    }
+
+    #right-column{
+        width: 50%;
+        float: left;
+
+        .bottom{
+            left: 50%;
+            width: 50%;
+        }
+    }
+}
 
 /**** Button ****/
 

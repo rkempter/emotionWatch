@@ -22,15 +22,39 @@ define([
             this.model.set("label", "start");
 
             app.on("set:globalTime", function(dateTime) {
-                self.model.set("date", dateTime.getDay()+"."+dateTime.getDate()+"."+dateTime.getFullYear());
+                self.model.set("date", dateTime.getDate()+"."+(dateTime.getMonth()+1)+"."+dateTime.getFullYear());
                 self.model.set("time", dateTime.getHours()+":"+dateTime.getMinutes()+":"+dateTime.getSeconds());
                 self.render();
             }, this);
+
+            app.on('stop:watch', function() {
+                self.stopTime();
+            });
+
+            app.on('start:watch', function() {
+                self.startTime();
+            });
         },
 
         render: function() {
             var output = window.JST['app/templates/timetemplate.html']( { label: this.model.get("label"), currentDate: this.model.get("date"), currentTime: this.model.get("time") } );
             $( this.el ).html( output );
+        },
+
+        startTime: function() {
+            if(undefined == this.model.get('interval')) {
+                var interval = setInterval(function() {
+                  app.trigger("change:globalTime");
+                }, app.iterationLength);
+
+                this.model.set('interval', interval);
+            }
+        },
+
+        stopTime: function() {
+            if(undefined !== this.model.get('interval')) {
+                clearInterval(this.model.get('interval'));
+            }
         },
 
         triggerStartStop: function() {

@@ -107,22 +107,22 @@ h1.title {
   display: block;
 }
 /***** Basic Layout *****/
-.columns {
+#index .columns {
   margin-top: 40px;
 }
-#left-column {
+#index #left-column {
   width: 29.838709677%;
   float: left;
 }
-#middle-column {
+#index #middle-column {
   width: 40.322580645%;
   float: left;
 }
-#right-column {
+#index #right-column {
   width: 29.838709677%;
   float: right;
 }
-#bottom {
+#index #bottom {
   clear: both;
   height: 100px;
   background: #0173d6;
@@ -132,16 +132,16 @@ h1.title {
   position: fixed;
   bottom: 0px;
 }
-#bottom .date-time-freq {
+#index #bottom .date-time-freq {
   position: absolute;
   height: 100px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
 }
-.inner {
+#index .inner {
   padding: 20px;
 }
-#pattern #middle-column {
+#index #pattern #middle-column {
   width: 100%;
 }
 /***** FRONTPAGE *****/
@@ -351,6 +351,43 @@ svg {
   display: block;
 }
 /**** PATTERN ****/
+/**** COMPARE ****/
+#compare .columns h2 {
+  text-align: center;
+}
+#compare .columns .bottom {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 100px;
+}
+#compare .columns .watch {
+  position: relative;
+  margin-top: 140px;
+}
+#compare #middle-column {
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  margin-left: -200px;
+  width: 350px;
+}
+#compare #left-column {
+  width: 50%;
+  float: left;
+}
+#compare #left-column .bottom {
+  left: 0;
+  width: 50%;
+}
+#compare #right-column {
+  width: 50%;
+  float: left;
+}
+#compare #right-column .bottom {
+  left: 50%;
+  width: 50%;
+}
 /**** Button ****/
 .btn {
   display: inline-block;
