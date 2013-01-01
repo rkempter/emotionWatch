@@ -100,9 +100,7 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
           collection: new tweetCollection(options),
         }),
         "#middle-column .keyword-title": new titleView({
-            model: new Backbone.Model({
-              title: options.keyword
-            }),
+            model: new Backbone.Model(options),
             el: '#middle-column .keyword-title',
         }),
         ".bottom": new Backbone.View({
@@ -129,9 +127,7 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
         ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
         ".navigation": new navigationView(options),
         "#middle-column .keyword-title": new titleView({
-          model: new Backbone.Model({
-            title: options.keyword
-          }),
+          model: new Backbone.Model(options),
           el: '#middle-column .keyword-title',
         }),
         ".bottom": new Backbone.View({
@@ -189,9 +185,7 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
         }),
         ".navigation": new navigationView(options),
         "#middle-column .keyword-title": new titleView({
-          model: new Backbone.Model({
-            title: options.keyword
-          }),
+          model: new Backbone.Model(options),
           el: '#middle-column .keyword-title',
         }),
         ".twitter .bottom .freq": new Backbone.View({
