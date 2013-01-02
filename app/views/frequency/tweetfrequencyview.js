@@ -84,37 +84,14 @@ define([
         },
 
         mouseover: function() {
-          // var dateTime = this.model.get("localStartDateTime");
-          // app.trigger("preview:mouseover", dateTime);
-          // this.render();
-          // if(this.model.get("active") === 0) {
-
-          //   this.model.get("element").attr({
-          //     "fill": "#A65363",
-          //   });
-          //   this.model.get("timeSlot").attr({
-          //     "stroke-width": 0,
-          //     "fill": "#A63112",
-          //   });
-          // }
+          var dateTime = this.model.get("localStartDateTime");
+          app.trigger("preview:mouseover", dateTime);
         },
 
         mouseout: function() {
-          // var dateTime = this.model.get("localStartDateTime");
-
-          // app.trigger("preview:mouseout", dateTime);
-          // this.hide();
-          // if(this.model.get("active") === 0) {
-          //   this.model.get("element").attr({
-          //     "fill": "#b1b1b1",
-          //   });
-          //   this.model.get("timeSlot").attr({
-          //     "stroke-width": 0,
-          //     "fill": "#AC7B74",
-          //   });
-
-            
-          // }
+          var dateTime = this.model.get("localStartDateTime");
+          app.trigger("preview:mouseout", dateTime);
+          
         },
 
         changeToVisited: function() {

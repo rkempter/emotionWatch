@@ -384,6 +384,9 @@ svg {
 #index .date-time-freq path {
   fill: #ac7b74;
 }
+#index .date-time-freq path:hover {
+  fill: #444444;
+}
 /** Tweets / Weibos **/
 .title-box {
   width: 100%;
