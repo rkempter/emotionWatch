@@ -6,9 +6,6 @@ define([
     "raphael",
     "tweetfrequencycollection",
     'constants',
-
-    // plugins
-    "plugins/Raphael-printletters"
 ], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants) {
 
     var emotionWatchView = Backbone.View.extend({

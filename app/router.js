@@ -151,8 +151,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       }).render();
     },
 
-    compare: function(keyword, keywordType, timeStep, startDateTime, endDateTime, currentDateTime) {
+    compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       var options = {};
+      console.log(keyword);
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.mode = 'compare';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";

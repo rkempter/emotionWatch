@@ -91,7 +91,7 @@ define([
       this.set("maxFrequency", 0);
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;
-        var freq = response[i].frequency;
+        var freq = parseInt(response[i].frequency);
         if(freq > this.get("maxFrequency")) {
           this.set("maxFrequency", freq);
         }

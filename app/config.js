@@ -54,11 +54,6 @@ require.config({
 
 
     templates: "templates",
-    printletters: "../assets/js/plugins/Raphael-printletters",
-
-    
-
-    //sanchez: "../assets/js/libs/sanchez_400.font",
     
   },
 
@@ -78,11 +73,6 @@ require.config({
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
     "plugins/bootstrap-modal": ['jquery'],
-    // Raphael.printLetters depends on Raphael
-    // printletters: {
-    //   deps: ["raphael"],
-    //   exports: 'Raphael.fn.printLetters'
-    // },
   }
 
 });

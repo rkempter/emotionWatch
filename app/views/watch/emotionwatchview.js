@@ -9,7 +9,6 @@ define([
 
     // plugins
     "plugins/jquery.scrollto",
-    "plugins/Raphael-printletters"
 ], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants) {
 
     var emotionWatchView = Backbone.View.extend({
@@ -96,7 +95,7 @@ define([
                 "fill": "#000"
             });
             this.model.get("centerCircle").toFront();
-
+            console.log(this.model.get("currentFrequencyRatio"));
             var strokeWidth = this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness || 20;
 
             this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+strokeWidth/2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
@@ -287,27 +286,31 @@ define([
          */
         drawLabelTexts: function() {
             var labelTexts = Constants.labels;
+            var totalNbr = labelTexts.length;
             var textToPrint = 'Lorem Ipsum';
             var paper = this.model.get("paper");
             
             var centerPoint = this.model.get("centerPoint");
             var radius = this.model.get("emotionCircleRadius")*1.3;
             var labels = new Array();
+            var lines = new Array();
 
             for(var i = 0; i < labelTexts.length; i++) {
+                var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
-                var point = this.model.getPoint(1.2, i);
-                var nextPoint = this.model.getPoint(1.3, i+1);
+                var point = this.model.getPoint(1.3, i);
+                var linePoint = this.model.getPoint(1.25, i);
                 var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 14);
+
+                var lineArray = new Array();
+                lineArray.push(["M", centerPoint.x, centerPoint.y]);
+                lineArray.push(["L", linePoint.x, linePoint.y]);
+                var line = paper.path(lineArray).toBack();
+                line.node.setAttribute("class", "line");
+                lines.push(line);
                 
-                var pathString = [["M", point.x, point.y], ["A", radius, radius, 0, 0, 1, nextPoint.x, nextPoint.y]];
-                
-                // var path = paper.path(pathString);
-                
-                // var text1 = paper.printLetters(point.x, point.y, textToPrint, paper.getFont("my underwood"), 30, null, null, path).attr({
-                //     fill : "red",
-                //     stroke : "black"
-                // });
+                text.transform("r"+angle+","+point.x+","+point.y);
+                text.node.setAttribute("class", "label");
 
                 labels.push(text);
             }

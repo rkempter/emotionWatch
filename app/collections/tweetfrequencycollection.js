@@ -21,6 +21,7 @@ define([
             this.timeStep = options.timeStep || undefined;
             this.mode = options.mode || 'regular';
             this.network = options.network || 'twitter';
+            this.keyword = options.keyword;
             this.modelIndex = 0;
             
             this.viewPointer = new Array();
@@ -47,6 +48,7 @@ define([
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
+                    keyword: self.keyword,
                 })
                     
             });

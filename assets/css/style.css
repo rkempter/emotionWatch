@@ -136,28 +136,55 @@ body {
 body.pity {
   background: #a32e68;
 }
+body.pity #bottom {
+  background: #a32e68;
+}
 body.sadness {
+  background: #a3379c;
+}
+body.sadness #bottom {
   background: #a3379c;
 }
 body.disappointment {
   background: #0032a7;
 }
+body.disappointment #bottom {
+  background: #0032a7;
+}
 body.guilt {
+  background: #002da7;
+}
+body.guilt #bottom {
   background: #002da7;
 }
 body.joy {
   background: #6da529;
 }
+body.joy #bottom {
+  background: #6da529;
+}
 body.pride {
+  background: #4da62a;
+}
+body.pride #bottom {
   background: #4da62a;
 }
 body.surprise {
   background: #a5270f;
 }
+body.surprise #bottom {
+  background: #a5270f;
+}
 body.worry {
   background: #7e36ac;
 }
+body.worry #bottom {
+  background: #7e36ac;
+}
 body.frontpage {
+  background: #0173d6;
+}
+body.frontpage #bottom {
   background: #0173d6;
 }
 ul {
@@ -220,6 +247,10 @@ h1.title {
   line-height: 35px;
   position: relative;
 }
+.top-navigation a {
+  color: #ffffff;
+  text-decoration: none;
+}
 .top-navigation #search-hashtag,
 .top-navigation #search-event {
   display: none;
@@ -263,12 +294,16 @@ h1.title {
 #pattern #bottom {
   clear: both;
   height: 100px;
-  background: #0173d6;
   opacity: 0.9;
   z-index: 10;
   width: 100%;
   position: fixed;
   bottom: 0px;
+  -webkit-transition: background-color 3000ms linear;
+  -moz-transition: background-color 3000ms linear;
+  -o-transition: background-color 3000ms linear;
+  -ms-transition: background-color 3000ms linear;
+  transition: background-color 3000ms linear;
 }
 #index #bottom .date-time-freq,
 #pattern #bottom .date-time-freq {
@@ -289,6 +324,14 @@ h1.title {
 svg {
   position: relative;
   top: 0;
+}
+svg .label {
+  fill: #ffffff;
+  opacity: 0.5;
+}
+svg .line {
+  stroke: #ffffff;
+  opacity: 0.1;
 }
 .welcome {
   background: #0173d6;
@@ -491,6 +534,7 @@ svg {
   text-align: center;
   left: -30px;
   top: -10px;
+  cursor: pointer;
 }
 .time-box {
   position: relative;

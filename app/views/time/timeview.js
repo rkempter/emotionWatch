@@ -12,14 +12,12 @@ define([
 
         template: 'timetemplate',
 
-        events: {
-            'click #start-stop-control': 'triggerStartStop',
-        },  
-
+        
         initialize: function() {
             var self = this;
             this.model = new Backbone.Model();
             this.model.set("label", "start");
+            this.render();
 
             app.on("set:globalTime", function(dateTime) {
                 self.model.set("date", moment(dateTime).format("Do MMM YYYY"));
@@ -36,9 +34,13 @@ define([
             });
         },
 
-        render: function() {
-            var output = window.JST['app/templates/timetemplate.html']( { label: this.model.get("label"), currentDate: this.model.get("date"), currentTime: this.model.get("time") } );
-            $( this.el ).html( output );
+        test: function() {
+            console.log('test');
+        },
+
+        events: {
+            "click .time-box": "test",
+            "click .time-box #start-stop-control": "test",
         },
 
         startTime: function() {
@@ -57,18 +59,12 @@ define([
             }
         },
 
-        triggerStartStop: function() {
-            if(this.model.get("label") == "start") {
-                this.model.set("label", "stop");
-                app.trigger("stop:watch");
-                this.render();
-            } else {
-                this.model.set("label", "start");
-                app.trigger("start:watch");
-                this.render();
-            }
+        render: function() {
+            var output = window.JST['app/templates/timetemplate.html']( { label: this.model.get("label"), currentDate: this.model.get("date"), currentTime: this.model.get("time") } );
+            $( this.el ).html( output );
         },
 
+        
     });
 
     return timeView;

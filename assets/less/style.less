@@ -48,38 +48,65 @@ body{
 
     &.pity{
         background: @pity;
+        #bottom{
+            background: @pity;
+        }
     }
 
     &.sadness{
         background: @sadness;
+        #bottom{
+            background: @sadness;
+        }
     }
 
     &.disappointment{
         background: @disappointment;
+        #bottom{
+            background: @disappointment;
+        }
     }
 
     &.guilt{
         background: @guilt;
+        #bottom{
+            background: @guilt;
+        }
     }
 
     &.joy{
         background: @joy;
+        #bottom{
+            background: @joy;
+        }
     }
 
     &.pride{
         background: @pride;
+        #bottom{
+            background: @pride;
+        }
     }
 
     &.surprise{
         background: @surprise;
+        #bottom{
+            background: @surprise;
+        }
     }
 
     &.worry{
         background: @worry;
+        #bottom{
+            background: @worry;
+        }
     }
 
     &.frontpage{
         background: @olympicBlue;
+        #bottom{
+            background: @olympicBlue;
+        }
     }
 }
 
@@ -157,6 +184,11 @@ h1.title{
         position: relative;
     }
 
+    a{
+        color: @white;
+        text-decoration: none;
+    }
+
     #search-hashtag, #search-event{
         display: none;
         position: absolute;
@@ -210,12 +242,16 @@ h1.title{
         }
         clear:both;
         height: 100px;
-        background: @olympicBlue;
         opacity: 0.9;
         z-index: 10;
         width: 100%;
         position: fixed;
         bottom: 0px;
+        -webkit-transition: background-color 3000ms linear;
+        -moz-transition: background-color 3000ms linear;
+        -o-transition: background-color 3000ms linear;
+        -ms-transition: background-color 3000ms linear;
+        transition: background-color 3000ms linear;
     }
 
     .inner{
@@ -233,6 +269,16 @@ h1.title{
 svg{
     position: relative;
     top: 0;
+
+    .label{
+        fill: @white;
+        opacity: 0.5;
+    }
+
+    .line{
+        stroke: @white;
+        opacity: 0.1;
+    }
 }
 
 .welcome{
@@ -500,6 +546,7 @@ svg{
     text-align: center;
     left: -30px;
     top: -10px;
+    cursor: pointer;
 }
 
 .time-box{
