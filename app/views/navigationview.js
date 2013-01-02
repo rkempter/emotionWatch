@@ -5,20 +5,10 @@ define([
     "backbone", 
     "raphael",
     'constants',
-    "emotionwatch",
-    "emotionwatchview",
-    "emotionwatchcollection",
-    "emotionwatchcollectionview",
-    "tweetcollection",
-    "tweetcollectionview",
-    "eventcollectionview",
-    "eventcollection",
-    "videoview",
-    "timeview",
-    "titleview",
-    "plugins/bootstrap-tab",
-
-], function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView, timeView, titleView) {
+    "searcheventview",
+    "searchkeywordview",
+    "plugins/bootstrap-modal",
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView) {
 
     var navigationView = Backbone.View.extend({
 
@@ -30,15 +20,27 @@ define([
             'click #start-watch': 'triggerStartWatch',
             'click #stop-watch': 'triggerStopWatch',
             'click #search-hashtag #hashtag-search-button': 'triggerHashtagSearch',
+            'click #search-keyword-btn': 'triggerSearchKeywordModal',
+            'click #search-event-btn': 'triggerSearchEventModal',
         },
 
         initialize: function(options) {
-            this.insertViews({ "#search-event": new eventCollectionView({
-                    collection: new eventCollection(),
-                })
+            var eventView = new searchEventView();
+            var keywordView = new searchKeywordView();
+
+            this.insertViews({
+                '#search-event .modal-body': eventView,
+                '#search-keyword .modal-body': keywordView,
             });
         },
 
+        triggerSearchEventModal: function(e) {
+            $('#search-event').modal('show');
+        },
+
+        triggerSearchKeywordModal: function(e) {
+            $('#search-keyword').modal('show');
+        },
 
         triggerSearch: function(event) {
             event.preventDefault();

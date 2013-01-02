@@ -1,22 +1,31 @@
+<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">
+  <div class="search-event-header modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Search Event</h3>
+  </div>
+  <div class="search-event-body modal-body">
+    
+  </div>
+</div>
+
+<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Search athlete or hashtag</h3>
+  </div>
+  <div class="modal-body">
+  </div>
+</div>
+
 <div class="top-navigation">
   <div class="logo">The Olympic Emotion Project</div>
   <div class="menu">
     <ul>
-      <li>Search event
-        <div class="search-tab" id="search-event">  
-          test
-        </div>
+      <li>
+        <button id="search-event-btn" data-toggle="modal">Search event</button>
       </li>
-      <li>Search hashtag / athlete
-        <div class="search-tab" id="search-hashtag">
-          <h2>Search for events, athletes or hashtags</h2>
-          <input type="text" id="hashtag-field" placeholder="Type a hashtag or athletes twitter name" />
-          <label for="start-date-time">Enter the Start date & time</label>
-          <input type="datetime" id="start-date-time" value="2012-07-31 19:30:00">
-          <label for="start-date-time">Enter the end date & time</label>
-          <input type="datetime" id="end-date-time" value="2012-07-31 20:50:00">
-          <button id="hashtag-search-button">Start visualization"</button>
-        </div>
+      <li>
+        <button id="search-keyword-btn" data-toggle="modal">Search hashtag / athlete</button>
       </li>
       <li>About the project</li>
       <li>Github</li>

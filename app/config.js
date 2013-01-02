@@ -80,6 +80,7 @@ require.config({
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
+    "plugins/bootstrap-modal": ['jquery'],
     // Raphael.printLetters depends on Raphael
     // printletters: {
     //   deps: ["raphael"],

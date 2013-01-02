@@ -1,4 +1,3 @@
-// @import "/bootstrap/bootstrap.less";
 
 /***** Variables *****/
 
@@ -28,6 +27,13 @@
 @contempt: #43acb0;
 @irritation: #3ea67c;
 @olympicBlue: #0173d6;
+
+@zindexModal: 101;
+@zindexModalBackdrop: 100;
+
+
+@import "bootstrap/mixins.less";
+@import "bootstrap/modals.less";
 
 body{
     background: @olympicBlue;
@@ -681,4 +687,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
     -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+/**** Modal ****/
+
+.modal {
+    color: @black;
 }
