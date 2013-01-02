@@ -52,7 +52,6 @@ define([
             var keywordType = util.getKeywordType(keyword);
 
             app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
-
         },
 
         cleanup: function() {
