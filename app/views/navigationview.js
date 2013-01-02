@@ -7,8 +7,9 @@ define([
     'constants',
     "searcheventview",
     "searchkeywordview",
+    "settingsview",
     "plugins/bootstrap-modal",
-], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView) {
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView) {
 
     var navigationView = Backbone.View.extend({
 
@@ -22,20 +23,23 @@ define([
             'click #search-hashtag #hashtag-search-button': 'triggerHashtagSearch',
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
+            'click #settings-btn': 'triggerSettingsModal',
         },
 
         initialize: function(options) {
-            var eventView = new searchEventView();
-            var keywordView = new searchKeywordView();
-
             this.insertViews({
-                '#search-event .modal-body': eventView,
-                '#search-keyword .modal-body': keywordView,
+                '#search-event .modal-body': new searchEventView(),
+                '#search-keyword .modal-body': new searchKeywordView(),
+                '#settings-modal .modal-body': new settingsView(options),
             });
         },
 
         triggerSearchEventModal: function(e) {
             $('#search-event').modal('show');
+        },
+
+        triggerSettingsModal: function(e) {
+            $('#settings-modal').modal('show');
         },
 
         triggerSearchKeywordModal: function(e) {

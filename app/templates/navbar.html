@@ -1,3 +1,12 @@
+<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Change settings</h3>
+  </div>
+  <div class="modal-body">
+  </div>
+</div>
+
 <div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">
   <div class="search-event-header modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -21,11 +30,14 @@
   <div class="logo">The Olympic Emotion Project</div>
   <div class="menu">
     <ul>
-      <li>
-        <button id="search-event-btn" data-toggle="modal">Search event</button>
+      <li id="settings-btn" data-toggle="modal">
+        Settings
       </li>
-      <li>
-        <button id="search-keyword-btn" data-toggle="modal">Search hashtag / athlete</button>
+      <li id="search-event-btn" data-toggle="modal">
+        Search event
+      </li>
+      <li id="search-keyword-btn" data-toggle="modal">
+        Search hashtag / athlete
       </li>
       <li>About the project</li>
       <li>Github</li>

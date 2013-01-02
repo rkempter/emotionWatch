@@ -1,26 +1,29 @@
-<h1>Settings</h1>
-<div class="control">
-    <label>Animation duration of one step</label>
-    <input type="text" name="animation-duration" id="animation-duration" value="<%= animationDuration %>" />
-</div>
-<div class="control">
-    <label>Length of a time step</label>
-    <input type="text" name="time-step" id="time-step" value="<%= timeStep %>" />
-</div>
-<div class="control">
-    <label>Network</label>
-    <select id="network">
-        <option value="twitter">Twitter</option>
-        <option value="weibo">Weibo</option>
-    </select>
-</div>
-<div class="control">
-    <label>Date & time at beginning</label>
-    <input type="date" name="start-date" id="start-date" value="<%= startDate %>" />
-    <input type="time" name="start-time" id="start-time" value="<%= startTime %>" />
-</div>
-<div class="control">
-    <label>Date & time at end</label>
-    <input type="date" name="end-date" id="end-date" value="<%= endDate %>" />
-    <input type="time" name="end-time" id="end-time" value="<%= endTime %>" />
-</div>
+<div id="settings">
+    <h1>Settings</h1>
+    <div class="control">
+        <label>Animation duration of one step</label>
+        <input type="text" name="animation-duration" id="animation-duration" value="<%= animationDuration %>" />
+    </div>
+    <div class="control">
+        <label>Length of a time step</label>
+        <input type="text" name="time-step" id="time-step" value="<%= timeStep %>" />
+    </div>
+    <div class="control">
+        <label>Network</label>
+        <select id="network">
+            <option value="twitter">Twitter</option>
+            <option value="weibo">Weibo</option>
+        </select>
+    </div>
+    <div class="control">
+        <label>Date & time at beginning</label>
+        <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="<%= startDate %>" />
+        <input type="time" name="start-time" id="start-time" value="<%= startTime %>" />
+    </div>
+    <div class="control">
+        <label>Date & time at end</label>
+        <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date" id="end-date" value="<%= endDate %>" />
+        <input type="time" name="end-time" id="end-time" value="<%= endTime %>" />
+    </div>
+    <button class="btn" id="settings-change">Change settings</button>
+    </div>

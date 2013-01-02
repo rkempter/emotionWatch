@@ -45,7 +45,7 @@ define([
             if(undefined == this.model.get('interval')) {
                 var interval = setInterval(function() {
                   app.trigger("change:globalTime");
-                }, app.iterationLength);
+                }, app.animationDuration);
 
                 this.model.set('interval', interval);
             }

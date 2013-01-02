@@ -38,6 +38,7 @@ require.config({
 
     // views
     emotioncollectionview: "views/frontpage/emotioncollectionview",
+    settingsview: "views/settings/settingsview",
     searcheventview: "views/search/searcheventview",
     searchkeywordview: "views/search/searchkeywordview",
     emotionview: "views/frontpage/emotionview",
