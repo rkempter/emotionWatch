@@ -4,85 +4,113 @@
     <h2>Search an event</h2>
     <div class="input-control">
         <label for="event-gender">Choose gender</label>
-        <select name="event-gender" id="event-gender">
-            <option data-gender="male" value="m">Male</option>
-            <option data-gender="female" value="f">Female</option>
-        </select>
+        <div class="inner-control">
+            <select name="event-gender" id="event-gender">
+                <option value="men">Male</option>
+                <option value="women">Female</option>
+            </select>
+        </div>
     </div>
     <div class="input-control">
         <label for="event-sport">Choose a sport</label>
-        <select name="event-sport" id="event-sport">
-            <option value="diving">Diving</option>
-            <option value="swimming">Swimming</option>
-            <option value="synchronised swimming">Synchronised Swimming</option>
-            <option value="waterpolo">Waterpolo</option>
-            <option value="archery">Archery</option>
-            <option value="badminton">Badminton</option>
-            <option value="basketball">Basketball</option>
-            <option value="boxing">Boxing</option>
-            <option value="canoe slalom">Canoe Slalom</option>
-            <option value="canoe sprint">Canoe Sprint</option>
-            <option value="cycling">Cycling</option>
-            <option value="cycling-bmx">Cycling - BMX</option>
-            <option value="cycling-road">Cycling - Road</option>
-            <option value="cycling-track">Cycling - Track</option>
-            <option value="cycling-mountain bike">Cycling - Mountain Bike</option>
-            <option value="equestrian">Equestrian</option>
-            <option value="fencing">Fencing</option>
-            <option value="football">Football</option>
-            <option value="golf">Golf</option>
-            <option value="gymnastics">Gymnastics</option>
-            <option value="trampoline">Trampoline</option>
-            <option value="handball">Handball</option>
-            <option value="hockey">Hockey</option>
-            <option value="judo">Judo</option>
-            <option value="modern pentathlon">Modern Pentathlon</option>
-            <option value="rowing">Rowing</option>
-            <option value="sailing">Sailing</option>
-            <option value="shooting">Shooting</option>
-            <option value="table tennis">Table tennis</option>
-            <option value="taekwondo">Taekwondo</option>
-            <option value="tennis">Tennis</option>
-            <option value="triathlon">Triathlon</option>
-            <option value="volleyball">Volleyball</option>
-            <option value="beach volleyball">Beach Volleyball</option>
-            <option value="weightlifting">Weightlifting</option>
-            <option value="wrestling">Wrestling</option>
-            <option value="athletics">Athletics</option>
-        </select>
+        <div class="inner-control">
+            <select name="event-sport" id="event-sport">
+                <option value="diving">Diving</option>
+                <option value="swimming">Swimming</option>
+                <option value="synchronised swimming">Synchronised Swimming</option>
+                <option value="waterpolo">Waterpolo</option>
+                <option value="archery">Archery</option>
+                <option value="badminton">Badminton</option>
+                <option value="basketball">Basketball</option>
+                <option value="boxing">Boxing</option>
+                <option value="canoe slalom">Canoe Slalom</option>
+                <option value="canoe sprint">Canoe Sprint</option>
+                <option value="cycling">Cycling</option>
+                <option value="cycling-bmx">Cycling - BMX</option>
+                <option value="cycling-road">Cycling - Road</option>
+                <option value="cycling-track">Cycling - Track</option>
+                <option value="cycling-mountain bike">Cycling - Mountain Bike</option>
+                <option value="equestrian">Equestrian</option>
+                <option value="fencing">Fencing</option>
+                <option value="football">Football</option>
+                <option value="golf">Golf</option>
+                <option value="gymnastics">Gymnastics</option>
+                <option value="trampoline">Trampoline</option>
+                <option value="handball">Handball</option>
+                <option value="hockey">Hockey</option>
+                <option value="judo">Judo</option>
+                <option value="modern pentathlon">Modern Pentathlon</option>
+                <option value="rowing">Rowing</option>
+                <option value="sailing">Sailing</option>
+                <option value="shooting">Shooting</option>
+                <option value="table tennis">Table tennis</option>
+                <option value="taekwondo">Taekwondo</option>
+                <option value="tennis">Tennis</option>
+                <option value="triathlon">Triathlon</option>
+                <option value="volleyball">Volleyball</option>
+                <option value="beach volleyball">Beach Volleyball</option>
+                <option value="weightlifting">Weightlifting</option>
+                <option value="wrestling">Wrestling</option>
+                <option value="athletics">Athletics</option>
+            </select>
+        </div>
     </div>
+
+    <% if (events.length > 0) { %>
+    <div class="input-control">
+        <label for="event-network">Choose an event</label>
+        <div class="inner-control">
+            <select id="event-event">
+                 <% _.each(events, function(event) { %>
+                     <option data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
+                 <% }); %>
+             </select>
+        </div>
+    </div>
+    <% } %>
    
     <div class="input-control">
         <label for="event-network">Network</label>
-        <select id="event-network" name="event-network">
-            <option value="twitter" selected>Twitter</option>
-            <option value="weibo">Weibo</option>
-        </select>
+        <div class="inner-control">
+            <select id="event-network" name="event-network">
+                <option value="twitter" selected>Twitter</option>
+                <option value="weibo">Weibo</option>
+            </select>
+        </div>
     </div>
-    <button class="btn" id="event-search">Search event</button>
+    <button class="btn btn-search" id="event-search">Search event</button>
 </div>
 <div class="right">
     <h2>Search a keyword or athlete / person</h2>
     <div class="input-control">
         <label for="keyword">Keyword (with # or @)</label>
-        <input type="text" name="keyword" id="keyword" />
+        <div class="inner-control">
+            <input type="text" id="keyword" />
+        </div>
     </div>
     <div class="input-control">
         <label for="keyword-network">Network</label>
-        <select id="keyword-network" name="keyword-network">
-            <option value="twitter" selected>Twitter</option>
-            <option value="weibo">Weibo</option>
-        </select>
+        <div class="inner-control">
+            <select id="keyword-network" name="keyword-network">
+                <option value="twitter" selected>Twitter</option>
+                <option value="weibo">Weibo</option>
+            </select>
+        </div>
     </div>
     <div class="input-control">
         <label for="keyword-start-date-time">Startdate & time</label>
-        <input type="date" name="keyword-start-date" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />
-        <input type="time" name="keyword-start-time" value="09:00" id="keyword-start-time" />
-    </di>
+        <div class="inner-control">
+            <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />
+            <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />
+        </div>
+    </div>
      <div class="input-control">
         <label for="keyword-end-date-time">Enddate & time</label>
-        <input type="date" name="keyword-end-date"  value="2012-07-26" min="2012-07-26" max="2012-08-14"id="keyword-end-date" />
-        <input type="time" name="keyword-end-time" step="60" value="12:00" id="keyword-end-time" />
+        <div class="inner-control">
+            <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14"id="keyword-end-date" />
+            <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />
+        </div>
     </div>
-    <button class="btn keyword-search">Search keyword or athlete</button>
+    <button class="btn btn-search keyword-search">Search keyword or athlete</button>
 </div>
+<div style="clear: both;"></div>

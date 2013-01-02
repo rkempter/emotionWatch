@@ -65,7 +65,6 @@ define([
         },
 
         triggerHashtagSearch: function(event) {
-            console.log("Search trigger");
             event.preventDefault();
             app.paper.clear();
             this.keyword = $('#search-hashtag #hashtag-field').attr('value');
@@ -79,12 +78,10 @@ define([
         },
 
         triggerStartWatch: function() {
-            console.log("Trigger the start of the watch");
             app.trigger('start:watch');
         },
 
         triggerStopWatch: function() {
-            console.log("Trigger the stop of the watch");
             app.trigger('stop:watch');
         },
     });

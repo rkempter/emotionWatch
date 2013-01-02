@@ -13,13 +13,14 @@ define([
         template: 'titletemplate',
 
         initialize: function() {
-            console.log(this.model.get('endDateTime'));
             var self = this;
+
             if(self.model.get('keyword').indexOf('#') !== -1) {
                 self.model.set('keywordType', 'keyword');
             } else {
                 self.model.set('keywordType', 'user');
             }
+
             app.on('set:globalTime', function(currentDateTime) {
                 self.model.set('currentDateTime', currentDateTime);
                 self.render();

@@ -17,6 +17,10 @@ define([
             this.el = app.paper.canvas;
         },
 
+        cleanup: function() {
+          this.collection.off(null, null, this);
+        },
+
     });
 
     return emotionCollectionView;

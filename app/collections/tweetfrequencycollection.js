@@ -22,8 +22,6 @@ define([
             this.mode = options.mode || 'regular';
             this.network = options.network || 'twitter';
             this.modelIndex = 0;
-
-            // console.log("Startdatetime: "+this.startDateTime);
             
             this.viewPointer = new Array();
 
@@ -76,7 +74,7 @@ define([
             while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
                 var value = frequencies[localStartDateTime.getTime()] || 0;
                
-                var scaling = parseFloat(value / max);  
+                var scaling = parseFloat(value / max);
 
                 var model = new tweetFrequencyModel({
                     "value": value,
@@ -102,8 +100,6 @@ define([
                 localEndDateTime = new Date(localEndDateTime.getTime() + self.timeStep * 1000);
             }
 
-            console.log("Length: "+this.models.length);
-
             return models;
         },
 
@@ -128,7 +124,6 @@ define([
         },
 
         jumpToGlobalTime: function(cid) {
-            console.log("GlobalTime");
             var self = this;
             var model = self.getByCid(cid);
 

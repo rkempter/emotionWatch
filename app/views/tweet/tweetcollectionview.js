@@ -30,10 +30,19 @@ define([
             this.collection.setEmotion(emotion);
         },
 
+        cleanup: function() {
+          this.collection.off(null, null, this);
+        },
+
         render: function() {
             this.template = window.JST['app/templates/tweetview.html']( { tweets: this.collection.models, emotion: this.collection.emotion } );
             $(this.el).html( this.template );
-        },  
+        }, 
+
+        onClose: function(){
+          console.log('CLOSE');
+          this.model.unbind("change", this.render);
+        },
     })
 
     return tweetCollectionView;

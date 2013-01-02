@@ -25,13 +25,11 @@ define([
 				if(null !== parent) {
 					if(mode !== 'regular') {
 						if (app.paper instanceof Array) {
-							console.log(parent);
 							app.paper[network] = Raphael(0, 0, "100%", 600);
 							app.paper[network].setViewBox(0, 0, 800, 800, true);
 							this.el = app.paper[network].canvas;
 							this.$el = $(this.el);
 						} else {
-							console.log("Create array paper network"+network);
 							app.paper = new Array();
 							app.paper[network] = Raphael(0, 0, "100%", 600);
 							app.paper[network].setViewBox(0, 0, 800, 800, true);

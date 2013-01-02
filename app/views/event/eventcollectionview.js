@@ -17,7 +17,7 @@ define([
             var self = this;
             self.template = window.JST['app/templates/eventview.html']( { events: self.collection.models } );
             $('.search-event').html( self.template );
-            console.log( self.template );
+            // console.log( self.template );
         },  
     });
 

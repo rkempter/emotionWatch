@@ -23,6 +23,11 @@ define(['backbone'], function(Backbone) {
 
         patternCircleRadius: 100,
 
+        slots: 100,
+
+        startDateTime: new Date('26 Jul 2012 00:00').getTime(),
+        endDateTime: new Date('13 Aug 2012 00:00').getTime(),
+
 
 		// Emotion Shape Properties
 		emotionShapeFillColor: '#aaaaaa',

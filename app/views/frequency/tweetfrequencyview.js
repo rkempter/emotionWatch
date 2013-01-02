@@ -166,8 +166,6 @@ define([
       getPointFromTime: function(startDateTime, endDateTime, currentDateTime) {
         var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
         var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
-
-        // console.log("How long"+currentTimeSec / timeSpan);
         
         return parseInt(currentTimeSec / timeSpan * this.pixelLength);
       },
@@ -205,6 +203,10 @@ define([
 
       hide: function() {
         $(".date-time-freq").hide();
+      },
+
+      cleanup: function() {
+        this.model.off(null, null, this);
       },
 
     });

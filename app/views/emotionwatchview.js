@@ -45,8 +45,6 @@ define([
                 });
 
                 this.model.on('scroll:model', function() {
-                    console.log("scrolled");
-                    console.log(self.model.get("centerPoint").y);
                     $.scrollTo(self.model.get("centerPoint").y-90);
                 })
 
@@ -131,7 +129,6 @@ define([
          *
          */
         drawCircle: function(radius, positionX, positionY) {
-            console.log(this.model.get("paper"));
             var circle = this.model.get("paper").circle(positionX, positionY, radius);
 
             return circle;

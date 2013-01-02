@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone) {
+define(['backbone', 'constants'], function(Backbone, Constants) {
 
     var util = function() {
 
@@ -59,12 +59,64 @@ define(['backbone'], function(Backbone) {
          */
          
         getPoint: function(centerPoint, value, angle, radius) {
-          console.log(centerPoint);
             var x = centerPoint.x + radius * value * Math.cos(angle);
             var y = centerPoint.y + radius * value * Math.sin(angle);
             var point = { "x": x, "y": y };
 
             return point;
+        },
+
+        /**
+         * Computes an appropiate time Step for the animation
+         *
+         */
+        getTimeStep: function(startDateTime, endDateTime) {
+          // Timespan in sec
+          var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
+
+          // 1, 2, 5, 15, 30, 60, 120, 12*60, 24*60 min
+
+          var timeSpanMinutes = timeSpan / 60;
+          var naturalSlotSize = timeSpanMinutes / Constants.slots;
+
+          switch(true) {
+            case (naturalSlotSize < 1):
+              return 1*60;
+            case (naturalSlotSize < 2):
+              return 2*60;
+            case (naturalSlotSize < 5):
+              return 5*60;
+            case (naturalSlotSize < 15):
+              return 15*60;
+            case (naturalSlotSize < 30):
+              return 30*60;
+            case (naturalSlotSize < 60):
+              return 60*60;
+            case (naturalSlotSize < 120):
+              return 2*60*60;
+            case (naturalSlotSize < 720):
+              return 12*60*60;
+            case (naturalSlotSize < 1440):
+              return 24*60*60;
+          }
+
+        },
+
+        getKeywordType: function(keyword) {
+          if(keyword.indexOf('#') !== -1) {
+            return 'keyword';
+          } else {
+            return 'user';
+          }
+        },
+
+        combineKeyword: function(keyword, keywordType) {
+          switch(keywordType) {
+            case 'user':
+              return '@'+keyword;
+            case 'keyword':
+              return '#'+keyword;
+          }
         },
       }
     }();

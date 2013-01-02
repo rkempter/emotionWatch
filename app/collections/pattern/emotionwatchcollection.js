@@ -29,14 +29,7 @@ define([
 
             // Golden ratio
 
-            console.log("CurrentDateTIme: "+this.currentDateTime);
-
-
-            console.log(this.radius);
-
             this.spaceBetween = this.radius+10 / 1.618;
-
-            console.log(this.spaceBetween);
 
             var self = this;
 
@@ -55,14 +48,9 @@ define([
         },
 
         viewInitialized: function() {
-            console.log('test');
             var width = $(window).width();
-
-            console.log("Paper width: "+Constants.paperWidth);
             
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
-
-            console.log(this.elementsPerLine);
 
             this.fetch({
                 data: $.param({
@@ -132,10 +120,7 @@ define([
 
         adjustCanvasSize: function(nbr) {
             var lines = Math.ceil(nbr / this.elementsPerLine);
-            console.log("Number of lines: "+lines);
-            console.log("Space between: "+this.spaceBetween);
             var height = (this.spaceBetween+50) * 2 * lines+300;
-            console.log("Height of these lines: "+height);
 
             app.paper.setSize("100%", height);
         },

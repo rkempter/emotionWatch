@@ -1,5 +1,6 @@
 define([
   // Application.
+  "util",
   "app",
   "lodash",
   "jquery", 
@@ -25,7 +26,7 @@ define([
   "welcomeview"
 ],
 
-function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -33,17 +34,12 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
       "": "index",
       "about/": "about",
       "search": "search",
-      "search/person/:name": "search",
-      "search/keyword/:keyword": "search",
-      "search/:network/keyword/:keyword/:timeStep/:startDateTime/:endDateTime": 'search',
-      "search/:network/keyword/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'search',
-      "search/:network/user/:user/:timeStep/:startdatetime/:enddatetime": 'search',
-      "search/:network/user/:user/:timeStep/:startdatetime/:enddatetime/:currentDateTime": 'search',
-      "pattern/:network/keyword/:keyword/:timeStep/:startDateTime/:endDateTime": 'pattern',
-      "pattern/:network/keyword/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
-      "pattern/:network/user/:user/:timeStep/:startdatetime/:enddatetime": 'pattern',
-      "pattern/:network/user/:user/:timeStep/:startdatetime/:enddatetime/:currentDateTime": 'pattern',
-      "compare/keyword/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
+      "search/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'search',
+      "search/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'search',
+      "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'pattern',
+      "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
+      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
+      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare',
     },
 
     index: function() {
@@ -54,17 +50,17 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
           "x": 0,
           "y": 0,
         }),
-        ".welcome": new welcomeView(),
+        ".welcome": new welcomeView()
       }).render();
     },
 
-    search: function(network, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
-      console.log("In search");
+    search: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       var options = {};
-      options.keyword = '#'+keyword || null;
-      options.network = network || 'twitter',
+      options.keyword = util.combineKeyword(keyword, keywordType);
+      options.network = network || 'twitter';
       options.mode = 'regular';
       options.timeStep = timeStep;
+
       var startDateTime_raw = parseInt(startDateTime) ||  new Date("2012-07-26 00:00:00");
       var endDateTime_raw =  parseInt(endDateTime) ||  new Date("2012-08-13 24:00:00");
       var currentDateTime_raw =  parseInt(currentDateTime) || startDateTime_raw;
@@ -73,12 +69,17 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = new Date(currentDateTime_raw);
 
-      app.useLayout('main-layout').setViews({
+      var mainLayout = new Backbone.Layout({
+        template: 'main-layout',
+      }).setViews({
         ".time-block": new timeView({
             el: ".time-block",
         }),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
-        ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
+        ".date-time-freq .paper": new frequencyPaperView({ 
+          "parent": ".date-time-freq .paper",
+          "network": options.network,
+        }),
         ".navigation": new navigationView(options),
         "#player": new videoView(),
         ".watches": new emotionWatchView({ 
@@ -106,12 +107,15 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
         ".bottom": new Backbone.View({
           collection: new tweetFrequencyCollection(options),
         }),
-      }).render();
+      })
+
+      $('#main').empty().append(mainLayout.el);
+      mainLayout.render();
     },
 
-    pattern: function(network, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
+    pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
       var options = {};
-      options.keyword = keyword || null;
+      options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter',
       options.mode = 'pattern';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
@@ -124,7 +128,10 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('pattern-layout').setViews({
-        ".date-time-freq .paper": new frequencyPaperView( { "parent": ".date-time-freq .paper" } ),
+        ".date-time-freq .paper": new frequencyPaperView({ 
+          "parent": ".date-time-freq .paper",
+          "network": options.network, 
+        }),
         ".navigation": new navigationView(options),
         "#middle-column .keyword-title": new titleView({
           model: new Backbone.Model(options),
@@ -146,9 +153,9 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
       }).render();
     },
 
-    compare: function(keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
+    compare: function(keyword, keywordType, timeStep, startDateTime, endDateTime, currentDateTime) {
       var options = {};
-      options.keyword = keyword || null;
+      options.keyword = util.combineKeyword(keyword, keywordType);
       options.mode = 'compare';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
@@ -175,12 +182,10 @@ function(app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView
         }),
         ".weibo .date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".weibo .date-time-freq .paper", 
-          "mode": "compare",
           "network": "weibo",
         }),
         ".twitter .date-time-freq .paper": new frequencyPaperView({
           "parent": ".twitter .date-time-freq .paper", 
-          "mode": "compare",
           "network": "twitter",
         }),
         ".navigation": new navigationView(options),

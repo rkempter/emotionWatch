@@ -35,7 +35,6 @@ define([
       var self = this;
 
       if(this.get('mode') == 'regular') {
-        console.log(this);
         this.fetch({ 
             data: $.param({
               topic: this.get("topic"),
@@ -89,7 +88,6 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log(response);
       this.set("maxFrequency", 0);
       for(var i = 0; i < response.length; i++) {
         var emotions = response[i].emotions;

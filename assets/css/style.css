@@ -74,6 +74,7 @@ h1.title {
   position: fixed;
   z-index: 2;
   width: 100%;
+  top: 0;
   height: 35px;
   background-color: #000000;
   line-height: 35px;
@@ -117,22 +118,27 @@ h1.title {
   display: block;
 }
 /***** Basic Layout *****/
-#index .columns {
+#index .columns,
+#pattern .columns {
   margin-top: 40px;
 }
-#index #left-column {
+#index #left-column,
+#pattern #left-column {
   width: 29.838709677%;
   float: left;
 }
-#index #middle-column {
+#index #middle-column,
+#pattern #middle-column {
   width: 40.322580645%;
   float: left;
 }
-#index #right-column {
+#index #right-column,
+#pattern #right-column {
   width: 29.838709677%;
   float: right;
 }
-#index #bottom {
+#index #bottom,
+#pattern #bottom {
   clear: both;
   height: 100px;
   background: #0173d6;
@@ -142,16 +148,19 @@ h1.title {
   position: fixed;
   bottom: 0px;
 }
-#index #bottom .date-time-freq {
+#index #bottom .date-time-freq,
+#pattern #bottom .date-time-freq {
   position: absolute;
   height: 100px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.1);
 }
-#index .inner {
+#index .inner,
+#pattern .inner {
   padding: 20px;
 }
-#index #pattern #middle-column {
+#index #pattern #middle-column,
+#pattern #pattern #middle-column {
   width: 100%;
 }
 /***** FRONTPAGE *****/
@@ -161,23 +170,38 @@ svg {
 }
 .welcome {
   background: #0173d6;
-  height: 400px;
   position: absolute;
   top: 50%;
-  width: 40%;
+  width: 50%;
   border: 1px solid #ffffff;
   color: #ffffff;
-  margin: -300px 28% 0 28%;
+  margin: -300px 23% 0 23%;
   padding: 2%;
   z-index: 100;
   text-align: center;
 }
+.welcome .btn-search {
+  float: right;
+  clear: both;
+}
+.welcome .input-control {
+  margin: 0;
+  clear: both;
+}
+.welcome .input-control .inner-control {
+  float: right;
+  text-align: right;
+}
 .welcome .input-control label {
-  display: block;
+  float: left;
+}
+.welcome .input-control select {
+  margin-bottom: 10px;
 }
 .welcome .input-control input {
   font-size: 12px;
   padding: 2px;
+  display: block;
 }
 .welcome .left {
   margin: 0 2% 0 2%;
@@ -472,4 +496,60 @@ svg {
   -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+select {
+  background-color: white;
+  border: 1px solid #CCC;
+}
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  background-color: white;
+  border: 1px solid #CCC;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
 }

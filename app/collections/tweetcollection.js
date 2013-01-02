@@ -4,7 +4,8 @@ define([
     "underscore",
     "jquery",
     "tweetmodel",
-], function(app, Backbone, _, $, tweetModel) {
+    "constants",
+], function(app, Backbone, _, $, tweetModel, Constants) {
 
     var tweetCollection = Backbone.Collection.extend({
 
@@ -59,14 +60,10 @@ define([
         },
 
         parse: function(response) {
-            console.log(response);
             for(var i = 0; i < response.length; i++) {
                 var text = response[i].tweet;
-                console.log(text);
                 text = this.replaceHashtags(text);
-                console.log(text);
                 text = this.replaceUsers(text);
-                console.log(text);
                 response[i].tweet = text;
             }
             this.add(response);
@@ -75,7 +72,7 @@ define([
         replaceHashtags: function(text) {
             var hashtags = text.match(/\B#\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
-                var url = '/search/keyword/'+hashtags[i].slice(1);
+                var url = '/search/'+this.network+'/keyword/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
                 text = text.replace(hashtags[i], replacement);
             }
@@ -86,7 +83,7 @@ define([
         replaceUsers: function(text) {
             var hashtags = text.match(/\B@\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
-                var url = '/search/user/'+hashtags[i].slice(1);
+                var url = '/search/'+this.network+'/user/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
                 text = text.replace(hashtags[i], replacement);
             }
