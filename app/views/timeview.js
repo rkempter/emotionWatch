@@ -22,8 +22,8 @@ define([
             this.model.set("label", "start");
 
             app.on("set:globalTime", function(dateTime) {
-                self.model.set("date", dateTime.getDate()+"."+(dateTime.getMonth()+1)+"."+dateTime.getFullYear());
-                self.model.set("time", dateTime.getHours()+":"+dateTime.getMinutes()+":"+dateTime.getSeconds());
+                self.model.set("date", moment(dateTime).format("Do MMM YYYY"));
+                self.model.set("time", moment(dateTime).format("HH:mm:ss"));
                 self.render();
             }, this);
 
