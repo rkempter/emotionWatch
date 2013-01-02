@@ -26,14 +26,12 @@ require.config({
     emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetmodel: "models/tweetmodel",
-    eventmodel: "models/eventmodel",
     tweetfrequencymodel: "models/tweetfrequencymodel",
 
     // collection
     emotioncollection: "collections/frontpage/emotioncollection",
     emotionwatchcollection: "collections/pattern/emotionwatchcollection",
     tweetcollection: "collections/tweetcollection",
-    eventcollection: "collections/eventcollection",
     tweetfrequencycollection: "collections/tweetfrequencycollection",
 
     // views
@@ -42,18 +40,16 @@ require.config({
     searcheventview: "views/search/searcheventview",
     searchkeywordview: "views/search/searchkeywordview",
     emotionview: "views/frontpage/emotionview",
-    paperview: "views/paperview",
-    timeview: "views/timeview",
+    paperview: "views/canvas/paperview",
+    timeview: "views/time/timeview",
     welcomeview: "views/frontpage/welcomeview",
     titleview: "views/titleview",
-    frequencypaperview: "views/frequencypaperview",
-    videoview: "views/videoview",
-    emotionwatchview: "views/emotionwatchview",
-    searchview: "views/searchview",
-    navigationview: "views/navigationview",
+    frequencypaperview: "views/canvas/frequencypaperview",
+    videoview: "views/video/videoview",
+    emotionwatchview: "views/watch/emotionwatchview",
+    navigationview: "views/navigation/navigationview",
     emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
-    eventcollectionview: "views/event/eventcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
 
 

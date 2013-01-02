@@ -13,8 +13,6 @@ define([
   "emotionwatchcollectionview",
   "tweetcollection",
   "tweetcollectionview",
-  "eventcollectionview",
-  "eventcollection",
   "videoview",
   "timeview",
   "titleview",
@@ -26,7 +24,7 @@ define([
   "welcomeview"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, eventCollectionView, eventCollection, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
