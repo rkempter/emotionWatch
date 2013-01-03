@@ -80,30 +80,38 @@ define([
             var totalNbrWatches = response.length;
             this.adjustCanvasSize(response.length);
 
-            var max = _.max(response, function(frequency) {
-                return parseInt(frequency.frequency);
-            });
-            max = parseInt(max.frequency);
+            var max = 0;
+            for(var time in response) {
+                var freq = parseInt(response[time].frequency);
+                if(max < freq) {
+                    max = freq;
+                }
+            }
             
             var self = this;
-            for(var i = 0; i < response.length; i++) {
+            var localStartDateTime = this.startDateTime;
+            var i = 0;
+
+            while(localStartDateTime.getTime() <= this.endDateTime) {
                 var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
-                var currentDateTime = new Date(response[i].dateTime);
+                var emotionObject = response[localStartDateTime] || {};
+                var emotions = emotionObject.emotions || Constants.nullEmotion;
+                var frequency = emotionObject.frequency || 0;
 
                 var model = new emotionWatch({
                     mode: 'static',
                     paper: app.paper, 
                     emotionCircleRadius: self.radius,
-                    startDate: new Date(self.startDateTime),
-                    currentDateTime: new Date(currentDateTime),
-                    currentDataSet: response[i].emotions,
-                    endDate: new Date(self.endDateTime),
+                    startDate: self.startDateTime,
+                    currentDateTime: localStartDateTime,
+                    currentDataSet: emotions,
+                    endDate: self.endDateTime,
                     centerPoint: {"x": x, "y": y},
                     topic: self.keyword,
                     network: self.network,
-                    currentFrequencyRatio: parseInt(response[i].frequency) / max,
+                    currentFrequencyRatio: frequency / max,
                 });
 
                 var view = new emotionWatchView({
@@ -113,6 +121,10 @@ define([
                 self.viewPointer[model.cid] = view;
 
                 this.add(model);
+
+                i++;
+
+                localStartDateTime = new Date(localStartDateTime.getTime() + self.timeStep * 1000);
             }
 
             app.trigger('show:model', self.currentDateTime.getTime());

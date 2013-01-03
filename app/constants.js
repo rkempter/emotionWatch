@@ -4,7 +4,6 @@ define(['backbone'], function(Backbone) {
 		paperWidth: 1400,
 		paperHeight: 1800,
 
-		iterationLength: 4000,
 		animationType: 'ease-out',
 
 		angle: 2*Math.PI,
