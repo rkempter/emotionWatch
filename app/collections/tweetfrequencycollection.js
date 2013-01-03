@@ -27,6 +27,7 @@ define([
             this.viewPointer = new Array();
 
             app.on('jumpToTime', function(params) {
+                console.log(params);
                 self.jumpToGlobalTime(params.cid);
             });
 
@@ -36,9 +37,9 @@ define([
                 self.resetModels();
             });
 
-            if(this.mode == 'regular') {
-                app.on('change:globalTime', function() {
-                    self.setGlobalTime();
+            if(this.mode == 'regular' || this.mode == 'compare') {
+                app.on('change:globalTime', function(dateTime) {
+                    self.setTime(dateTime);
                 });
             }
 
@@ -105,24 +106,18 @@ define([
             return models;
         },
 
-        setGlobalTime: function() {
-            var self = this;
+        setTime: function(dateTime) {
+            var total = this.models.length;
 
-            if(undefined != self.activeSlot) {
-                self.activeSlot.visited();
+            for(var i = 0; i < total; i++) {
+                if(this.at(i).get('localStartDateTime').getTime() < dateTime.getTime()) {
+                    this.at(i).visited();
+                } else if(this.at(i).get('localStartDateTime').getTime() == dateTime.getTime()) {
+                    this.at(i).activate();
+                } else {
+                    this.at(i).setReset();
+                }
             }
-           
-            var dateTime = self.models[self.modelIndex].get("localStartDateTime");
-            
-            app.trigger("set:globalTime", dateTime);
-           
-            self.activeSlot = self.models[self.modelIndex];
-            
-            if(null !== self.activeSlot) {
-                self.activeSlot.activate();
-            }
-
-            self.modelIndex++;
         },
 
         jumpToGlobalTime: function(cid) {
@@ -133,20 +128,23 @@ define([
                 self.activeSlot.visited();
             }
             self.modelIndex = _.indexOf(self.models, model);
-            var dateTime = model.get("localStartDateTime");
 
-            app.trigger("set:globalTime", dateTime);
+            if(self.modelIndex !== -1) {
+                var dateTime = model.get("localStartDateTime");
 
-            self.activeSlot = model;
+                app.trigger("change:globalTime", dateTime);
 
-            if(null !== self.activeSlot) {
-                self.activeSlot.activate();
+                self.activeSlot = model;
+
+                if(null !== self.activeSlot) {
+                    self.activeSlot.activate();
+                }
+
+                self.activateModels();
+                self.resetModels();
+
+                self.modelIndex++;
             }
-
-            self.activateModels();
-            self.resetModels();
-
-            self.modelIndex++;
         },
 
         activateModels: function() {

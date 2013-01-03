@@ -122,23 +122,10 @@ define([
             params = {};
             params.dateTime = self.model.get("localStartDateTime");
             params.cid = self.model.cid;
+
             app.trigger("jumpToTime", params);
-            app.trigger("show:model", self.model.get("localStartDateTime"));
           });
         },
-
-        // bindFrequencyEvents: function() {
-        //   var self = this;
-
-        //   var element = self.model.get("element");
-
-        //   element.click(function() {
-        //     var options = { dateTime: self.model.get("startDateTime"), cid: self.model.cid }
-        //     app.trigger("jumpToTime", options);
-        //   });
-        // },
-
-
 
       getPointFromTime: function(startDateTime, endDateTime, currentDateTime) {
         var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;

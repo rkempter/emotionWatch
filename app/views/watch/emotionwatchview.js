@@ -21,7 +21,7 @@ define([
 
             this.previewShape = null;
 
-            if(this.model.get("mode") !== 'regular') {
+            if(this.model.get("mode") !== 'regular' && this.model.get("mode") !== 'compare') {
                 self.drawRemainingElements();
                 self.createEmotionShape();
 

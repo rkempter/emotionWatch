@@ -34,7 +34,7 @@ define([
     initialize: function(options) {
       var self = this;
 
-      if(this.get('mode') == 'regular') {
+      if(this.get('mode') == 'regular' || this.get('mode') == 'compare') {
         this.fetch({ 
             data: $.param({
               topic: this.get("topic"),
@@ -43,6 +43,14 @@ define([
               timeStep: this.get("timeStep"),
               network: this.get("network"),
             })
+        });
+
+        app.on("change:globalTime", function(dateTime) {
+          console.log("Global Time arrived: "+dateTime);
+          self.setCurrentTime(dateTime);
+          self.setCurrentFrequencyRatio(dateTime);
+          self.setCurrentDataSet();
+          self.trigger("changevalues");
         });
 
         app.on("set:globalTime", function(dateTime) {
@@ -88,20 +96,29 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
+      console.log('response');
+      console.log("-----------");
+      console.log(response);
       this.set("maxFrequency", 0);
-      for(var i = 0; i < response.length; i++) {
-        var emotions = response[i].emotions;
-        var freq = parseInt(response[i].frequency);
-        if(freq > this.get("maxFrequency")) {
-          this.set("maxFrequency", freq);
+
+      for(var dateTime in response) {
+        var freq = parseInt(response[dateTime].frequency);
+        var emotions = response[dateTime].emotions;
+
+        // Extract maximum
+        if(this.get("maxFrequency") < freq) {
+            this.set("maxFrequency", freq);
         }
-        var dateTime = new Date(response[i].dateTime);
+        
+        dateTime = new Date(dateTime);
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
         this.get("freqQueue")[dateTime.toMysqlFormat()] = freq;
+        
         if(false == this.get("initialized")) {
             this.trigger("setdataset");
         }
       }
+      
       this.setCurrentTime(this.get("startDate"));
       this.setCurrentDataSet();
 
@@ -321,51 +338,9 @@ define([
      
     startWatch: function() {
       console.log('starting');
-        var self = this;
-        self.trigger("changevalues");
+      var self = this;
+      self.trigger("changevalues");
     },
-
-    /**
-     * Bigger data window
-     */
-
-    fastForward: function() {
-        this.stopWatch();
-        var currentTimeStep = this.get("timeStep");
-        this.set("timeStep", currentTimeStep * 2);
-
-        this.set("queue", new Queue());
-        this.getData();
-    },
-
-    /**
-     * Smaller data window
-     */
-
-    slowForward: function() {
-        this.stopWatch();
-        var currentTimeStep = this.get("timeStep");
-        this.set("timeStep", currentTimeStep / 2);
-
-        this.set("queue", new Queue());
-        this.getData();
-    },
-
-    /**
-     * Create a new emotion watch
-     *
-     * @return emotionWatch
-     */
-     
-    duplicateWatch: function() {
-      var newWatch = new emotionWatch({
-        currentDataSet: this.get("currentDataSet"),
-      });
-
-      return newWatch;
-    },
-
-
   });
 
   return emotionWatch;

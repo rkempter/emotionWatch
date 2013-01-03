@@ -92,7 +92,7 @@ define([
             var localStartDateTime = this.startDateTime;
             var i = 0;
 
-            while(localStartDateTime.getTime() <= this.endDateTime) {
+            while(localStartDateTime.getTime() <= this.endDateTime.getTime()) {
                 var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 

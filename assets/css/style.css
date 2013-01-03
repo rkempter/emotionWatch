@@ -415,19 +415,25 @@ svg .line {
   fill: #ac7b74;
 }
 #index .date-time-freq path,
-#index .date-time-freq circle {
+#compare .date-time-freq path,
+#index .date-time-freq circle,
+#compare .date-time-freq circle {
   cursor: pointer;
 }
-#index .date-time-freq path.visited {
+#index .date-time-freq path.visited,
+#compare .date-time-freq path.visited {
   fill: #cccccc;
 }
-#index .date-time-freq path.active {
+#index .date-time-freq path.active,
+#compare .date-time-freq path.active {
   fill: #000000;
 }
-#index .date-time-freq path {
+#index .date-time-freq path,
+#compare .date-time-freq path {
   fill: #ac7b74;
 }
-#index .date-time-freq path:hover {
+#index .date-time-freq path:hover,
+#compare .date-time-freq path:hover {
   fill: #444444;
 }
 /** Tweets / Weibos **/
