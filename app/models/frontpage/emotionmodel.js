@@ -9,7 +9,6 @@ define([
 
         initialize: function() {
             this.set("centerPoint", this.getCenterPoint());
-            this.set("label", "#gymnastics");
         },
 
         getCenterPoint: function() {

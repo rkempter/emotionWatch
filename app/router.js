@@ -89,7 +89,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 400, "y": 400},
+            centerPoint: {"x": 500, "y": 400},
             topic: options.keyword,
             network: options.network,
           }) 
@@ -142,7 +142,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new emotionWatchCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': '#'+options.keyword,
+            'keyword': options.keyword,
             'network': options.network,
             'timeStep': options.timeStep,
             'currentDateTime': options.currentDateTime,

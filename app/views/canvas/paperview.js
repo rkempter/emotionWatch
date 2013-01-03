@@ -38,7 +38,7 @@ define([
 						}
 					} else {
 						app.paper = Raphael($(parent), 0, "100%", 540);
-						app.paper.setViewBox(0, 0, 800, 800, false);
+						app.paper.setViewBox(0, 0, 900, 900, false);
 						this.el = app.paper.canvas;
 						this.$el = $(this.el);
 					}

@@ -29,7 +29,8 @@ define([
 
             // Golden ratio
 
-            this.spaceBetween = this.radius+10 / 1.618;
+            this.spaceBetween = this.radius+20;
+            console.log("Space between "+this.spaceBetween);
 
             var self = this;
 
@@ -52,6 +53,9 @@ define([
             
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
 
+            var visualizationWidth = this.elementsPerLine * (this.radius*2+this.spaceBetween);
+            this.sideSpace = (width - visualizationWidth) / 2;
+
             this.fetch({
                 data: $.param({
                     startDateTime: this.startDateTime,
@@ -64,11 +68,12 @@ define([
         },
 
         detect_scroll: function() {
-            var y = $(document).scrollTop()+760;
-            var elements = Math.floor((parseInt(y)-60) / ((this.spaceBetween+60) * 2)) * this.elementsPerLine;
+            var y = $(document).scrollTop()+610;
+            console.log("Scroll y: "+y);
+
+            var elements = Math.floor(parseInt(y) / (this.spaceBetween * 2+60)) * this.elementsPerLine;
             console.log(elements);
             app.trigger("scroll:activate", elements);
-            // app.trigger('scroll:collection', y);
         },
 
         parse: function(response) {
@@ -82,7 +87,7 @@ define([
             
             var self = this;
             for(var i = 0; i < response.length; i++) {
-                var x = 60+ this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
+                var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
                 var currentDateTime = new Date(response[i].dateTime);
@@ -120,7 +125,8 @@ define([
 
         adjustCanvasSize: function(nbr) {
             var lines = Math.ceil(nbr / this.elementsPerLine);
-            var height = (this.spaceBetween+50) * 2 * lines+300;
+            var height = (this.spaceBetween+50) * 2 * lines;
+            console.log("Paper height: "+height);
 
             app.paper.setSize("100%", height);
         },

@@ -554,6 +554,10 @@ svg .line {
   display: block;
 }
 /**** PATTERN ****/
+#pattern #middle-column {
+  width: 100%;
+  position: relative;
+}
 /**** COMPARE ****/
 #compare .columns h2 {
   text-align: center;

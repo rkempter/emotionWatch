@@ -11,26 +11,7 @@ define([
         initialize: function(options) {
             this.viewpointer = new Array();
 
-            for(var i = 0; i < 40; i++) {
-                var emotions = new Array();
-                for(var j = 0; j < 20; j++) {
-                    var emotion = {};
-                    emotion.value = Math.random();
-                    emotions.push(emotion);
-                }
-
-                var model = new emotionModel({
-                    "dataset": emotions,
-                });
-
-                var view = new emotionView({
-                    model: model,
-                });
-                
-                this.add(model);
-                this.viewpointer.push(view);
-
-            }
+            this.fetch();
         },
 
         url: function() {
@@ -38,7 +19,28 @@ define([
         },
 
         parse: function(response) {
-            // Create new Model and View for each of these elements
+            for(var i = 0; i < response.length; i++) {
+                var label = response[i]['hashtag'];
+                var emotions = new Array();
+                for(var index in response[i]) {
+                    if(index !== 'hashtag') {
+                        var emotion = {};
+                        emotion.value = response[i][index];
+                        emotions.push(emotion);
+                    }
+                }
+                var model = new emotionModel({
+                    label: label,
+                    dataset: emotions,
+                });
+
+                var view = new emotionView({
+                    model: model,
+                });
+
+                this.add(model);
+                this.viewpointer.push(view);
+            }
             this.add(response);
         },
     })
