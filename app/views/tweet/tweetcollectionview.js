@@ -9,19 +9,17 @@ define([
 
         template: 'tweetview',
 
-        initialize: function(options) {
-            _.bindAll(this, 'render');
-
-            this.collection.bind('add', this.render, this);
-        },
-
         events: {
+            'click': 'triggerTest',
             'change #emotion-category': 'triggerEmotionCategory',
         },
 
+        triggerTest: function() {
+            console.log('rrrrrr');
+        },
+
         triggerEmotionCategory: function(event) {
-            console.log('test');
-            
+            console.log('event triggered');
             var emotion = $('#emotion-category option:selected').val();
 
             if(emotion == 'all') {
@@ -31,24 +29,21 @@ define([
             this.collection.setEmotion(emotion);
         },
 
-        cleanup: function() {
-          this.collection.off(null, null, this);
-        },
-
         render: function() {
-            this.template = window.JST['app/templates/tweetview.html']( { tweets: this.collection.models, emotion: this.collection.emotion } );
-            $(this.el).html( this.template );
-            this.delegateEvents();
-        }, 
-
-        onClose: function(){
-          console.log('CLOSE');
-          this.model.unbind("change", this.render);
+            this.$el.html = window.JST['app/templates/tweetview.html']();
+            return this;
         },
 
-        clear: function() {
-          this.model.destroy();
-        },
+        // Close view
+        close: function() {
+            // Remove all subviews
+            for(var view in this.collection.viewPointer) {
+                view.close();
+            }
+
+            this.unbind();
+            this.remove();
+        } ,
     })
 
     return tweetCollectionView;

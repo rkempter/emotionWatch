@@ -72,10 +72,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = new Date(currentDateTime_raw);
 
-      var views = app.useLayout('main-layout').getViews();
-      console.log("Views ");
-      console.log(views)
-
       app.useLayout('main-layout').setViews({
         ".time-block": new timeView({
             el: ".time-block",
@@ -256,8 +252,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: '#swimming',//options.keyword,
-            network: 'twitter',
+            topic: options.keyword,
+            network: 'weibo',
           }),
           mode: 'compare',
         }),

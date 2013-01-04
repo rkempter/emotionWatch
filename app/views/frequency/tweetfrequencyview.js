@@ -53,7 +53,7 @@ define([
           var leftTopPoint = this.getLinearPoint(this.startPoint, this.val, 100);
           var rightBottomPoint = this.endPoint;
           var rightTopPoint = this.getLinearPoint(this.endPoint, this.val, 100);
-        
+
           var path = new Array();
           path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
           path.push(["L", leftTopPoint.x, leftTopPoint.y]);

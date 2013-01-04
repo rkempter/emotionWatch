@@ -23,7 +23,6 @@ define([
       if(this.get('mode') == 'regular' || this.get('mode') == 'compare') {
         this.fetch({ 
             data: $.param({
-              cid: this.cid,
               topic: this.get("topic"),
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
@@ -68,24 +67,25 @@ define([
      */
 
     urlRoot: function() {
-      return "http://localhost:8080/emotionTweets";
+      if(this.get('mode') == 'compare') {
+        return "http://localhost:8080/emotionPatternTweets";
+      } else {
+        return "http://localhost:8080/emotionTweets";
+      }
     },
 
     /**
      * Parses the received data into the queue
      */
     parse: function(response) {
+      console.log('-----');
+      console.log(response);
+      console.log('done response');
 
       this.set("queue", new Object());
       this.set("freqQueue", new Object());
 
       this.set("maxFrequency", 0);
-
-      if(response['cid'] !== this.cid) {
-        return;
-      }
-
-      delete response['cid'];
 
       var indexer = 0;
 
@@ -127,7 +127,7 @@ define([
     
     setCurrentFrequencyRatio: function(dateTime) {
       var dateTime = this.get("currentDateTime");
-      if(undefined == this.get("freqQueue")[dateTime.toMysqlFormat()]) {
+      if(undefined == this.get("freqQueue")[dateTime.toMysqlFormat()] || this.get('maxFrequency') == 0) {
         this.set("currentFrequencyRatio", 0)
       } else {
         this.set("currentFrequencyRatio", this.get("freqQueue")[dateTime.toMysqlFormat()] / this.get("maxFrequency") );
@@ -299,7 +299,7 @@ define([
       } else {
         var dateTime = options.dateTime || null;
         if(null !== dateTime) {
-          dataSet = this.get("queue")[dateTime.toMysqlFormat()];
+          dataSet = this.get("queue")[dateTime.toMysqlFormat()] || Constants.nullEmotion;
         }
       }
 

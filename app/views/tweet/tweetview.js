@@ -8,25 +8,23 @@ define([
 
 ], function(app, Backbone, $, _, util, Constants) {
     
-    var timeView = Backbone.View.extend({
+    var tweetView = Backbone.View.extend({
 
         template: 'tweet',
 
-        render: function(template) {
-            var output = template({ 
-                label: this.model.get("label"), 
-                currentDate: this.model.get("date"), 
-                currentTime: this.model.get("time")
-            });
-            $( this.el ).html( output );
+        tagName: 'li',
+
+        render: function() {
+            var html = window.JST['app/templates/tweet.html'](this.model.toJSON());
+            $('.tweets ul').append( html );
         },
 
-        clear: function() {
-          this.model.destroy();
+        close: function() {
+            this.unbind();
+            this.remove();
         },
-
         
     });
 
-    return timeView;
+    return tweetView;
 })  

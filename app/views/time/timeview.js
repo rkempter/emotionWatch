@@ -83,6 +83,14 @@ define([
             }
         },
 
+        events: {
+            'click #start-stop-control': 'test',
+        },
+
+        test: function() {
+            console.log('testester');
+        },
+
         /**
          * stopTime
          *
@@ -97,12 +105,15 @@ define([
 
         // render the template with labe, date and time.
         render: function(template) {
+            console.log('render time');
             var output = template({ 
                 label: this.model.get("label"), 
                 currentDate: this.model.get("date"), 
                 currentTime: this.model.get("time")
             });
-            $( this.el ).html( output );
+            this.$el.html(output);
+            $(this.el).html(output);
+            return this;
         },
         
     });

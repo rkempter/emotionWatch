@@ -22,6 +22,14 @@ define([
             }
         },
 
+        events: {
+            'click .keyword-title': 'test',
+        },
+
+        test: function() {
+            console.log('rrrrr');
+        },
+
         render: function() {
             var urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             var urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
@@ -34,11 +42,6 @@ define([
             });
             $( this.el ).html( output );
         },
-
-        clear: function() {
-          this.model.destroy();
-        },
-
     });
 
     return titleView;

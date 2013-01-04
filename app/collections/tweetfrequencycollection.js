@@ -61,7 +61,11 @@ define([
         },
 
         url: function() {
-            return 'http://localhost:8080/frequency';
+            if(this.mode = 'compare') {
+                return 'http://localhost:8080/patternFrequency';
+            } else {
+                return 'http://localhost:8080/frequency';
+            }
         },
 
         // Parse the received data
@@ -89,7 +93,11 @@ define([
                 // If we didn't get a frequency for a timeslot, the frequency is zero!
                 var value = frequencies[localStartDateTime.getTime()] || 0;
                 // Normalize the frequency value
-                var scaling = parseFloat(value / max);
+                if(max !== 0) {
+                    var scaling = parseFloat(value / max);
+                } else {
+                    var scaling = 0;
+                }
                 // Create model for the current slot
                 var model = new tweetFrequencyModel({
                     "value": value,
@@ -138,9 +146,9 @@ define([
         jumpToGlobalTime: function(cid) {
             var self = this;
             // find the model in the collection
-            var model = self.get(cid);
+            var model = self.get(cid) || null;
 
-            if(self.modelIndex !== -1) {
+            if(null !== model) {
                 // Get time of the current slot
                 var dateTime = model.get("localStartDateTime");
                 // Need to synchronize the clock (timeview)
