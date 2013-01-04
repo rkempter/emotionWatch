@@ -26,23 +26,28 @@ define([
             
             this.viewPointer = new Array();
 
-            app.on('jumpToTime', function(params) {
-                console.log(params);
+            // Listen to the jumpToTime events, triggered in tweetfrequencymodel.
+            // Event is triggered, when user clicks on a tweetfrequencyslot.
+            this.listenTo(app, 'jumpToTime', function(params) {
                 self.jumpToGlobalTime(params.cid);
             });
 
-            app.on('scroll:activate', function(id) {
+            // Pattern view: When scroll, mark the right elements as visited.
+            this.listenTo(app, 'scroll:activate', function(id) {
                 self.modelIndex = id;
                 self.activateModels();
                 self.resetModels();
             });
 
             if(this.mode == 'regular' || this.mode == 'compare') {
-                app.on('change:globalTime', function(dateTime) {
+                // In regular and compare view, module needs to listen to the
+                // globalTime event.
+                this.listenTo(app, 'change:globalTime', function(dateTime) {
                     self.setTime(dateTime);
                 });
             }
 
+            // Fetching the necessary data from the server.
             self.fetch({
                 data: $.param({
                     network: self.network,
@@ -59,9 +64,11 @@ define([
             return 'http://localhost:8080/frequency';
         },
 
+        // Parse the received data
         parse: function(frequencies) {
             var self = this;
 
+            // Figure out the maximal frequency
             var max = 0;
             for(var time in frequencies) {
                 var freq = parseInt(frequencies[time])
@@ -70,15 +77,20 @@ define([
                 }
             }
 
+            // Create new arrays witht he models
             var models = new Array();
+            // The first dateTime of the complete interval
             var localStartDateTime = self.startDateTime;
+            // the end time of the first slot
             var localEndDateTime = new Date(self.startDateTime.getTime() + self.timeStep * 1000);
 
+            // Go trough the complete timeinterval
             while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
+                // If we didn't get a frequency for a timeslot, the frequency is zero!
                 var value = frequencies[localStartDateTime.getTime()] || 0;
-               
+                // Normalize the frequency value
                 var scaling = parseFloat(value / max);
-
+                // Create model for the current slot
                 var model = new tweetFrequencyModel({
                     "value": value,
                     "scaling": scaling,
@@ -92,13 +104,13 @@ define([
                 });
 
                 models.push(model);
-
+                // Create view for this slot
                 var view = new tweetFrequencyView({
                     model: model
                 });
-                
+                // Push the view to an array
                 self.viewPointer.push(view);
-
+                // Adjust the dateTime's to the next slot
                 localStartDateTime = new Date(localStartDateTime.getTime() + self.timeStep * 1000);
                 localEndDateTime = new Date(localEndDateTime.getTime() + self.timeStep * 1000);
             }
@@ -106,7 +118,9 @@ define([
             return models;
         },
 
+        // Set the time according to the clock (timeview)
         setTime: function(dateTime) {
+            // Total number of slots
             var total = this.models.length;
 
             for(var i = 0; i < total; i++) {
@@ -120,35 +134,21 @@ define([
             }
         },
 
+        // Jump to a certain timeslot.
         jumpToGlobalTime: function(cid) {
-            console.log(cid);
             var self = this;
+            // find the model in the collection
             var model = self.get(cid);
-            console.log(model);
-
-            if(undefined != self.activeSlot) {
-                self.activeSlot.visited();
-            }
-            self.modelIndex = _.indexOf(self.models, model);
 
             if(self.modelIndex !== -1) {
+                // Get time of the current slot
                 var dateTime = model.get("localStartDateTime");
-
+                // Need to synchronize the clock (timeview)
                 app.trigger("change:globalTime", dateTime);
-
-                self.activeSlot = model;
-
-                if(null !== self.activeSlot) {
-                    self.activeSlot.activate();
-                }
-
-                self.activateModels();
-                self.resetModels();
-
-                self.modelIndex++;
             }
         },
 
+        // For scrolling
         activateModels: function() {
             if(this.modelIndex > this.models.length) {
                 this.modelIndex = this.models.length;
@@ -156,23 +156,6 @@ define([
             for(var i = 0; i < this.modelIndex; i++) {
                 this.at(i).visited();
             }
-        },
-
-        resetModels: function() {
-            var total = this.models.length;
-            for(var i = this.modelIndex+1; i < total; i++) {
-                this.at(i).setReset();
-            }
-        },
-
-        activateModel: function(cid) {
-            var model = this.getByCid(cid);
-            model.activate();
-        },
-
-        visitedModel: function(cid) {
-            var model = this.getByCid(cid);
-            model.visited();
         },
     });
 

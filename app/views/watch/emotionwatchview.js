@@ -67,17 +67,18 @@ define([
                     self.removePreview(dateTime);
                 });
 
+                // Create the shape when all data from the server is parsed.
                 this.model.on('parsed', this.createEmotionShape, this);
 
+                // Bind animation to events
                 this.activateWatch();
+                
+                // Draw the labels
                 this.drawLabelTexts();
             }
 
+            // listen to the close events
             this.listenTo(app,'close', self.close);
-        },
-
-        events: {
-
         },
 
         // Close the view, unbind all events and release the model.
