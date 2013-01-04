@@ -121,8 +121,10 @@ define([
         },
 
         jumpToGlobalTime: function(cid) {
+            console.log(cid);
             var self = this;
-            var model = self.getByCid(cid);
+            var model = self.get(cid);
+            console.log(model);
 
             if(undefined != self.activeSlot) {
                 self.activeSlot.visited();

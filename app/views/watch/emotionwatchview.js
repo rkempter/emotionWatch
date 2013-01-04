@@ -37,34 +37,34 @@ define([
                     app.router.navigate(url, true);
                 });
 
-                app.on('jumpToTime', function(params) {
+                this.listenTo(app, 'jumpToTime', function(params) {
                     if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
                         $.scrollTo(self.model.get("centerPoint").y-90, { duration: 1000 });
                     }
                 });
 
-                this.model.on('scroll:model', function() {
+                this.listenTo(this.model, 'scroll:model', function() {
                     $.scrollTo(self.model.get("centerPoint").y-90);
-                })
+                });
 
             } else {
                 this.drawRemainingElements();
 
-                app.on('preview:mouseover', function(dateTime) {
+                this.listenTo(app, 'preview:mouseover', function(dateTime) {
                     self.createPreview(dateTime);
                 });
 
-                app.on('preview:mouseout', function(dateTime) {
+                this.listenTo(app, 'preview:mouseout', function(dateTime) {
                     self.removePreview(dateTime);
                 });
-                
-                this.model.on("parsed", this.createEmotionShape, this);
+
+                this.listenTo(this.model, 'parsed', this.createEmotionShape);
 
                 this.activateWatch();
                 this.drawLabelTexts();
             }
 
-            app.on('close', self.close, self);
+            this.listenTo(app,'close', self.close);
             // Initialize new frequency view
             
             // Put start & endtime into frequency view
@@ -75,10 +75,8 @@ define([
         },
 
         close: function() {
-            console.log('cleanup');
             this.remove();
             this.unbind();
-            this.model.destroy(); 
         },
 
         activateWatch: function() {

@@ -16,52 +16,53 @@ define([
 
             var self = this;
             
-
             this.model = new Backbone.Model();
 
             var options = options || {};
 
+            // set the parameters of the current visualization
             this.model.set('startDateTime', options.startDateTime);
             this.model.set('endDateTime', options.endDateTime);
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
             this.model.set("label", "start");
 
-            app.on("change:globalTime", function(dateTime) {
-                this.model.set('currentDateTime', dateTime);
+            // On date & time change, template needs to be rerendered!
+            // If the time is not running, we need to start the watch
+
+            this.listenTo(app, 'change:globalTime', function(dateTime) {
+                self.model.set('currentDateTime', dateTime);
                 if(this.model.get('interval') == undefined) {
-                    this.startWatch();
+                    self.startWatch();
                 }
-                this.model.set("date", moment(dateTime).format("Do MMM YYYY"));
-                this.model.set("time", moment(dateTime).format("HH:mm:ss"));
-                this.render(this.template);
-            }, this);
+                console.log(self.model.cid);
+                self.model.set("date", moment(dateTime).format("Do MMM YYYY"));
+                self.model.set("time", moment(dateTime).format("HH:mm:ss"));
+                self.render(self.template);
+            });
 
-            app.on('stop:watch', function() {
-                this.stopTime();
-            }, this);
+            this.listenTo(app, 'stop:watch', function() {
+                self.stopTime();
+            });
 
-            app.on('start:watch', function() {
-                this.startTime();
-            }, this);
+            this.listenTo(app, 'start:watch', function() {
+                self.startTime();
+            });
 
-            app.on('close', this.close, this);
+            this.listenTo(app, 'close', this.close);
         },
 
         close: function() {
-            this.off(null, null, this);
+            if(undefined !== this.model.get('interval')) {
+                clearInterval(this.model.get('interval'));
+            }
             this.unbind(); // Unbind all local event bindings
-         
             this.remove(); // Remove view from DOM
         },
 
-        /**
-         * startTime
-         * 
-         * Every app.animationDuration seconds, triggers a global change:globalTime event.
-         * If the current time is bigger than the endtime of the animation, it stops.
-         *
-         */
+        // Start running the timer. If the current time is bigger than our
+        // interval, the clock needs to be stopped. Every animationDuration, 
+        // the clock triggers a global time change.
         startTime: function() {
             var self = this;
 
@@ -71,6 +72,7 @@ define([
                         self.stopTime();
                         return;
                     }
+                    // create new time
                     var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
                     
                     app.trigger("change:globalTime", currentDateTime);
@@ -93,6 +95,7 @@ define([
             }
         },
 
+        // render the template with labe, date and time.
         render: function(template) {
             var output = template({ 
                 label: this.model.get("label"), 
@@ -100,10 +103,6 @@ define([
                 currentTime: this.model.get("time")
             });
             $( this.el ).html( output );
-        },
-
-        cleanup: function() {
-            this.model.off(null, null, this);
         },
         
     });

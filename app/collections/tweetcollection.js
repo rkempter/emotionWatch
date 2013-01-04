@@ -79,6 +79,7 @@ define([
             this.add(response);
         },
 
+        // Uses Reg
         replaceHashtags: function(text) {
             var hashtags = text.match(/\B#\w+/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
@@ -91,7 +92,7 @@ define([
         },
 
         replaceUsers: function(text) {
-            var hashtags = text.match(/\B@\w+/gi) || new Array();
+            var hashtags = text.match(/\B@(\w+|^[\u0391-\uFFE5]+$)/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
                 var url = '/search/'+this.network+'/user/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
