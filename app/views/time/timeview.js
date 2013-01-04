@@ -49,7 +49,7 @@ define([
         },
 
         close: function() {
-            this.off(null, null, true);
+            this.off(null, null, this);
             this.unbind(); // Unbind all local event bindings
          
             this.remove(); // Remove view from DOM
