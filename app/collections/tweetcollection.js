@@ -25,17 +25,15 @@ define([
                 })
             });
 
-            app.on('set:globalTime', function(currentDateTime) {
-                self.datetime = currentDateTime;
-                self.reset();
-                self.fetch({ 
-                    data: $.param({ 
-                        datetime: currentDateTime,
+            app.on('change:globalTime', function(dateTime) {
+                self.fetch({
+                    data: $.param({
+                        datetime: dateTime,
                         emotion: self.emotion,
                         hashtag: self.keyword,
                         windowsize: self.timeStep,
                         network: self.network,
-                    })
+                    }),
                 });
             });
         },
@@ -58,6 +56,18 @@ define([
         url: function() {
             return 'http://localhost:8080/tweets';
         },
+
+        // addAllTweets: function() {
+        //     this.each(this.addOneTweet);
+        // },
+
+        // addOneTweet: function(tweet) {
+        //     var view = new Backbone.View({
+        //         tagname: li,
+        //         model: tweet,
+        //     });
+        //     this.$('ul').append(view.render().el);
+        // },
 
         parse: function(response) {
             for(var i = 0; i < response.length; i++) {

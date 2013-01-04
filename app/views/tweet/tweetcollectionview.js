@@ -20,7 +20,8 @@ define([
         },
 
         triggerEmotionCategory: function(event) {
-            event.preventDefault();
+            console.log('test');
+            
             var emotion = $('#emotion-category option:selected').val();
 
             if(emotion == 'all') {
@@ -37,11 +38,16 @@ define([
         render: function() {
             this.template = window.JST['app/templates/tweetview.html']( { tweets: this.collection.models, emotion: this.collection.emotion } );
             $(this.el).html( this.template );
+            this.delegateEvents();
         }, 
 
         onClose: function(){
           console.log('CLOSE');
           this.model.unbind("change", this.render);
+        },
+
+        clear: function() {
+          this.model.destroy();
         },
     })
 

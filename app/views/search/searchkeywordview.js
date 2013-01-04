@@ -38,6 +38,10 @@ define([
           this.model.off(null, null, this);
         },
 
+        clear: function() {
+          this.model.destroy();
+        },
+
         
     });
 

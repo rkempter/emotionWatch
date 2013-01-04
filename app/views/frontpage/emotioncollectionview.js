@@ -21,6 +21,10 @@ define([
           this.collection.off(null, null, this);
         },
 
+        clear: function() {
+          this.model.destroy();
+        },
+
     });
 
     return emotionCollectionView;

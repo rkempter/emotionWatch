@@ -23,6 +23,10 @@ define([
                 ".right": new searchKeywordView(),
             });
         },
+
+        clear: function() {
+          this.model.destroy();
+        },
     });
 
     return welcomeView;

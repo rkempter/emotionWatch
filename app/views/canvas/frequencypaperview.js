@@ -27,6 +27,7 @@ define([
 				this.el = app.frequencyPaper[network].canvas;
 				this.$el = $(this.el);
 			},
+
 		});
 
 		return frequencyPaperView;

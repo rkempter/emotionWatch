@@ -90,6 +90,10 @@ define([
         triggerStopWatch: function() {
             app.trigger('stop:watch');
         },
+
+        clear: function() {
+          this.model.destroy();
+        },
     });
 
     return navigationView;

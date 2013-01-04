@@ -17,6 +17,10 @@ define([
 
         setReset: function() {
             this.trigger("reset");
+        },
+        
+        clear: function() {
+          this.model.destroy();
         }
     });
 

@@ -41,6 +41,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     index: function() {
+      $('#main').empty();
       app.useLayout('frontpage').setViews({
         ".paper": new emotionCollectionView({
           "width": "100%",
@@ -53,6 +54,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     search: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
+      $('#main').empty();
+
+      app.trigger('close');
+
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter';
@@ -67,11 +72,17 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = new Date(currentDateTime_raw);
 
-      var mainLayout = new Backbone.Layout({
-        template: 'main-layout',
-      }).setViews({
+      var views = app.useLayout('main-layout').getViews();
+      console.log("Views ");
+      console.log(views)
+
+      app.useLayout('main-layout').setViews({
         ".time-block": new timeView({
             el: ".time-block",
+            startDateTime: options.startDateTime,
+            endDateTime: options.endDateTime,
+            timeStep: options.timeStep,
+            currentDateTime: options.currentDateTime,
         }),
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView({ 
@@ -105,13 +116,12 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".bottom": new Backbone.View({
           collection: new tweetFrequencyCollection(options),
         }),
-      })
-
-      $('#main').empty().append(mainLayout.el);
-      mainLayout.render();
+      }).render();
     },
 
     pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
+      $('#main').empty();
+
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter',
@@ -152,6 +162,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
+      $('#main').empty();
       var options = {};
       console.log(keyword);
       options.keyword = util.combineKeyword(keyword, keywordType);
@@ -208,18 +219,18 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }),
           mode: 'compare',
         }),
-        // ".weibo .bottom .freq": new Backbone.View({
-        //   collection: new tweetFrequencyCollection({
-        //     'startDateTime': options.startDateTime,
-        //     'endDateTime': options.endDateTime,
-        //     'keyword': options.keyword,
-        //     'network': 'twitter',
-        //     'timeStep': options.timeStep,
-        //     'mode': options.mode,
-        //     'currentDateTime': options.currentDateTime,
-        //   }),
-        //   mode: 'compare',
-        // }),
+        ".weibo .bottom .freq": new Backbone.View({
+          collection: new tweetFrequencyCollection({
+            'startDateTime': options.startDateTime,
+            'endDateTime': options.endDateTime,
+            'keyword': options.keyword,
+            'network': 'weibo',
+            'timeStep': options.timeStep,
+            'mode': options.mode,
+            'currentDateTime': options.currentDateTime,
+          }),
+          mode: 'compare',
+        }),
         ".twitter .watch .watch-view": new emotionWatchView({ 
           model: new emotionWatch({
             paper: app.paper["twitter"], 
@@ -245,7 +256,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
+            topic: '#swimming',//options.keyword,
             network: 'twitter',
           }),
           mode: 'compare',

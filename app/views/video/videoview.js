@@ -46,6 +46,10 @@ define([
         console.log(player);
       },
 
+      clear: function() {
+        this.model.destroy();
+      },
+
     });
 
     return videoView;

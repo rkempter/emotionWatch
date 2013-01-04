@@ -8,23 +8,9 @@ define([
   var emotionWatch = Backbone.Model.extend({
     
     defaults: {
-      startDate: new Date("July 27, 2012 16:00:00"),
-      endDate: new Date("August 31, 2012 20:00:00"),
-      currentDateTime: new Date("July 27, 2012 16:21:00"),
-      network: "twitter",
-      timeStep: 120,
-      dataQueue: null,
-      currentDataSet: null,
-      topic: "#gymnastics",
       windowSize: 9,
-      threshhold: 5,
       initialized: false,
-      iterationLength: 4500,
-      animationType: "ease-out",
-      queue: {},
-      freqQueue: {},
     },
-
 
     /**
      * Initializes the watch and fetches data
@@ -37,6 +23,7 @@ define([
       if(this.get('mode') == 'regular' || this.get('mode') == 'compare') {
         this.fetch({ 
             data: $.param({
+              cid: this.cid,
               topic: this.get("topic"),
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
@@ -52,17 +39,9 @@ define([
           self.setCurrentDataSet();
           self.trigger("changevalues");
         });
-
-        app.on("set:globalTime", function(dateTime) {
-          console.log("Global Time arrived: "+dateTime);
-          self.setCurrentTime(dateTime);
-          self.setCurrentFrequencyRatio(dateTime);
-          self.setCurrentDataSet();
-          self.trigger("changevalues");
-        });
       }
 
-          /**
+      /**
        * You first need to create a formatting function to pad numbers to two digits…
        **/
       function twoDigits(d) {
@@ -96,10 +75,19 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log('response');
-      console.log("-----------");
-      console.log(response);
+
+      this.set("queue", new Object());
+      this.set("freqQueue", new Object());
+
       this.set("maxFrequency", 0);
+
+      if(response['cid'] !== this.cid) {
+        return;
+      }
+
+      delete response['cid'];
+
+      var indexer = 0;
 
       for(var dateTime in response) {
         var freq = parseInt(response[dateTime].frequency);
@@ -112,6 +100,7 @@ define([
         
         dateTime = new Date(dateTime);
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
+
         this.get("freqQueue")[dateTime.toMysqlFormat()] = freq;
         
         if(false == this.get("initialized")) {
@@ -123,6 +112,7 @@ define([
       this.setCurrentDataSet();
 
       this.trigger("parsed");
+      console.log(this);
     },
 
     /**
@@ -341,6 +331,7 @@ define([
       var self = this;
       self.trigger("changevalues");
     },
+    
   });
 
   return emotionWatch;

@@ -123,6 +123,8 @@
   margin-left: 0;
 }
 body {
+  font-family: "freight-sans-pro", sans-serif;
+  font-weight: 400;
   background: #0173d6;
   color: #ffffff;
   margin: 0;
@@ -333,6 +335,30 @@ svg .line {
   stroke: #ffffff;
   opacity: 0.1;
 }
+.input-control {
+  margin: 0;
+  clear: both;
+  max-width: 400px;
+}
+.input-control .inner-control {
+  float: right;
+  text-align: right;
+}
+.input-control label {
+  float: left;
+}
+.input-control select {
+  margin-bottom: 10px;
+}
+.input-control input {
+  font-size: 12px;
+  padding: 2px;
+  display: block;
+}
+.btn-search {
+  float: right;
+  clear: both;
+}
 .welcome {
   background: #0173d6;
   position: absolute;
@@ -344,29 +370,6 @@ svg .line {
   padding: 2%;
   z-index: 100;
   text-align: center;
-}
-.welcome .btn-search {
-  float: right;
-  clear: both;
-}
-.welcome .input-control {
-  margin: 0;
-  clear: both;
-}
-.welcome .input-control .inner-control {
-  float: right;
-  text-align: right;
-}
-.welcome .input-control label {
-  float: left;
-}
-.welcome .input-control select {
-  margin-bottom: 10px;
-}
-.welcome .input-control input {
-  font-size: 12px;
-  padding: 2px;
-  display: block;
 }
 .welcome .left {
   margin: 0 2% 0 2%;
@@ -735,4 +738,7 @@ input[type="color"],
 /**** Modal ****/
 .modal {
   color: #000000;
+}
+.modal-body h2 {
+  display: none;
 }

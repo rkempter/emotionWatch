@@ -64,6 +64,7 @@ define([
                 this.drawLabelTexts();
             }
 
+            app.on('close', self.close, self);
             // Initialize new frequency view
             
             // Put start & endtime into frequency view
@@ -73,8 +74,11 @@ define([
 
         },
 
-        cleanup: function() {
-            this.model.off(null, null, this);
+        close: function() {
+            console.log('cleanup');
+            this.remove();
+            this.unbind();
+            this.model.destroy(); 
         },
 
         activateWatch: function() {
@@ -200,7 +204,7 @@ define([
             if(this.model.get("emotionShape")) {
                 this.model.get("emotionShape").animate({
                     path: newPath
-                }, this.model.get("iterationLength"), this.model.get("animationType"));
+                }, app.animationDuration, Constants.animationType);
             }            
         },
 
@@ -211,7 +215,7 @@ define([
                 this.model.get("timeCircleBorder").animate({
                     "stroke-width": thickness,
                     "r": this.model.get("emotionCircleRadius") + thickness / 2,
-                }, this.model.get("iterationLength"), this.model.get("animationType"));
+                }, app.animationDuration, Constants.animationType);
             }
         },
 

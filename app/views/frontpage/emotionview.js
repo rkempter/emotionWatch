@@ -28,6 +28,10 @@ define([
             this.model.off(null, null, this);
         },
 
+        clear: function() {
+          this.model.destroy();
+        },
+
         /**
          * Draws the emotion shape (used only at initialization)
          *

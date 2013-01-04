@@ -20,6 +20,10 @@ define([
             return { "x": x, "y": y };
         },
 
+        clear: function() {
+          this.model.destroy();
+        },
+
         getCurrentEmotionShapePath: function() {
             var dataSet = this.get("dataset");
             

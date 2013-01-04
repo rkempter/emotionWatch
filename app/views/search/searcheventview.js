@@ -83,6 +83,10 @@ define([
             $( this.el ).html( output );
         },
 
+        clear: function() {
+          this.model.destroy();
+        },
+
         
     });
 

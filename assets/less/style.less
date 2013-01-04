@@ -36,6 +36,8 @@
 @import "bootstrap/modals.less";
 
 body{
+    font-family: "freight-sans-pro", sans-serif;
+    font-weight: 400;
     background: @olympicBlue;
     color: @white;
     margin: 0;
@@ -281,6 +283,36 @@ svg{
     }
 }
 
+.input-control{
+    margin: 0;
+    clear: both;
+    max-width: 400px;
+
+    .inner-control{
+        float: right;
+        text-align: right;
+    }
+
+    label{
+        float: left;
+    }
+
+    select{
+        margin-bottom: 10px;
+    }
+    
+    input{
+        font-size: 12px;
+        padding: 2px;
+        display: block;
+    }
+}
+
+.btn-search{
+    float: right;
+    clear: both;
+}
+
 .welcome{
     background: @olympicBlue;
     position: absolute;
@@ -293,34 +325,9 @@ svg{
     z-index: 100;
     text-align: center;
 
-    .btn-search{
-        float: right;
-        clear: both;
-    }
+    
 
-    .input-control{
-        margin: 0;
-        clear: both;
-
-        .inner-control{
-            float: right;
-            text-align: right;
-        }
-
-        label{
-            float: left;
-        }
-
-        select{
-            margin-bottom: 10px;
-        }
-        
-        input{
-            font-size: 12px;
-            padding: 2px;
-            display: block;
-        }
-    }
+    
 
     .left{
         margin: 0 2% 0 2%;
@@ -748,4 +755,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .modal {
     color: @black;
+}
+
+.modal-body{
+    h2{
+        display: none;
+    }
 }

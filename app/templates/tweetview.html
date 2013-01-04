@@ -17,13 +17,7 @@
             <option value="dislike">Dislike</option>
         </select>
     </div>
-    <ul class="unstyled">
-    <% _.each(tweets, function(tweet) { %>
-        <li>
-            <span class="date <%= tweet.get('emotion') %>"><%= moment(new Date(tweet.get('datetime'))).format("HH:mm") %></span>
-            <p><%= tweet.get('tweet') %>
-            <small><%= tweet.get('user') %>, <%= tweet.get('datetime') %> (<%= tweet.get('id') %>)</small>
-        </li>
-    <% }); %>
+    <ul>
+
     </ul>
 </div>

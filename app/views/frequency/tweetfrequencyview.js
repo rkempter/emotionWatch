@@ -21,8 +21,6 @@ define([
           this.localEndDateTime = this.model.get("localEndDateTime");
           this.val = this.model.get("scaling");
 
-          console.log(this.model.get('mode'));
-
           if(this.model.get('mode') == 'compare') {
             this.pixelLength = $(window).width() / 2;
           } else {
@@ -167,6 +165,10 @@ define([
 
       hide: function() {
         $(".date-time-freq").hide();
+      },
+
+      clear: function() {
+        this.model.destroy();
       },
 
       cleanup: function() {

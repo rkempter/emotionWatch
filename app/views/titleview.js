@@ -20,11 +20,6 @@ define([
             } else {
                 self.model.set('keywordType', 'user');
             }
-
-            app.on('set:globalTime', function(currentDateTime) {
-                self.model.set('currentDateTime', currentDateTime);
-                self.render();
-            })
         },
 
         render: function() {
@@ -38,6 +33,10 @@ define([
                 urlCompare: urlCompare,  
             });
             $( this.el ).html( output );
+        },
+
+        clear: function() {
+          this.model.destroy();
         },
 
     });

@@ -8,7 +8,7 @@ define([
 
         initialize: function() {
             console.log('new Event created');
-        }
+        },
 
     })
 
