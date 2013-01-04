@@ -22,11 +22,14 @@ define([
             this.previewShape = null;
 
             if(this.model.get("mode") !== 'regular' && this.model.get("mode") !== 'compare') {
+                // Draw remaining elements
                 self.drawRemainingElements();
+                // Create the shape
                 self.createEmotionShape();
 
+                // Pattern view: you can click on any element and you jump to the single view with
+                // the current time as a parameter
                 self.model.get("setOfElements").click(function(event) {
-                    event.preventDefault();
                     var keyword = self.model.get("topic");
                     var startDateTime = self.model.get("startDate");
                     var endDateTime = self.model.get("endDate");
@@ -37,12 +40,14 @@ define([
                     app.router.navigate(url, true);
                 });
 
+                // Listen to a jumpToTime event: Triggered in pattern view. Scroll to element
                 this.listenTo(app, 'jumpToTime', function(params) {
                     if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
                         $.scrollTo(self.model.get("centerPoint").y-90, { duration: 1000 });
                     }
                 });
 
+                // Listne to any scroll event
                 this.listenTo(this.model, 'scroll:model', function() {
                     $.scrollTo(self.model.get("centerPoint").y-90);
                 });
@@ -50,45 +55,53 @@ define([
             } else {
                 this.drawRemainingElements();
 
+                // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
+                // Draws a preview of the hovered timeslot.
                 this.listenTo(app, 'preview:mouseover', function(dateTime) {
                     self.createPreview(dateTime);
                 });
 
+                // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
+                // Removes the preview from the canvas
                 this.listenTo(app, 'preview:mouseout', function(dateTime) {
                     self.removePreview(dateTime);
                 });
 
-                this.listenTo(this.model, 'parsed', this.createEmotionShape);
+                this.model.on('parsed', this.createEmotionShape, this);
 
                 this.activateWatch();
                 this.drawLabelTexts();
             }
 
             this.listenTo(app,'close', self.close);
-            // Initialize new frequency view
-            
-            // Put start & endtime into frequency view
         },
 
         events: {
 
         },
 
+        // Close the view, unbind all events and release the model.
         close: function() {
             this.remove();
             this.unbind();
+            if(this.model) {
+                this.model.unbind();
+                this.model.stopListening();
+            }
         },
 
+        // Actiavtion of the watch: activate animations on the watch elements
         activateWatch: function() {
+            var self = this;
             app.trigger('start:watch');
-            // this.model.on("currentDataSetDone", function() {
-            //     app.trigger('start:watch');
-            // });
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDataSet", this.animateCircle, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
         },
 
+        // draw elements that are not bound to any data.
+        // [circle in the center, transparent background circle, etc.]
+        // @todo: move part to LESS
         drawRemainingElements: function() {
             this.model.set("centerCircle", this.drawCircle(Constants.centerZeroCircleRadius, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("centerCircle").attr({ 

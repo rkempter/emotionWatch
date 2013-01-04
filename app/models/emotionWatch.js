@@ -32,7 +32,7 @@ define([
             })
         });
 
-        app.on("change:globalTime", function(dateTime) {
+        this.listenTo(app, 'change:globalTime', function(dateTime) {
           console.log("Global Time arrived: "+dateTime);
           self.setCurrentTime(dateTime);
           self.setCurrentFrequencyRatio(dateTime);
