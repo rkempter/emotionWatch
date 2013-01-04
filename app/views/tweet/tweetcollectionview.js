@@ -31,6 +31,7 @@ define([
 
         render: function() {
             this.$el.html = window.JST['app/templates/tweetview.html']();
+            $(this.el).html(this.$el.html);
             return this;
         },
 
