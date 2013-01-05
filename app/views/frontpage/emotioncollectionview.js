@@ -10,20 +10,20 @@ define([
     var emotionCollectionView = Backbone.View.extend({
 
         initialize: function() {
+            // Define the paper for the frontpage
             app.paper = Raphael(0, 0, "100%", "100%");
-
+            // Create new model for all emotion figures
             this.model = new emotionCollection();
-
+            // Assign the canvas element to the view el
             this.el = app.paper.canvas;
+
+            this.listenTo(app, 'close', this.close);
         },
 
-        cleanup: function() {
-          this.collection.off(null, null, this);
-        },
-
-        clear: function() {
-          this.model.destroy();
-        },
+        close: function() {
+            this.remove();
+            this.unbind();
+        }
 
     });
 
