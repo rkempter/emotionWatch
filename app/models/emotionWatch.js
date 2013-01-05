@@ -20,6 +20,8 @@ define([
     initialize: function(options) {
       var self = this;
 
+      // If the watch is in the regular or compare mode, we need to fetch
+      // all the data
       if(this.get('mode') == 'regular' || this.get('mode') == 'compare') {
         this.fetch({ 
             data: $.param({
@@ -31,12 +33,15 @@ define([
             })
         });
 
+        // At the same time, we have to listen to a change of time,
+        // triggered by the clock
         this.listenTo(app, 'change:globalTime', function(dateTime) {
-          console.log("Global Time arrived: "+dateTime);
+          // Set the currentTime to the new datetime
           self.setCurrentTime(dateTime);
+          // Get the new frequency from the queue
           self.setCurrentFrequencyRatio(dateTime);
+          // Get the new dataset from the queue
           self.setCurrentDataSet();
-          self.trigger("changevalues");
         });
       }
 
@@ -58,8 +63,6 @@ define([
       Date.prototype.toMysqlFormat = function() {
           return this.getFullYear() + "-" + twoDigits(1 + this.getMonth()) + "-" + twoDigits(this.getDate()) + " " + twoDigits(this.getHours()) + ":" + twoDigits(this.getMinutes()) + ":" + twoDigits(this.getSeconds());
       };
-
-      this.startWatch();
     },
 
     /**
@@ -67,6 +70,7 @@ define([
      */
 
     urlRoot: function() {
+      // In the compare node, we load the data from another url
       if(this.get('mode') == 'compare') {
         return "http://localhost:8080/emotionPatternTweets";
       } else {
@@ -78,18 +82,14 @@ define([
      * Parses the received data into the queue
      */
     parse: function(response) {
-      console.log('-----');
-      console.log(response);
-      console.log('done response');
-
+      // Reset the queue for data and frequency
       this.set("queue", new Object());
       this.set("freqQueue", new Object());
-
+      // Set the maximal frequency to zero
       this.set("maxFrequency", 0);
 
-      var indexer = 0;
-
       for(var dateTime in response) {
+        // Get frequency and emotion
         var freq = parseInt(response[dateTime].frequency);
         var emotions = response[dateTime].emotions;
 
@@ -97,22 +97,24 @@ define([
         if(this.get("maxFrequency") < freq) {
             this.set("maxFrequency", freq);
         }
-        
+        // Put emotion and frequency into the queue, accessible by
+        // a datetime hash
         dateTime = new Date(dateTime);
         this.get("queue")[dateTime.toMysqlFormat()] = emotions;
 
         this.get("freqQueue")[dateTime.toMysqlFormat()] = freq;
         
+        // If has never been initialized, trigger that the data has been set
         if(false == this.get("initialized")) {
             this.trigger("setdataset");
         }
       }
       
+      // Set the current date and time and the first dataset
       this.setCurrentTime(this.get("startDate"));
       this.setCurrentDataSet();
-
+      // Let the view know, that the response has been parsed
       this.trigger("parsed");
-      console.log(this);
     },
 
     /**
@@ -121,15 +123,18 @@ define([
      */
     setCurrentTime: function(dateTime) {
         this.set("currentDateTime", new Date(dateTime.toMysqlFormat()));
+        // Let internally know, that the view has been changed
         this.trigger('change:currentDateTime', this.get('currentDateTime'));
     },
 
     
     setCurrentFrequencyRatio: function(dateTime) {
       var dateTime = this.get("currentDateTime");
+      // If there is no data at this moment or no tweets, the frequency is equal to zero
       if(undefined == this.get("freqQueue")[dateTime.toMysqlFormat()] || this.get('maxFrequency') == 0) {
         this.set("currentFrequencyRatio", 0)
       } else {
+        // We normalize the frequency
         this.set("currentFrequencyRatio", this.get("freqQueue")[dateTime.toMysqlFormat()] / this.get("maxFrequency") );
       }
     },
@@ -144,11 +149,12 @@ define([
         var dateTime = this.get("currentDateTime");
         var dataset = this.get("queue")[dateTime.toMysqlFormat()]
         if(undefined == dataset) {
+          // If no dataset for this moment, show the nullEmotion set
           this.set("currentDataSet", Constants.nullEmotion)
         } else {
           this.set("currentDataSet", dataset);
         }
-
+        // Get the dominant Emotion out from the data
         this.getDominantEmotion();
     },
 
@@ -235,10 +241,11 @@ define([
       return (new Date(timeSec*1000));
     },
 
+    // Returns the dominant emotion from a dataset
     getDominantEmotion: function() {
       var dataset = this.get("currentDataSet");
 
-      var emotion = null;
+      var emotion = 'empty';
       var max = 0;
       for(var i = 0; i < dataset.length; i++) {
         var emotionset = dataset[i];
@@ -247,10 +254,14 @@ define([
           emotion = dataset[i].emotion;
         }
       }
+      // If we are in regular mode, change the background color accordingly
+      // to the current dominant emotion
+      if(this.get('mode') == 'regular') {
+        $('body').attr('class', emotion);
+      }
 
-      $('body').attr('class', emotion);
+      return emotion;
     },
-
 
     /**
      * Computes a point of the emotion Shape
@@ -319,30 +330,6 @@ define([
           
         return pathString
       }
-    },
-
-    getDominantEmotion: function() {
-      var currentDataSet = this.get("currentDataSet");
-      var max = 0;
-      var emotion = 'empty';
-      for(var i = 0; i < currentDataSet.length; i++) {
-        if(max < currentDataSet[i].value) {
-          max = currentDataSet[i].value;
-          emotion = currentDataSet[i].emotion;
-        }
-      }
-      return emotion;
-    },
-
-    /**
-     * Starts the emotion watch
-     *
-     */
-     
-    startWatch: function() {
-      console.log('starting');
-      var self = this;
-      self.trigger("changevalues");
     },
     
   });

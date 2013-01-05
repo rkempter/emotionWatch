@@ -410,13 +410,6 @@ define([
 
             this.model.set("labels", labels);
         },
-
-        /**
-         * Starts the emotion watch
-         */
-        startWatch: function() {
-            this.model.startWatch();
-        },
     });
 
     return emotionWatchView;
