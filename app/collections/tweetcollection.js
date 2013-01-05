@@ -18,9 +18,10 @@ define([
             this.keyword = options.keyword;
             this.timeStep = options.timeStep;
             this.network = options.network;
+            this.currentDateTime = options.currentDateTime;
             this.fetch({ 
                 data: $.param({ 
-                    datetime: options.currentDateTime,
+                    datetime: self.dateTime,
                     emotion: this.emotion,
                     hashtag: options.keyword,
                     windowsize: options.timeStep,
@@ -31,10 +32,10 @@ define([
             // Listen to the globalTime change event triggered from the clock.
             // Fetch new tweets according to the dateTime and the time slot length
             this.listenTo(app, 'change:globalTime', function(dateTime) {
-                console.log('new fetching');
+                self.currentDateTime = dateTime;
                 self.fetch({
                     data: $.param({
-                        datetime: dateTime,
+                        datetime: self.currentDateTime,
                         emotion: self.emotion,
                         hashtag: self.keyword,
                         windowsize: self.timeStep,
@@ -46,15 +47,15 @@ define([
 
         // If emotion choosen, fetch tweets according to the emotion
         setEmotion: function(emotion) {
-            self.emotion = emotion;
-
-            self.fetch({
+            this.emotion = emotion;
+            
+            this.fetch({
                 data: $.param({
-                    datetime: self.datetime,
-                    emotion: self.emotion,
-                    hashtag: self.keyword,
-                    windowsize: self.timeStep,
-                    network: self.network,
+                    datetime: this.currentDateTime,
+                    emotion: this.emotion,
+                    hashtag: this.keyword,
+                    windowsize: this.timeStep,
+                    network: this.network,
                 })
             });
         },
@@ -64,8 +65,11 @@ define([
         },
 
         parse: function(response) {
+
             this.reset();
             $('.tweets ul').empty();
+
+            console.log(response);
             this.viewPointer = new Array();
 
             for(var i = 0; i < response.length; i++) {

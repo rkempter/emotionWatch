@@ -11,16 +11,23 @@ define([
     var detailView = Backbone.View.extend({
 
         template: 'detailview',
+
+        className: 'hide',
     
         initialize: function() {
             _.bindAll(this, "render");
 
             var self = this;
 
+            // Bind to mouseover and mouseout events to show or hide the
+            // slot details
             this.listenTo(app, 'preview:mouseover', this.showDetail);
             this.listenTo(app, 'preview:mouseout', this.hideDetail);
+
+            // Bind the close event to the close method
             this.listenTo(app, 'close', this.close);
 
+            // Render the detail template every time the model changes
             this.model.on('change', function(e) {
                 self.render();
             });

@@ -306,6 +306,7 @@ h3 {
   width: 100%;
   position: fixed;
   bottom: 0px;
+  background: #0173d6;
   -webkit-transition: background-color 3000ms linear;
   -moz-transition: background-color 3000ms linear;
   -o-transition: background-color 3000ms linear;
@@ -418,6 +419,7 @@ svg .line {
 }
 #pattern .date-time-freq path {
   fill: #ac7b74;
+  stroke-width: 0;
 }
 #index .date-time-freq path,
 #compare .date-time-freq path,
@@ -436,6 +438,7 @@ svg .line {
 #index .date-time-freq path,
 #compare .date-time-freq path {
   fill: #ac7b74;
+  stroke-width: 0;
 }
 #index .date-time-freq path:hover,
 #compare .date-time-freq path:hover {
@@ -453,6 +456,9 @@ svg .line {
 .tweets a {
   color: #ffffff;
 }
+.tweets ul {
+  margin-bottom: 100px;
+}
 .tweets li {
   position: relative;
   background-color: rgba(255, 255, 255, 0.1);
@@ -461,7 +467,7 @@ svg .line {
 }
 .tweets li p {
   margin: 3px 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 .tweets li span.date {
   position: absolute;

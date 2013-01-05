@@ -12,6 +12,7 @@ define([
         template: "datetimefreq",
 
         initialize: function() {
+
           var self = this;
           this.radius = Constants.circleRadius + Constants.timeCircleWidth;
           this.frequencyRadius = Constants.frequencyRadius;
@@ -23,22 +24,28 @@ define([
           this.tweetCount = this.model.get("value");
           this.val = this.model.get("scaling");
 
+          // Get the width size of the window
           if(this.model.get('mode') == 'compare') {
+            // If we have two visualizations at the same time, we use half of the
+            // window as a base for the computations
             this.pixelLength = $(window).width() / 2;
           } else {
             this.pixelLength = $(window).width();
           }
 
-          this.model.set("active", 0);
+          // The pair of points our slot is positioned
+          this.startPoint = { "x": util.getPointFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime, this.pixelLength), "y": 100 };
+          this.endPoint = { "x": util.getPointFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime, this.pixelLength), "y": 100 };
 
-          this.startPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localStartDateTime), "y": 100 };
-          this.endPoint = { "x": this.getPointFromTime(this.startDateTime, this.endDateTime, this.localEndDateTime), "y": 100 };
-
+          // Draw the time slot on the canvas
           this.drawTimeSlot(); 
 
+          // Bind the events to the view
           this.model.on("reset", self.changeToReset, self);
           this.model.on("activate", self.changeToActive, self);
           this.model.on("visited", self.changeToVisited, self);
+
+          this.listenTo(app, 'close', this.close);
         },
 
         /**
@@ -47,15 +54,14 @@ define([
          */
         drawTimeSlot: function() {
           var self = this;
-          var smallRadius = 0;
-          var bigRadius = Constants.timeCircleWidth;
-          var baseRadius = Constants.circleRadius;//Constants.timeCircleRadiusDifference;
 
+          // Compute the four points necessary for the path
           var leftBottomPoint = this.startPoint;
-          var leftTopPoint = this.getLinearPoint(this.startPoint, this.val, 100);
+          var leftTopPoint = util.getLinearPoint(this.startPoint, this.val, 100);
           var rightBottomPoint = this.endPoint;
-          var rightTopPoint = this.getLinearPoint(this.endPoint, this.val, 100);
+          var rightTopPoint = util.getLinearPoint(this.endPoint, this.val, 100);
 
+          // Create an SVG path for the timeslot
           var path = new Array();
           path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
           path.push(["L", leftTopPoint.x, leftTopPoint.y]);
@@ -63,45 +69,50 @@ define([
           path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
           path.push(["Z"]);
 
+          // Draw the path on the canvas
           var timeSlot = this.model.get("paper").path(path);
 
-          timeSlot.attr({
-            "stroke-width": 0,
-            "fill": "#AC7B74",
-          });
-
+          // Bind the mouseover event to a method;
           timeSlot.mouseover(function() {
             self.mouseover();
           });
 
+          // Bind the mouseout event to the mouseout method
           timeSlot.mouseout(function() {
             self.mouseout();
           });
 
+          // Save the timeslot element in the model
           this.model.set("timeSlot", timeSlot);
 
+          // Bind the rest of timeslot events
           self.bindTimeSlotEvents();
         },
 
         mouseover: function() {
+          // Build a object with all necessary parameters needed in the detail view
           parameters = {};
           parameters.localStartDateTime = this.model.get('localStartDateTime');
           parameters.localEndDateTime = this.model.get('localEndDateTime');
           parameters.left = this.getMiddlePoint() || 20;
           parameters.tweetCount = this.model.get('value');
-          parameters.dominantEmotion = this.model.get('dominantEmotion') || 'love';
           
+          // Trigger a 'global' event with the parameters object
           app.trigger("preview:mouseover", parameters);
         },
 
         mouseout: function() {
+          // Tell to appropriate parts of the application that
+          // the mouse is not on the timeslot anymore
           var dateTime = this.model.get("localStartDateTime");
           app.trigger("preview:mouseout", dateTime);
         },
 
         getMiddlePoint: function() {
+          // Get the middle point of a timeslot
+          // This is used to place the detailview template at the right place
           var middleDateTime = new Date(this.model.get('localStartDateTime').getTime() + this.timeStep * 1000 / 2);
-          var point = this.getPointFromTime(this.model.get('startDateTime'), this.model.get('endDateTime'), middleDateTime);
+          var point = util.getPointFromTime(this.model.get('startDateTime'), this.model.get('endDateTime'), middleDateTime, this.pixelLength);
           return point;
         },
 
@@ -126,64 +137,31 @@ define([
 
           var timeSlotElement = self.model.get("timeSlot");
 
+          // Clicking on a timeslots changes the global time and jumps to
+          // the time of the timeslot!
           timeSlotElement.click(function() {
             params = {};
             params.dateTime = self.model.get("localStartDateTime");
             params.cid = self.model.cid;
-
+            // Trigger a global time change
             app.trigger("jumpToTime", params);
           });
         },
-
-      getPointFromTime: function(startDateTime, endDateTime, currentDateTime) {
-        var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
-        var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
-        
-        return parseInt(currentTimeSec / timeSpan * this.pixelLength);
-      },
-
-      /**
-       * Computes coordinates of a point relative to another point
-       *
-       * @param pointNew
-       * @param pointPrev
-       * @return difference
-       */
-      getRelativePoint: function(pointNew, pointPrev) {
-        var diffX = Number((pointNew.x - pointPrev.x).toFixed(0));
-        var diffY = Number((pointNew.y - pointPrev.y).toFixed(0));
-        var difference = { "x": diffX, "y": diffY };
-
-        return difference;
-      },
       
+        render: function(template) {
+            var output = template( { startDateTime: this.model.get("localStartDateTime"), endDateTime: this.model.get("localEndDateTime"), frequency: this.model.get("value") } );
+            $(".date-time-freq").html( output );
+            $(".date-time-freq").show();
+        },
 
-      getLinearPoint: function(refPoint, value, maxHeight) {
-        var y = parseFloat(refPoint.y - maxHeight * value);
-        var x = refPoint.x;
+        hide: function() {
+          $(".date-time-freq").hide();
+        },
 
-        var point = { "x": x, "y": y };
-
-        return point;
-      },
-
-      render: function(template) {
-          var output = template( { startDateTime: this.model.get("localStartDateTime"), endDateTime: this.model.get("localEndDateTime"), frequency: this.model.get("value") } );
-          $(".date-time-freq").html( output );
-          $(".date-time-freq").show();
-      },
-
-      hide: function() {
-        $(".date-time-freq").hide();
-      },
-
-      clear: function() {
-        this.model.destroy();
-      },
-
-      cleanup: function() {
-        this.model.off(null, null, this);
-      },
+        close: function() {
+          this.remove();
+          this.unbind();
+        }
 
     });
 

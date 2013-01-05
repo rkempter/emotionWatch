@@ -342,12 +342,14 @@ define([
          * @param dateTime
          */
         removePreview: function(dateTime) {
-            this.previewShape.remove();
-            this.previewShape = null;
+            if(this.previewShape !== null) {
+                this.previewShape.remove();
+                this.previewShape = null;
 
-            this.model.get("emotionShape").attr({
-                "opacity": 1,
-            });
+                this.model.get("emotionShape").attr({
+                    "opacity": 1,
+                });
+            }
         },
 
 
@@ -371,7 +373,9 @@ define([
                 var textToPrint = labelTexts[i];
                 var point = this.model.getPoint(1.3, i);
                 var linePoint = this.model.getPoint(1.25, i);
-                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 14);
+                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 16);
+
+                var length = text.getBBox().width;
 
                 var lineArray = new Array();
                 lineArray.push(["M", centerPoint.x, centerPoint.y]);
@@ -379,8 +383,11 @@ define([
                 var line = paper.path(lineArray).toBack();
                 line.node.setAttribute("class", "line");
                 lines.push(line);
-                
-                text.transform("r"+angle+","+point.x+","+point.y);
+                if(angle > 90 && angle <= 270) {
+                    text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
+                } else {
+                    text.transform("r"+angle+","+point.x+","+point.y);
+                }
                 text.node.setAttribute("class", "label");
 
                 labels.push(text);

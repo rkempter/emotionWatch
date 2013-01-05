@@ -23,7 +23,7 @@ define([
             var emotion = $('#emotion-category option:selected').val();
 
             if(emotion == 'all') {
-                emotion = undefined;
+                emotion = '';
             }
 
             this.collection.setEmotion(emotion);

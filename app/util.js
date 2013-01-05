@@ -3,6 +3,25 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
     var util = function() {
 
       return{
+
+        getPointFromTime: function(startDateTime, endDateTime, currentDateTime, pixelLength) {
+          var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
+          var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
+          
+          return parseInt(currentTimeSec / timeSpan * pixelLength);
+        },
+
+        // Get a point with non-changing x coordinate and a limitation of
+        // the y-coordinate
+        getLinearPoint: function(refPoint, value, maxHeight) {
+          var y = parseFloat(refPoint.y - maxHeight * value);
+          var x = refPoint.x;
+
+          var point = { "x": x, "y": y };
+
+          return point;
+        },
+
         /**
          * Computes the time from a given angle.
          *
