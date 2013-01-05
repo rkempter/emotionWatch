@@ -54,6 +54,7 @@ define([
         },
 
         close: function() {
+            // Stop interval first
             if(undefined !== this.model.get('interval')) {
                 clearInterval(this.model.get('interval'));
             }
