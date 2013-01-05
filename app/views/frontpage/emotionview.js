@@ -6,7 +6,8 @@ define([
     "raphael",
     "tweetfrequencycollection",
     'constants',
-], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants) {
+    "util",
+], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants, util) {
 
     var emotionWatchView = Backbone.View.extend({
 
@@ -83,7 +84,11 @@ define([
             });
 
             this.model.get("emotionShape").click(function() {
-                app.router.navigate('search/keyword/'+self.model.get("label").slice(1), true);
+                var keywordType = util.getKeywordType(self.model.get('label'));
+                var timeStep = util.getTimeStep(new Date(Constants.startDateTime), new Date(Constants.endDateTime));
+                var url = 'search/'+self.model.get('network')+'/'+keywordType+'/'+self.model.get('label').slice(1)+'/'+timeStep+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
+                console.log(url);
+                app.router.navigate(url, true);
             });
 
             this.model.get("emotionShape").toBack();

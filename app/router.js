@@ -21,10 +21,11 @@ define([
   "frequencypaperview",
   "paperview",
   "emotioncollectionview",
-  "welcomeview"
+  "welcomeview",
+  "detailview",
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -73,20 +74,19 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('main-layout').setViews({
-        ".time-block": new timeView({
-            el: ".time-block",
-            startDateTime: options.startDateTime,
-            endDateTime: options.endDateTime,
-            timeStep: options.timeStep,
-            currentDateTime: options.currentDateTime,
+        ".time-block": new timeView(options),
+
+        ".detail-block": new detailView({
+          model: new Backbone.Model(),
         }),
+
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
           "network": options.network,
         }),
         ".navigation": new navigationView(options),
-        "#player": new videoView(),
+        // "#player": new videoView(),
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
             paper: app.paper, 
@@ -102,7 +102,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }) 
         }),
         ".tweets": new tweetCollectionView({
-          el: ".tweets",
           collection: new tweetCollection(options),
         }),
         "#middle-column .keyword-title": new titleView({
@@ -132,18 +131,26 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('pattern-layout').setViews({
+        ".detail-block": new detailView({
+          model: new Backbone.Model(),
+        }),
+
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
           "network": options.network, 
         }),
+
         ".navigation": new navigationView(options),
+
         "#middle-column .keyword-title": new titleView({
           model: new Backbone.Model(options),
           el: '#middle-column .keyword-title',
         }),
+
         ".bottom": new Backbone.View({
           collection: new tweetFrequencyCollection(options),
         }),
+        
         ".watch": new emotionWatchCollectionView({ 
           collection: new emotionWatchCollection({
             'startDateTime': options.startDateTime,
@@ -174,7 +181,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
       app.useLayout('compare-layout').setViews({
         ".time-block": new timeView({
-            el: ".time-block",
             startDateTime: options.startDateTime,
             endDateTime: options.endDateTime,
             timeStep: options.timeStep,

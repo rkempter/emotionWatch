@@ -36,6 +36,7 @@ require.config({
 
     // views
     emotioncollectionview: "views/frontpage/emotioncollectionview",
+    detailview: "views/detail/detailview",
     tweetview: "views/tweet/tweetview",
     settingsview: "views/settings/settingsview",
     searcheventview: "views/search/searcheventview",
@@ -52,7 +53,6 @@ require.config({
     emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
-
 
     templates: "templates",
     

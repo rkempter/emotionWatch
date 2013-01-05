@@ -21,11 +21,25 @@ define([
 
             this.previewShape = null;
 
+            // Create a set of elements
+            this.model.set("setOfElements", this.model.get('paper').set());
+
             if(this.model.get("mode") !== 'regular' && this.model.get("mode") !== 'compare') {
+
                 // Draw remaining elements
                 self.drawRemainingElements();
+                
                 // Create the shape
                 self.createEmotionShape();
+
+                // Add the emotion shape to the set of elements, so that we can treat the complete
+                // watch as one single element.
+                this.model.get("setOfElements").push(
+                    this.model.get('emotionShape')
+                );
+
+                // Draw background with the dominant emotion
+                self.drawDominantEmotion();
 
                 // Pattern view: you can click on any element and you jump to the single view with
                 // the current time as a parameter
@@ -40,6 +54,18 @@ define([
                     app.router.navigate(url, true);
                 });
 
+                var nbr = (self.model.get("currentDateTime").getTime() - self.model.get("startDate").getTime()) / (self.model.get("timeStep")*1000);
+
+                // Pattern view: If hovering over the watch, show slot on timeline
+                self.model.get("setOfElements").mouseover(function(event) {
+                    app.trigger("pattern:mouseover", nbr);
+                });
+
+                // Pattern view: let timeline now, that user is not hovering anymore over the watch
+                self.model.get("setOfElements").mouseout(function(event) {
+                    app.trigger("pattern:mouseout", nbr);
+                });
+
                 // Listen to a jumpToTime event: Triggered in pattern view. Scroll to element
                 this.listenTo(app, 'jumpToTime', function(params) {
                     if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
@@ -52,19 +78,36 @@ define([
                     $.scrollTo(self.model.get("centerPoint").y-90);
                 });
 
+                // If hovering over watch or on a timeslot on the timeline, show only
+                // the 'hovered' element and let all the others disappear.
+                this.listenTo(app, 'preview:mouseover', function(params) {
+                    if(self.model.get("currentDateTime").getTime() !== params.localStartDateTime.getTime()) {
+                        self.model.get("setOfElements").attr({
+                            opacity: 0.5,
+                        });
+                    }
+                });
+
+                // Show all elements again
+                this.listenTo(app, 'preview:mouseout', function(params) {
+                    self.model.get("setOfElements").attr({
+                        opacity: 1,
+                    });
+                });
+
             } else {
                 this.drawRemainingElements();
 
                 // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
                 // Draws a preview of the hovered timeslot.
-                this.listenTo(app, 'preview:mouseover', function(dateTime) {
-                    self.createPreview(dateTime);
+                this.listenTo(app, 'preview:mouseover', function(params) {
+                    self.createPreview(params);
                 });
 
                 // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
                 // Removes the preview from the canvas
-                this.listenTo(app, 'preview:mouseout', function(dateTime) {
-                    self.removePreview(dateTime);
+                this.listenTo(app, 'preview:mouseout', function(params) {
+                    self.removePreview(params);
                 });
 
                 // Create the shape when all data from the server is parsed.
@@ -127,11 +170,19 @@ define([
                 "opacity": 0.1,
             });
 
-            this.model.set("setOfElements", this.model.get('paper').set());
-
             this.model.get("setOfElements").push(
                 this.model.get("centerCircle"),
                 this.model.get("timeCircleBorder")
+            );
+        },
+
+        drawDominantEmotion: function() {
+            this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
+            this.model.get("dominantEmotionCircle").toBack();
+            var dominantEmotion = this.model.getDominantEmotion();
+            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion);
+            this.model.get("setOfElements").push(
+                this.model.get("dominantEmotionCircle")
             );
         },
 
@@ -256,7 +307,8 @@ define([
          *
          * @param dateTime
          */
-        createPreview: function(dateTime) {
+        createPreview: function(params) {
+            var dateTime = params.localStartDateTime;
             if(null !== this.previewShape) {
                 this.previewShape.remove();
                 this.previewShape = null;

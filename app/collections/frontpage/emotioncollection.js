@@ -21,9 +21,11 @@ define([
         parse: function(response) {
             for(var i = 0; i < response.length; i++) {
                 var label = response[i]['hashtag'];
+                var network = response[i]['network'];
+                console.log(network);
                 var emotions = new Array();
                 for(var index in response[i]) {
-                    if(index !== 'hashtag') {
+                    if(index !== 'hashtag' && index !== 'network') {
                         var emotion = {};
                         emotion.value = response[i][index];
                         emotions.push(emotion);
@@ -31,6 +33,7 @@ define([
                 }
                 var model = new emotionModel({
                     label: label,
+                    network: network,
                     dataset: emotions,
                 });
 

@@ -33,10 +33,6 @@ define([
             $(this.el).append(modelView);
         },
 
-        clear: function() {
-          this.model.destroy();
-        },
-
     });
 
     return emotionWatchCollectionView;

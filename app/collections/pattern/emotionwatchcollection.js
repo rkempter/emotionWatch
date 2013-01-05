@@ -77,9 +77,6 @@ define([
         },
 
         parse: function(response) {
-            var totalNbrWatches = response.length;
-            this.adjustCanvasSize(response.length);
-
             var max = 0;
             for(var time in response) {
                 var freq = parseInt(response[time].frequency);
@@ -109,6 +106,7 @@ define([
                     currentDataSet: emotions,
                     endDate: self.endDateTime,
                     centerPoint: {"x": x, "y": y},
+                    timeStep: self.timeStep,
                     topic: self.keyword,
                     network: self.network,
                     currentFrequencyRatio: frequency / max,
@@ -129,14 +127,16 @@ define([
 
             app.trigger('show:model', self.currentDateTime.getTime());
 
+            var lines = Math.ceil(this.models.length / this.elementsPerLine);
+            this.adjustCanvasSize(lines);
+
             var last = parseInt((self.currentDateTime.getTime()-self.startDateTime.getTime()) / (self.timeStep*1000))
             console.log("The last one: "+last);
             this.at(last).trigger('scroll:model');
             console.log("Collection length: "+this.models.length);
         },
 
-        adjustCanvasSize: function(nbr) {
-            var lines = Math.ceil(nbr / this.elementsPerLine);
+        adjustCanvasSize: function(lines) {
             var height = (this.spaceBetween+50) * 2 * lines;
             console.log("Paper height: "+height);
 

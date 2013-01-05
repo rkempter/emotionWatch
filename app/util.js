@@ -118,6 +118,23 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
               return '#'+keyword;
           }
         },
+
+        getTimeStepFormat: function(timeStep) {
+          index = 0;
+          while((timeStep / 60) > 1) {
+            index++;
+            timeStep = timeStep / 60;
+          }
+
+          switch(index) {
+            case 0:
+              return timeStep+' sec';
+            case 1:
+              return timeStep+' min';
+            case 2:
+              return timeStep+' hours';
+          }
+        }
       }
     }();
 

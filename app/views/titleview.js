@@ -39,6 +39,9 @@ define([
                 urlSingle: urlSingle,
                 urlPattern: urlPattern,
                 urlCompare: urlCompare,  
+                startDateTime: this.model.get('startDateTime'),
+                endDateTime: this.model.get('endDateTime'),
+                steps: util.getTimeStepFormat(this.model.get('timeStep')),
             });
             $( this.el ).html( output );
         },

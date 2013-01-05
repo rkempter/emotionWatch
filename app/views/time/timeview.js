@@ -13,19 +13,20 @@ define([
         template: 'timetemplate',
         
         initialize: function(options) {
-
-            var self = this;
+            _.bindAll(this, 'render');
             
             this.model = new Backbone.Model();
 
             var options = options || {};
+
+            var self = this;
 
             // set the parameters of the current visualization
             this.model.set('startDateTime', options.startDateTime);
             this.model.set('endDateTime', options.endDateTime);
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
-            this.model.set("label", "start");
+            this.model.set("label", "Stop");
 
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
@@ -33,11 +34,11 @@ define([
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 self.model.set('currentDateTime', dateTime);
                 if(this.model.get('interval') == undefined) {
-                    self.startWatch();
+                    self.startTime();
                 }
                 console.log(self.model.cid);
-                self.model.set("date", moment(dateTime).format("Do MMM YYYY"));
-                self.model.set("time", moment(dateTime).format("HH:mm:ss"));
+                self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
+                self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
                 self.render(self.template);
             });
 
@@ -84,12 +85,22 @@ define([
         },
 
         events: {
-            'click #start-stop-control': 'test',
+            'click #start-stop-control': 'triggerStartStop',
         },
 
-        test: function() {
-            console.log('testester');
+        triggerStartStop: function() {
+            console.log('trigger Start Stop');
+            if(this.model.get('label') == 'Stop') {
+                this.model.set('label', 'Start');
+                this.stopTime();
+                this.render();
+            } else {
+                this.model.set('label', 'Stop');
+                this.startTime();
+                this.render();
+            }
         },
+
 
         /**
          * stopTime
@@ -105,15 +116,12 @@ define([
 
         // render the template with labe, date and time.
         render: function(template) {
-            console.log('render time');
             var output = template({ 
                 label: this.model.get("label"), 
-                currentDate: this.model.get("date"), 
-                currentTime: this.model.get("time")
+                firstDateTime: this.model.get('firstDateTime'),
+                secondDateTime: this.model.get('secondDateTime'),
             });
             this.$el.html(output);
-            $(this.el).html(output);
-            return this;
         },
         
     });

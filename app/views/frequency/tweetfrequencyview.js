@@ -19,6 +19,8 @@ define([
           this.endDateTime = this.model.get("endDateTime");
           this.localStartDateTime = this.model.get("localStartDateTime");
           this.localEndDateTime = this.model.get("localEndDateTime");
+          this.timeStep = this.model.get("timeStep");
+          this.tweetCount = this.model.get("value");
           this.val = this.model.get("scaling");
 
           if(this.model.get('mode') == 'compare') {
@@ -82,31 +84,39 @@ define([
         },
 
         mouseover: function() {
-          var dateTime = this.model.get("localStartDateTime");
-          app.trigger("preview:mouseover", dateTime);
+          parameters = {};
+          parameters.localStartDateTime = this.model.get('localStartDateTime');
+          parameters.localEndDateTime = this.model.get('localEndDateTime');
+          parameters.left = this.getMiddlePoint() || 20;
+          parameters.tweetCount = this.model.get('value');
+          parameters.dominantEmotion = this.model.get('dominantEmotion') || 'love';
+          
+          app.trigger("preview:mouseover", parameters);
         },
 
         mouseout: function() {
           var dateTime = this.model.get("localStartDateTime");
           app.trigger("preview:mouseout", dateTime);
-          
+        },
+
+        getMiddlePoint: function() {
+          var middleDateTime = new Date(this.model.get('localStartDateTime').getTime() + this.timeStep * 1000 / 2);
+          var point = this.getPointFromTime(this.model.get('startDateTime'), this.model.get('endDateTime'), middleDateTime);
+          return point;
         },
 
         changeToVisited: function() {
-          if(this.model.get("active") === 1) {
-            this.model.set("active", 2);
-          }
           this.model.get("timeSlot").node.setAttribute("class", "visited");
         },
 
         changeToActive: function() {
-          this.model.set("active", 1);
+          this.mouseover();
 
           this.model.get("timeSlot").node.setAttribute("class", "active");
         },
 
          changeToReset: function() {
-          this.model.set("active", 0);
+          this.mouseout();
 
           this.model.get("timeSlot").node.setAttribute("class", "");
         },

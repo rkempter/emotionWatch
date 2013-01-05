@@ -321,6 +321,19 @@ define([
       }
     },
 
+    getDominantEmotion: function() {
+      var currentDataSet = this.get("currentDataSet");
+      var max = 0;
+      var emotion = 'empty';
+      for(var i = 0; i < currentDataSet.length; i++) {
+        if(max < currentDataSet[i].value) {
+          max = currentDataSet[i].value;
+          emotion = currentDataSet[i].emotion;
+        }
+      }
+      return emotion;
+    },
+
     /**
      * Starts the emotion watch
      *

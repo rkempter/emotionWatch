@@ -32,11 +32,14 @@ define([
                 self.jumpToGlobalTime(params.cid);
             });
 
+            this.listenTo(app, "pattern:mouseover", this.activateSlot);
+            this.listenTo(app, "pattern:mouseout", this.deactivateSlot);
+
             // Pattern view: When scroll, mark the right elements as visited.
             this.listenTo(app, 'scroll:activate', function(id) {
                 self.modelIndex = id;
                 self.activateModels();
-                self.resetModels();
+                // self.resetModels();
             });
 
             if(this.mode == 'regular' || this.mode == 'compare') {
@@ -98,9 +101,11 @@ define([
                 } else {
                     var scaling = 0;
                 }
+                
                 // Create model for the current slot
                 var model = new tweetFrequencyModel({
                     "value": value,
+                    "timeStep": this.timeStep,
                     "scaling": scaling,
                     "localStartDateTime": localStartDateTime,
                     "localEndDateTime": localEndDateTime,
@@ -153,6 +158,23 @@ define([
                 var dateTime = model.get("localStartDateTime");
                 // Need to synchronize the clock (timeview)
                 app.trigger("change:globalTime", dateTime);
+            }
+        },
+
+        activateSlot: function(nbr) {
+            var model = this.at(nbr) || null;
+            console.log(model);
+
+            if(null !== model) {
+                model.trigger('activate');
+            }
+        },
+
+        deactivateSlot: function(nbr) {
+            var model = this.at(nbr) || null;
+
+            if(null !== model) {
+                model.trigger('reset');
             }
         },
 
