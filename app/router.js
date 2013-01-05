@@ -43,6 +43,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     index: function() {
       $('#main').empty();
+      app.trigger('close');
+      
       app.useLayout('frontpage').setViews({
         ".paper": new emotionCollectionView({
           "width": "100%",
@@ -116,6 +118,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
       $('#main').empty();
+      app.trigger('close');
 
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
@@ -166,6 +169,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       $('#main').empty();
+      app.trigger('close');
       var options = {};
       console.log(keyword);
       options.keyword = util.combineKeyword(keyword, keywordType);
