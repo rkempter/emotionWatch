@@ -11,26 +11,21 @@ define([
     var emotionWatchCollectionView = Backbone.View.extend({
 
         initialize: function() {
-            var height = $(window).height() - 200;
+            // Create canvas for Paper
             app.paper = Raphael(0, 100, "100%", 2000);
-            
-            app.paper.setViewBox(0, 0, "100%", height, false);
+            // Assign canvas DOM element to view element
             this.el = app.paper.canvas;
-
-            // this.collection.bind('add', function(model) {
-            //     this.renderEmotionWatch(model);
-            // }, this);
-
+            // Let the collection know that the view has been initialized
             this.collection.trigger('view:initialized');
-
+            // Clear everything that is drawn on the paper
             app.paper.clear();
+
+            this.listenTo(app, 'close', this.close);
         },
 
-        renderEmotionWatch: function(watch) {
-            var modelView = new emotionWatchView( { model: watch } );
-            modelView.createEmotionShape();
-            modelView.createTimeLineShape();
-            $(this.el).append(modelView);
+        close: function() {
+            this.remove();
+            this.unbind();
         },
 
     });
