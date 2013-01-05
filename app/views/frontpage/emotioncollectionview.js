@@ -23,7 +23,7 @@ define([
         close: function() {
             this.remove();
             this.unbind();
-        }
+        },
 
     });
 
