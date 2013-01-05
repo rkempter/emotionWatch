@@ -17,20 +17,10 @@ define([
         'click #settings-change': 'triggerSettingsChange'
       },
 
-      initialize: function(options) {
-        this.model = new Backbone.Model();
-
-        options = options || {};
-
-        this.model.set('timeStep', options.timeStep);
-        this.model.set('network', options.network);
-        this.model.set('startDateTime', options.startDateTime);
-        this.model.set('endDateTime', options.endDateTime);
-        this.model.set('animationDuration', app.animationDuration);
-        this.model.set('currentDateTime', options.currentDateTime);
-        this.model.set('keyword', options.keyword);
-        this.model.set('keywordType', util.getKeywordType(options.keyword));
-
+      initialize: function() {
+        keyword = this.model.get('keyword');
+        // Save the keywordType in the model as well
+        this.model.set('keywordType', util.getKeywordType(keyword));
       },
 
       triggerSettingsChange: function() {
@@ -49,6 +39,7 @@ define([
         var change = false;
         var timeConflict = false;
 
+        // If any of the parameters change, we need to reload the complete view
         if(network !== this.model.get('network')) {
           change = true;
         } else if(timeStep !== this.model.get('timeStep')){
@@ -61,9 +52,14 @@ define([
           app.animationDuration = animationDuration;
           change = true;
         } else if(currentDateTime <= startDateTime) {
+          // We don't want the currentDateTime to be smaller as the startDateTime
+          timeConflict = true;
+        } else if(currentDateTime > endDateTime) {
+          // And we don't want the currentDateTime to be bigger than the endDateTime
           timeConflict = true;
         }
 
+        // Depending on the flags, we compute the route
         if(change && !timeConflict) {
            app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime(), true);
         } else if(change && timeConflict) {
@@ -71,6 +67,7 @@ define([
         }
       },
 
+      // Render template with the paramters
       render: function(template) {
         var output = template({
           animationDuration: this.model.get('animationDuration'),
@@ -82,12 +79,13 @@ define([
           endTime: moment(this.model.get('startDateTime')).format("HH:mm"),
         });
 
-        $( this.el ).html(output);
+        this.$el.html(output);
       },
 
-      clear: function() {
-        this.model.destroy();
-      },
+      close: function() {
+        this.remove();
+        this.unbind();
+      }
 
     });
 

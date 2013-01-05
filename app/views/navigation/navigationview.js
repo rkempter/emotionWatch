@@ -26,7 +26,9 @@ define([
             this.insertViews({
                 '#search-event .modal-body': new searchEventView(),
                 '#search-keyword .modal-body': new searchKeywordView(),
-                '#settings-modal .modal-body': new settingsView(options),
+                '#settings-modal .modal-body': new settingsView({
+                    model: new Backbone.Model(options),
+                }),
             });
 
             this.listenTo(app, 'close', this.close);
