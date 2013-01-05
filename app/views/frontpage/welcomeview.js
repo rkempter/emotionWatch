@@ -16,16 +16,20 @@ define([
 
         initialize: function() {
 
-            this.model = new Backbone.Model();
-
+            // Insert the eventSearch view on the left side and the
+            // keyword search view on the right.
             this.insertViews({ 
                 ".left": new searchEventView(),
                 ".right": new searchKeywordView(),
             });
+
+            // Bind view to close event
+            this.listenTo(app, 'close', this.close);
         },
 
-        clear: function() {
-          this.model.destroy();
+        close: function() {
+            this.remove();
+            this.unbind();
         },
     });
 
