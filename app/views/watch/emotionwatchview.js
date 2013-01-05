@@ -6,10 +6,11 @@ define([
     "raphael",
     "tweetfrequencycollection",
     'constants',
+    "util",
 
     // plugins
     "plugins/jquery.scrollto",
-], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants) {
+], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants, util) {
 
     var emotionWatchView = Backbone.View.extend({
 
@@ -45,12 +46,14 @@ define([
                 // the current time as a parameter
                 self.model.get("setOfElements").click(function(event) {
                     var keyword = self.model.get("topic");
+                    var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
                     var endDateTime = self.model.get("endDate");
                     var currentDateTime = self.model.get("currentDateTime");
+                    var timeStep = self.model.get("timeStep");
                     var network = self.model.get("network");
 
-                    var url = '/search/'+network+'/keyword/'+keyword+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
+                    var url = 'search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
                     app.router.navigate(url, true);
                 });
 
