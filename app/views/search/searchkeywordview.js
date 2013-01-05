@@ -17,31 +17,28 @@ define([
         },
 
         triggerKeywordSearch: function(event) {
-            console.log('Keyword Search triggered');
+            // Get all values from the form
             var startDate = $('#keyword-start-date').val();
             var startTime = $('#keyword-start-time').val();
             var endDate = $('#keyword-end-date').val();
             var endTime = $('#keyword-end-time').val();
             var startDateTime = new Date(startDate+" "+startTime);
             var endDateTime = new Date(endDate+" "+endTime);
-
+            // Get appropriate timestep
             var timeStep = util.getTimeStep(startDateTime, endDateTime);
             var keyword = $('#keyword').val();
             var network = $('#keyword-network').val();
-
+            // Get keywordType (hashtag, user)
             var keywordType = util.getKeywordType(keyword);
-
+            // Navigate to computed route
             app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+            this.listenTo(app, 'close', this.close);
         },
 
-        cleanup: function() {
-          this.model.off(null, null, this);
+        close: function() {
+            this.remove();
+            this.unbind();
         },
-
-        clear: function() {
-          this.model.destroy();
-        },
-
         
     });
 
