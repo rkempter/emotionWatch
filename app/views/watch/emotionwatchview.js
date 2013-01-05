@@ -179,6 +179,9 @@ define([
             );
         },
 
+        // On the pattern watches, one should see clearly the dominant emotion.
+        // Therefore, we draw a circle in the background with the color of the dominant
+        // emoiton
         drawDominantEmotion: function() {
             this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("dominantEmotionCircle").toBack();
@@ -358,38 +361,50 @@ define([
          *
          */
         drawLabelTexts: function() {
+            // Load all label texts from the constants file
             var labelTexts = Constants.labels;
+            // How many labels do we have? (configurable)
             var totalNbr = labelTexts.length;
-            var textToPrint = 'Lorem Ipsum';
+            // Load the canvas
             var paper = this.model.get("paper");
-            
+            // Center point of the circle
             var centerPoint = this.model.get("centerPoint");
+            // We draw the labels outside of the background circle
             var radius = this.model.get("emotionCircleRadius")*1.3;
             var labels = new Array();
             var lines = new Array();
 
             for(var i = 0; i < labelTexts.length; i++) {
+                // The angle between consecutive labels
                 var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
+                // THe point where we start drawing the label
                 var point = this.model.getPoint(1.3, i);
+                // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
+                // Draw the text on the canvas
                 var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 16);
-
+                // Get the length of the text
                 var length = text.getBBox().width;
-
+                // Create the path of the line
                 var lineArray = new Array();
                 lineArray.push(["M", centerPoint.x, centerPoint.y]);
                 lineArray.push(["L", linePoint.x, linePoint.y]);
+                // Draw the line, set it to the background
                 var line = paper.path(lineArray).toBack();
+                // Add class to the line
                 line.node.setAttribute("class", "line");
                 lines.push(line);
+                // If the angle is between 90 and 270 degrees, we need to mirror the label
+                // and do a translation by the length of the label
                 if(angle > 90 && angle <= 270) {
                     text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
                 } else {
                     text.transform("r"+angle+","+point.x+","+point.y);
                 }
+                // Set a css class to the label
                 text.node.setAttribute("class", "label");
-
+                // Push the label to the array
                 labels.push(text);
             }
 

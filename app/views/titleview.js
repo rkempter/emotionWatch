@@ -14,22 +14,20 @@ define([
 
         initialize: function() {
             var self = this;
-
-            if(self.model.get('keyword').indexOf('#') !== -1) {
-                self.model.set('keywordType', 'keyword');
-            } else {
-                self.model.set('keywordType', 'user');
-            }
+            var keyword = this.model.get('keyword');
+            // Compute keyword type for urls
+            var keywordType = util.getKeywordType(keyword);
+            this.model.set('keywordType', keywordType);
+            // Listen to global close event
+            this.listenTo(app, 'close', this.close);
         },
 
-        events: {
-            'click .keyword-title': 'test',
+        close: function() {
+            this.remove();
+            this.unbind();
         },
 
-        test: function() {
-            console.log('rrrrr');
-        },
-
+        // Render template with small submenu for the three views
         render: function() {
             var urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             var urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
