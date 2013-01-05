@@ -10,16 +10,15 @@ define([
         template: 'tweetview',
 
         events: {
-            'click': 'triggerTest',
             'change #emotion-category': 'triggerEmotionCategory',
         },
 
-        triggerTest: function() {
-            console.log('rrrrrr');
+        initialize: function() {
+            this.listenTo(app, 'close', this.close);
         },
 
+        // If an emotion is selected in the dropdown box, change model
         triggerEmotionCategory: function(event) {
-            console.log('event triggered');
             var emotion = $('#emotion-category option:selected').val();
 
             if(emotion == 'all') {
@@ -29,6 +28,7 @@ define([
             this.collection.setEmotion(emotion);
         },
 
+        // Render template
         render: function() {
             var output = window.JST['app/templates/tweetview.html']();
             this.$el.html(output);

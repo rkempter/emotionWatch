@@ -21,6 +21,7 @@ define([
         keyword = this.model.get('keyword');
         // Save the keywordType in the model as well
         this.model.set('keywordType', util.getKeywordType(keyword));
+        this.listenTo(app, 'close', this.close);
       },
 
       triggerSettingsChange: function() {

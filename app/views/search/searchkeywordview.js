@@ -16,6 +16,10 @@ define([
             'click .keyword-search': 'triggerKeywordSearch',
         },
 
+        initialize: function() {
+            this.listenTo(app, 'close', this.close);
+        },
+
         triggerKeywordSearch: function(event) {
             // Get all values from the form
             var startDate = $('#keyword-start-date').val();
