@@ -3,10 +3,9 @@ define([
     "backbone",
     "underscore",
     "jquery",
-    "tweetmodel",
     "constants",
     "tweetview"
-], function(app, Backbone, _, $, tweetModel, Constants, tweetView) {
+], function(app, Backbone, _, $, Constants, tweetView) {
 
     var tweetCollection = Backbone.Collection.extend({
 
