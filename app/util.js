@@ -135,6 +135,8 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
               return '@'+keyword;
             case 'keyword':
               return '#'+keyword;
+            case 'event':
+              return '#'+keyword;
           }
         },
 

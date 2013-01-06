@@ -418,6 +418,9 @@ svg .line {
   top: 170px;
   background: rgba(255, 255, 255, 0.5);
 }
+.labelcircle {
+  stroke: 0;
+}
 /** Timeline **/
 #pattern path,
 #pattern circle {
@@ -587,74 +590,97 @@ svg .line {
 #pattern path {
   z-index: 1;
 }
-#pattern .emotion-circle {
+.emotion-circle,
+.labelcircle {
   stroke-width: 0;
   z-index: 0;
 }
-#pattern .emotion-circle.empty {
+.emotion-circle.empty,
+.labelcircle.empty {
   fill: #0173d6;
 }
-#pattern .emotion-circle.excitement {
+.emotion-circle.excitement,
+.labelcircle.excitement {
   fill: #0032a7;
 }
-#pattern .emotion-circle.love {
+.emotion-circle.love,
+.labelcircle.love {
   fill: #004eac;
 }
-#pattern .emotion-circle.pride {
+.emotion-circle.pride,
+.labelcircle.pride {
   fill: #43acb0;
 }
-#pattern .emotion-circle.guilt {
+.emotion-circle.guilt,
+.labelcircle.guilt {
   fill: #002da7;
 }
-#pattern .emotion-circle.disappointment {
+.emotion-circle.disappointment,
+.labelcircle.disappointment {
   fill: #0032a7;
 }
-#pattern .emotion-circle.envy {
+.emotion-circle.envy,
+.labelcircle.envy {
   fill: #004eac;
 }
-#pattern .emotion-circle.disgust {
+.emotion-circle.disgust,
+.labelcircle.disgust {
   fill: #187aac;
 }
-#pattern .emotion-circle.contempt {
+.emotion-circle.contempt,
+.labelcircle.contempt {
   fill: #43acb0;
 }
-#pattern .emotion-circle.irritation {
+.emotion-circle.irritation,
+.labelcircle.irritation {
   fill: #3ea67c;
 }
-#pattern .emotion-circle.involvement {
+.emotion-circle.involvement,
+.labelcircle.involvement {
   fill: #3fa652;
 }
-#pattern .emotion-circle.amusement {
+.emotion-circle.amusement,
+.labelcircle.amusement {
   fill: #40a630;
 }
-#pattern .emotion-circle.joy {
+.emotion-circle.joy,
+.labelcircle.joy {
   fill: #6da529;
 }
-#pattern .emotion-circle.tenderness {
+.emotion-circle.tenderness,
+.labelcircle.tenderness {
   fill: #b1992d;
 }
-#pattern .emotion-circle.wonderment {
+.emotion-circle.wonderment,
+.labelcircle.wonderment {
   fill: #ac6b1e;
 }
-#pattern .emotion-circle.relief {
+.emotion-circle.relief,
+.labelcircle.relief {
   fill: #a83f14;
 }
-#pattern .emotion-circle.surprise {
+.emotion-circle.surprise,
+.labelcircle.surprise {
   fill: #a5270f;
 }
-#pattern .emotion-circle.longing {
+.emotion-circle.longing,
+.labelcircle.longing {
   fill: #a52834;
 }
-#pattern .emotion-circle.pity {
+.emotion-circle.pity,
+.labelcircle.pity {
   fill: #a32e68;
 }
-#pattern .emotion-circle.sadness {
+.emotion-circle.sadness,
+.labelcircle.sadness {
   fill: #a3379c;
 }
-#pattern .emotion-circle.worry {
+.emotion-circle.worry,
+.labelcircle.worry {
   fill: #7e36ac;
 }
-#pattern .emotion-circle.shame {
+.emotion-circle.shame,
+.labelcircle.shame {
   fill: #4c2fab;
 }
 /**** COMPARE ****/

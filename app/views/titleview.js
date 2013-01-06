@@ -15,11 +15,21 @@ define([
         initialize: function() {
             var self = this;
             var keyword = this.model.get('keyword');
+            var keywordType = this.model.get('keywordType');
             // Compute keyword type for urls
-            var keywordType = util.getKeywordType(keyword);
             this.model.set('keywordType', keywordType);
             // Listen to global close event
             this.listenTo(app, 'close', this.close);
+
+            if(keywordType == 'event') {
+                this.model.fetch({
+                    data: $.param({
+                        startDateTime: this.model.get('startDateTime'),
+                        endDateTime: this.model.get('endDateTime'),
+                        sport: this.model.get('keyword').slice(1),
+                    })
+                });
+            }
         },
 
         close: function() {
@@ -40,6 +50,8 @@ define([
                 startDateTime: this.model.get('startDateTime'),
                 endDateTime: this.model.get('endDateTime'),
                 steps: util.getTimeStepFormat(this.model.get('timeStep')),
+                event: this.model.get("event") || null,
+                gender: this.model.get("gender") || null,
             });
             $( this.el ).html( output );
         },

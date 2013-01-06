@@ -42,21 +42,6 @@ define([
                 // Draw background with the dominant emotion
                 self.drawDominantEmotion();
 
-                // Pattern view: you can click on any element and you jump to the single view with
-                // the current time as a parameter
-                self.model.get("setOfElements").click(function(event) {
-                    var keyword = self.model.get("topic");
-                    var keywordType = util.getKeywordType(keyword);
-                    var startDateTime = self.model.get("startDate");
-                    var endDateTime = self.model.get("endDate");
-                    var currentDateTime = self.model.get("currentDateTime");
-                    var timeStep = self.model.get("timeStep");
-                    var network = self.model.get("network");
-
-                    var url = 'search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
-                    app.router.navigate(url, true);
-                });
-
                 var nbr = (self.model.get("currentDateTime").getTime() - self.model.get("startDate").getTime()) / (self.model.get("timeStep")*1000);
 
                 // Pattern view: If hovering over the watch, show slot on timeline
@@ -121,6 +106,23 @@ define([
                 
                 // Draw the labels
                 this.drawLabelTexts();
+            }
+
+            if(this.model.get("mode") == 'compare' || this.model.get("mode") == 'pattern') {
+                // Pattern & compare view: you can click on any element and you jump to the single view with
+                // the current time as a parameter
+                self.model.get("setOfElements").click(function(event) {
+                    var keyword = self.model.get("topic");
+                    var keywordType = util.getKeywordType(keyword);
+                    var startDateTime = self.model.get("startDate");
+                    var endDateTime = self.model.get("endDate");
+                    var currentDateTime = self.model.get("currentDateTime");
+                    var timeStep = self.model.get("timeStep");
+                    var network = self.model.get("network");
+
+                    var url = 'search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
+                    app.router.navigate(url, true);
+                });
             }
 
             // listen to the close events
@@ -379,7 +381,7 @@ define([
                 var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
                 // THe point where we start drawing the label
-                var point = this.model.getPoint(1.3, i);
+                var point = this.model.getPoint(1.35, i);
                 // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
                 // Draw the text on the canvas
@@ -395,6 +397,11 @@ define([
                 // Add class to the line
                 line.node.setAttribute("class", "line");
                 lines.push(line);
+                // Draw circle with the emotion
+                labelCirclePoint = this.model.getPoint(1.3, i);
+                var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
+                labelCircle.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
+
                 // If the angle is between 90 and 270 degrees, we need to mirror the label
                 // and do a translation by the length of the label
                 if(angle > 90 && angle <= 270) {

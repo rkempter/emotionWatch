@@ -3,7 +3,8 @@ define([
     "jquery",
     "lodash",
     "tweetcollection",
-], function(Backbone, $, _, tweetCollection) {
+    "app",
+], function(Backbone, $, _, tweetCollection, app) {
 
     var tweetCollectionView = Backbone.View.extend({
 
@@ -37,8 +38,15 @@ define([
         // Close view
         close: function() {
             // Remove all subviews
-            for(var view in this.collection.viewPointer) {
+
+            for(var i = 0; i < this.collection.viewPointer.length; i++) {
+                var view = this.collection.viewPointer[i];
                 view.close();
+            }
+
+            if(this.collection) {
+                this.collection.stopListening();
+                this.collection.remove();
             }
 
             this.unbind();

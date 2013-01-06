@@ -26,6 +26,8 @@ require.config({
     emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetfrequencymodel: "models/tweetfrequencymodel",
+    titlemodel: "models/title/titlemodel",
+    videomodel: "models/video/videomodel",
 
     // collection
     emotioncollection: "collections/frontpage/emotioncollection",

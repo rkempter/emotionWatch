@@ -3,7 +3,8 @@ define([
     "underscore",
     "jquery",
     "util",
-], function(Backbone, _, $, util) {
+    "constants",
+], function(Backbone, _, $, util, Constants) {
 
     var emotionModel = Backbone.Model.extend({
 

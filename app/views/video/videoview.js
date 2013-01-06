@@ -10,45 +10,36 @@ define([
     
     var videoView = Backbone.View.extend({
 
-      initialize: function() {
-        console.log("Video view start");
-        var self = this;
-        self.videoId = 'Pe3I8NkR5oQ';
-        self.container = '#player';
+        template: "videotemplate",
 
-        if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
-          window.onYouTubeIframeAPIReady = function() {
-            console.log("get event");
-            self.loadPlayer(self.container, self.videoId);
-          };
+        initialize: function() {
+            this.listenTo(app, 'close', this.close);
 
-          $.getScript('//www.youtube.com/iframe_api');
+            var keyword = this.model.get('keyword');
+            var keywordType = this.model.get('keywordType');
 
-        } else {
-          self.loadPlayer(self.container, self.videoId);
-        }
-      },
+            if(keywordType == 'event') {
+                this.model.fetch({
+                    data: $.param({
+                        startDateTime: this.model.get('startDateTime'),
+                        endDateTime: this.model.get('endDateTime'),
+                        sport: this.model.get('keyword').slice(1),
+                    })
+                });
+            }
+        },
+          
+        close: function() {
+            this.remove();
+            this.unbind();
+        },
 
-      loadPlayer: function(container, videoId) {
-        console.log("start player");
-        var player = new YT.Player('player', {
-          videoId: 'hjoDzK0siaM',
-          width: 356,
-          height: 200,
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
-            showInfo: 0
-          }
-        });
-        console.log(player);
-      },
-
-      clear: function() {
-        this.model.destroy();
-      },
+        render: function(template) {
+            var output = template({ 
+                videoUrl: "http://localhost:8080/video/"+this.model.get("video"),
+            });
+            this.$el.html( output );
+        },
 
     });
 

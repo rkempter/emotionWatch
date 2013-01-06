@@ -31,6 +31,7 @@ define([
             // Listen to the globalTime change event triggered from the clock.
             // Fetch new tweets according to the dateTime and the time slot length
             this.listenTo(app, 'change:globalTime', function(dateTime) {
+                console.log('I am still here!');
                 self.currentDateTime = dateTime;
                 self.fetch({
                     data: $.param({
@@ -94,7 +95,7 @@ define([
         // Uses Regex to replace hashtags with links to visualizations
         // of these hashtags
         replaceHashtags: function(text) {
-            var hashtags = text.match(/\B#\w+/gi) || new Array();
+            var hashtags = text.match(/(\B#\w+|\B#([\u4E00-\uFA29]+|\w+)\#)/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
                 // Create the link to the visualization page
                 var url = '/search/'+this.network+'/keyword/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
@@ -109,7 +110,7 @@ define([
         // Uses Regex to replace users with links to visualizations
         // of these users
         replaceUsers: function(text) {
-            var hashtags = text.match(/\B@(\w+|^[\u0391-\uFFE5]+$)/gi) || new Array();
+            var hashtags = text.match(/(\B@\w+|\B@([\u4E00-\uFA29]+|\w+))/gi) || new Array();
             for(var i = 0; i < hashtags.length; i++) {
                 var url = '/search/'+this.network+'/user/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';

@@ -23,9 +23,11 @@ define([
   "emotioncollectionview",
   "welcomeview",
   "detailview",
+  "titlemodel",
+  "videomodel",
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, titleModel, videoModel) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -63,6 +65,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
+      options.keywordType = keywordType;
       options.network = network || 'twitter';
       options.mode = 'regular';
       options.timeStep = timeStep;
@@ -88,7 +91,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "network": options.network,
         }),
         ".navigation": new navigationView(options),
-        // "#player": new videoView(),
+        "#player": new videoView({
+          model: new videoModel(options),
+        }),
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
             paper: app.paper, 
@@ -107,7 +112,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetCollection(options),
         }),
         "#middle-column .keyword-title": new titleView({
-            model: new Backbone.Model(options),
+            model: new titleModel(options),
             el: '#middle-column .keyword-title',
         }),
         ".bottom": new Backbone.View({
@@ -146,7 +151,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".navigation": new navigationView(options),
 
         "#middle-column .keyword-title": new titleView({
-          model: new Backbone.Model(options),
+          model: new titleModel(options),
           el: '#middle-column .keyword-title',
         }),
 
@@ -210,7 +215,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         }),
         ".navigation": new navigationView(options),
         "#middle-column .keyword-title": new titleView({
-          model: new Backbone.Model(options),
+          model: new titleModel(options),
           el: '#middle-column .keyword-title',
         }),
         ".twitter .bottom .freq": new Backbone.View({

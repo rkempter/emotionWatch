@@ -1,5 +1,9 @@
 <h1 class="title"><%= title %></h1>
+<% if(event == null || gender == null) { %>
 <h3>From the <%= moment(startDateTime).format("Do MMM YYYY") %> until the <%= moment(endDateTime).format("Do MMM YYYY") %>, with steps of <%= steps %></h3>
+<% } else { %>
+<h3><%= event %>, <%= gender %>, from the <%= moment(startDateTime).format("Do MMM YYYY") %> until the <%= moment(endDateTime).format("Do MMM YYYY") %>, with steps of <%= steps %></h3>
+<% } %>
 <div class="display-type">
     <a href="<%= urlSingle %>">Single View</a> | <a href="<%= urlPattern %>">Pattern view</a> | <a href="<%= urlCompare %>">Compare Twitter & Weibo</a>
 </div>
