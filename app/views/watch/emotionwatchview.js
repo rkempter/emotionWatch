@@ -102,7 +102,7 @@ define([
                 this.model.on('parsed', this.createEmotionShape, this);
 
                 // Bind animation to events
-                this.activateWatch();
+                //this.activateWatch();
                 
                 // Draw the labels
                 this.drawLabelTexts();
@@ -248,6 +248,12 @@ define([
             this.model.get("setOfElements").push(
                 this.model.get("emotionShape")
             );
+        },
+
+        afterRender: function() {
+            if(this.model.get('mode') !== 'pattern') {
+                this.activateWatch();
+            }
         },
 
         /**

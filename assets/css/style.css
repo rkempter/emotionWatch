@@ -550,6 +550,10 @@ body {
   -ms-transition: background-color 3000ms linear;
   transition: background-color 3000ms linear;
 }
+body #bottom,
+body.empty #bottom {
+  background: #0173d6;
+}
 body.pity {
   background: #a32e68;
 }
@@ -722,7 +726,6 @@ h3 {
   width: 100%;
   position: fixed;
   bottom: 0px;
-  background: #0173d6;
   -webkit-transition: background-color 3000ms linear;
   -moz-transition: background-color 3000ms linear;
   -o-transition: background-color 3000ms linear;
@@ -979,6 +982,9 @@ svg .line {
 }
 /** Video **/
 #player {
+  width: 100%;
+}
+#player video {
   width: 100%;
 }
 /** Time **/

@@ -67,7 +67,7 @@ define([
         // the clock triggers a global time change.
         startTime: function() {
             var self = this;
-
+            app.trigger('start:time');
             if(undefined === this.model.get('interval')) {
                 var interval = setInterval(function() {
                     if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
@@ -112,6 +112,7 @@ define([
                 clearInterval(this.model.get('interval'));
                 this.model.set('interval', undefined);
             }
+            app.trigger('stop:time');
         },
 
         // render the template with labe, date and time.
