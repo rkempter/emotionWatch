@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -22,9 +22,9 @@ define([
         close: function() {
             this.unbind();
             this.remove();
-        },
+        }
         
     });
 
     return tweetView;
-})  
+});

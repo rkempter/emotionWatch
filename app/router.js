@@ -24,7 +24,7 @@ define([
   "welcomeview",
   "detailview",
   "titlemodel",
-  "videomodel",
+  "videomodel"
 ],
 
 function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, titleModel, videoModel) {
@@ -40,7 +40,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'pattern',
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
-      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare',
+      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare'
     },
 
     index: function() {
@@ -52,7 +52,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "width": "100%",
           "height": "100%",
           "x": 0,
-          "y": 0,
+          "y": 0
         }),
         ".welcome": new welcomeView()
       }).render();
@@ -82,17 +82,17 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".time-block": new timeView(options),
 
         ".detail-block": new detailView({
-          model: new Backbone.Model(),
+          model: new Backbone.Model()
         }),
 
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
-          "network": options.network,
+          "network": options.network
         }),
         ".navigation": new navigationView(options),
         "#player": new videoView({
-          model: new videoModel(options),
+          model: new videoModel(options)
         }),
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
@@ -105,19 +105,19 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 500, "y": 400},
             topic: options.keyword,
-            network: options.network,
+            network: options.network
           }) 
         }),
         ".tweets": new tweetCollectionView({
-          collection: new tweetCollection(options),
+          collection: new tweetCollection(options)
         }),
         "#middle-column .keyword-title": new titleView({
             model: new titleModel(options),
-            el: '#middle-column .keyword-title',
+            el: '#middle-column .keyword-title'
         }),
         ".bottom": new Backbone.View({
-          collection: new tweetFrequencyCollection(options),
-        }),
+          collection: new tweetFrequencyCollection(options)
+        })
       }).render();
     },
 
@@ -140,23 +140,23 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
       app.useLayout('pattern-layout').setViews({
         ".detail-block": new detailView({
-          model: new Backbone.Model(),
+          model: new Backbone.Model()
         }),
 
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
-          "network": options.network, 
+          "network": options.network
         }),
 
         ".navigation": new navigationView(options),
 
         "#middle-column .keyword-title": new titleView({
           model: new titleModel(options),
-          el: '#middle-column .keyword-title',
+          el: '#middle-column .keyword-title'
         }),
 
         ".bottom": new Backbone.View({
-          collection: new tweetFrequencyCollection(options),
+          collection: new tweetFrequencyCollection(options)
         }),
         
         ".watch": new emotionWatchCollectionView({ 
@@ -166,9 +166,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'keyword': options.keyword,
             'network': options.network,
             'timeStep': options.timeStep,
-            'currentDateTime': options.currentDateTime,
+            'currentDateTime': options.currentDateTime
           }) 
-        }),
+        })
       }).render();
     },
 
@@ -193,30 +193,30 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDateTime: options.startDateTime,
             endDateTime: options.endDateTime,
             timeStep: options.timeStep,
-            currentDateTime: options.currentDateTime,
+            currentDateTime: options.currentDateTime
         }),
         ".weibo .watch .paper": new paperView({ 
           "parent": ".weibo .watch .paper",
           "mode": "compare",
-          "network": "weibo",
+          "network": "weibo"
         }),
         ".twitter .watch .paper": new paperView({ 
           "parent": ".twitter .watch .paper",
           "mode": "compare",
-          "network": "twitter",
+          "network": "twitter"
         }),
         ".weibo .date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".weibo .date-time-freq .paper", 
-          "network": "weibo",
+          "network": "weibo"
         }),
         ".twitter .date-time-freq .paper": new frequencyPaperView({
           "parent": ".twitter .date-time-freq .paper", 
-          "network": "twitter",
+          "network": "twitter"
         }),
         ".navigation": new navigationView(options),
         "#middle-column .keyword-title": new titleView({
           model: new titleModel(options),
-          el: '#middle-column .keyword-title',
+          el: '#middle-column .keyword-title'
         }),
         ".twitter .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
@@ -226,9 +226,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'network': 'twitter',
             'timeStep': options.timeStep,
             'mode': options.mode,
-            'currentDateTime': options.currentDateTime,
+            'currentDateTime': options.currentDateTime
           }),
-          mode: 'compare',
+          mode: 'compare'
         }),
         ".weibo .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
@@ -238,13 +238,13 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'network': 'weibo',
             'timeStep': options.timeStep,
             'mode': options.mode,
-            'currentDateTime': options.currentDateTime,
+            'currentDateTime': options.currentDateTime
           }),
-          mode: 'compare',
+          mode: 'compare'
         }),
         ".twitter .watch .watch-view": new emotionWatchView({ 
           model: new emotionWatch({
-            paper: app.paper["twitter"], 
+            paper: app.paper.twitter, 
             mode: options.mode,
             emotionCircleRadius: 250,
             timeStep: options.timeStep,
@@ -253,13 +253,13 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
             topic: options.keyword,
-            network: 'twitter',
+            network: 'twitter'
           }),
-          mode: 'compare',
+          mode: 'compare'
         }),
         ".weibo .watch .watch-view": new emotionWatchView({ 
           model: new emotionWatch({
-            paper: app.paper['weibo'], 
+            paper: app.paper.weibo, 
             mode: options.mode,
             emotionCircleRadius: 250,
             timeStep: options.timeStep,
@@ -268,10 +268,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
             topic: options.keyword,
-            network: 'weibo',
+            network: 'weibo'
           }),
-          mode: 'compare',
-        }),
+          mode: 'compare'
+        })
       }).render();
     },
 

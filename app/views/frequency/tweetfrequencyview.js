@@ -3,7 +3,7 @@ define([
     "backbone",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, _, util, Constants) {
     
@@ -62,7 +62,7 @@ define([
           var rightTopPoint = util.getLinearPoint(this.endPoint, this.val, 100);
 
           // Create an SVG path for the timeslot
-          var path = new Array();
+          var path = [];
           path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
           path.push(["L", leftTopPoint.x, leftTopPoint.y]);
           path.push(["L", rightTopPoint.x, rightTopPoint.y]);
@@ -166,4 +166,4 @@ define([
     });
 
     return tweetFrequencyView;
-})
+});

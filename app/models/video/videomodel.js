@@ -2,7 +2,7 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants',
+  'constants'
 ], function(app, _, Backbone, Constants) {
 
     var videoModel = Backbone.Model.extend({
@@ -12,10 +12,9 @@ define([
         },
 
         parse: function(response) {
-          console.log(response);
           for(var i = 0; i < response.length; i++) {
             this.set('video', response[i].video);
-          };
+          }
         }
     });
 

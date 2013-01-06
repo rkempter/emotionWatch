@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -26,7 +26,7 @@ define([
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
                         endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword').slice(1),
+                        sport: this.model.get('keyword').slice(1)
                     })
                 });
             }
@@ -51,11 +51,11 @@ define([
                 endDateTime: this.model.get('endDateTime'),
                 steps: util.getTimeStepFormat(this.model.get('timeStep')),
                 event: this.model.get("event") || null,
-                gender: this.model.get("gender") || null,
+                gender: this.model.get("gender") || null
             });
             $( this.el ).html( output );
-        },
+        }
     });
 
     return titleView;
-})  
+});

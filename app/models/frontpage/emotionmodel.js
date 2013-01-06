@@ -3,7 +3,7 @@ define([
     "underscore",
     "jquery",
     "util",
-    "constants",
+    "constants"
 ], function(Backbone, _, $, util, Constants) {
 
     var emotionModel = Backbone.Model.extend({
@@ -41,9 +41,9 @@ define([
             // Close the shape
             pathString += " Z";
               
-            return pathString
-        },
-    })
+            return pathString;
+        }
+    });
 
     return emotionModel;
 });

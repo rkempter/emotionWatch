@@ -6,14 +6,12 @@ define([
 	'jquery',
 	'emotionwatch',
 	'emotionwatchview',
-	'constants'
-	]
-	, function(app, _, Backbone, Raphael, $, emotionWatch, emotionWatchView, Constants) {
+	'constants'], function(app, _, Backbone, Raphael, $, emotionWatch, emotionWatchView, Constants) {
 
 		var PaperView = Backbone.View.extend({
 
 			initialize: function(options) {
-				var options = options || {};
+				options = options || {};
 				var parent = options.parent || null;
 				var width = options.width || Constants.paperWidth;
 				var height = options.height || Constants.paperHeight;
@@ -29,7 +27,7 @@ define([
 						this.el = app.paper[network].canvas;
 						this.$el = $(this.el);
 					} else {
-						app.paper = new Array();
+						app.paper = [];
 						app.paper[network] = Raphael(0, 0, "100%", 600);
 						app.paper[network].setViewBox(0, 0, 800, 800, true);
 						this.el = app.paper[network].canvas;
@@ -48,9 +46,9 @@ define([
 			close: function() {
 				this.remove();
 				this.unbind();
-			},
+			}
 		});
 
 		return PaperView;
 	}
-)
+);

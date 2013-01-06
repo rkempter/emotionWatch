@@ -77,7 +77,7 @@ define([
           startDate: moment(this.model.get('startDateTime')).format("YYYY-MM-DD"),
           startTime: moment(this.model.get('startDateTime')).format("HH:mm"),
           endDate: moment(this.model.get('endDateTime')).format("YYYY-MM-DD"),
-          endTime: moment(this.model.get('startDateTime')).format("HH:mm"),
+          endTime: moment(this.model.get('startDateTime')).format("HH:mm")
         });
 
         this.$el.html(output);
@@ -91,4 +91,4 @@ define([
     });
 
     return settingsView;
-})  
+});

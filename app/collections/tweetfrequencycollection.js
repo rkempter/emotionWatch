@@ -5,7 +5,7 @@ define([
     "jquery",
     "tweetfrequencyview",
     "tweetfrequencymodel",
-    "Constants",
+    "Constants"
 ], function(app, Backbone, _, $, tweetFrequencyView, tweetFrequencyModel, Constants) {
 
     var tweetFrequencyCollection = Backbone.Collection.extend({
@@ -24,7 +24,7 @@ define([
             this.keyword = options.keyword;
             this.modelIndex = 0;
             
-            this.viewPointer = new Array();
+            this.viewPointer = [];
 
             // Listen to the jumpToTime events, triggered in tweetfrequencymodel.
             // Event is triggered, when user clicks on a tweetfrequencyslot.
@@ -39,7 +39,6 @@ define([
             this.listenTo(app, 'scroll:activate', function(id) {
                 self.modelIndex = id;
                 self.activateModels();
-                // self.resetModels();
             });
 
             if(this.mode == 'regular' || this.mode == 'compare') {
@@ -57,9 +56,8 @@ define([
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
-                    keyword: self.keyword,
-                })
-                    
+                    keyword: self.keyword
+                }) 
             });
         },
 
@@ -78,14 +76,14 @@ define([
             // Figure out the maximal frequency
             var max = 0;
             for(var time in frequencies) {
-                var freq = parseInt(frequencies[time])
+                var freq = parseInt(frequencies[time]);
                 if(max < freq) {
                     max = freq;
                 }
             }
 
-            // Create new arrays witht he models
-            var models = new Array();
+            // Create []s witht he models
+            var models = [];
             // The first dateTime of the complete interval
             var localStartDateTime = self.startDateTime;
             // the end time of the first slot
@@ -95,11 +93,10 @@ define([
             while(localStartDateTime.getTime() <= self.endDateTime.getTime()) {
                 // If we didn't get a frequency for a timeslot, the frequency is zero!
                 var value = frequencies[localStartDateTime.getTime()] || 0;
+                var scaling = 0;
                 // Normalize the frequency value
                 if(max !== 0) {
-                    var scaling = parseFloat(value / max);
-                } else {
-                    var scaling = 0;
+                    scaling = parseFloat(value / max);
                 }
                 
                 // Create model for the current slot
@@ -113,7 +110,7 @@ define([
                     "endDateTime": self.endDateTime,
                     "centerPoint": self.centerPoint,
                     "mode": self.mode,
-                    "paper": app.frequencyPaper[this.network],
+                    "paper": app.frequencyPaper[this.network]
                 });
 
                 models.push(model);
@@ -186,7 +183,7 @@ define([
             for(var i = 0; i < this.modelIndex; i++) {
                 this.at(i).visited();
             }
-        },
+        }
     });
 
     return tweetFrequencyCollection;

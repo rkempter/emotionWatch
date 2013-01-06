@@ -13,7 +13,7 @@ define([
 
         model: emotionWatch,
 
-        viewPointer: new Array(),
+        viewPointer: [],
 
         initialize: function(options) {
              _.bindAll(this, 'detect_scroll');
@@ -54,7 +54,7 @@ define([
                     endDateTime: this.endDateTime,
                     topic: this.keyword,
                     network: this.network,
-                    timeStep: this.timeStep,
+                    timeStep: this.timeStep
                 })
             });
         },
@@ -95,11 +95,11 @@ define([
                     timeStep: self.timeStep,
                     topic: self.keyword,
                     network: self.network,
-                    currentFrequencyRatio: frequency / max,
+                    currentFrequencyRatio: frequency / max
                 });
 
                 var view = new emotionWatchView({
-                    model: model,
+                    model: model
                 });
 
                 self.viewPointer[model.cid] = view;
@@ -115,7 +115,7 @@ define([
             // Adjust the canvas to appropriate length
             this.adjustCanvasSize(lines);
 
-            var last = parseInt((self.currentDateTime.getTime()-self.startDateTime.getTime()) / (self.timeStep*1000))
+            var last = parseInt((self.currentDateTime.getTime()-self.startDateTime.getTime()) / (self.timeStep*1000));
             this.at(last).trigger('scroll:model');
         },
 
@@ -132,8 +132,7 @@ define([
         // Computes the y coodinate of a watch depending on its number in the array
         getCoordinateY: function(nbr) {
             return Math.floor( (nbr) / this.elementsPerLine);
-        },
-
+        }
     });
 
     return emotionWatchCollection;

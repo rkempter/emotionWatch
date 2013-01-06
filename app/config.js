@@ -55,7 +55,7 @@ require.config({
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
 
-    templates: "templates",
+    templates: "templates"
     
   },
 
@@ -74,7 +74,7 @@ require.config({
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
-    "plugins/bootstrap-modal": ['jquery'],
+    "plugins/bootstrap-modal": ['jquery']
   }
 
 });

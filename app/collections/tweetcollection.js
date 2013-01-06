@@ -9,7 +9,7 @@ define([
 
     var tweetCollection = Backbone.Collection.extend({
 
-        viewPointer: new Array(),
+        viewPointer: [],
 
         initialize: function(options) {
             var self = this;
@@ -24,7 +24,7 @@ define([
                     emotion: this.emotion,
                     hashtag: options.keyword,
                     windowsize: options.timeStep,
-                    network: options.network,
+                    network: options.network
                 })
             });
 
@@ -39,8 +39,8 @@ define([
                         emotion: self.emotion,
                         hashtag: self.keyword,
                         windowsize: self.timeStep,
-                        network: self.network,
-                    }),
+                        network: self.network
+                    })
                 });
             });
         },
@@ -55,7 +55,7 @@ define([
                     emotion: this.emotion,
                     hashtag: this.keyword,
                     windowsize: this.timeStep,
-                    network: this.network,
+                    network: this.network
                 })
             });
         },
@@ -70,7 +70,7 @@ define([
             $('.tweets ul').empty();
 
             console.log(response);
-            this.viewPointer = new Array();
+            this.viewPointer = [];
 
             for(var i = 0; i < response.length; i++) {
                 var text = response[i].tweet;
@@ -80,7 +80,7 @@ define([
 
                 var model = new Backbone.Model(response[i]);
                 var view = new tweetView({
-                    model: model,
+                    model: model
                 });
 
                 this.add(model);
@@ -95,7 +95,7 @@ define([
         // Uses Regex to replace hashtags with links to visualizations
         // of these hashtags
         replaceHashtags: function(text) {
-            var hashtags = text.match(/(\B#\w+|\B#([\u4E00-\uFA29]+|\w+)\#)/gi) || new Array();
+            var hashtags = text.match(/(\B#\w+|\B#([\u4E00-\uFA29]+|\w+)\#)/gi) || [];
             for(var i = 0; i < hashtags.length; i++) {
                 // Create the link to the visualization page
                 var url = '/search/'+this.network+'/keyword/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
@@ -110,7 +110,7 @@ define([
         // Uses Regex to replace users with links to visualizations
         // of these users
         replaceUsers: function(text) {
-            var hashtags = text.match(/(\B@\w+|\B@([\u4E00-\uFA29]+|\w+))/gi) || new Array();
+            var hashtags = text.match(/(\B@\w+|\B@([\u4E00-\uFA29]+|\w+))/gi) || [];
             for(var i = 0; i < hashtags.length; i++) {
                 var url = '/search/'+this.network+'/user/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
@@ -118,7 +118,7 @@ define([
             }
 
             return text;
-        },
+        }
     });
 
     return tweetCollection;

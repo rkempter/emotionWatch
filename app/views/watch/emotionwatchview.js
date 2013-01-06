@@ -9,7 +9,7 @@ define([
     "util",
 
     // plugins
-    "plugins/jquery.scrollto",
+    "plugins/jquery.scrollto"
 ], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants, util) {
 
     var emotionWatchView = Backbone.View.extend({
@@ -71,7 +71,7 @@ define([
                 this.listenTo(app, 'preview:mouseover', function(params) {
                     if(self.model.get("currentDateTime").getTime() !== params.localStartDateTime.getTime()) {
                         self.model.get("setOfElements").attr({
-                            opacity: 0.5,
+                            opacity: 0.5
                         });
                     }
                 });
@@ -79,7 +79,7 @@ define([
                 // Show all elements again
                 this.listenTo(app, 'preview:mouseout', function(params) {
                     self.model.get("setOfElements").attr({
-                        opacity: 1,
+                        opacity: 1
                     });
                 });
 
@@ -165,14 +165,14 @@ define([
             this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+strokeWidth/2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("timeCircleBorder").attr({
                 "stroke-width": strokeWidth,
-                "stroke": "#a0a0a0",
+                "stroke": "#a0a0a0"
             });
 
             this.model.set("backgroundCircle", this.drawCircle(this.model.get("emotionCircleRadius")+Constants.timeCircleMaxThickness / 2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("backgroundCircle").attr({ 
                 "stroke-width": Constants.timeCircleMaxThickness, 
                 "stroke": "#ffffff",
-                "opacity": 0.1,
+                "opacity": 0.1
             });
 
             this.model.get("setOfElements").push(
@@ -242,7 +242,7 @@ define([
             this.model.set("emotionShape", this.drawEmotionShape());
             this.model.get("emotionShape").attr({ 
                 "fill": Constants.emotionShapeFillColor,
-                "stroke": Constants.emotionShapeStrokeColor,
+                "stroke": Constants.emotionShapeStrokeColor
             }).toBack();
 
             this.model.get("setOfElements").push(
@@ -259,7 +259,7 @@ define([
             this.model.set("timeLineShape", this.drawTimeLineShape());
             this.model.get("timeLineShape").attr({ 
                 "stroke": Constants.timeCircleTimeColor,
-                "stroke-width": Constants.timeCircleWidth,
+                "stroke-width": Constants.timeCircleWidth
             });
 
             this.bindTimeLineEvents();
@@ -285,7 +285,7 @@ define([
             if(this.model.get("timeCircleBorder")) {
                 this.model.get("timeCircleBorder").animate({
                     "stroke-width": thickness,
-                    "r": this.model.get("emotionCircleRadius") + thickness / 2,
+                    "r": this.model.get("emotionCircleRadius") + thickness / 2
                 }, app.animationDuration, Constants.animationType);
             }
         },
@@ -331,11 +331,11 @@ define([
             this.previewShape.attr({
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor,
-                "opacity": 0.3,
+                "opacity": 0.3
             }).toFront();
 
             this.model.get("emotionShape").attr({
-                "opacity": 0.7,
+                "opacity": 0.7
             });
 
         },
@@ -352,7 +352,7 @@ define([
                 this.previewShape = null;
 
                 this.model.get("emotionShape").attr({
-                    "opacity": 1,
+                    "opacity": 1
                 });
             }
         },
@@ -373,8 +373,8 @@ define([
             var centerPoint = this.model.get("centerPoint");
             // We draw the labels outside of the background circle
             var radius = this.model.get("emotionCircleRadius")*1.3;
-            var labels = new Array();
-            var lines = new Array();
+            var labels = [];
+            var lines = [];
 
             for(var i = 0; i < labelTexts.length; i++) {
                 // The angle between consecutive labels
@@ -389,7 +389,7 @@ define([
                 // Get the length of the text
                 var length = text.getBBox().width;
                 // Create the path of the line
-                var lineArray = new Array();
+                var lineArray = [];
                 lineArray.push(["M", centerPoint.x, centerPoint.y]);
                 lineArray.push(["L", linePoint.x, linePoint.y]);
                 // Draw the line, set it to the background
@@ -416,7 +416,7 @@ define([
             }
 
             this.model.set("labels", labels);
-        },
+        }
     });
 
     return emotionWatchView;

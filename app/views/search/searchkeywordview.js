@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -13,7 +13,7 @@ define([
         template: 'searchkeywordtemplate',
 
         events: {
-            'click .keyword-search': 'triggerKeywordSearch',
+            'click .keyword-search': 'triggerKeywordSearch'
         },
 
         initialize: function() {
@@ -42,9 +42,9 @@ define([
         close: function() {
             this.remove();
             this.unbind();
-        },
+        }
         
     });
 
     return searchKeywordView;
-})  
+});

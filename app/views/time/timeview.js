@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -17,7 +17,7 @@ define([
             
             this.model = new Backbone.Model();
 
-            var options = options || {};
+            options = options || {};
 
             var self = this;
 
@@ -33,7 +33,7 @@ define([
 
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 self.model.set('currentDateTime', dateTime);
-                if(this.model.get('interval') == undefined) {
+                if(this.model.get('interval') === undefined) {
                     self.startTime();
                 }
                 console.log(self.model.cid);
@@ -68,7 +68,7 @@ define([
         startTime: function() {
             var self = this;
 
-            if(undefined == this.model.get('interval')) {
+            if(undefined === this.model.get('interval')) {
                 var interval = setInterval(function() {
                     if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
                         self.stopTime();
@@ -86,11 +86,10 @@ define([
         },
 
         events: {
-            'click #start-stop-control': 'triggerStartStop',
+            'click #start-stop-control': 'triggerStartStop'
         },
 
         triggerStartStop: function() {
-            console.log('trigger Start Stop');
             if(this.model.get('label') == 'Stop') {
                 this.model.set('label', 'Start');
                 this.stopTime();
@@ -120,12 +119,12 @@ define([
             var output = template({ 
                 label: this.model.get("label"), 
                 firstDateTime: this.model.get('firstDateTime'),
-                secondDateTime: this.model.get('secondDateTime'),
+                secondDateTime: this.model.get('secondDateTime')
             });
             this.$el.html(output);
-        },
+        }
         
     });
 
     return timeView;
-})  
+}); 

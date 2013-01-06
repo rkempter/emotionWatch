@@ -2,14 +2,14 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants',
+  'constants'
 ], function(app, _, Backbone, Constants) {
 
   var emotionWatch = Backbone.Model.extend({
     
     defaults: {
       windowSize: 9,
-      initialized: false,
+      initialized: false
     },
 
     /**
@@ -29,7 +29,7 @@ define([
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
               timeStep: this.get("timeStep"),
-              network: this.get("network"),
+              network: this.get("network")
             })
         });
 
@@ -83,8 +83,8 @@ define([
      */
     parse: function(response) {
       // Reset the queue for data and frequency
-      this.set("queue", new Object());
-      this.set("freqQueue", new Object());
+      this.set("queue", {} );
+      this.set("freqQueue", {} );
       // Set the maximal frequency to zero
       this.set("maxFrequency", 0);
 
@@ -105,7 +105,7 @@ define([
         this.get("freqQueue")[dateTime.toMysqlFormat()] = freq;
         
         // If has never been initialized, trigger that the data has been set
-        if(false == this.get("initialized")) {
+        if(false === this.get("initialized")) {
             this.trigger("setdataset");
         }
       }
@@ -129,10 +129,9 @@ define([
 
     
     setCurrentFrequencyRatio: function(dateTime) {
-      var dateTime = this.get("currentDateTime");
       // If there is no data at this moment or no tweets, the frequency is equal to zero
-      if(undefined == this.get("freqQueue")[dateTime.toMysqlFormat()] || this.get('maxFrequency') == 0) {
-        this.set("currentFrequencyRatio", 0)
+      if(undefined === this.get("freqQueue")[dateTime.toMysqlFormat()] || this.get('maxFrequency') === 0) {
+        this.set("currentFrequencyRatio", 0);
       } else {
         // We normalize the frequency
         this.set("currentFrequencyRatio", this.get("freqQueue")[dateTime.toMysqlFormat()] / this.get("maxFrequency") );
@@ -147,10 +146,10 @@ define([
      */
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
-        var dataset = this.get("queue")[dateTime.toMysqlFormat()]
-        if(undefined == dataset) {
+        var dataset = this.get("queue")[dateTime.toMysqlFormat()];
+        if(undefined === dataset) {
           // If no dataset for this moment, show the nullEmotion set
-          this.set("currentDataSet", Constants.nullEmotion)
+          this.set("currentDataSet", Constants.nullEmotion);
         } else {
           this.set("currentDataSet", dataset);
         }
@@ -195,7 +194,7 @@ define([
         addAngle = Constants.angle/4 * 3;
       }
       
-      return angle = Math.atan(diffY / diffX)+addAngle;
+      return Math.atan(diffY / diffX)+addAngle;
     },
 
     /**
@@ -305,10 +304,9 @@ define([
     getCurrentEmotionShapePath: function(options) {
       var dateTime = options.dateTime || null;
       var dataSet = null;
-      if(null == dateTime) {
+      if(null === dateTime) {
         dataSet = this.get("currentDataSet");
       } else {
-        var dateTime = options.dateTime || null;
         if(null !== dateTime) {
           dataSet = this.get("queue")[dateTime.toMysqlFormat()] || Constants.nullEmotion;
         }
@@ -328,9 +326,9 @@ define([
 
         pathString += " Z";
           
-        return pathString
+        return pathString;
       }
-    },
+    }
     
   });
 

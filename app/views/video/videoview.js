@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -23,7 +23,7 @@ define([
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
                         endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword').slice(1),
+                        sport: this.model.get('keyword').slice(1)
                     })
                 });
             }
@@ -36,12 +36,12 @@ define([
 
         render: function(template) {
             var output = template({ 
-                videoUrl: "http://localhost:8080/video/"+this.model.get("video"),
+                videoUrl: "http://localhost:8080/video/"+this.model.get("video")
             });
             this.$el.html( output );
-        },
+        }
 
     });
 
     return videoView;
-})  
+});

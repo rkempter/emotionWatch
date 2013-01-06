@@ -6,7 +6,7 @@ define([
     "util",
     "constants",
     "searcheventview",
-    "searchkeywordview",
+    "searchkeywordview"
 
 ], function(app, Backbone, $, _, util, Constants, searchEventView, searchKeywordView) {
     
@@ -20,7 +20,7 @@ define([
             // keyword search view on the right.
             this.insertViews({ 
                 ".left": new searchEventView(),
-                ".right": new searchKeywordView(),
+                ".right": new searchKeywordView()
             });
 
             // Bind view to close event
@@ -30,8 +30,8 @@ define([
         close: function() {
             this.remove();
             this.unbind();
-        },
+        }
     });
 
     return welcomeView;
-})  
+});

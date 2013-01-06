@@ -4,7 +4,7 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants",
+    "constants"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -15,7 +15,7 @@ define([
         events: {
             'click #event-search': 'triggerEventSearch',
             'change #event-gender': 'triggerEventLoad',
-            'change #event-sport': 'triggerEventLoad',
+            'change #event-sport': 'triggerEventLoad'
         },
 
         initialize: function() {
@@ -28,7 +28,7 @@ define([
                 // Define Parse method of model
                 parse: function(response) {
                     self.model.set('events', response);
-                },
+                }
             });
             // Create new model
             this.model = new searchEventModel();
@@ -77,21 +77,21 @@ define([
             this.model.fetch({ 
                 data: $.param({ 
                     gender: gender,
-                    sport: sport,
+                    sport: sport
                 }),
                 silent: true,
-                url: "http://localhost:8080/specEvents",
+                url: "http://localhost:8080/specEvents"
             });
         },
 
         // Render template
         render: function(template) {  
-            var events = this.model.get('events') || new Array();
+            var events = this.model.get('events') || [];
             var output = template( { events: events } );
             this.$el.html( output );
-        },
+        }
 
     });
 
     return searchEventView;
-})  
+});

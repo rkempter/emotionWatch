@@ -6,7 +6,7 @@ define([
     "raphael",
     "tweetfrequencycollection",
     'constants',
-    "util",
+    "util"
 ], function(app, _, $, Backbone, Raphael, tweetFrequencyCollection, Constants, util) {
 
     var emotionWatchView = Backbone.View.extend({
@@ -57,7 +57,7 @@ define([
             // Adjust the position of the label (not working @todo)
             paperLabel.attr({
                 "x": centerPoint.x - length,
-                "opacity": 0,
+                "opacity": 0
             });
             // Save the label shape in the model
             this.model.set("paperLabel", paperLabel);
@@ -75,7 +75,7 @@ define([
             // Draw emotion shape and save it in the model
             this.model.set("emotionShape", this.drawEmotionShape());
             // Add css class to the shape
-            this.model.get("emotionShape").node.setAttribute('class', 'index-emotionshape')
+            this.model.get("emotionShape").node.setAttribute('class', 'index-emotionshape');
             // Bind mouseover event to the shape
             this.model.get("emotionShape").mouseover(function(){
                 self.mouseover();
@@ -99,22 +99,22 @@ define([
         // Mouseover method
         mouseover: function() {
             this.model.get("emotionShape").animate({
-                "opacity": 1,
+                "opacity": 1
             }, 500, 'linear');
 
             this.model.get("paperLabel").animate({
-                "opacity": 1,
+                "opacity": 1
             }, 500, 'linear');
         },
         
         // Mouseleave method
         mouseleave: function() {
             this.model.get("emotionShape").animate({
-                "opacity": 0.4,
+                "opacity": 0.4
             }, 500, 'linear');
 
             this.model.get("paperLabel").animate({
-                "opacity": 0,
+                "opacity": 0
             }, 500, 'linear');
         }
     });

@@ -2,7 +2,7 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants',
+  'constants'
 ], function(app, _, Backbone, Constants) {
 
     var titleModel = Backbone.Model.extend({
@@ -17,7 +17,7 @@ define([
           for(var i = 0; i < response.length; i++) {
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);
-          };
+          }
         }
     });
 

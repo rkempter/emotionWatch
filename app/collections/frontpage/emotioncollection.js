@@ -3,13 +3,13 @@ define([
     "underscore",
     "jquery",
     "emotionmodel",
-    "emotionview",
+    "emotionview"
 ], function(Backbone, _, $, emotionModel, emotionView) {
 
     var emotionCollection = Backbone.Collection.extend({
 
         initialize: function(options) {
-            this.viewpointer = new Array();
+            this.viewpointer = [];
 
             this.fetch();
         },
@@ -20,10 +20,10 @@ define([
 
         parse: function(response) {
             for(var i = 0; i < response.length; i++) {
-                var label = response[i]['hashtag'];
-                var network = response[i]['network'];
+                var label = response[i].hashtag;
+                var network = response[i].network;
                 console.log(network);
-                var emotions = new Array();
+                var emotions = [];
                 for(var index in response[i]) {
                     if(index !== 'hashtag' && index !== 'network') {
                         var emotion = {};
@@ -34,19 +34,19 @@ define([
                 var model = new emotionModel({
                     label: label,
                     network: network,
-                    dataset: emotions,
+                    dataset: emotions
                 });
 
                 var view = new emotionView({
-                    model: model,
+                    model: model
                 });
 
                 this.add(model);
                 this.viewpointer.push(view);
             }
             this.add(response);
-        },
-    })
+        }
+    });
 
     return emotionCollection;
 });

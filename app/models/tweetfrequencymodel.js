@@ -2,7 +2,7 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants',
+  'constants'
 ], function(app, _, Backbone, Constants) {
 
     var tweetFrequencyModel = Backbone.Model.extend({

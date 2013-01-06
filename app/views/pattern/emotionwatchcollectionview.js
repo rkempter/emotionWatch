@@ -5,7 +5,7 @@ define([
     "lodash",
     "jquery",
     "emotionwatchview",
-    "emotionwatchcollection",
+    "emotionwatchcollection"
 ], function(app, Backbone, Raphael, _, $, emotionWatchView, emotionWatchCollection) {
 
     var emotionWatchCollectionView = Backbone.View.extend({
@@ -26,7 +26,7 @@ define([
         close: function() {
             this.remove();
             this.unbind();
-        },
+        }
 
     });
 

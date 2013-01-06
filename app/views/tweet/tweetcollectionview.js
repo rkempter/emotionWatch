@@ -3,7 +3,7 @@ define([
     "jquery",
     "lodash",
     "tweetcollection",
-    "app",
+    "app"
 ], function(Backbone, $, _, tweetCollection, app) {
 
     var tweetCollectionView = Backbone.View.extend({
@@ -11,7 +11,7 @@ define([
         template: 'tweetview',
 
         events: {
-            'change #emotion-category': 'triggerEmotionCategory',
+            'change #emotion-category': 'triggerEmotionCategory'
         },
 
         initialize: function() {
@@ -51,8 +51,8 @@ define([
 
             this.unbind();
             this.remove();
-        } ,
-    })
+        }
+    });
 
     return tweetCollectionView;
 });

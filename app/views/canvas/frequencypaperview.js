@@ -6,14 +6,12 @@ define([
 	'jquery',
 	'emotionwatch',
 	'emotionwatchview',
-	'constants'
-	]
-	, function(app, _, Backbone, Raphael, $) {
+	'constants'], function(app, _, Backbone, Raphael, $) {
 
 		var frequencyPaperView = Backbone.View.extend({
 
 			initialize: function(options) {
-				var options = options || {};
+				options = options || {};
 				var parent = options.parent || null;
 				var network = options.network;
 
@@ -23,7 +21,7 @@ define([
 				if(app.frequencyPaper instanceof Array) {
 					app.frequencyPaper[network] = Raphael(0, 0, "100%", 100);
 				} else {
-					app.frequencyPaper = new Array();
+					app.frequencyPaper = [];
 					app.frequencyPaper[network] = Raphael(0, 0, "100%", 100);
 				}
 
@@ -38,10 +36,10 @@ define([
 			close: function() {
 				this.remove();
 				this.unbind();
-			},
+			}
 
 		});
 
 		return frequencyPaperView;
 	}
-)
+);

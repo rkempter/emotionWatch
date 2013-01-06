@@ -156,7 +156,7 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
               return timeStep+' hours';
           }
         }
-      }
+      };
     }();
 
   return util;
