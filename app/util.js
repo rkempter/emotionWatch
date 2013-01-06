@@ -61,7 +61,6 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
         getAngleFromTime: function(startDateTime, endDateTime, currentDateTime) {
           var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
           var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
-          
 
           return parseFloat(currentTimeSec / timeSpan * Constants.angle);
         },

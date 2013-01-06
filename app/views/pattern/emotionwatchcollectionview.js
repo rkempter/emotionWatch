@@ -12,7 +12,7 @@ define([
 
         initialize: function() {
             // Create canvas for Paper
-            app.paper = Raphael(0, 100, "100%", 2000);
+            app.paper = Raphael(0, 140, "100%", 2000);
             // Assign canvas DOM element to view element
             this.el = app.paper.canvas;
             // Let the collection know that the view has been initialized

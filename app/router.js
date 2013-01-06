@@ -45,6 +45,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     index: function() {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
       
       app.useLayout('frontpage').setViews({
@@ -60,6 +61,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     search: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       $('#main').empty();
+      $('body').attr('class', '');
 
       app.trigger('close');
 
@@ -123,6 +125,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
 
       var options = {};
@@ -174,6 +177,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
       var options = {};
       console.log(keyword);
@@ -272,12 +276,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }),
           mode: 'compare'
         })
-      }).render();
-    },
-
-    about: function() {
-      app.useLayout().setViews({
-        ".navigation": new searchView({"template": "search-topbar"} )
       }).render();
     },
 

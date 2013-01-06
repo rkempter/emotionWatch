@@ -18,6 +18,7 @@ define([
             _.bindAll(this, "render");
 
             var self = this;
+            this.model.set('initialized', false);
 
             // Bind to mouseover and mouseout events to show or hide the
             // slot details
@@ -39,6 +40,7 @@ define([
             this.model.set('localEndDateTime', moment(params.localEndDateTime).format("MM. DD. YYYY HH:mm"));
             this.model.set('tweetCount', params.tweetCount);
             this.model.set('dominantEmotion', params.dominantEmotion);
+            this.model.set('initialized', true);
         },
 
         hideDetail: function() {
@@ -46,8 +48,10 @@ define([
         },
 
         render: function(template) {
-            var output = template(this.model.toJSON());
-            this.$el.html(output).removeClass('hide').addClass('show').css('left', this.model.get('left'));
+            if(this.model.get('initialized') === true) {
+                var output = template(this.model.toJSON());
+                this.$el.html(output).removeClass('hide').addClass('show').css('left', this.model.get('left'));
+            }
         },
 
         close: function() {

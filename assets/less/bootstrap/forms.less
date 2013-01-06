@@ -207,17 +207,6 @@ input[type="checkbox"]:focus {
   height: auto;
 }
 
-
-// Placeholder
-// -------------------------
-
-// Placeholder text gets special styles because when browsers invalidate entire lines if it doesn't understand a selector
-input,
-textarea {
-  .placeholder();
-}
-
-
 // CHECKBOXES & RADIOS
 // -------------------
 
@@ -294,33 +283,6 @@ textarea[class*="span"],
 }
 
 
-
-// GRID SIZING FOR INPUTS
-// ----------------------
-
-// Grid sizes
-#grid > .input(@gridColumnWidth, @gridGutterWidth);
-
-// Control row for multiple inputs per line
-.controls-row {
-  .clearfix(); // Clear the float from controls
-}
-
-// Float to collapse white-space for proper grid alignment
-.controls-row [class*="span"],
-// Redeclare the fluid grid collapse since we undo the float for inputs
-.row-fluid .controls-row [class*="span"] {
-  float: left;
-}
-// Explicity set top padding on all checkboxes/radios, not just first-child
-.controls-row .checkbox[class*="span"],
-.controls-row .radio[class*="span"] {
-  padding-top: 5px;
-}
-
-
-
-
 // DISABLED STATE
 // --------------
 
@@ -332,7 +294,6 @@ input[readonly],
 select[readonly],
 textarea[readonly] {
   cursor: not-allowed;
-  background-color: @inputDisabledBackground;
 }
 // Explicitly reset the colors here
 input[type="radio"][disabled],
@@ -340,29 +301,6 @@ input[type="checkbox"][disabled],
 input[type="radio"][readonly],
 input[type="checkbox"][readonly] {
   background-color: transparent;
-}
-
-
-
-
-// FORM FIELD FEEDBACK STATES
-// --------------------------
-
-// Warning
-.control-group.warning {
-  .formFieldState(@warningText, @warningText, @warningBackground);
-}
-// Error
-.control-group.error {
-  .formFieldState(@errorText, @errorText, @errorBackground);
-}
-// Success
-.control-group.success {
-  .formFieldState(@successText, @successText, @successBackground);
-}
-// Success
-.control-group.info {
-  .formFieldState(@infoText, @infoText, @infoBackground);
 }
 
 // HTML5 invalid states
@@ -377,20 +315,6 @@ select:focus:required:invalid {
     @shadow: 0 0 6px lighten(#ee5f5b, 20%);
     .box-shadow(@shadow);
   }
-}
-
-
-
-// FORM ACTIONS
-// ------------
-
-.form-actions {
-  padding: (@baseLineHeight - 1) 20px @baseLineHeight;
-  margin-top: @baseLineHeight;
-  margin-bottom: @baseLineHeight;
-  background-color: @formActionsBackground;
-  border-top: 1px solid #e5e5e5;
-  .clearfix(); // Adding clearfix to allow for .pull-right button containers
 }
 
 
@@ -416,152 +340,6 @@ select:focus:required:invalid {
 }
 
 
-
-// INPUT GROUPS
-// ------------
-
-// Allow us to put symbols and text within the input field for a cleaner look
-.input-append,
-.input-prepend {
-  margin-bottom: 5px;
-  font-size: 0; // white space collapse hack
-  white-space: nowrap; // Prevent span and input from separating
-
-  // Reset the white space collapse hack
-  input,
-  select,
-  .uneditable-input,
-  .dropdown-menu {
-    font-size: @baseFontSize;
-  }
-
-  input,
-  select,
-  .uneditable-input {
-    position: relative; // placed here by default so that on :focus we can place the input above the .add-on for full border and box-shadow goodness
-    margin-bottom: 0; // prevent bottom margin from screwing up alignment in stacked forms
-    *margin-left: 0;
-    vertical-align: top;
-    .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
-    // Make input on top when focused so blue border and shadow always show
-    &:focus {
-      z-index: 2;
-    }
-  }
-  .add-on {
-    display: inline-block;
-    width: auto;
-    height: @baseLineHeight;
-    min-width: 16px;
-    padding: 4px 5px;
-    font-size: @baseFontSize;
-    font-weight: normal;
-    line-height: @baseLineHeight;
-    text-align: center;
-    text-shadow: 0 1px 0 @white;
-    background-color: @grayLighter;
-    border: 1px solid #ccc;
-  }
-  .add-on,
-  .btn {
-    vertical-align: top;
-    .border-radius(0);
-  }
-  .active {
-    background-color: lighten(@green, 30);
-    border-color: @green;
-  }
-}
-
-.input-prepend {
-  .add-on,
-  .btn {
-    margin-right: -1px;
-  }
-  .add-on:first-child,
-  .btn:first-child {
-    // FYI, `.btn:first-child` accounts for a button group that's prepended
-    .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
-  }
-}
-
-.input-append {
-  input,
-  select,
-  .uneditable-input {
-    .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
-    + .btn-group .btn {
-      .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
-    }
-  }
-  .add-on,
-  .btn,
-  .btn-group {
-    margin-left: -1px;
-  }
-  .add-on:last-child,
-  .btn:last-child {
-    .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
-  }
-}
-
-// Remove all border-radius for inputs with both prepend and append
-.input-prepend.input-append {
-  input,
-  select,
-  .uneditable-input {
-    .border-radius(0);
-    + .btn-group .btn {
-      .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
-    }
-  }
-  .add-on:first-child,
-  .btn:first-child {
-    margin-right: -1px;
-    .border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
-  }
-  .add-on:last-child,
-  .btn:last-child {
-    margin-left: -1px;
-    .border-radius(0 @inputBorderRadius @inputBorderRadius 0);
-  }
-  .btn-group:first-child {
-    margin-left: 0;
-  }
-}
-
-
-
-
-// SEARCH FORM
-// -----------
-
-input.search-query {
-  padding-right: 14px;
-  padding-right: 4px \9;
-  padding-left: 14px;
-  padding-left: 4px \9; /* IE7-8 doesn't have border-radius, so don't indent the padding */
-  margin-bottom: 0; // Remove the default margin on all inputs
-  .border-radius(15px);
-}
-
-/* Allow for input prepend/append in search forms */
-.form-search .input-append .search-query,
-.form-search .input-prepend .search-query {
-  .border-radius(0); // Override due to specificity
-}
-.form-search .input-append .search-query {
-  .border-radius(14px 0 0 14px);
-}
-.form-search .input-append .btn {
-  .border-radius(0 14px 14px 0);
-}
-.form-search .input-prepend .search-query {
-  .border-radius(0 14px 14px 0);
-}
-.form-search .input-prepend .btn {
-  .border-radius(14px 0 0 14px);
-}
 
 
 

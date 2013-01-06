@@ -32,6 +32,9 @@ define([
             });
             // Create new model
             this.model = new searchEventModel();
+
+            this.model.set('gender', '');
+            this.model.set('sport', '');
             // BInd on change of model to render method
             this.model.on("change", self.render, self);
             this.listenTo(app, 'close', this.close);
@@ -59,7 +62,7 @@ define([
             // Find the keywordType (user, hashtag) @todo: keywordType event?
             var keywordType = util.getKeywordType(keyword);
             // Navigate to computeted route
-            app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+            app.router.navigate('/search/'+network+'/event/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
         },
 
         close: function() {
@@ -71,13 +74,14 @@ define([
         triggerEventLoad: function() {
             var self = this;
             // Get gender and sport
-            var gender = $('#event-gender option:selected').val();
-            var sport = $('#event-sport option:selected').val();
+            this.model.set('gender', $('#event-gender option:selected').val());
+            this.model.set('sport', $('#event-sport option:selected').val());
+            console.log(this.model.get('gender'));
             // Fetch events
             this.model.fetch({ 
                 data: $.param({ 
-                    gender: gender,
-                    sport: sport
+                    gender: this.model.get('gender'),
+                    sport: this.model.get('sport')
                 }),
                 silent: true,
                 url: "http://localhost:8080/specEvents"
@@ -87,7 +91,11 @@ define([
         // Render template
         render: function(template) {  
             var events = this.model.get('events') || [];
-            var output = template( { events: events } );
+            var output = template({ 
+                events: events, 
+                sport: this.model.get("sport"), 
+                gender: this.model.get("gender") 
+            });
             this.$el.html( output );
         }
 

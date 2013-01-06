@@ -2,7 +2,7 @@
 /***** Variables *****/
 
 @white: #fff;
-@black: #000;
+@black: #1a1a1a;
 
 /** Emotions **/
 
@@ -28,14 +28,28 @@
 @irritation: #3ea67c;
 @olympicBlue: #0173d6;
 
-@grey: #cccccc;
+@gray: #1a1a1a;
+@grayDark: #000;
+@grayLight: #cccccc;
+@grayLighter: #cccccc;
+@horizontalComponentOffset: 200px;
 
 @zindexModal: 101;
-@zindexModalBackdrop: 100;
+@zindexModalBackdrop: -2;
+@baseLineHeight: 20px;
+@baseFontSize: 16px;
+@inputBorderRadius: 5px;
+@inputBackground: #ccc;
+@inputBorder: #ccc;
+@inputHeight: 20px;
+@textColor: #000;
+
+@baseFontFamily: "freight-sans-pro", sans-serif;
 
 
 @import "bootstrap/mixins.less";
 @import "bootstrap/modals.less";
+@import "bootstrap/forms.less";
 
 body{
     font-family: "freight-sans-pro", sans-serif;
@@ -147,7 +161,8 @@ h3{
 }
 
 .display-type{
-    margin-top: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
     text-align: center;
     a{
         color: @white;
@@ -338,13 +353,31 @@ svg{
     background: @olympicBlue;
     position: absolute;
     top: 50%;
-    width: 50%;
+    left: 50%;
+    width: 900px;
     border: 1px solid @white;
     color: @white;
-    margin: -300px 23% 0 23%;
+    margin: -350px 0 0 -450px;
     padding: 2%;
     z-index: 100;
     text-align: center;
+
+    h2{
+        margin-bottom: 20px;
+    }
+
+    .form-horizontal .control-label{
+        text-align: left;
+        width: 160px;
+    }
+
+    .form-horizontal .controls{
+        margin-left: 160px;
+    }
+
+    .btn-search{
+        margin-right: 12px;
+    }
 
     .left{
         margin: 0 2% 0 2%;
@@ -354,10 +387,10 @@ svg{
 
     .right{
         border-left: 1px solid #fff;
-        padding-left: 2%;
-        margin: 0 0 0 2%;
+        padding-left: 4%;
+        margin: 0 0 0 1%;
         width: 45%;
-        float: right;
+        float: left;
     }
 }
 
@@ -727,13 +760,20 @@ svg{
             position: relative;
             margin-top: 140px;
         }
+
+        .watch .paper{
+            position:relative;
+            width: 65%;
+            margin: 0 auto;
+            margin-top: -50px;
+        }
     }
 
     #middle-column{
         position: absolute;
         left: 50%;
         top: 35px;
-        margin-left: -200px;
+        margin-left: -175px;
         width: 350px;
     }
 
@@ -755,6 +795,10 @@ svg{
             left: 50%;
             width: 50%;
         }
+    }
+
+    .time-box .date{
+        font-size: 18px;
     }
 }
 
@@ -784,7 +828,7 @@ svg{
         left: 50%;
         margin-left: -13px;
         content: "\25BC";
-        color: @grey;
+        color: @grayLight;
         width: 10px;
         text-align: center;
         height: 10px;
@@ -795,7 +839,7 @@ svg{
     height: 100px;
     width: 150px;
     margin-left: -75px;
-    background: @grey;
+    background: @grayLight;
     color: @black;
     border-radius: 10px;
 }
@@ -923,4 +967,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     h2{
         display: none;
     }
+
+    max-height: 500px;
+}
+
+.modal-backdrop{
+    display: none;
 }

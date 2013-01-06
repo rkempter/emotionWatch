@@ -1,77 +1,79 @@
-<h2>Search an event</h2>
-<div class="input-control">
-    <label for="event-gender">Choose gender</label>
-    <div class="inner-control">
-        <select name="event-gender" id="event-gender">
-            <option value="men">Male</option>
-            <option value="women">Female</option>
-        </select>
+<div class="form-horizontal">
+    <h2>Search an event</h2>
+    <div class="control-group">
+        <label class="control-label" for="event-gender">Choose gender: </label>
+        <div class="controls">
+            <select name="event-gender" id="event-gender">
+                <option value="men" <% if(gender == 'men') { %> selected <% } %>>Male</option>
+                <option value="women" <% if(gender == 'women') { %> selected <% } %>>Female</option>
+            </select>
+        </div>
     </div>
-</div>
-<div class="input-control">
-    <label for="event-sport">Choose a sport</label>
-    <div class="inner-control">
-        <select name="event-sport" id="event-sport">
-            <option value="diving">Diving</option>
-            <option value="swimming">Swimming</option>
-            <option value="synchronised swimming">Synchronised Swimming</option>
-            <option value="waterpolo">Waterpolo</option>
-            <option value="archery">Archery</option>
-            <option value="badminton">Badminton</option>
-            <option value="basketball">Basketball</option>
-            <option value="boxing">Boxing</option>
-            <option value="canoe slalom">Canoe Slalom</option>
-            <option value="canoe sprint">Canoe Sprint</option>
-            <option value="cycling">Cycling</option>
-            <option value="cycling-bmx">Cycling - BMX</option>
-            <option value="cycling-road">Cycling - Road</option>
-            <option value="cycling-track">Cycling - Track</option>
-            <option value="cycling-mountain bike">Cycling - Mountain Bike</option>
-            <option value="equestrian">Equestrian</option>
-            <option value="fencing">Fencing</option>
-            <option value="football">Football</option>
-            <option value="golf">Golf</option>
-            <option value="gymnastics">Gymnastics</option>
-            <option value="trampoline">Trampoline</option>
-            <option value="handball">Handball</option>
-            <option value="hockey">Hockey</option>
-            <option value="judo">Judo</option>
-            <option value="modern pentathlon">Modern Pentathlon</option>
-            <option value="rowing">Rowing</option>
-            <option value="sailing">Sailing</option>
-            <option value="shooting">Shooting</option>
-            <option value="table tennis">Table tennis</option>
-            <option value="taekwondo">Taekwondo</option>
-            <option value="tennis">Tennis</option>
-            <option value="triathlon">Triathlon</option>
-            <option value="volleyball">Volleyball</option>
-            <option value="beach volleyball">Beach Volleyball</option>
-            <option value="weightlifting">Weightlifting</option>
-            <option value="wrestling">Wrestling</option>
-            <option value="athletics">Athletics</option>
-        </select>
+    <div class="control-group">
+        <label class="control-label" for="event-sport">Choose a sport</label>
+        <div class="controls">
+            <select name="event-sport" id="event-sport">
+                <option value="diving" <% if(sport == 'diving') { %> selected <% } %>>Diving</option>
+                <option value="swimming" <% if(sport == 'swimming') { %> selected <% } %>>Swimming</option>
+                <option value="synchronised-swimming" <% if(sport == 'synchronised-swimming') { %> selected <% } %>>Synchronised Swimming</option>
+                <option value="waterpolo" <% if(sport == 'waterpolo') { %> selected <% } %>>Waterpolo</option>
+                <option value="archery" <% if(sport == 'archery') { %> selected <% } %>>Archery</option>
+                <option value="badminton" <% if(sport == 'badminton') { %> selected <% } %>>Badminton</option>
+                <option value="basketball" <% if(sport == 'basketball') { %> selected <% } %>>Basketball</option>
+                <option value="boxing" <% if(sport == 'boxing') { %> selected <% } %>>Boxing</option>
+                <option value="canoe-slalom" <% if(sport == 'canoe-slalom') { %> selected <% } %>>Canoe Slalom</option>
+                <option value="canoe-sprint" <% if(sport == 'canoe-sprint') { %> selected <% } %>>Canoe Sprint</option>
+                <option value="cycling" <% if(sport == 'cycling') { %> selected <% } %>>Cycling</option>
+                <option value="cycling-bmx" <% if(sport == 'cycling-bmx') { %> selected <% } %>>Cycling - BMX</option>
+                <option value="cycling-road" <% if(sport == 'cycling-road') { %> selected <% } %>>Cycling - Road</option>
+                <option value="cycling-track" <% if(sport == 'cycling-track') { %> selected <% } %>>Cycling - Track</option>
+                <option value="cycling-mountainbike" <% if(sport == 'cycling-mountainbike') { %> selected <% } %>>Cycling - Mountain Bike</option>
+                <option value="equestrian" <% if(sport == 'equestrian') { %> selected <% } %>>Equestrian</option>
+                <option value="fencing" <% if(sport == 'fencing') { %> selected <% } %>>Fencing</option>
+                <option value="football" <% if(sport == 'football') { %> selected <% } %>>Football</option>
+                <option value="golf" <% if(sport == 'golf') { %> selected <% } %>>Golf</option>
+                <option value="gymnastics" <% if(sport == 'gymnastics') { %> selected <% } %>>Gymnastics</option>
+                <option value="trampoline" <% if(sport == 'trampoline') { %> selected <% } %>>Trampoline</option>
+                <option value="handball" <% if(sport == 'handball') { %> selected <% } %>>Handball</option>
+                <option value="hockey" <% if(sport == 'hockey') { %> selected <% } %>>Hockey</option>
+                <option value="judo" <% if(sport == 'v') { %> selected <% } %>>Judo</option>
+                <option value="modern-pentathlon" <% if(sport == 'modern-pentathlon') { %> selected <% } %>>Modern Pentathlon</option>
+                <option value="rowing" <% if(sport == 'rowing') { %> selected <% } %>>Rowing</option>
+                <option value="sailing" <% if(sport == 'sailing') { %> selected <% } %>>Sailing</option>
+                <option value="shooting" <% if(sport == 'shooting') { %> selected <% } %>>Shooting</option>
+                <option value="table-tennis" <% if(sport == 'table-tennis') { %> selected <% } %>>Table tennis</option>
+                <option value="taekwondo" <% if(sport == 'taekwondo') { %> selected <% } %>>Taekwondo</option>
+                <option value="tennis" <% if(sport == 'tennis') { %> selected <% } %>>Tennis</option>
+                <option value="triathlon" <% if(sport == 'triathlon') { %> selected <% } %>>Triathlon</option>
+                <option value="volleyball" <% if(sport == 'volleyball') { %> selected <% } %>>Volleyball</option>
+                <option value="beachvolleyball" <% if(sport == 'beachvolleyball') { %> selected <% } %>>Beach Volleyball</option>
+                <option value="weightlifting" <% if(sport == 'weightlifting') { %> selected <% } %>>Weightlifting</option>
+                <option value="wrestling" <% if(sport == 'wrestling') { %> selected <% } %>>Wrestling</option>
+                <option value="athletics" <% if(sport == 'athletics') { %> selected <% } %>>Athletics</option>
+            </select>
+        </div>
     </div>
-</div>
 
-<% if (events.length > 0) { %>
-<div class="input-control">
-    <label for="event-network">Choose an event</label>
-    <div class="inner-control">
-        <select id="event-event">
-             <% _.each(events, function(event) { %>
-                 <option data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
-             <% }); %>
-         </select>
+    <% if (events.length > 0) { %>
+    <div class="control-group">
+        <label class="control-label" for="event-event">Choose an event</label>
+        <div class="controls">
+            <select id="event-event" name="event-event">
+                 <% _.each(events, function(event) { %>
+                     <option data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
+                 <% }); %>
+             </select>
+        </div>
     </div>
-</div>
-<% } %>
-<div class="input-control">
-    <label for="event-network">Network</label>
-    <div class="inner-control">
-        <select id="event-network" name="event-network">
-            <option value="twitter" selected>Twitter</option>
-            <option value="weibo">Weibo</option>
-        </select>
+    <% } %>
+    <div class="control-group">
+        <label class="control-label" for="event-network">Network</label>
+        <div class="controls">
+            <select id="event-network" name="event-network">
+                <option value="twitter" selected>Twitter</option>
+                <option value="weibo">Weibo</option>
+            </select>
+        </div>
     </div>
+    <button class="btn btn-search" id="event-search">Search event</button>
 </div>
-<button class="btn btn-search" id="event-search">Search event</button>

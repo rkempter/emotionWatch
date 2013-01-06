@@ -1,37 +1,57 @@
-<div id="settings">
+<div id="settings" class="form-horizontal">
     <h2>Settings</h2>
-    <div class="input-control">
-        <label>Animation duration of one step</label>
-        <div class="inner-control">
+    <div class="control-group">
+        <label class="control-label" for="animation-duration">Animation duration of one step</label>
+        <div class="controls">
             <input type="text" name="animation-duration" id="animation-duration" value="<%= animationDuration %>" />
         </div>
     </div>
-    <div class="input-control">
-        <label>Length of a time step</label>
-        <div class="inner-control">
-            <input type="text" name="time-step" id="time-step" value="<%= timeStep %>" />
+    <div class="control-group">
+        <label class="control-label" for="time-step">Length of a time step</label>
+        <div class="controls">
+          <select id="time-step" name="time-step">
+                <option value="60">1 minute</option>
+                <option value="120">2 minutes</option>
+                <option value="300">5 minutes</option>
+                <option value="900">15 minutes</option>
+                <option value="1800">30 minutes</option>
+                <option value="3600">1 hour</option>
+                <option value="7200">2 hours</option>
+                <option value="43200">12 hours</option>
+                <option value="86400">24 hours</option>
+            </select>
         </div>
     </div>
-    <div class="input-control">
-        <label>Network</label>
-        <div class="inner-control">
-            <select id="network">
+    <div class="control-group">
+        <label class="control-label" for="network">Network</label>
+        <div class="controls">
+            <select id="network" name="network">
                 <option value="twitter">Twitter</option>
                 <option value="weibo">Weibo</option>
             </select>
         </div>
     </div>
-    <div class="input-control">
-        <label>Date & time at beginning</label>
-        <div class="inner-control">
+    <div class="control-group">
+        <label class="control-label" for="start-date">Date at beginning</label>
+        <div class="controls">
             <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="<%= startDate %>" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="start-time">Time at beginning</label>
+        <div class="controls">
             <input type="time" name="start-time" id="start-time" value="<%= startTime %>" />
         </div>
     </div>
-    <div class="input-control">
-        <label>Date & time at end</label>
-        <div class="inner-control">
+    <div class="control-group">
+        <label class="control-label" for="end-date">Date at end</label>
+        <div class="controls">
             <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date" id="end-date" value="<%= endDate %>" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="end-time">Time at end</label>
+        <div class="controls">
             <input type="time" name="end-time" id="end-time" value="<%= endTime %>" />
         </div>
     </div>
