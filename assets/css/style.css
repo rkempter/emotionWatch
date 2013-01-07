@@ -860,11 +860,14 @@ svg .line {
   cursor: pointer;
 }
 #pattern .date-time-freq path.active {
-  fill: #1a1a1a;
+  fill: #cccccc;
 }
 #pattern .date-time-freq path {
   fill: #ac7b74;
   stroke-width: 0;
+}
+#pattern .date-time-freq path:hover {
+  fill: #cccccc;
 }
 #index .date-time-freq path,
 #compare .date-time-freq path,

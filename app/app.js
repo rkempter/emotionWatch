@@ -19,7 +19,7 @@ function($, _, Backbone, Raphael, Constants) {
     // The root path to run the application.
     root: "/",
 
-    animationDuration: 4500
+    animationDuration: 3000
 
     // Global SVG Canvas
   };

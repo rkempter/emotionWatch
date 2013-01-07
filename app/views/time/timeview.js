@@ -67,8 +67,13 @@ define([
         // the clock triggers a global time change.
         startTime: function() {
             var self = this;
-            app.trigger('start:time');
+            this.model.set('startInterval', setInterval(function(t) {
+                app.trigger('start:time');
+                clearInterval(self.model.get('startInterval'));
+            },1000));
+            
             if(undefined === this.model.get('interval')) {
+                
                 var interval = setInterval(function() {
                     if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
                         self.stopTime();

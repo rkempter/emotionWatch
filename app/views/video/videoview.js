@@ -19,7 +19,7 @@ define([
             var keyword = this.model.get('keyword');
             var keywordType = this.model.get('keywordType');
 
-            if(keywordType == 'event') {
+            if(keywordType == 'event' && this.model.get('timeStep') == 3) {
                 this.model.fetch({
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
@@ -55,7 +55,6 @@ define([
                     this.model.set('video-element', video);
                     // Listen to any start time event, triggered by the clock
                     self.listenTo(app, 'start:time', function() {
-                        console.log('start-watch');
                         self.model.get('video-element').play();
                     });
                     // Listen to a stop time event, triggered by the clock
@@ -64,11 +63,11 @@ define([
                     });
                     self.listenTo(app, 'jumpToTime', self.jumpToVideo);
                     // Check until the video is ready
-                    window.setInterval(function(t){
+                    var interval = setInterval(function(){
                       if (self.model.get('video-element').readyState > 0) {
                         // Safe duration of the video
                         self.model.set('duration', Math.round(video.duration));
-                        clearInterval(t);
+                        clearInterval(interval);
                       }
                     }, 500);
                 }

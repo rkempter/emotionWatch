@@ -13,6 +13,7 @@
         <label class="control-label" for="event-sport">Choose a sport</label>
         <div class="controls">
             <select name="event-sport" id="event-sport">
+                <option value="empty" selected></option>
                 <option value="diving" <% if(sport == 'diving') { %> selected <% } %>>Diving</option>
                 <option value="swimming" <% if(sport == 'swimming') { %> selected <% } %>>Swimming</option>
                 <option value="synchronised-swimming" <% if(sport == 'synchronised-swimming') { %> selected <% } %>>Synchronised Swimming</option>
@@ -59,8 +60,9 @@
         <label class="control-label" for="event-event">Choose an event</label>
         <div class="controls">
             <select id="event-event" name="event-event">
+                <option value="empty" selected></option>
                  <% _.each(events, function(event) { %>
-                     <option data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
+                     <option <% if(selectedEvent == event.event) { %> selected <% } %>data-hasvideo="<%= event.video %>" data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
                  <% }); %>
              </select>
         </div>
@@ -75,5 +77,16 @@
             </select>
         </div>
     </div>
+    <% if (hasVideo == true) { %>
+    <div class="control-group">
+        <label class="control-label" for="event-video">Show video?</label>
+        <div class="controls">
+           <select id="event-video" name="event-video">
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+            </select>
+        </div>
+    </div>
+    <% } %>
     <button class="btn btn-search" id="event-search">Search event</button>
 </div>

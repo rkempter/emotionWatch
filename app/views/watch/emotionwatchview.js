@@ -159,7 +159,6 @@ define([
                 "fill": "#000"
             });
             this.model.get("centerCircle").toFront();
-            console.log(this.model.get("currentFrequencyRatio"));
             var strokeWidth = this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness || 0;
 
             this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+strokeWidth/2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
