@@ -386,11 +386,11 @@ define([
                 var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
                 // THe point where we start drawing the label
-                var point = this.model.getPoint(1.35, i);
+                var point = this.model.getPoint(1.36, i);
                 // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
                 // Draw the text on the canvas
-                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 16);
+                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 20);
                 // Get the length of the text
                 var length = text.getBBox().width;
                 // Create the path of the line
