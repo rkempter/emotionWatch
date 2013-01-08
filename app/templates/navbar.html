@@ -27,9 +27,34 @@
 </div>
 
 <div class="top-navigation">
-  <div class="logo"><a href="/">The Olympic Emotion Project</a></div>
+  <div class="title">
+    <h1>Gymnastics, men, Individuelles Bockhüpfen</h1>
+    <% if(keywordType == 'event') { %>
+      <h1><%= event %></h1>
+    <% } else if(keywordType == 'hashtag') { %>
+      <h1><%= hashtag %></h1>
+    <% } else if(keywordType == 'user') { %>
+      <h1><%= user %></h1>
+    <% } %>
+  </div>
+  <div class="subinfo">
+    <div class="subinfo-tab start">
+      <h2>Date and time of begin</h2>
+      <h3><%= startDateTime %></h3>
+    </div>
+    <div class="subinfo-tab end">
+      <h2>Date and time of end</h2>
+      <h3><%= endDateTime %></h3>
+    </div>
+    <div class="subinfo-tab timestep">
+      <h2>Interval</h2>
+      <h3><%= timeStep %></h3>
+    </div>
+  </div>
+
   <div class="menu">
     <ul>
+      <li><a href="/">Home</a></li>
       <li id="settings-btn" data-toggle="modal">
         Settings
       </li>

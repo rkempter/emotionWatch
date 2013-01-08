@@ -26,7 +26,7 @@ require.config({
     emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetfrequencymodel: "models/tweetfrequencymodel",
-    titlemodel: "models/title/titlemodel",
+    navigationmodel: "models/navigation/navigationmodel",
     videomodel: "models/video/videomodel",
 
     // collection
@@ -46,7 +46,6 @@ require.config({
     paperview: "views/canvas/paperview",
     timeview: "views/time/timeview",
     welcomeview: "views/frontpage/welcomeview",
-    titleview: "views/titleview",
     frequencypaperview: "views/canvas/frequencypaperview",
     videoview: "views/video/videoview",
     emotionwatchview: "views/watch/emotionwatchview",
