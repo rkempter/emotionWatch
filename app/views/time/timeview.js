@@ -27,16 +27,15 @@ define([
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
             this.model.set("label", "Stop");
+            this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
 
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
-
             this.listenTo(app, 'change:globalTime', function(dateTime) {
-                self.model.set('currentDateTime', dateTime);
+                this.model.set('currentDateTime', dateTime);
                 if(this.model.get('interval') === undefined) {
                     self.startTime();
                 }
-                console.log(self.model.cid);
                 self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
                 self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
                 self.render(self.template);
@@ -79,9 +78,10 @@ define([
                         self.stopTime();
                         return;
                     }
+                    
                     // create new time
                     var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
-                    
+                    console.log(currentDateTime);
                     app.trigger("change:globalTime", currentDateTime);
 
                 }, app.animationDuration);
@@ -106,6 +106,11 @@ define([
             }
         },
 
+        computeFirstPosition: function() {
+            var timeSpan = this.model.get('startDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get('startDateTime');
+            var position = timeSpan / this.model.get('timeSpan') * app.windowWidth;
+            $('.time-block').css('width', position+'px');
+        },
 
         /**
          * stopTime
@@ -128,6 +133,15 @@ define([
                 secondDateTime: this.model.get('secondDateTime')
             });
             this.$el.html(output);
+        },
+
+        afterRender: function() {
+                var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
+                var position = currentTimeSpan / this.model.get('timeSpan') * app.windowWidth;
+                if(position > app.windowWidth / 2) {
+                    $('.time-block .dates').css('text-align', 'right').css('right', '45px');
+                }
+                $('.time-block').css('width', position+'px');
         }
         
     });

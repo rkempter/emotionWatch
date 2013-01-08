@@ -28,7 +28,6 @@ define([
             var searchEventModel = Backbone.Model.extend({
                 // Define Parse method of model
                 parse: function(response) {
-                    console.log(response);
                     self.model.set('events', response);
                 }
             });
@@ -88,7 +87,6 @@ define([
             // Get gender and sport
             this.model.set('gender', $('#event-gender option:selected').val());
             this.model.set('sport', $('#event-sport option:selected').val());
-            console.log(this.model.get('gender'));
             // Fetch events
             this.model.fetch({ 
                 data: $.param({ 

@@ -28,9 +28,9 @@ define([
           if(this.model.get('mode') == 'compare') {
             // If we have two visualizations at the same time, we use half of the
             // window as a base for the computations
-            this.pixelLength = $(window).width() / 2;
+            this.pixelLength = app.windowWidth / 2;
           } else {
-            this.pixelLength = $(window).width();
+            this.pixelLength = app.windowWidth;
           }
 
           // The pair of points our slot is positioned

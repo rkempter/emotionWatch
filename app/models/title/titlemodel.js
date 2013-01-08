@@ -12,8 +12,6 @@ define([
         },
 
         parse: function(response) {
-          console.log('parsing');
-          console.log(response);
           for(var i = 0; i < response.length; i++) {
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);

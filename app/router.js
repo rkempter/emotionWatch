@@ -81,7 +81,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('main-layout').setViews({
-        ".time-block": new timeView(options),
+        "#bottom .current-time-box": new timeView(options),
 
         ".detail-block": new detailView({
           model: new Backbone.Model()

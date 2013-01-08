@@ -90,7 +90,7 @@ define([
             var localEndDateTime = new Date(self.startDateTime.getTime() + self.timeStep * 1000);
 
             // Go trough the complete timeinterval
-            while(localStartDateTime.getTime() <= self.endDateTime.getTime()) {
+            while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
                 // If we didn't get a frequency for a timeslot, the frequency is zero!
                 var value = frequencies[localStartDateTime.getTime()] || 0;
                 var scaling = 0;
@@ -160,7 +160,6 @@ define([
 
         activateSlot: function(nbr) {
             var model = this.at(nbr) || null;
-            console.log(model);
 
             if(null !== model) {
                 model.trigger('activate');

@@ -31,7 +31,6 @@ define([
             // Listen to the globalTime change event triggered from the clock.
             // Fetch new tweets according to the dateTime and the time slot length
             this.listenTo(app, 'change:globalTime', function(dateTime) {
-                console.log('I am still here!');
                 self.currentDateTime = dateTime;
                 self.fetch({
                     data: $.param({
@@ -69,7 +68,6 @@ define([
             this.reset();
             $('.tweets ul').empty();
 
-            console.log(response);
             this.viewPointer = [];
 
             for(var i = 0; i < response.length; i++) {

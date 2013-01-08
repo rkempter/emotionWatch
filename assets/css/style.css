@@ -892,6 +892,48 @@ svg .line {
 #compare .date-time-freq path:hover {
   fill: #444444;
 }
+.time-block {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  -webkit-transition: width 3s linear;
+  -moz-transition: width 3s linear;
+  -o-transition: width 3s linear;
+  transition: width 3s linear;
+}
+.time-block .curtain {
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 100px;
+  width: 100%;
+  border-right: 1px solid red;
+}
+.current-time-box .dates {
+  position: absolute;
+  text-align: left;
+  bottom: 112px;
+  font-size: 14px;
+  right: -235px;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0 3px;
+}
+.current-time-box .dates .date {
+  display: block;
+}
+.current-time-box #start-stop-control {
+  width: 50px;
+  height: 50px;
+  background: #000;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  position: absolute;
+  line-height: 50px;
+  text-align: center;
+  right: -25px;
+  bottom: 105px;
+  cursor: pointer;
+}
 /** Tweets / Weibos **/
 .title-box {
   width: 100%;
@@ -989,37 +1031,6 @@ svg .line {
 }
 #player video {
   width: 100%;
-}
-/** Time **/
-#start-stop-control {
-  width: 50px;
-  height: 50px;
-  background: #000;
-  border-radius: 30px;
-  border: 1px solid #fff;
-  position: absolute;
-  line-height: 50px;
-  text-align: center;
-  left: -30px;
-  top: -10px;
-  cursor: pointer;
-}
-.time-box {
-  position: relative;
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding: 10px;
-}
-.time-box .date {
-  font-size: 30px;
-  text-align: right;
-  display: block;
-}
-.time-box .time {
-  font-size: 60px;
-  text-align: right;
-  display: block;
 }
 /**** PATTERN ****/
 #pattern #middle-column {
@@ -1234,8 +1245,8 @@ svg .line {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   *zoom: 1;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);

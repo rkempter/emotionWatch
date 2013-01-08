@@ -40,7 +40,7 @@ define([
 
         viewInitialized: function() {
             // How large is the space we have?
-            var width = $(window).width();
+            var width = app.windowWidth;
             // Compute the number of watches per line
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
             // How much space do we need?
@@ -75,7 +75,7 @@ define([
             // Keeps the position of each model in the array
             var i = 0;
             // Go through all 
-            while(localStartDateTime.getTime() <= this.endDateTime.getTime()) {
+            while(localStartDateTime.getTime() < this.endDateTime.getTime()) {
                 var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
