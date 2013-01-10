@@ -939,10 +939,10 @@ svg .line {
   bottom: 0;
   left: 0;
   width: 0;
-  -webkit-transition: width 3s linear;
-  -moz-transition: width 3s linear;
-  -o-transition: width 3s linear;
-  transition: width 3s linear;
+  -webkit-transition: width 5s linear;
+  -moz-transition: width 5s linear;
+  -o-transition: width 5s linear;
+  transition: width 5s linear;
 }
 .time-block .curtain {
   background-color: rgba(255, 255, 255, 0.2);
@@ -1002,9 +1002,6 @@ svg .line {
   80% {
     opacity: 1;
   }
-  99% {
-    opacity: 0;
-  }
   100% {
     opacity: 0;
     -webkit-transform: translate3d(100px, 10px, 0px);
@@ -1017,11 +1014,9 @@ svg .line {
   80% {
     opacity: 1;
   }
-  99% {
-    opacity: 0;
-  }
   100% {
     -webkit-transform: translate3d(-100px, 10px, 0px);
+    opacity: 0;
   }
 }
 .tweet {
@@ -1108,6 +1103,10 @@ svg .line {
 }
 .tweet span.date.shame {
   background-color: #4c2fab;
+}
+.stop-animation .tweet {
+  display: none;
+  -webkit-animation: none !important;
 }
 /** o **/
 #player {
@@ -1267,11 +1266,12 @@ svg .line {
 .detail-block div {
   z-index: 10;
   padding: 5px;
+  text-align: center;
   position: fixed;
-  bottom: 110px;
+  bottom: 115px;
   height: 100px;
-  width: 150px;
-  margin-left: -75px;
+  width: 160px;
+  margin-left: -80px;
   background: #cccccc;
   color: #1a1a1a;
   border-radius: 10px;
@@ -1285,8 +1285,9 @@ svg .line {
 .detail-block div p {
   margin: 0;
 }
-.detail-block div h4 {
-  margin: 0 0 5px;
+.detail-block div p.tweet-nbr {
+  margin: 8px 0;
+  font-weight: 600;
 }
 .detail-block div:before {
   position: absolute;

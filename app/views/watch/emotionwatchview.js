@@ -285,7 +285,7 @@ define([
                 path: newPath
             }, app.animationDuration, Constants.animationType);
 
-            if(this.model.get("emotionShape")) {
+            if(undefined !== this.model.get("emotionShape")) {
                 this.model.get("emotionShape").animate(animationObject);
             }
         },
@@ -296,7 +296,7 @@ define([
                 "stroke-width": thickness,
                 "r": this.model.get("emotionCircleRadius") + thickness / 2
             }, app.animationDuration, Constants.animationType);
-            if(this.model.get("timeCircleBorder")) {
+            if(undefined !== this.model.get("timeCircleBorder")) {
                 this.model.get("timeCircleBorder").animate(animationObject);
             }
         },

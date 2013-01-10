@@ -91,12 +91,15 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".date-time-freq .paper",
           "network": options.network
         }),
+
         ".navigation": new navigationView({
           model: new navigationModel(options)
         }),
+
         "#player": new videoView({
           model: new videoModel(options)
         }),
+        
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
             paper: app.paper, 

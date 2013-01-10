@@ -50,7 +50,7 @@ define([
             if(this.model.get('video-element') === undefined || this.model.get('video-element') === null) {
                 // Get the video dom element
                 var video = document.querySelector('video');
-                if(video !== null) {
+                if(video !== null || this.model.get('video') !== undefined) {
 
                     console.log(this.model.get('video'));
                     // Save the video dom element
@@ -74,7 +74,7 @@ define([
                     });
 
                     self.listenTo(app, 'jumpToTime', self.jumpToVideo);
-                    // Check until the video is ready
+                    
                     var interval = setInterval(function(){
                       if (self.model.get('video-element').readyState > 0) {
                         // Safe duration of the video
@@ -89,13 +89,16 @@ define([
         // When a jumpToTime event is triggered, we need to bring the video in the
         // right position as well.
         jumpToVideo: function(params) {
-            var dateTime = params.dateTime;
-            // Compute the fraction of time we've been advancing until now
-            var fraction = (dateTime.getTime()-this.model.get('startDateTime')) / (this.model.get('endDateTime').getTime() - this.model.get('startDateTime').getTime());
-            // Compute the time in the video
-            var videoTime = fraction * this.model.get('duration');
-            // Jump to the time
-            this.model.get('video-element').currentTime = videoTime;
+            if(this.model.get('video') !== undefined) {
+                console.log(this.model.get('video-element'));
+                var dateTime = params.dateTime;
+                // Compute the fraction of time we've been advancing until now
+                var fraction = (dateTime.getTime()-this.model.get('startDateTime')) / (this.model.get('endDateTime').getTime() - this.model.get('startDateTime').getTime());
+                // Compute the time in the video
+                var videoTime = fraction * this.model.get('duration');
+                // Jump to the time
+                this.model.get('video-element').currentTime = videoTime;
+            }
         }
 
     });

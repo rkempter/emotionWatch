@@ -22,8 +22,6 @@ define([
 
             var self = this;
 
-
-
             // set the parameters of the current visualization
             this.model.set('startDateTime', options.startDateTime);
             this.model.set('endDateTime', options.endDateTime);
@@ -42,14 +40,6 @@ define([
                 self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
                 self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
                 self.render(self.template);
-            });
-
-            this.listenTo(app, 'pause:watch', function() {
-                self.pauseTime();
-            });
-
-            this.listenTo(app, 'resume:watch', function() {
-                self.resumeTime();
             });
 
             this.listenTo(app, 'start:watch', function() {
@@ -71,7 +61,8 @@ define([
         pauseTime: function() {
             var width = $('.time-block').width();
             $('.time-block').css('width', width+'px');
-            console.log('pause width '+width);
+            console.log('what is happening?');
+            app.trigger('pause:watch');
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').pause();
             }
@@ -79,6 +70,7 @@ define([
 
         resumeTime: function() {
             console.log(this.model.get('endPoint'));
+            app.trigger('resume:watch');
             $('.time-block').css('width', this.model.get('endPosition'));
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').play();
@@ -102,6 +94,8 @@ define([
                         self.stopTime();
                         return;
                     }
+
+                    console.log('firing');
                     // create new time
                     var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
                     app.trigger("change:globalTime", currentDateTime);

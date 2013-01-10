@@ -17,40 +17,34 @@ define([
         initialize: function() {
             _.bindAll(this, 'render');
 
-            this.listenTo(app, 'close', this.close);
             this.listenTo(app, 'pause:watch', this.pauseAnimation);
             this.listenTo(app, 'resume:watch', this.resumeAnimation);
 
             var coordinates = this.getCoordinates();
             var delay = this.getDelay();
-            console.log(delay);
             var animationName = this.getTranslation();
 
             var style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s;";
             this.model.set('styler', style);
-            this.model.set('shown', false);
             this.render();
         },
 
-        // events: {
-        //     'mouseover .tweet': 'pauseTime',
-        //     'mouseleave .tweet': 'resumeTime'
-        // },
+        events: {
+            'webkitAnimationEnd': 'addEndClass'
+        },
+
+        addEndClass: function() {
+            this.$el.addClass('stop-animation');
+        },
 
         pauseAnimation: function() {
+            console.log('pause');
             this.$('.tweet').css('-webkit-animation-play-state', 'paused');
         },
 
         resumeAnimation: function() {
+            console.log('resume');
             this.$('.tweet').css('-webkit-animation-play-state', 'running');
-        },
-
-        pauseTime: function() {
-            app.trigger('pause:watch');
-        },
-
-        resumeTime: function() {
-            app.trigger('resume:watch');
         },
         
         render: function(template) {
@@ -93,7 +87,7 @@ define([
             var currTimeSpan = (new Date(this.model.get('datetime')).getTime() - this.model.get('currentDateTime').getTime()) / 1000;
             var timeSpan = this.model.get('timeStep');
 
-            return Math.round(Math.floor(currTimeSpan / timeSpan * app.animationDuration/1000));
+            return Math.round(Math.floor(currTimeSpan / timeSpan * app.animationDuration/2000));
         },
 
         close: function() {
