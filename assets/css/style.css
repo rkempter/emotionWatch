@@ -930,6 +930,15 @@ svg .line {
   fill: #acacac;
   stroke-width: 0;
 }
+#index .date-time-freq .hoverPath,
+#compare .date-time-freq .hoverPath {
+  opacity: 0;
+}
+#index .date-time-freq .hoverPath:hover,
+#compare .date-time-freq .hoverPath:hover {
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0.3;
+}
 #index .date-time-freq path:hover,
 #compare .date-time-freq path:hover {
   fill: #444444;
@@ -1228,7 +1237,7 @@ svg .line {
 }
 #compare .columns .watch {
   position: relative;
-  margin-top: 140px;
+  margin-top: 10px;
 }
 #compare .columns .watch .paper {
   position: relative;

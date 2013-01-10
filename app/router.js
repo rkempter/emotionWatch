@@ -191,12 +191,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('compare-layout').setViews({
-        ".time-block": new timeView({
-            startDateTime: options.startDateTime,
-            endDateTime: options.endDateTime,
-            timeStep: options.timeStep,
-            currentDateTime: options.currentDateTime
-        }),
+        ".weibo #bottom .current-time-box": new timeView(options),
         ".weibo .watch .paper": new paperView({ 
           "parent": ".weibo .watch .paper",
           "mode": "compare",
