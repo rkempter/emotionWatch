@@ -51,16 +51,28 @@ define([
                 // Get the video dom element
                 var video = document.querySelector('video');
                 if(video !== null) {
+
+                    console.log(this.model.get('video'));
                     // Save the video dom element
                     this.model.set('video-element', video);
                     // Listen to any start time event, triggered by the clock
                     self.listenTo(app, 'start:time', function() {
+                        console.log('gooo');
                         self.model.get('video-element').play();
                     });
                     // Listen to a stop time event, triggered by the clock
                     self.listenTo(app, 'stop:time', function() {
                         self.model.get('video-element').pause();
                     });
+
+                    self.listenTo(app, 'pause:watch', function() {
+                        self.model.get('video-element').pause();
+                    });
+
+                    self.listenTo(app, 'resume:watch', function() {
+                        self.model.get('video-element').play();
+                    });
+
                     self.listenTo(app, 'jumpToTime', self.jumpToVideo);
                     // Check until the video is ready
                     var interval = setInterval(function(){

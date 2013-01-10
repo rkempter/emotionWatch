@@ -73,7 +73,8 @@ require.config({
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
-    "plugins/bootstrap-modal": ['jquery']
+    "plugins/bootstrap-modal": ['jquery'],
+    "plugins/jquery.timer": ['jquery']
   }
 
 });

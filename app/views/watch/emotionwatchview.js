@@ -92,6 +92,9 @@ define([
                     self.createPreview(params);
                 });
 
+                this.listenTo(app, 'pause:watch', this.pauseTime);
+                this.listenTo(app, 'resume:watch', this.resumeTime);
+
                 // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
                 // Removes the preview from the canvas
                 this.listenTo(app, 'preview:mouseout', function(params) {
@@ -274,25 +277,41 @@ define([
          * Changes the path of the emotion shape and animates the changement
          */
         animateEmotionShape: function() {
+            console.log('animate it again!');
             var options = {};
             var newPath = this.model.getCurrentEmotionShapePath(options);
 
+            var animationObject = Raphael.animation({
+                path: newPath
+            }, app.animationDuration, Constants.animationType);
+
             if(this.model.get("emotionShape")) {
-                this.model.get("emotionShape").animate({
-                    path: newPath
-                }, app.animationDuration, Constants.animationType);
-            }            
+                this.model.get("emotionShape").animate(animationObject);
+            }
         },
 
         animateCircle: function() {
             var thickness = parseFloat(this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness) || 1;
-
+            var animationObject = Raphael.animation({
+                "stroke-width": thickness,
+                "r": this.model.get("emotionCircleRadius") + thickness / 2
+            }, app.animationDuration, Constants.animationType);
             if(this.model.get("timeCircleBorder")) {
-                this.model.get("timeCircleBorder").animate({
-                    "stroke-width": thickness,
-                    "r": this.model.get("emotionCircleRadius") + thickness / 2
-                }, app.animationDuration, Constants.animationType);
+                this.model.get("timeCircleBorder").animate(animationObject);
             }
+        },
+
+        // We pause the animation instantely in case of a time pause
+        pauseTime: function() {
+            this.model.get("timeCircleBorder").pause();
+            this.model.get("emotionShape").pause();
+        },
+
+        // If we get a resume time event, we continue moving the animation of
+        // the shape from where it paused before.
+        resumeTime: function() {
+            this.model.get("timeCircleBorder").resume();
+            this.model.get("emotionShape").resume();
         },
 
         /**

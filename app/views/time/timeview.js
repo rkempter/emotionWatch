@@ -4,7 +4,8 @@ define([
     "jquery",
     "lodash",
     "util",
-    "constants"
+    "constants",
+    "plugins/jquery.timer"
 
 ], function(app, Backbone, $, _, util, Constants) {
     
@@ -20,6 +21,8 @@ define([
             options = options || {};
 
             var self = this;
+
+
 
             // set the parameters of the current visualization
             this.model.set('startDateTime', options.startDateTime);
@@ -41,8 +44,12 @@ define([
                 self.render(self.template);
             });
 
-            this.listenTo(app, 'stop:watch', function() {
-                self.stopTime();
+            this.listenTo(app, 'pause:watch', function() {
+                self.pauseTime();
+            });
+
+            this.listenTo(app, 'resume:watch', function() {
+                self.resumeTime();
             });
 
             this.listenTo(app, 'start:watch', function() {
@@ -55,10 +62,27 @@ define([
         close: function() {
             // Stop interval first
             if(undefined !== this.model.get('interval')) {
-                clearInterval(this.model.get('interval'));
+                this.model.get('interval').stop();
             }
             this.unbind(); // Unbind all local event bindings
             this.remove(); // Remove view from DOM
+        },
+
+        pauseTime: function() {
+            var width = $('.time-block').width();
+            $('.time-block').css('width', width+'px');
+            console.log('pause width '+width);
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').pause();
+            }
+        },
+
+        resumeTime: function() {
+            console.log(this.model.get('endPoint'));
+            $('.time-block').css('width', this.model.get('endPosition'));
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').play();
+            }
         },
 
         // Start running the timer. If the current time is bigger than our
@@ -66,27 +90,26 @@ define([
         // the clock triggers a global time change.
         startTime: function() {
             var self = this;
+            
             this.model.set('startInterval', setInterval(function(t) {
                 app.trigger('start:time');
                 clearInterval(self.model.get('startInterval'));
             },1000));
             
             if(undefined === this.model.get('interval')) {
-                
-                var interval = setInterval(function() {
+                var interval = $.timer(function() {
                     if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
                         self.stopTime();
                         return;
                     }
-                    
                     // create new time
                     var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
-                    console.log(currentDateTime);
                     app.trigger("change:globalTime", currentDateTime);
-
-                }, app.animationDuration);
+                }, app.animationDuration, true);
 
                 this.model.set('interval', interval);
+            } else {
+                this.model.get('interval').play();
             }
         },
 
@@ -97,11 +120,16 @@ define([
         triggerStartStop: function() {
             if(this.model.get('label') == 'Stop') {
                 this.model.set('label', 'Start');
-                this.stopTime();
+                this.model.set('paused', true);
+                console.log('pausing');
+                this.pauseTime();
                 this.render();
+
             } else {
+                console.log('resuming!');
                 this.model.set('label', 'Stop');
-                this.startTime();
+                this.model.set('paused', false);
+                this.resumeTime();
                 this.render();
             }
         },
@@ -118,15 +146,13 @@ define([
          * Clears the interval and removes the variable 'interval' from the model.
          */
         stopTime: function() {
-            if(undefined !== this.model.get('interval')) {
-                clearInterval(this.model.get('interval'));
-                this.model.set('interval', undefined);
-            }
+            this.model.get('interval').stop();
             app.trigger('stop:time');
         },
 
         // render the template with labe, date and time.
         render: function(template) {
+
             var output = template({ 
                 label: this.model.get("label"), 
                 firstDateTime: this.model.get('firstDateTime'),
@@ -142,6 +168,14 @@ define([
                     $('.time-block .dates').css('text-align', 'right').css('right', '45px');
                 }
                 $('.time-block').css('width', position+'px');
+                this.model.set('endPoint', position);
+                if(this.model.get('paused') == true) {
+                    console.log('paused');
+                    this.$el.css('-webkit-animation-play-state', 'paused');
+                } else {
+                    this.$el.css('-webkit-animation-play-state', 'running');
+                }
+                
         }
         
     });

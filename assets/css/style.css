@@ -158,7 +158,7 @@ input,
 button,
 select,
 textarea {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "ff-tisa-web-pro", sans-serif;
 }
 label {
   display: block;
@@ -538,7 +538,7 @@ legend + .control-group {
   padding-left: 200px;
 }
 body {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "ff-tisa-web-pro", sans-serif;
   font-weight: 400;
   background: #0173d6;
   color: #ffffff;
@@ -652,56 +652,69 @@ h3 {
   z-index: 2;
   width: 100%;
   top: 0;
-  height: 120px;
-  background-color: rgba(40, 40, 40, 0.7);
 }
 .top-navigation .title {
-  float: left;
+  text-align: center;
+  margin-top: 20px;
+}
+.top-navigation .title .inside-title {
+  display: inline-block;
+  position: relative;
+  min-width: 600px;
 }
 .top-navigation .title h1 {
-  margin-left: 25px;
-  margin-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  float: left;
-  border-bottom: 1px solid #ffffff;
-}
-.top-navigation .subinfo {
-  margin-left: 25px;
-  width: 720px;
-}
-.top-navigation .subinfo .subinfo-tab {
-  float: left;
-  width: 220px;
-  margin-right: 20px;
-  height: 50px;
-  overflow: hidden;
-}
-.top-navigation .subinfo .subinfo-tab h2 {
-  margin-top: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-.top-navigation .subinfo .subinfo-tab h3 {
-  font-size: 14px;
+  min-width: 600px;
+  font-family: "league-gothic";
+  font-size: 45px;
+  text-transform: uppercase;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin-bottom: 0;
+  margin-top: 0px;
+  text-align: center;
+  display: inline-block;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.top-navigation .title .menu-left {
+  width: 200px;
+  position: absolute;
+  left: -250px;
+  top: 5px;
+}
+.top-navigation .title .menu-left ul {
+  list-style: none;
+  text-align: right;
+}
+.top-navigation .title .menu-right {
+  width: 200px;
+  position: absolute;
+  right: -225px;
+  margin: 0;
+  top: 5px;
+}
+.top-navigation .title .menu-right ul {
+  list-style: none;
   text-align: left;
 }
-.top-navigation .menu {
-  margin-right: 25px;
-  margin-top: 50px;
+.top-navigation .title .subinfo {
+  margin-top: 0px;
 }
-.top-navigation ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  float: right;
-}
-.top-navigation li {
+.top-navigation .title .subinfo .subinfo-tab {
+  width: 33%;
+  height: 50px;
   float: left;
-  margin-left: 20px;
-  line-height: 100px;
-  position: relative;
+}
+.top-navigation .title .subinfo .subinfo-tab h2 {
+  opacity: 0.4;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+.top-navigation .title .subinfo .subinfo-tab h3 {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 0;
 }
 .top-navigation a {
   color: #ffffff;
@@ -889,10 +902,10 @@ svg .line {
   cursor: pointer;
 }
 #pattern .date-time-freq path.active {
-  fill: #cccccc;
+  fill: #a00202;
 }
 #pattern .date-time-freq path {
-  fill: #ac7b74;
+  fill: #acacac;
   stroke-width: 0;
 }
 #pattern .date-time-freq path:hover {
@@ -906,15 +919,15 @@ svg .line {
 }
 #index .date-time-freq path.visited,
 #compare .date-time-freq path.visited {
-  fill: #cccccc;
+  fill: #ebebeb;
 }
 #index .date-time-freq path.active,
 #compare .date-time-freq path.active {
-  fill: #000000;
+  fill: #a00202;
 }
 #index .date-time-freq path,
 #compare .date-time-freq path {
-  fill: #ac7b74;
+  fill: #acacac;
   stroke-width: 0;
 }
 #index .date-time-freq path:hover,
@@ -935,7 +948,7 @@ svg .line {
   background-color: rgba(255, 255, 255, 0.2);
   height: 100px;
   width: 100%;
-  border-right: 1px solid red;
+  border-right: 1px solid #a00202;
 }
 .current-time-box .dates {
   position: absolute;
@@ -972,89 +985,131 @@ svg .line {
   float: right;
   margin-top: -27px;
 }
-.tweets a {
-  color: #ffffff;
+.tweets {
+  position: absolute;
+  width: 100%;
+  height: 540px;
+  -webkit-perspective: 300px;
+  -webkit-perspective-origin: 50% 30%;
 }
 .tweets ul {
-  margin-bottom: 100px;
+  list-style: none;
 }
-.tweets li {
-  position: relative;
+@-webkit-keyframes translation_right {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(100px, 10px, 0px);
+  }
+}
+@-webkit-keyframes translation_left {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translate3d(-100px, 10px, 0px);
+  }
+}
+.tweet {
+  width: 350px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-play-state: running;
+  position: absolute;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2px 5px 2px 40px;
   margin: 10px 0;
 }
-.tweets li p {
+.tweet a {
+  color: #ffffff;
+}
+.tweet p {
   margin: 3px 0;
   font-size: 14px;
 }
-.tweets li span.date {
+.tweet span.date {
   position: absolute;
   left: -20px;
   top: -5px;
   display: block;
-  background-color: #1a1a1a;
+  border: 2px solid #1a1a1a;
   height: 50px;
   line-height: 50px;
   text-align: center;
   width: 50px;
   border-radius: 30px;
+  background-color: #0173d6;
 }
-.tweets li span.date.guilt {
-  border: 2px solid #002da7;
+.tweet span.date.guilt {
+  background-color: #002da7;
 }
-.tweets li span.date.disappointment {
-  border: 2px solid #0032a7;
+.tweet span.date.disappointment {
+  background-color: #0032a7;
 }
-.tweets li span.date.envy {
-  border: 2px solid #004eac;
+.tweet span.date.envy {
+  background-color: #004eac;
 }
-.tweets li span.date.disgust {
-  border: 2px solid #187aac;
+.tweet span.date.disgust {
+  background-color: #187aac;
 }
-.tweets li span.date.contempt {
-  border: 2px solid #43acb0;
+.tweet span.date.contempt {
+  background-color: #43acb0;
 }
-.tweets li span.date.irritation {
-  border: 2px solid #3ea67c;
+.tweet span.date.irritation {
+  background-color: #3ea67c;
 }
-.tweets li span.date.involvement {
-  border: 2px solid #3fa652;
+.tweet span.date.involvement {
+  background-color: #3fa652;
 }
-.tweets li span.date.amusement {
-  border: 2px solid #40a630;
+.tweet span.date.amusement {
+  background-color: #40a630;
 }
-.tweets li span.date.joy {
-  border: 2px solid #6da529;
+.tweet span.date.joy {
+  background-color: #6da529;
 }
-.tweets li span.date.tenderness {
-  border: 2px solid #b1992d;
+.tweet span.date.tenderness {
+  background-color: #b1992d;
 }
-.tweets li span.date.wonderment {
-  border: 2px solid #ac6b1e;
+.tweet span.date.wonderment {
+  background-color: #ac6b1e;
 }
-.tweets li span.date.relief {
-  border: 2px solid #a83f14;
+.tweet span.date.relief {
+  background-color: #a83f14;
 }
-.tweets li span.date.surprise {
-  border: 2px solid #a5270f;
+.tweet span.date.surprise {
+  background-color: #a5270f;
 }
-.tweets li span.date.longing {
-  border: 2px solid #a52834;
+.tweet span.date.longing {
+  background-color: #a52834;
 }
-.tweets li span.date.pity {
-  border: 2px solid #a32e68;
+.tweet span.date.pity {
+  background-color: #a32e68;
 }
-.tweets li span.date.sadness {
-  border: 2px solid #a3379c;
+.tweet span.date.sadness {
+  background-color: #a3379c;
 }
-.tweets li span.date.worry {
-  border: 2px solid #7e36ac;
+.tweet span.date.worry {
+  background-color: #7e36ac;
 }
-.tweets li span.date.shame {
-  border: 2px solid #4c2fab;
+.tweet span.date.shame {
+  background-color: #4c2fab;
 }
-/** Video **/
+/** o **/
 #player {
   width: 100%;
 }

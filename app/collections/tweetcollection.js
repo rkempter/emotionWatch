@@ -1,7 +1,7 @@
 define([
     "app",
     "backbone",
-    "underscore",
+    "lodash",
     "jquery",
     "constants",
     "tweetview"
@@ -65,10 +65,20 @@ define([
 
         parse: function(response) {
 
-            this.reset();
-            $('.tweets ul').empty();
+            // Delete tweets from the dom
+            if(this.viewPointer.length > 30) {
+                for(var i = 0; i < 10; i++) {
+                    var model = this.shift();
+                    var view = this.viewPointer.shift();
+                    view.close();
+                }
+            }
 
-            this.viewPointer = [];
+            var x_numbers = this.generateRandomNumbers(response.length);
+            var y_numbers = _.shuffle(x_numbers);
+            
+            var startDateTime = this.startDateTime;
+            var endDateTime = this.endDateTime;
 
             for(var i = 0; i < response.length; i++) {
                 var text = response[i].tweet;
@@ -77,16 +87,12 @@ define([
                 response[i].tweet = text;
 
                 var model = new Backbone.Model(response[i]);
-                var view = new tweetView({
-                    model: model
-                });
-
+                model.set('x', x_numbers[i]);
+                model.set('y', y_numbers[i]);
+                model.set('timeStep', this.timeStep);
+                model.set('currentDateTime', this.currentDateTime);
+                
                 this.add(model);
-
-                this.viewPointer.push(view);
-                view.render();
-
-                // $('.tweets ul').append( view.render().el );
             }
         },
 
@@ -116,6 +122,18 @@ define([
             }
 
             return text;
+        },
+
+        generateRandomNumbers: function(limit) {
+            var unique_random_numbers = [];
+            while (unique_random_numbers.length < limit ) {
+                var random_number = Math.round(Math.random()*(limit-1));
+                if (unique_random_numbers.indexOf(random_number) == -1) {
+                    unique_random_numbers.push( random_number );
+                }
+            }
+
+            return unique_random_numbers;
         }
     });
 

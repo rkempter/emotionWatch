@@ -27555,8 +27555,6 @@ define('tweetcollection',[
 
                 this.viewPointer.push(view);
                 view.render();
-
-                // $('.tweets ul').append( view.render().el );
             }
         },
 

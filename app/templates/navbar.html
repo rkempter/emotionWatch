@@ -28,44 +28,53 @@
 
 <div class="top-navigation">
   <div class="title">
-    <h1>Gymnastics, men, Individuelles Bockhüpfen</h1>
-    <% if(keywordType == 'event') { %>
-      <h1><%= event %></h1>
-    <% } else if(keywordType == 'hashtag') { %>
-      <h1><%= hashtag %></h1>
-    <% } else if(keywordType == 'user') { %>
-      <h1><%= user %></h1>
-    <% } %>
-  </div>
-  <div class="subinfo">
-    <div class="subinfo-tab start">
-      <h2>Date and time of begin</h2>
-      <h3><%= startDateTime %></h3>
+
+    <div class="inside-title">
+      <div class="menu-left">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li id="settings-btn" data-toggle="modal">
+            Settings
+          </li>
+          <li id="search-event-btn" data-toggle="modal">
+            Search event
+          </li>
+          <li id="search-keyword-btn" data-toggle="modal">
+            Search hashtag / athlete
+          </li>
+        </ul>
+      </div>
+      <% if(keywordType == 'event') { %>
+        <h1><%= sport, gender, event %></h1>
+      <% } else if(keywordType == 'keyword') { %>
+        <h1><%= hashtag %></h1>
+      <% } else if(keywordType == 'user') { %>
+        <h1><%= user %></h1>
+      <% } %>
+      <div class="subinfo">
+        <div class="subinfo-tab start">
+          <h2>Date and time of begin</h2>
+          <h3><%= moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm") %></h3>
+        </div>
+        <div class="subinfo-tab end">
+          <h2>Date and time of end</h2>
+          <h3><%= moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm") %></h3>
+        </div>
+        <div class="subinfo-tab timestep">
+          <h2>Interval</h2>
+          <h3><%= timeStep %></h3>
+        </div>
+      </div>
+      <div class="menu-right">
+        <ul>
+          <li><a href="<%= urlSingle %>">Single watch view</a></li>
+          <li><a href="<%= urlPattern %>">Pattern watch view</a></li>
+          <li><a href="<%= urlCompare %>">Compare Twitter & Weibo</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="subinfo-tab end">
-      <h2>Date and time of end</h2>
-      <h3><%= endDateTime %></h3>
-    </div>
-    <div class="subinfo-tab timestep">
-      <h2>Interval</h2>
-      <h3><%= timeStep %></h3>
-    </div>
+    
   </div>
 
-  <div class="menu">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li id="settings-btn" data-toggle="modal">
-        Settings
-      </li>
-      <li id="search-event-btn" data-toggle="modal">
-        Search event
-      </li>
-      <li id="search-keyword-btn" data-toggle="modal">
-        Search hashtag / athlete
-      </li>
-      <li>About the project</li>
-      <li><a href="http://www.github.com/rkempter">Github</a></li>
-    </ul>
-  </div>
+  
 </div>

@@ -8,8 +8,9 @@ define([
     "searcheventview",
     "searchkeywordview",
     "settingsview",
+    "util",
     "plugins/bootstrap-modal"
-], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView) {
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, util) {
 
     var navigationView = Backbone.View.extend({
 
@@ -18,7 +19,7 @@ define([
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal'
+            'click #settings-btn': 'triggerSettingsModal',
         },
 
         initialize: function() {
@@ -31,6 +32,7 @@ define([
                     model: new Backbone.Model(self.model.toJSON())
                 })
             });
+            console.log(this.model.get('keywordType'));
 
             if(this.model.get('keywordType') == 'event') {
                 this.model.fetch({
@@ -67,10 +69,19 @@ define([
 
         // Render template with small submenu for the three views
         render: function() {
-            var urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var urlCompare = '/compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var output = window.JST['app/templates/navbar.html'](this.model.toJSON());
+            var options = {};
+            options.urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlCompare = '/compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.startDateTime = this.model.get('startDateTime');
+            options.endDateTime = this.model.get('endDateTime');
+            options.event = this.model.get('event');
+            options.sport = this.model.get('sport');
+            options.gender = this.model.get('gender');
+            options.hashtag = this.model.get('keyword');
+            options.timeStep = util.getTimeStepFormat(this.model.get('timeStep'));
+            options.keywordType = this.model.get('keywordType');
+            var output = window.JST['app/templates/navbar.html'](options);
             $( this.el ).html( output );
         }
     });

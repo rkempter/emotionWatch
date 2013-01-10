@@ -28,11 +28,14 @@
 @irritation: #3ea67c;
 @olympicBlue: #0173d6;
 
+@gray10: #ebebeb;
 @gray: #1a1a1a;
 @grayDark: #000;
 @grayLight: #cccccc;
 @grayLighter: #cccccc;
+@gray40: #acacac;
 @horizontalComponentOffset: 200px;
+@activeElement: #a00202;
 
 @zindexModal: 101;
 @zindexModalBackdrop: -2;
@@ -44,7 +47,7 @@
 @inputHeight: 20px;
 @textColor: #000;
 
-@baseFontFamily: "freight-sans-pro", sans-serif;
+@baseFontFamily: "ff-tisa-web-pro", sans-serif;
 
 
 @import "bootstrap/mixins.less";
@@ -52,7 +55,7 @@
 @import "bootstrap/forms.less";
 
 body{
-    font-family: "freight-sans-pro", sans-serif;
+    font-family: "ff-tisa-web-pro", sans-serif;
     font-weight: 400;
     background: @olympicBlue;
     color: @white;
@@ -186,63 +189,77 @@ h3{
     z-index: 2;
     width: 100%;
     top: 0;
-    
-    height: 120px;
-    background-color: rgba(40, 40, 40, 0.7);
 
     .title{
-        float: left;
-        h1{
-            margin-left: 25px;
-            margin-top: 10px;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            float: left;
-            border-bottom: 1px solid @white;
+        text-align: center;
+        margin-top: 20px;
+
+        .inside-title{
+            display: inline-block;
+            position: relative;
+            min-width: 600px;
         }
-    }
 
-    .subinfo{
-        margin-left: 25px;
-        width: 720px;
+        h1{
+            min-width: 600px;
+            font-family: "league-gothic";
+            font-size: 45px;
+            text-transform: uppercase;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 0;
+            margin-top: 0px;
+            text-align: center;
+            display:inline-block;
+            border-top: 1px solid rgba(255,255,255,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
 
-        .subinfo-tab {
-            float: left;
-            width: 220px;
-            margin-right: 20px;
-            height: 50px;
-            overflow: hidden;
+        .menu-left{
+            width: 200px;
+            position: absolute;
+            left: -250px;
+            top: 5px;
 
-            h2{
-                margin-top: 0;
-                font-size: 16px;
-                font-weight: 600;
+            ul{
+                list-style: none;
+                text-align: right;
             }
-            h3{
-                font-size: 14px;
-                margin-bottom: 0;
+        }
+
+        .menu-right{
+            width: 200px;
+            position: absolute;
+            right: -225px;
+            margin: 0;
+            top: 5px;
+
+            ul{
+                list-style: none;
                 text-align: left;
             }
         }
-    }
 
-    .menu{
-        margin-right: 25px;
-        margin-top: 50px;
-    }
+        .subinfo{
+            margin-top: 0px;
+            .subinfo-tab {
+                width: 33%;
+                height: 50px;
+                float: left;
 
-    ul{
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        float: right;
-    }
-
-    li{
-        float: left;
-        margin-left: 20px;
-        line-height: @nav-height;
-        position: relative;
+                h2{
+                    opacity: 0.4;
+                    font-size: 16px;
+                    margin: 0;
+                    font-weight: 600;
+                }
+                h3{
+                    text-align: center;
+                    font-size: 14px;
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 
     a{
@@ -468,11 +485,11 @@ svg{
 
     .date-time-freq{
         path.active{
-            fill: @grayLight;
+            fill: @activeElement;
         }
 
         path{
-            fill: #ac7b74;
+            fill: @gray40;
             stroke-width: 0;
         }
 
@@ -489,15 +506,15 @@ svg{
         }
 
         path.visited{
-            fill: #cccccc;
+            fill: @gray10;
         }
 
         path.active{
-            fill: #000000;
+            fill: @activeElement;
         }
 
         path{
-            fill: #ac7b74;
+            fill: @gray40;
             stroke-width: 0;
         }
 
@@ -517,7 +534,7 @@ svg{
         background-color: rgba(255, 255, 255, 0.2);
         height: 100px;
         width: 100%;
-        border-right: 1px solid red;
+        border-right: 1px solid @activeElement;
     }
 }
 
@@ -564,115 +581,149 @@ svg{
 
 .tweets{
 
+    ul{
+        list-style: none;
+    }
+
+    position: absolute;
+    width: 100%;
+    height: 540px;
+    -webkit-perspective: 300px;
+    -webkit-perspective-origin: 50% 30%;
+}
+
+@-webkit-keyframes translation_right {
+  0%      { opacity: 0;  }
+  80%      { opacity: 1;
+         }
+  99%   {opacity: 0; }
+  100%     { 
+             opacity: 0;
+             -webkit-transform: translate3d(100px, 10px, 0px);
+           }
+}
+
+@-webkit-keyframes translation_left {
+  0%    {   opacity: 0;  }
+  80%   {   opacity: 1;}
+  99%   {  opacity: 0;
+             }
+  100%   {  -webkit-transform: translate3d(-100px, 10px, 0px);
+        }
+}
+
+.tweet{
+    width: 350px;
+    -webkit-transform-style: preserve-3d;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-play-state: running;
+
     a{
         color: @white;
     }
 
-    ul{
-        margin-bottom: 100px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 5px 2px 40px;
+    margin: 10px 0;
+
+    p{
+        margin: 3px 0;
+        font-size: 14px;
     }
 
-    li{
-        position: relative;
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 2px 5px 2px 40px;
-        margin: 10px 0;
+    span.date{
+        position: absolute;
+        left: -20px;
+        top: -5px  ;
+        display: block;
+        border: 2px solid @black;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 50px;
+        border-radius: 30px;
+        background-color: @olympicBlue;
 
-        p{
-            margin: 3px 0;
-            font-size: 14px;
+        &.guilt{
+            background-color: @guilt;
         }
 
-        span.date{
-            position: absolute;
-            left: -20px;
-            top: -5px  ;
-            display: block;
-            background-color: @black;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            width: 50px;
-            border-radius: 30px;
-
-            &.guilt{
-                border: 2px solid @guilt;
-            }
-
-            &.disappointment{
-                border: 2px solid @disappointment;
-            }
-
-            &.envy{
-                border: 2px solid @envy;
-            }
-
-            &.disgust{
-                border: 2px solid @disgust;
-            }
-
-            &.contempt{
-                border: 2px solid @contempt;
-            }
-
-            &.irritation{
-                border: 2px solid @irritation;
-            }
-
-            &.involvement{
-                border: 2px solid @involvement;
-            }
-            
-            &.amusement{
-                border: 2px solid @amusement;
-            }
-
-            &.joy{
-                border: 2px solid @joy;
-            }
-
-            &.tenderness{
-                border: 2px solid @tenderness;
-            }
-
-            &.wonderment{
-                border: 2px solid @wonderment;
-            }
-
-            &.relief{
-                border: 2px solid @relief;
-            }
-
-            &.surprise{
-                border: 2px solid @surprise;
-            }
-
-            &.longing{
-                border: 2px solid @longing;
-            }
-
-            &.pity{
-                border: 2px solid @pity;
-            }
-
-            &.sadness{
-                border: 2px solid @sadness;
-            }
-
-            &.worry{
-                border: 2px solid @worry;
-            }
-
-            &.shame{
-                border: 2px solid @shame;
-            }
-
+        &.disappointment{
+            background-color: @disappointment;
         }
+
+        &.envy{
+            background-color: @envy;
+        }
+
+        &.disgust{
+            background-color: @disgust;
+        }
+
+        &.contempt{
+            background-color: @contempt;
+        }
+
+        &.irritation{
+            background-color: @irritation;
+        }
+
+        &.involvement{
+            background-color: @involvement;
+        }
+        
+        &.amusement{
+            background-color: @amusement;
+        }
+
+        &.joy{
+            background-color: @joy;
+        }
+
+        &.tenderness{
+            background-color: @tenderness;
+        }
+
+        &.wonderment{
+            background-color: @wonderment;
+        }
+
+        &.relief{
+            background-color: @relief;
+        }
+
+        &.surprise{
+            background-color: @surprise;
+        }
+
+        &.longing{
+            background-color: @longing;
+        }
+
+        &.pity{
+            background-color: @pity;
+        }
+
+        &.sadness{
+            background-color: @sadness;
+        }
+
+        &.worry{
+            background-color: @worry;
+        }
+
+        &.shame{
+            background-color: @shame;
+        }
+
     }
+    
 
 }
 
-/** Video **/
+/** o **/
 
 #player{
     video{
