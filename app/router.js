@@ -131,6 +131,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter',
+      options.keywordType = keywordType;
       options.mode = 'pattern';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
@@ -152,7 +153,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         }),
 
         ".navigation": new navigationView({
-          model: new navigationModel(options),
+          model: new navigationModel(options)
         }),
 
         ".bottom": new Backbone.View({
@@ -177,7 +178,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       $('body').attr('class', '');
       app.trigger('close');
       var options = {};
-      console.log(keyword);
+      options.keywordType = keywordType;
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.mode = 'compare';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
@@ -215,7 +216,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "network": "twitter"
         }),
         ".navigation": new navigationView({
-          model: new navigationModel(options),
+          model: new navigationModel(options)
         }),
         ".twitter .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
