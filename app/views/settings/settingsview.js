@@ -19,19 +19,20 @@ define([
 
       initialize: function() {
         keyword = this.model.get('keyword');
+        this.currentDateTime = this.model.get('currentDateTime');
         // Save the keywordType in the model as well
         this.model.set('keywordType', util.getKeywordType(keyword));
         this.listenTo(app, 'close', this.close);
       },
 
       triggerSettingsChange: function() {
+        console.log('triggering Settings');
         var network = $('#settings #network option:selected').val();
         var timeStep = $('#settings #time-step').val();
         var startDate = $('#settings #start-date').val();
         var startTime = $('#settings #start-time').val();
         var endDate = $('#settings #end-date').val();
         var endTime = $('#settings #end-time').val();
-        var animationDuration = $('#settings #animation-duration').val();
         var startDateTime = new Date(startDate+" "+startTime);
         var endDateTime = new Date(endDate+" "+endTime);
         var keywordType = this.model.get('keywordType');
@@ -49,20 +50,17 @@ define([
           change = true;
         } else if(endDateTime !== this.model.get('endDateTime')){
           change = true;
-        } else if(animationDuration !== this.model.get('animationDuration')){
-          app.animationDuration = animationDuration;
-          change = true;
-        } else if(currentDateTime <= startDateTime) {
+        } else if(this.currentDateTime <= startDateTime) {
           // We don't want the currentDateTime to be smaller as the startDateTime
           timeConflict = true;
-        } else if(currentDateTime > endDateTime) {
+        } else if(this.currentDateTime > endDateTime) {
           // And we don't want the currentDateTime to be bigger than the endDateTime
           timeConflict = true;
         }
 
         // Depending on the flags, we compute the route
         if(change && !timeConflict) {
-           app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime(), true);
+           app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
         } else if(change && timeConflict) {
           app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
         }

@@ -36,8 +36,7 @@ define([
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 var oldDateTime = this.model.get('currentDateTime');
                 var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
-                console.log(newDateTime);
-                console.log(dateTime);
+
                 // Check if we do a jump
                 if(newDateTime.getTime() == dateTime.getTime()) {
                     this.model.set('jump', false);
@@ -87,8 +86,6 @@ define([
 
         resumeTime: function() {
             var width = $('.time-block').width();
-            console.log('Width: ');
-            console.log(width);
             app.trigger('resume:watch');
             this.model.set('timeState', 'running');
             $('.time-block').addClass('is-transitioning');
@@ -183,7 +180,6 @@ define([
 
         // render the template with labe, date and time.
         render: function(template) {
-            console.log('rendering');
             var output = template({ 
                 label: this.model.get("label"), 
                 firstDateTime: this.model.get('firstDateTime'),

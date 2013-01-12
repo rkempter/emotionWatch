@@ -891,6 +891,13 @@ svg .line {
 #pattern .date-time-freq path:hover {
   fill: #cccccc;
 }
+#pattern .date-time-freq .hoverPath {
+  opacity: 0;
+}
+#pattern .date-time-freq .hoverPath:hover {
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0.3;
+}
 #index .date-time-freq path,
 #compare .date-time-freq path,
 #index .date-time-freq circle,
@@ -1425,6 +1432,9 @@ input[type="color"],
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+select {
+  height: 30px;
 }
 /**** Modal ****/
 .modal {

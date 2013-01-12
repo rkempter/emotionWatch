@@ -475,6 +475,14 @@ svg{
         path:hover{
             fill: @grayLight;
         }
+
+        .hoverPath{
+            opacity: 0;
+            &:hover{
+                background: rgba(255, 255, 255, 0.3);
+                opacity: 0.3;
+            }
+        }
     }
 }
 
@@ -1053,6 +1061,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
     -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+select{
+    height: 30px;
 }
 
 /**** Modal ****/
