@@ -609,6 +609,9 @@ body.frontpage {
 body.frontpage #bottom {
   background: #0173d6;
 }
+a {
+  text-decoration: underline;
+}
 ul {
   margin: 0 0 0 20px;
   padding: 0;
@@ -835,43 +838,20 @@ svg .line {
   float: right;
   clear: both;
 }
-.welcome {
-  background: #0173d6;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 900px;
-  border: 1px solid #ffffff;
-  color: #ffffff;
-  margin: -350px 0 0 -450px;
-  padding: 2%;
-  z-index: 100;
+/** Frontpage **/
+#welcome-screen {
+  font-size: 18px;
+  font-weight: 300;
   text-align: center;
 }
-.welcome h2 {
-  margin-bottom: 20px;
+#welcome-screen .modal-header h3 {
+  font-size: 24px;
 }
-.welcome .form-horizontal .control-label {
-  text-align: left;
-  width: 160px;
+#welcome-screen ul {
+  list-style: none;
 }
-.welcome .form-horizontal .controls {
-  margin-left: 160px;
-}
-.welcome .btn-search {
-  margin-right: 12px;
-}
-.welcome .left {
-  margin: 0 2% 0 2%;
-  width: 45%;
-  float: left;
-}
-.welcome .right {
-  border-left: 1px solid #fff;
-  padding-left: 4%;
-  margin: 0 0 0 1%;
-  width: 45%;
-  float: left;
+#welcome-screen li {
+  margin: 5px 0;
 }
 /** Watch **/
 #index .watch {
@@ -948,6 +928,8 @@ svg .line {
   bottom: 0;
   left: 0;
   width: 0;
+}
+.time-block.is-transitioning {
   -webkit-transition: width 5s linear;
   -moz-transition: width 5s linear;
   -o-transition: width 5s linear;
@@ -958,6 +940,10 @@ svg .line {
   height: 100px;
   width: 100%;
   border-right: 1px solid #a00202;
+}
+.current-time-box.max-right {
+  position: fixed;
+  right: 25px;
 }
 .current-time-box .dates {
   position: absolute;

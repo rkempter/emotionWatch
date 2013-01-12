@@ -23,6 +23,7 @@ define([
             var self = this;
 
             // set the parameters of the current visualization
+            this.model.set('jump', false);
             this.model.set('startDateTime', options.startDateTime);
             this.model.set('endDateTime', options.endDateTime);
             this.model.set('currentDateTime', options.currentDateTime);
@@ -33,10 +34,22 @@ define([
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
             this.listenTo(app, 'change:globalTime', function(dateTime) {
+                var oldDateTime = this.model.get('currentDateTime');
+                var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
+                console.log(newDateTime);
+                console.log(dateTime);
+                // Check if we do a jump
+                if(newDateTime.getTime() == dateTime.getTime()) {
+                    this.model.set('jump', false);
+                } else {
+                    this.model.set('jump', true);
+                }
+
                 this.model.set('currentDateTime', dateTime);
                 if(this.model.get('interval') === undefined) {
                     self.startTime();
                 }
+
                 self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
                 self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
                 self.render(self.template);
@@ -47,6 +60,9 @@ define([
             });
 
             this.listenTo(app, 'close', this.close);
+
+            _.bindAll(this);
+            $(document).on('keydown', this.triggerStartStopKey);
         },
 
         close: function() {
@@ -61,7 +77,8 @@ define([
         pauseTime: function() {
             var width = $('.time-block').width();
             $('.time-block').css('width', width+'px');
-            console.log('what is happening?');
+            this.model.set('timeState', 'pause');
+            $('.time-block').removeClass('is-transitioning');
             app.trigger('pause:watch');
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').pause();
@@ -69,8 +86,12 @@ define([
         },
 
         resumeTime: function() {
-            console.log(this.model.get('endPoint'));
+            var width = $('.time-block').width();
+            console.log('Width: ');
+            console.log(width);
             app.trigger('resume:watch');
+            this.model.set('timeState', 'running');
+            $('.time-block').addClass('is-transitioning');
             $('.time-block').css('width', this.model.get('endPosition'));
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').play();
@@ -82,20 +103,21 @@ define([
         // the clock triggers a global time change.
         startTime: function() {
             var self = this;
+            this.model.set('timeState', 'running');
             
             this.model.set('startInterval', setInterval(function(t) {
                 app.trigger('start:time');
                 clearInterval(self.model.get('startInterval'));
             },1000));
+
+            $('.time-block').addClass('is-transitioning');
             
             if(undefined === this.model.get('interval')) {
                 var interval = $.timer(function() {
-                    if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
+                    if(self.model.get('currentDateTime').getTime() >= self.model.get('endDateTime').getTime()) {
                         self.stopTime();
                         return;
                     }
-
-                    console.log('firing');
                     // create new time
                     var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
                     app.trigger("change:globalTime", currentDateTime);
@@ -108,23 +130,38 @@ define([
         },
 
         events: {
-            'click #start-stop-control': 'triggerStartStop'
+            'click #start-stop-control': 'triggerStartStop',
         },
 
         triggerStartStop: function() {
             if(this.model.get('label') == 'Stop') {
                 this.model.set('label', 'Start');
                 this.model.set('paused', true);
-                console.log('pausing');
                 this.pauseTime();
                 this.render();
 
             } else {
-                console.log('resuming!');
                 this.model.set('label', 'Stop');
                 this.model.set('paused', false);
                 this.resumeTime();
                 this.render();
+            }
+        },
+
+        triggerStartStopKey: function(event) {
+            if(event.keyCode == 32) {
+                if(this.model.get('label') == 'Stop') {
+                    this.model.set('label', 'Start');
+                    this.model.set('paused', true);
+                    this.pauseTime();
+                    this.render();
+
+                } else {
+                    this.model.set('label', 'Stop');
+                    this.model.set('paused', false);
+                    this.resumeTime();
+                    this.render();
+                }
             }
         },
 
@@ -146,7 +183,7 @@ define([
 
         // render the template with labe, date and time.
         render: function(template) {
-
+            console.log('rendering');
             var output = template({ 
                 label: this.model.get("label"), 
                 firstDateTime: this.model.get('firstDateTime'),
@@ -156,19 +193,32 @@ define([
         },
 
         afterRender: function() {
-                var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
-                var position = currentTimeSpan / this.model.get('timeSpan') * app.windowWidth;
-                if(position > app.windowWidth / 2) {
-                    $('.time-block .dates').css('text-align', 'right').css('right', '45px');
-                }
+            var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
+            var position = currentTimeSpan / this.model.get('timeSpan') * app.windowWidth;
+            if(position > app.windowWidth / 2) {
+                $('.time-block .dates').css('text-align', 'right').css('right', '45px');
+            }
+            if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
                 $('.time-block').css('width', position+'px');
-                this.model.set('endPoint', position);
-                if(this.model.get('paused') == true) {
-                    console.log('paused');
-                    this.$el.css('-webkit-animation-play-state', 'paused');
-                } else {
-                    this.$el.css('-webkit-animation-play-state', 'running');
-                }
+            } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
+                $('.time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
+                    $(this).addClass('is-transitioning');
+                    next();
+                });
+            }
+
+            if(position > app.windowWidth) {
+                $('.current-time-box').addClass('max-right');
+            } else {
+                $('.current-time-box').removeClass('max-right');
+            }
+
+            this.model.set('endPoint', position);
+            if(this.model.get('paused') == true) {
+                this.$el.css('-webkit-animation-play-state', 'paused');
+            } else {
+                this.$el.css('-webkit-animation-play-state', 'running');
+            }
                 
         }
         

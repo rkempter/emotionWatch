@@ -136,6 +136,10 @@ body{
     }
 }
 
+a{
+    text-decoration: underline;
+}
+
 ul{
     margin: 0 0 0 20px;
     padding: 0;
@@ -401,49 +405,24 @@ svg{
     clear: both;
 }
 
-.welcome{
-    background: @olympicBlue;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 900px;
-    border: 1px solid @white;
-    color: @white;
-    margin: -350px 0 0 -450px;
-    padding: 2%;
-    z-index: 100;
+/** Frontpage **/
+
+#welcome-screen {
+    font-size: 18px;
+    font-weight: 300;
     text-align: center;
-
-    h2{
-        margin-bottom: 20px;
+    .modal-header{
+        h3{
+            font-size: 24px;
+        }
+    }
+    ul{
+        list-style: none;
+    }
+    li{
+        margin: 5px 0;
     }
 
-    .form-horizontal .control-label{
-        text-align: left;
-        width: 160px;
-    }
-
-    .form-horizontal .controls{
-        margin-left: 160px;
-    }
-
-    .btn-search{
-        margin-right: 12px;
-    }
-
-    .left{
-        margin: 0 2% 0 2%;
-        width: 45%;
-        float: left;
-    }
-
-    .right{
-        border-left: 1px solid #fff;
-        padding-left: 4%;
-        margin: 0 0 0 1%;
-        width: 45%;
-        float: left;
-    }
 }
 
 /** Watch **/
@@ -538,7 +517,9 @@ svg{
     bottom: 0;
     left: 0;
     width: 0;
-    .transition(width 5s linear);
+    &.is-transitioning{
+        .transition(width 5s linear);
+    }
     .curtain{
         background-color: rgba(255, 255, 255, 0.2);
         height: 100px;
@@ -548,6 +529,10 @@ svg{
 }
 
 .current-time-box{
+    &.max-right{
+        position: fixed;
+        right: 25px;
+    }
     .dates{
         position: absolute;
         text-align: left;
@@ -573,6 +558,7 @@ svg{
         right: -25px;
         bottom: 105px;
         cursor: pointer;
+
     }
 }
 
