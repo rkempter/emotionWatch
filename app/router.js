@@ -113,7 +113,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 500, "y": 410},
             topic: options.keyword,
-            network: options.network
+            network: options.network,
+            keywordType: options.keywordType
           }) 
         }),
         ".tweets": new tweetCollectionView({
@@ -269,7 +270,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
             topic: util.combineKeyword(keyword, keywordType),
-            network: 'twitter'
+            network: 'twitter',
+            keywordType: keywordType
           }),
           mode: 'compare'
         }),
@@ -284,7 +286,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
             topic: util.combineKeyword(keyword, keywordType),
-            network: 'weibo'
+            network: 'weibo',
+            keywordType: keywordType
           }),
           mode: 'compare'
         })

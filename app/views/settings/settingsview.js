@@ -20,8 +20,6 @@ define([
       initialize: function() {
         keyword = this.model.get('keyword');
         this.currentDateTime = this.model.get('currentDateTime');
-        // Save the keywordType in the model as well
-        this.model.set('keywordType', util.getKeywordType(keyword));
         this.listenTo(app, 'close', this.close);
       },
 
@@ -60,22 +58,26 @@ define([
 
         // Depending on the flags, we compute the route
         if(change && !timeConflict) {
-           app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
+           app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
         } else if(change && timeConflict) {
-          app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+          app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
         }
       },
 
+
+
       // Render template with the paramters
       render: function(template) {
+        console.log(this.model.get('endDateTime'));
+        console.log(this.model.get('startDateTime'));
         var output = template({
           animationDuration: this.model.get('animationDuration'),
           timeStep: this.model.get('timeStep'),
           network: this.model.get('network'),
           startDate: moment(this.model.get('startDateTime')).format("YYYY-MM-DD"),
-          startTime: moment(this.model.get('startDateTime')).format("HH:mm"),
+          startTime: moment(this.model.get('startDateTime')).format("HH:mm:ss"),
           endDate: moment(this.model.get('endDateTime')).format("YYYY-MM-DD"),
-          endTime: moment(this.model.get('startDateTime')).format("HH:mm")
+          endTime: moment(this.model.get('endDateTime')).format("HH:mm:ss")
         });
 
         this.$el.html(output);

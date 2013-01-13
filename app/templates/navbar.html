@@ -33,23 +33,23 @@
       <div class="menu-left">
         <ul>
           <li><a href="/">Home</a></li>
-          <li id="settings-btn" data-toggle="modal">
+          <li id="settings-btn" class="modal-link" data-toggle="modal">
             Settings
           </li>
-          <li id="search-event-btn" data-toggle="modal">
+          <li id="search-event-btn" class="modal-link" data-toggle="modal">
             Search event
           </li>
-          <li id="search-keyword-btn" data-toggle="modal">
-            Search hashtag / athlete
+          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">
+            Search hashtag
           </li>
         </ul>
       </div>
-      <% if(keywordType == 'event') { %>
+      <% if(keywordType == 'event' && event !== undefined) { %>
         <h1><%= sport, gender, event %></h1>
-      <% } else if(keywordType == 'keyword') { %>
+      <% } else if(keywordType == 'keyword' && hashtag !== undefined) { %>
         <h1><%= hashtag %></h1>
-      <% } else if(keywordType == 'user') { %>
-        <h1><%= user %></h1>
+      <% } else { %>
+        <h1>Event or keyword not found</h1>
       <% } %>
       <div class="subinfo">
         <div class="subinfo-tab start">

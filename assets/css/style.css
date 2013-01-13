@@ -1530,6 +1530,13 @@ select {
   stroke: none;
 }
 /**** Modal ****/
+.modal-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.modal-link:hover {
+  color: #1a1a1a;
+}
 .modal {
   color: #1a1a1a;
 }

@@ -4,15 +4,16 @@
         <label class="control-label" for="time-step">Length of a time step</label>
         <div class="controls">
           <select id="time-step" name="time-step">
-                <option value="60">1 minute</option>
-                <option value="120">2 minutes</option>
-                <option value="300">5 minutes</option>
-                <option value="900">15 minutes</option>
-                <option value="1800">30 minutes</option>
-                <option value="3600">1 hour</option>
-                <option value="7200">2 hours</option>
-                <option value="43200">12 hours</option>
-                <option value="86400">24 hours</option>
+                <option <% if(timeStep == 5) { %> selected <% } %>value="5">5 seconds</option>
+                <option <% if(timeStep == 15) { %> selected <% } %>value="15">15 seconds</option>
+                <option <% if(timeStep == 60) { %> selected <% } %>value="60">1 minute</option>
+                <option <% if(timeStep == 120) { %> selected <% } %>value="120">2 minutes</option>
+                <option <% if(timeStep == 300) { %> selected <% } %>value="300">5 minutes</option>
+                <option <% if(timeStep == 900) { %> selected <% } %>value="900">15 minutes</option>
+                <option <% if(timeStep == 1800) { %> selected <% } %>value="1800">30 minutes</option>
+                <option <% if(timeStep == 3600) { %> selected <% } %>value="3600">1 hour</option>
+                <option <% if(timeStep == 7200) { %> selected <% } %>value="7200">2 hours</option>
+                <option <% if(timeStep == 43200) { %> selected <% } %>value="43200">12 hours</option>
             </select>
         </div>
     </div>
@@ -20,8 +21,8 @@
         <label class="control-label" for="network">Network</label>
         <div class="controls">
             <select id="network" name="network">
-                <option value="twitter">Twitter</option>
-                <option value="weibo">Weibo</option>
+                <option <% if(network == 'twitter') { %> selected <% } %>value="twitter">Twitter</option>
+                <option <% if(network == 'weibo') { %> selected <% } %>value="weibo">Weibo</option>
             </select>
         </div>
     </div>

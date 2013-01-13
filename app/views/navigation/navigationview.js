@@ -31,7 +31,7 @@ define([
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
                         endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword').slice(1)
+                        sport: this.model.get('keyword')
                     }),
                 });
             }

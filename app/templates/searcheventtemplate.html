@@ -62,7 +62,7 @@
             <select id="event-event" name="event-event">
                 <option value="empty" selected></option>
                  <% _.each(events, function(event) { %>
-                     <option <% if(selectedEvent == event.event) { %> selected <% } %>data-hasvideo="<%= event.video %>" data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="<%= event.hashtag_weibo %>"><%= event.event %></option>
+                     <option <% if(selectedEvent == event.event) { %> selected <% } %>data-hasvideo="<%= event.video %>" data-startdatetime="<%= event.startDateTime %>" data-enddatetime="<%= event.endDateTime %>" data-hashtag-twitter="<%= event.hashtag_twitter %>" data-hashtag-weibo="#<%= event.hashtag_weibo %>"><%= event.event %></option>
                  <% }); %>
              </select>
         </div>
