@@ -9,23 +9,23 @@
 @involvement: #3fa652;
 @amusement: #40a630;
 @pride: #4da62a;
-@joy: #6da529;
-@enjoyment: #94aa2d;
-@tenderness: #b1992d;
-@wonderment: #ac6b1e;
+@happiness: #6da529;
+@pleasure: #94aa2d;
+@love: #b1992d;
+@awe: #ac6b1e;
 @relief: #a83f14;
 @surprise: #a5270f;
-@longing: #a52834;
+@nostalgia: #a52834;
 @pity: #a32e68;
 @sadness: #a3379c;
 @worry: #7e36ac;
 @shame: #4c2fab;
 @guilt: #002da7;
-@disappointment: #0032a7;
+@regret: #0032a7;
 @envy: #004eac;
 @disgust: #187aac;
 @contempt: #43acb0;
-@irritation: #3ea67c;
+@anger: #3ea67c;
 @olympicBlue: #0173d6;
 
 @gray10: #ebebeb;
@@ -72,6 +72,76 @@ body{
         background: @olympicBlue;
     }
 
+    &.involvement{
+        background: @involvement;
+        #bottom{
+            background: @involvement;
+        }
+    }
+
+    &.amusement{
+        background: @amusement;
+        #bottom{
+            background: @amusement;
+        }
+    }
+
+    &.pride{
+        background: @pride;
+        #bottom{
+            background: @pride;
+        }
+    }
+
+    &.happiness{
+        background: @happiness;
+        #bottom{
+            background: @happiness;
+        }
+    }
+
+    &.pleasure{
+        background: @pleasure;
+        #bottom{
+            background: @pleasure;
+        }
+    }
+
+    &.love{
+        background: @love;
+        #bottom{
+            background: @love;
+        }
+    }
+
+    &.awe{
+        background: @awe;
+        #bottom{
+            background: @awe;
+        }
+    }
+
+    &.relief{
+        background: @relief;
+        #bottom{
+            background: @relief;
+        }
+    }
+
+    &.surprise{
+        background: @surprise;
+        #bottom{
+            background: @surprise;
+        }
+    }
+
+    &.nostalgia{
+        background: @nostalgia;
+        #bottom{
+            background: @nostalgia;
+        }
+    }
+
     &.pity{
         background: @pity;
         #bottom{
@@ -86,10 +156,17 @@ body{
         }
     }
 
-    &.disappointment{
-        background: @disappointment;
+    &.worry{
+        background: @worry;
         #bottom{
-            background: @disappointment;
+            background: @worry;
+        }
+    }
+
+    &.shame{
+        background: @shame;
+        #bottom{
+            background: @shame;
         }
     }
 
@@ -100,31 +177,38 @@ body{
         }
     }
 
-    &.joy{
-        background: @joy;
+    &.regret{
+        background: @regret;
         #bottom{
-            background: @joy;
+            background: @regret;
         }
     }
 
-    &.pride{
-        background: @pride;
+    &.envy{
+        background: @envy;
         #bottom{
-            background: @pride;
+            background: @envy;
         }
     }
 
-    &.surprise{
-        background: @surprise;
+    &.disgust{
+        background: @disgust;
         #bottom{
-            background: @surprise;
+            background: @disgust;
         }
     }
 
-    &.worry{
-        background: @worry;
+    &.contempt{
+        background: @contempt;
         #bottom{
-            background: @worry;
+            background: @contempt;
+        }
+    }
+
+    &.anger{
+        background: @anger;
+        #bottom{
+            background: @anger;
         }
     }
 
@@ -648,50 +732,34 @@ svg{
         border-radius: 30px;
         background-color: @olympicBlue;
 
-        &.guilt{
-            background-color: @guilt;
-        }
-
-        &.disappointment{
-            background-color: @disappointment;
-        }
-
-        &.envy{
-            background-color: @envy;
-        }
-
-        &.disgust{
-            background-color: @disgust;
-        }
-
-        &.contempt{
-            background-color: @contempt;
-        }
-
-        &.irritation{
-            background-color: @irritation;
-        }
-
         &.involvement{
             background-color: @involvement;
         }
-        
+
         &.amusement{
             background-color: @amusement;
         }
 
-        &.joy{
-            background-color: @joy;
+        &.pride{
+            background-color: @pride;
         }
 
-        &.tenderness{
-            background-color: @tenderness;
+        &.happiness{
+            background-color: @happiness;
         }
 
-        &.wonderment{
-            background-color: @wonderment;
+        &.pleasure{
+            background-color: @pleasure;
         }
 
+        &.love{
+            background-color: @love;
+        }
+
+        &.awe{
+            background-color: @awe;
+        }
+        
         &.relief{
             background-color: @relief;
         }
@@ -700,8 +768,8 @@ svg{
             background-color: @surprise;
         }
 
-        &.longing{
-            background-color: @longing;
+        &.nostalgia{
+            background-color: @nostalgia;
         }
 
         &.pity{
@@ -718,6 +786,30 @@ svg{
 
         &.shame{
             background-color: @shame;
+        }
+
+        &.guilt{
+            background-color: @guilt;
+        }
+
+        &.regret{
+            background-color: @regret;
+        }
+
+        &.envy{
+            background-color: @envy;
+        }
+
+        &.disgust{
+            background-color: @disgust;
+        }
+
+        &.contempt{
+            background-color: @contempt;
+        }
+
+        &.anger{
+            background-color: @anger;
         }
 
     }
@@ -762,62 +854,34 @@ svg{
         fill: @olympicBlue;
     }
 
-    &.excitement{
-        fill: @disappointment;
-    }
-
-    &.love{
-        fill: @envy;
-    }
-
-    &.pride{
-        fill: @contempt;
-    }
-
-    &.guilt{
-        fill: @guilt;
-    }
-
-    &.disappointment{
-        fill: @disappointment;
-    }
-
-    &.envy{
-        fill: @envy;
-    }
-
-    &.disgust{
-        fill: @disgust;
-    }
-
-    &.contempt{
-        fill: @contempt;
-    }
-
-    &.irritation{
-        fill: @irritation;
-    }
-
     &.involvement{
         fill: @involvement;
     }
-    
+
     &.amusement{
         fill: @amusement;
     }
 
-    &.joy{
-        fill: @joy;
+    &.pride{
+        fill: @pride;
     }
 
-    &.tenderness{
-        fill: @tenderness;
+    &.happiness{
+        fill: @happiness;
     }
 
-    &.wonderment{
-        fill: @wonderment;
+    &.pleasure{
+        fill: @pleasure;
     }
 
+    &.love{
+        fill: @love;
+    }
+
+    &.awe{
+        fill: @awe;
+    }
+    
     &.relief{
         fill: @relief;
     }
@@ -826,8 +890,8 @@ svg{
         fill: @surprise;
     }
 
-    &.longing{
-        fill: @longing;
+    &.nostalgia{
+        fill: @nostalgia;
     }
 
     &.pity{
@@ -844,6 +908,30 @@ svg{
 
     &.shame{
         fill: @shame;
+    }
+
+    &.guilt{
+        fill: @guilt;
+    }
+
+    &.regret{
+        fill: @regret;
+    }
+
+    &.envy{
+        fill: @envy;
+    }
+
+    &.disgust{
+        fill: @disgust;
+    }
+
+    &.contempt{
+        fill: @contempt;
+    }
+
+    &.anger{
+        fill: @anger;
     }
 }
 
@@ -1084,6 +1172,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 select{
     height: 30px;
+}
+
+.pattern-text{
+    fill: @white;
+    stroke: none;
 }
 
 /**** Modal ****/

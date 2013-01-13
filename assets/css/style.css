@@ -555,6 +555,66 @@ body #bottom,
 body.empty #bottom {
   background: #0173d6;
 }
+body.involvement {
+  background: #3fa652;
+}
+body.involvement #bottom {
+  background: #3fa652;
+}
+body.amusement {
+  background: #40a630;
+}
+body.amusement #bottom {
+  background: #40a630;
+}
+body.pride {
+  background: #4da62a;
+}
+body.pride #bottom {
+  background: #4da62a;
+}
+body.happiness {
+  background: #6da529;
+}
+body.happiness #bottom {
+  background: #6da529;
+}
+body.pleasure {
+  background: #94aa2d;
+}
+body.pleasure #bottom {
+  background: #94aa2d;
+}
+body.love {
+  background: #b1992d;
+}
+body.love #bottom {
+  background: #b1992d;
+}
+body.awe {
+  background: #ac6b1e;
+}
+body.awe #bottom {
+  background: #ac6b1e;
+}
+body.relief {
+  background: #a83f14;
+}
+body.relief #bottom {
+  background: #a83f14;
+}
+body.surprise {
+  background: #a5270f;
+}
+body.surprise #bottom {
+  background: #a5270f;
+}
+body.nostalgia {
+  background: #a52834;
+}
+body.nostalgia #bottom {
+  background: #a52834;
+}
 body.pity {
   background: #a32e68;
 }
@@ -567,11 +627,17 @@ body.sadness {
 body.sadness #bottom {
   background: #a3379c;
 }
-body.disappointment {
-  background: #0032a7;
+body.worry {
+  background: #7e36ac;
 }
-body.disappointment #bottom {
-  background: #0032a7;
+body.worry #bottom {
+  background: #7e36ac;
+}
+body.shame {
+  background: #4c2fab;
+}
+body.shame #bottom {
+  background: #4c2fab;
 }
 body.guilt {
   background: #002da7;
@@ -579,29 +645,35 @@ body.guilt {
 body.guilt #bottom {
   background: #002da7;
 }
-body.joy {
-  background: #6da529;
+body.regret {
+  background: #0032a7;
 }
-body.joy #bottom {
-  background: #6da529;
+body.regret #bottom {
+  background: #0032a7;
 }
-body.pride {
-  background: #4da62a;
+body.envy {
+  background: #004eac;
 }
-body.pride #bottom {
-  background: #4da62a;
+body.envy #bottom {
+  background: #004eac;
 }
-body.surprise {
-  background: #a5270f;
+body.disgust {
+  background: #187aac;
 }
-body.surprise #bottom {
-  background: #a5270f;
+body.disgust #bottom {
+  background: #187aac;
 }
-body.worry {
-  background: #7e36ac;
+body.contempt {
+  background: #43acb0;
 }
-body.worry #bottom {
-  background: #7e36ac;
+body.contempt #bottom {
+  background: #43acb0;
+}
+body.anger {
+  background: #3ea67c;
+}
+body.anger #bottom {
+  background: #3ea67c;
 }
 body.frontpage {
   background: #0173d6;
@@ -1055,37 +1127,25 @@ svg .line {
   border-radius: 30px;
   background-color: #0173d6;
 }
-.tweet span.date.guilt {
-  background-color: #002da7;
-}
-.tweet span.date.disappointment {
-  background-color: #0032a7;
-}
-.tweet span.date.envy {
-  background-color: #004eac;
-}
-.tweet span.date.disgust {
-  background-color: #187aac;
-}
-.tweet span.date.contempt {
-  background-color: #43acb0;
-}
-.tweet span.date.irritation {
-  background-color: #3ea67c;
-}
 .tweet span.date.involvement {
   background-color: #3fa652;
 }
 .tweet span.date.amusement {
   background-color: #40a630;
 }
-.tweet span.date.joy {
+.tweet span.date.pride {
+  background-color: #4da62a;
+}
+.tweet span.date.happiness {
   background-color: #6da529;
 }
-.tweet span.date.tenderness {
+.tweet span.date.pleasure {
+  background-color: #94aa2d;
+}
+.tweet span.date.love {
   background-color: #b1992d;
 }
-.tweet span.date.wonderment {
+.tweet span.date.awe {
   background-color: #ac6b1e;
 }
 .tweet span.date.relief {
@@ -1094,7 +1154,7 @@ svg .line {
 .tweet span.date.surprise {
   background-color: #a5270f;
 }
-.tweet span.date.longing {
+.tweet span.date.nostalgia {
   background-color: #a52834;
 }
 .tweet span.date.pity {
@@ -1108,6 +1168,24 @@ svg .line {
 }
 .tweet span.date.shame {
   background-color: #4c2fab;
+}
+.tweet span.date.guilt {
+  background-color: #002da7;
+}
+.tweet span.date.regret {
+  background-color: #0032a7;
+}
+.tweet span.date.envy {
+  background-color: #004eac;
+}
+.tweet span.date.disgust {
+  background-color: #187aac;
+}
+.tweet span.date.contempt {
+  background-color: #43acb0;
+}
+.tweet span.date.anger {
+  background-color: #3ea67c;
 }
 .stop-animation .tweet {
   display: none;
@@ -1137,42 +1215,6 @@ svg .line {
 .labelcircle.empty {
   fill: #0173d6;
 }
-.emotion-circle.excitement,
-.labelcircle.excitement {
-  fill: #0032a7;
-}
-.emotion-circle.love,
-.labelcircle.love {
-  fill: #004eac;
-}
-.emotion-circle.pride,
-.labelcircle.pride {
-  fill: #43acb0;
-}
-.emotion-circle.guilt,
-.labelcircle.guilt {
-  fill: #002da7;
-}
-.emotion-circle.disappointment,
-.labelcircle.disappointment {
-  fill: #0032a7;
-}
-.emotion-circle.envy,
-.labelcircle.envy {
-  fill: #004eac;
-}
-.emotion-circle.disgust,
-.labelcircle.disgust {
-  fill: #187aac;
-}
-.emotion-circle.contempt,
-.labelcircle.contempt {
-  fill: #43acb0;
-}
-.emotion-circle.irritation,
-.labelcircle.irritation {
-  fill: #3ea67c;
-}
 .emotion-circle.involvement,
 .labelcircle.involvement {
   fill: #3fa652;
@@ -1181,16 +1223,24 @@ svg .line {
 .labelcircle.amusement {
   fill: #40a630;
 }
-.emotion-circle.joy,
-.labelcircle.joy {
+.emotion-circle.pride,
+.labelcircle.pride {
+  fill: #4da62a;
+}
+.emotion-circle.happiness,
+.labelcircle.happiness {
   fill: #6da529;
 }
-.emotion-circle.tenderness,
-.labelcircle.tenderness {
+.emotion-circle.pleasure,
+.labelcircle.pleasure {
+  fill: #94aa2d;
+}
+.emotion-circle.love,
+.labelcircle.love {
   fill: #b1992d;
 }
-.emotion-circle.wonderment,
-.labelcircle.wonderment {
+.emotion-circle.awe,
+.labelcircle.awe {
   fill: #ac6b1e;
 }
 .emotion-circle.relief,
@@ -1201,8 +1251,8 @@ svg .line {
 .labelcircle.surprise {
   fill: #a5270f;
 }
-.emotion-circle.longing,
-.labelcircle.longing {
+.emotion-circle.nostalgia,
+.labelcircle.nostalgia {
   fill: #a52834;
 }
 .emotion-circle.pity,
@@ -1220,6 +1270,30 @@ svg .line {
 .emotion-circle.shame,
 .labelcircle.shame {
   fill: #4c2fab;
+}
+.emotion-circle.guilt,
+.labelcircle.guilt {
+  fill: #002da7;
+}
+.emotion-circle.regret,
+.labelcircle.regret {
+  fill: #0032a7;
+}
+.emotion-circle.envy,
+.labelcircle.envy {
+  fill: #004eac;
+}
+.emotion-circle.disgust,
+.labelcircle.disgust {
+  fill: #187aac;
+}
+.emotion-circle.contempt,
+.labelcircle.contempt {
+  fill: #43acb0;
+}
+.emotion-circle.anger,
+.labelcircle.anger {
+  fill: #3ea67c;
 }
 /**** COMPARE ****/
 #compare .columns.twitter h2 {
@@ -1450,6 +1524,10 @@ input[type="color"],
 }
 select {
   height: 30px;
+}
+.pattern-text {
+  fill: #ffffff;
+  stroke: none;
 }
 /**** Modal ****/
 .modal {
