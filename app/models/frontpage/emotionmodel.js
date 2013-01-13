@@ -1,10 +1,11 @@
 define([
+    "app",
     "backbone",
     "underscore",
     "jquery",
     "util",
     "constants"
-], function(Backbone, _, $, util, Constants) {
+], function(app, Backbone, _, $, util, Constants) {
 
     var emotionModel = Backbone.Model.extend({
 
@@ -14,7 +15,7 @@ define([
 
         getCenterPoint: function() {
             // Compute a random center point in the limits of the window
-            var width = $(window).width();
+            var width = app.windowWidth;
             var height = $(window).height();
             var x = Math.random() * width;
             var y = Math.random() * height;

@@ -22,6 +22,8 @@ define([
 
             this.previewShape = null;
 
+            console.log("MODE: "+this.model.get("mode"));
+
             // Create a set of elements
             this.model.set("setOfElements", this.model.get('paper').set());
 
@@ -92,6 +94,9 @@ define([
                     self.createPreview(params);
                 });
 
+                this.listenTo(app, 'pause:watch', this.pauseTime);
+                this.listenTo(app, 'resume:watch', this.resumeTime);
+
                 // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
                 // Removes the preview from the canvas
                 this.listenTo(app, 'preview:mouseout', function(params) {
@@ -108,10 +113,14 @@ define([
                 this.drawLabelTexts();
             }
 
-            if(this.model.get("mode") == 'compare' || this.model.get("mode") == 'pattern') {
+            if(this.model.get("mode") == 'static' || this.model.get("mode") == 'pattern') {
                 // Pattern & compare view: you can click on any element and you jump to the single view with
                 // the current time as a parameter
+                console.log('mode');
+                console.log(this.model.get("mode"));
+
                 self.model.get("setOfElements").click(function(event) {
+                    console.log('click');
                     var keyword = self.model.get("topic");
                     var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
@@ -274,25 +283,41 @@ define([
          * Changes the path of the emotion shape and animates the changement
          */
         animateEmotionShape: function() {
+            console.log('animate it again!');
             var options = {};
             var newPath = this.model.getCurrentEmotionShapePath(options);
 
-            if(this.model.get("emotionShape")) {
-                this.model.get("emotionShape").animate({
-                    path: newPath
-                }, app.animationDuration, Constants.animationType);
-            }            
+            var animationObject = Raphael.animation({
+                path: newPath
+            }, app.animationDuration, Constants.animationType);
+
+            if(undefined !== this.model.get("emotionShape")) {
+                this.model.get("emotionShape").animate(animationObject);
+            }
         },
 
         animateCircle: function() {
             var thickness = parseFloat(this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness) || 1;
-
-            if(this.model.get("timeCircleBorder")) {
-                this.model.get("timeCircleBorder").animate({
-                    "stroke-width": thickness,
-                    "r": this.model.get("emotionCircleRadius") + thickness / 2
-                }, app.animationDuration, Constants.animationType);
+            var animationObject = Raphael.animation({
+                "stroke-width": thickness,
+                "r": this.model.get("emotionCircleRadius") + thickness / 2
+            }, app.animationDuration, Constants.animationType);
+            if(undefined !== this.model.get("timeCircleBorder")) {
+                this.model.get("timeCircleBorder").animate(animationObject);
             }
+        },
+
+        // We pause the animation instantely in case of a time pause
+        pauseTime: function() {
+            this.model.get("timeCircleBorder").pause();
+            this.model.get("emotionShape").pause();
+        },
+
+        // If we get a resume time event, we continue moving the animation of
+        // the shape from where it paused before.
+        resumeTime: function() {
+            this.model.get("timeCircleBorder").resume();
+            this.model.get("emotionShape").resume();
         },
 
         /**
@@ -386,11 +411,11 @@ define([
                 var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
                 // THe point where we start drawing the label
-                var point = this.model.getPoint(1.35, i);
+                var point = this.model.getPoint(1.36, i);
                 // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
                 // Draw the text on the canvas
-                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 16);
+                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 20);
                 // Get the length of the text
                 var length = text.getBBox().width;
                 // Create the path of the line

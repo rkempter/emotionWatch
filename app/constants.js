@@ -18,6 +18,8 @@ define(['backbone'], function(Backbone) {
         timeCircleRadiusDifference: 10,
         timeCircleMaxThickness: 50,
 
+        videoInterval: 5,
+
         centerZeroCircleRadius: 20,
 
         patternCircleRadius: 100,

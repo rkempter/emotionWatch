@@ -15,7 +15,6 @@ define([
   "tweetcollectionview",
   "videoview",
   "timeview",
-  "titleview",
   "navigationview",
   "tweetfrequencycollection",
   "frequencypaperview",
@@ -23,11 +22,12 @@ define([
   "emotioncollectionview",
   "welcomeview",
   "detailview",
-  "titlemodel",
-  "videomodel"
+  "navigationmodel",
+  "videomodel",
+  "timeview_compare"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, titleModel, videoModel) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -66,9 +66,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       app.trigger('close');
 
       var options = {};
+      options.network = network || 'twitter';
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.keywordType = keywordType;
-      options.network = network || 'twitter';
+
       options.mode = 'regular';
       options.timeStep = timeStep;
 
@@ -81,7 +82,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('main-layout').setViews({
-        ".time-block": new timeView(options),
+        "#bottom .current-time-box": new timeView(options),
 
         ".detail-block": new detailView({
           model: new Backbone.Model()
@@ -92,10 +93,15 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".date-time-freq .paper",
           "network": options.network
         }),
-        ".navigation": new navigationView(options),
+
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
+        }),
+
         "#player": new videoView({
           model: new videoModel(options)
         }),
+        
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
             paper: app.paper, 
@@ -105,17 +111,13 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 500, "y": 400},
+            centerPoint: {"x": 500, "y": 410},
             topic: options.keyword,
             network: options.network
           }) 
         }),
         ".tweets": new tweetCollectionView({
           collection: new tweetCollection(options)
-        }),
-        "#middle-column .keyword-title": new titleView({
-            model: new titleModel(options),
-            el: '#middle-column .keyword-title'
         }),
         ".bottom": new Backbone.View({
           collection: new tweetFrequencyCollection(options)
@@ -131,6 +133,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter',
+      options.keywordType = keywordType;
       options.mode = 'pattern';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
@@ -151,11 +154,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "network": options.network
         }),
 
-        ".navigation": new navigationView(options),
-
-        "#middle-column .keyword-title": new titleView({
-          model: new titleModel(options),
-          el: '#middle-column .keyword-title'
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
         }),
 
         ".bottom": new Backbone.View({
@@ -180,7 +180,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       $('body').attr('class', '');
       app.trigger('close');
       var options = {};
-      console.log(keyword);
+      options.keywordType = keywordType;
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.mode = 'compare';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
@@ -193,11 +193,25 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('compare-layout').setViews({
-        ".time-block": new timeView({
-            startDateTime: options.startDateTime,
-            endDateTime: options.endDateTime,
-            timeStep: options.timeStep,
-            currentDateTime: options.currentDateTime
+        ".weibo .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'active',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'weibo'
+        }),
+        ".twitter .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'passiv',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'twitter'
         }),
         ".weibo .watch .paper": new paperView({ 
           "parent": ".weibo .watch .paper",
@@ -217,16 +231,14 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".twitter .date-time-freq .paper", 
           "network": "twitter"
         }),
-        ".navigation": new navigationView(options),
-        "#middle-column .keyword-title": new titleView({
-          model: new titleModel(options),
-          el: '#middle-column .keyword-title'
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
         }),
         ".twitter .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'twitter',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -238,7 +250,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'weibo',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -256,7 +268,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
+            topic: util.combineKeyword(keyword, keywordType),
             network: 'twitter'
           }),
           mode: 'compare'
@@ -271,7 +283,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
+            topic: util.combineKeyword(keyword, keywordType),
             network: 'weibo'
           }),
           mode: 'compare'

@@ -5,7 +5,7 @@ define([
   'constants'
 ], function(app, _, Backbone, Constants) {
 
-    var titleModel = Backbone.Model.extend({
+    var navigationModel = Backbone.Model.extend({
         
         urlRoot: function() {
           return "http://localhost:8080/getEventInfo";
@@ -16,9 +16,11 @@ define([
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);
           }
+          console.log('trigger!');
+          this.trigger('render');
         }
     });
 
-    return titleModel;
+    return navigationModel;
 
 });

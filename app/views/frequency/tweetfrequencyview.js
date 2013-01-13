@@ -28,9 +28,9 @@ define([
           if(this.model.get('mode') == 'compare') {
             // If we have two visualizations at the same time, we use half of the
             // window as a base for the computations
-            this.pixelLength = $(window).width() / 2;
+            this.pixelLength = app.windowWidth / 2;
           } else {
-            this.pixelLength = $(window).width();
+            this.pixelLength = app.windowWidth;
           }
 
           // The pair of points our slot is positioned
@@ -39,6 +39,7 @@ define([
 
           // Draw the time slot on the canvas
           this.drawTimeSlot(); 
+          this.drawHoverSlot();
 
           // Bind the events to the view
           this.model.on("reset", self.changeToReset, self);
@@ -85,8 +86,48 @@ define([
           // Save the timeslot element in the model
           this.model.set("timeSlot", timeSlot);
 
+        },
+
+        /**
+         * Draws the timeSlot element
+         *
+         */
+        drawHoverSlot: function() {
+          var self = this;
+
+          // Compute the four points necessary for the path
+          var leftBottomPoint = this.startPoint;
+          var leftTopPoint = util.getLinearPoint(this.startPoint, 1, 100);
+          var rightBottomPoint = this.endPoint;
+          var rightTopPoint = util.getLinearPoint(this.endPoint, 1, 100);
+
+          // Create an SVG path for the timeslot
+          var path = [];
+          path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
+          path.push(["L", leftTopPoint.x, leftTopPoint.y]);
+          path.push(["L", rightTopPoint.x, rightTopPoint.y]);
+          path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
+          path.push(["Z"]);
+
+          // Draw the path on the canvas
+          var hoverSlot = this.model.get("paper").path(path);
+          hoverSlot.node.setAttribute('class', 'hoverPath');
+
+          // Bind the mouseover event to a method;
+          hoverSlot.mouseover(function() {
+            self.mouseover();
+          });
+
+          // Bind the mouseout event to the mouseout method
+          hoverSlot.mouseout(function() {
+            self.mouseout();
+          });
+
+          // Save the hoverSlot element in the model
+          this.model.set("hoverSlot", hoverSlot);
+
           // Bind the rest of timeslot events
-          self.bindTimeSlotEvents();
+          self.bindHoverSlotEvents();
         },
 
         mouseover: function() {
@@ -132,14 +173,15 @@ define([
           this.model.get("timeSlot").node.setAttribute("class", "");
         },
 
-        bindTimeSlotEvents: function() {
+        bindHoverSlotEvents: function() {
           var self = this;
 
-          var timeSlotElement = self.model.get("timeSlot");
+          var hoverSlotElement = self.model.get("hoverSlot");
 
           // Clicking on a timeslots changes the global time and jumps to
           // the time of the timeslot!
-          timeSlotElement.click(function() {
+          hoverSlotElement.click(function() {
+            console.log('click');
             params = {};
             params.dateTime = self.model.get("localStartDateTime");
             params.cid = self.model.cid;

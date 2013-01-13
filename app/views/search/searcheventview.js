@@ -20,6 +20,7 @@ define([
         },
 
         initialize: function() {
+            console.log('create eventsearch');
             var self = this;
             // Bind this to the render function
              _.bindAll(this, 'render');
@@ -28,7 +29,6 @@ define([
             var searchEventModel = Backbone.Model.extend({
                 // Define Parse method of model
                 parse: function(response) {
-                    console.log(response);
                     self.model.set('events', response);
                 }
             });
@@ -55,7 +55,7 @@ define([
 
             // Compute appropriate timestep
             if(withVideo == 'true') {
-                var timeStep = 3;
+                var timeStep = 5;
             } else {
                 var timeStep = util.getTimeStep(startDateTime, endDateTime);
             }
@@ -88,7 +88,6 @@ define([
             // Get gender and sport
             this.model.set('gender', $('#event-gender option:selected').val());
             this.model.set('sport', $('#event-sport option:selected').val());
-            console.log(this.model.get('gender'));
             // Fetch events
             this.model.fetch({ 
                 data: $.param({ 

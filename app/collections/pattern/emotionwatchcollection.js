@@ -23,6 +23,7 @@ define([
             this.currentDateTime = new Date(options.currentDateTime) || this.startDateTime;
             this.keyword = options.keyword || null;
             this.network = options.network || 'twitter';
+            this.keywordType = options.keywordType;
             var self = this;
             this.timeStep = options.timeStep || (this.endDateTime.getTime() - this.startDateTime.getTime()) / 24 / 1000;
 
@@ -40,7 +41,7 @@ define([
 
         viewInitialized: function() {
             // How large is the space we have?
-            var width = $(window).width();
+            var width = app.windowWidth;
             // Compute the number of watches per line
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
             // How much space do we need?
@@ -54,7 +55,8 @@ define([
                     endDateTime: this.endDateTime,
                     topic: this.keyword,
                     network: this.network,
-                    timeStep: this.timeStep
+                    timeStep: this.timeStep,
+                    keywordType: this.keywordType
                 })
             });
         },
@@ -75,7 +77,7 @@ define([
             // Keeps the position of each model in the array
             var i = 0;
             // Go through all 
-            while(localStartDateTime.getTime() <= this.endDateTime.getTime()) {
+            while(localStartDateTime.getTime() < this.endDateTime.getTime()) {
                 var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
