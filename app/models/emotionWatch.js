@@ -273,8 +273,8 @@ define([
      */
      
     getPoint: function(value, iteration) {
-        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / 12 *iteration);
-        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / 12 *iteration);
+        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / Constants.labels.length *iteration);
+        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / Constants.labels.length *iteration);
         var point = { "x": x, "y": y };
 
         return point;
@@ -317,8 +317,8 @@ define([
         var firstPoint = this.getPoint(dataSet[0].value, 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
-
-        for(var i = 1; i < 12; i++) {
+        var totalNbr = Constants.labels.length;
+        for(var i = 1; i < totalNbr; i++) {
           var currentPoint = this.getPoint(dataSet[i].value, i);
           var pathDiff = this.getRelativePoint(currentPoint, previous);
           pathString += " l "+pathDiff.x+" "+pathDiff.y;

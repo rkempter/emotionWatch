@@ -34,7 +34,7 @@ define(['backbone'], function(Backbone) {
         emotionShapeStrokeColor: '#aaaaaa',
 
         //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
-        labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'];
+        labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
 
         nullEmotion:
             [

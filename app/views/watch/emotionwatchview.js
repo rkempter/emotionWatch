@@ -193,6 +193,7 @@ define([
         // Therefore, we draw a circle in the background with the color of the dominant
         // emoiton
         drawDominantEmotion: function() {
+            var paper = this.model.get('paper');
             this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("dominantEmotionCircle").toBack();
             var dominantEmotion = this.model.getDominantEmotion();
@@ -200,6 +201,14 @@ define([
             this.model.get("setOfElements").push(
                 this.model.get("dominantEmotionCircle")
             );
+            if(dominantEmotion != 'empty') {
+                var textPointx = this.model.get('centerPoint').x;
+                var textPointy = this.model.get('centerPoint').y - 50;
+                var text = paper.print(textPointx, textPointy, dominantEmotion, paper.getFont("Sanchez"), 18);
+                var textLength = text.getBBox().width;
+                text.transform("t"+(-textLength/2)+",0");
+                text.node.setAttribute('class', 'pattern-text');
+            }
         },
 
         /**
@@ -397,6 +406,7 @@ define([
             var labelTexts = Constants.labels;
             // How many labels do we have? (configurable)
             var totalNbr = labelTexts.length;
+            console.log(totalNbr);
             // Load the canvas
             var paper = this.model.get("paper");
             // Center point of the circle

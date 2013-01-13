@@ -61,13 +61,23 @@ define([
             this.unbind();
         },
 
+        beforeRender: function() {
+            this.insertViews({
+                '#search-event .modal-body': new searchEventView(),
+                '#search-keyword .modal-body': new searchKeywordView(),
+                '#settings-modal .modal-body': new settingsView({
+                    model: new Backbone.Model(this.model.toJSON())
+                })
+            });
+        },
+
         // Render template with small submenu for the three views
         render: function() {
             var options = {};
             var network = this.model.get('network') || 'twitter';
-            options.urlSingle = '/search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            options.urlPattern = '/pattern/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            options.urlCompare = '/compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlSingle = '#search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlPattern = '#pattern/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlCompare = '#compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.startDateTime = this.model.get('startDateTime');
             options.endDateTime = this.model.get('endDateTime');
             options.event = this.model.get('event');
@@ -80,16 +90,6 @@ define([
             console.log(options);
             var output = window.JST['app/templates/navbar.html'](options);
             this.$el.html( output );
-        },
-
-        afterRender: function() {
-            this.insertViews({
-                '#search-event .modal-body': new searchEventView(),
-                '#search-keyword .modal-body': new searchKeywordView(),
-                '#settings-modal .modal-body': new settingsView({
-                    model: new Backbone.Model(self.model.toJSON())
-                })
-            });
         },
     });
 
