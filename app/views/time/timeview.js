@@ -20,6 +20,9 @@ define([
 
             options = options || {};
 
+            this.width = app.windowWidth;
+            console.log(this.width);
+
             var self = this;
 
             // set the parameters of the current visualization
@@ -69,6 +72,7 @@ define([
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').stop();
             }
+            $(document).off();
             this.unbind(); // Unbind all local event bindings
             this.remove(); // Remove view from DOM
         },
@@ -164,7 +168,7 @@ define([
 
         computeFirstPosition: function() {
             var timeSpan = this.model.get('startDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get('startDateTime');
-            var position = timeSpan / this.model.get('timeSpan') * app.windowWidth;
+            var position = timeSpan / this.model.get('timeSpan') * this.width;
             $('.time-block').css('width', position+'px');
         },
 
@@ -190,8 +194,8 @@ define([
 
         afterRender: function() {
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
-            var position = currentTimeSpan / this.model.get('timeSpan') * app.windowWidth;
-            if(position > app.windowWidth / 2) {
+            var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
+            if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
             }
             if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
@@ -203,7 +207,7 @@ define([
                 });
             }
 
-            if(position > app.windowWidth) {
+            if(position > this.width) {
                 $('.current-time-box').addClass('max-right');
             } else {
                 $('.current-time-box').removeClass('max-right');

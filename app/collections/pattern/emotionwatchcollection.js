@@ -23,6 +23,7 @@ define([
             this.currentDateTime = new Date(options.currentDateTime) || this.startDateTime;
             this.keyword = options.keyword || null;
             this.network = options.network || 'twitter';
+            this.keywordType = options.keywordType;
             var self = this;
             this.timeStep = options.timeStep || (this.endDateTime.getTime() - this.startDateTime.getTime()) / 24 / 1000;
 
@@ -54,7 +55,8 @@ define([
                     endDateTime: this.endDateTime,
                     topic: this.keyword,
                     network: this.network,
-                    timeStep: this.timeStep
+                    timeStep: this.timeStep,
+                    keywordType: this.keywordType
                 })
             });
         },

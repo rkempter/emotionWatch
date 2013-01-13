@@ -178,6 +178,7 @@ define([
          */
         stopTime: function() {
             this.model.get('interval').stop();
+            this.model.set('interval', undefined);
             app.trigger('stop:time');
         },
 

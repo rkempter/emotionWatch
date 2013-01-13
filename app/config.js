@@ -45,6 +45,7 @@ require.config({
     emotionview: "views/frontpage/emotionview",
     paperview: "views/canvas/paperview",
     timeview: "views/time/timeview",
+    timeview_compare: "views/time/timeview_compare",
     welcomeview: "views/frontpage/welcomeview",
     frequencypaperview: "views/canvas/frequencypaperview",
     videoview: "views/video/videoview",

@@ -23,10 +23,11 @@ define([
   "welcomeview",
   "detailview",
   "navigationmodel",
-  "videomodel"
+  "videomodel",
+  "timeview_compare"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -65,9 +66,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       app.trigger('close');
 
       var options = {};
+      options.network = network || 'twitter';
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.keywordType = keywordType;
-      options.network = network || 'twitter';
+
       options.mode = 'regular';
       options.timeStep = timeStep;
 
@@ -109,7 +111,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 500, "y": 400},
+            centerPoint: {"x": 500, "y": 410},
             topic: options.keyword,
             network: options.network
           }) 
@@ -191,7 +193,26 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('compare-layout').setViews({
-        ".weibo #bottom .current-time-box": new timeView(options),
+        ".weibo .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'active',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'weibo'
+        }),
+        ".twitter .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'passiv',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'twitter'
+        }),
         ".weibo .watch .paper": new paperView({ 
           "parent": ".weibo .watch .paper",
           "mode": "compare",
@@ -217,7 +238,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'twitter',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -229,7 +250,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'weibo',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -247,7 +268,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
+            topic: util.combineKeyword(keyword, keywordType),
             network: 'twitter'
           }),
           mode: 'compare'
@@ -262,7 +283,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
+            topic: util.combineKeyword(keyword, keywordType),
             network: 'weibo'
           }),
           mode: 'compare'

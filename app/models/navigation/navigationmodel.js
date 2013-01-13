@@ -16,6 +16,8 @@ define([
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);
           }
+          console.log('trigger!');
+          this.trigger('render');
         }
     });
 

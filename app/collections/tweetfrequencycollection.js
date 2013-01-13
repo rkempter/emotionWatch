@@ -22,6 +22,7 @@ define([
             this.mode = options.mode || 'regular';
             this.network = options.network || 'twitter';
             this.keyword = options.keyword;
+            this.keywordType = options.keywordType;
             this.modelIndex = 0;
             
             this.viewPointer = [];
@@ -56,7 +57,8 @@ define([
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
-                    keyword: self.keyword
+                    keyword: self.keyword,
+                    keywordType: options.keywordType
                 }) 
             });
         },
@@ -71,6 +73,7 @@ define([
 
         // Parse the received data
         parse: function(frequencies) {
+            console.log(frequencies);
             var self = this;
 
             // Figure out the maximal frequency

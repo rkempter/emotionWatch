@@ -545,11 +545,11 @@ body {
   margin: 0;
   padding: 0;
   padding-top: 130px;
-  -webkit-transition: background-color 3000ms linear;
-  -moz-transition: background-color 3000ms linear;
-  -o-transition: background-color 3000ms linear;
-  -ms-transition: background-color 3000ms linear;
-  transition: background-color 3000ms linear;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
 }
 body #bottom,
 body.empty #bottom {
@@ -663,10 +663,10 @@ h3 {
 .top-navigation .title .inside-title {
   display: inline-block;
   position: relative;
-  min-width: 600px;
+  min-width: 700px;
 }
 .top-navigation .title h1 {
-  min-width: 600px;
+  min-width: 700px;
   font-family: "league-gothic";
   font-size: 45px;
   text-transform: uppercase;
@@ -704,7 +704,7 @@ h3 {
   margin-top: 0px;
 }
 .top-navigation .title .subinfo .subinfo-tab {
-  width: 33%;
+  width: 25%;
   height: 50px;
   float: left;
 }
@@ -771,11 +771,11 @@ h3 {
   width: 100%;
   position: fixed;
   bottom: 0px;
-  -webkit-transition: background-color 3000ms linear;
-  -moz-transition: background-color 3000ms linear;
-  -o-transition: background-color 3000ms linear;
-  -ms-transition: background-color 3000ms linear;
-  transition: background-color 3000ms linear;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
 }
 #index #bottom .date-time-freq,
 #pattern #bottom .date-time-freq {
@@ -1219,14 +1219,25 @@ svg .line {
   fill: #4c2fab;
 }
 /**** COMPARE ****/
+#compare .columns.twitter h2 {
+  text-align: left;
+  margin-left: 20px;
+}
+#compare .columns.weibo h2 {
+  text-align: right;
+  margin-right: 20px;
+}
 #compare .columns h2 {
-  text-align: center;
+  margin-top: 20px;
 }
 #compare .columns .bottom {
   position: absolute;
   bottom: 0px;
   left: 0px;
   height: 100px;
+}
+#compare .columns .bottom .time-block {
+  position: absolute;
 }
 #compare .columns .watch {
   position: relative;
@@ -1252,6 +1263,7 @@ svg .line {
 #compare #left-column .bottom {
   left: 0;
   width: 50%;
+  border-right: 1px solid #1a1a1a;
 }
 #compare #right-column {
   width: 50%;

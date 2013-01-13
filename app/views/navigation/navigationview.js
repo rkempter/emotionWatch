@@ -33,8 +33,10 @@ define([
                 })
             });
             console.log(this.model.get('keywordType'));
+            console.log(this.model);
 
             if(this.model.get('keywordType') == 'event') {
+                console.log('fetch');
                 this.model.fetch({
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
@@ -43,7 +45,7 @@ define([
                     })
                 });
             }
-
+            this.model.on('render', self.render, self);
             this.listenTo(app, 'close', this.close);
         },
 
@@ -71,8 +73,9 @@ define([
         render: function() {
             console.log('rendering');
             var options = {};
-            options.urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            options.urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            var network = this.model.get('network') || 'twitter';
+            options.urlSingle = '/search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlPattern = '/pattern/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.urlCompare = '/compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.startDateTime = this.model.get('startDateTime');
             options.endDateTime = this.model.get('endDateTime');
@@ -81,7 +84,9 @@ define([
             options.gender = this.model.get('gender');
             options.hashtag = this.model.get('keyword');
             options.timeStep = util.getTimeStepFormat(this.model.get('timeStep'));
+            options.network = network;
             options.keywordType = this.model.get('keywordType');
+            console.log(options);
             var output = window.JST['app/templates/navbar.html'](options);
             $( this.el ).html( output );
         }

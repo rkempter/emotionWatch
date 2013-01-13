@@ -64,12 +64,18 @@
           <h2>Interval</h2>
           <h3><%= timeStep %></h3>
         </div>
+        <div class="subinfo-tab timestep">
+          <h2>Network</h2>
+          <h3><%= network %></h3>
+        </div>
       </div>
       <div class="menu-right">
         <ul>
           <li><a href="<%= urlSingle %>">Single watch view</a></li>
           <li><a href="<%= urlPattern %>">Pattern watch view</a></li>
+          <% if(keywordType == 'event') { %>
           <li><a href="<%= urlCompare %>">Compare Twitter & Weibo</a></li>
+          <% } %>
         </ul>
       </div>
     </div>

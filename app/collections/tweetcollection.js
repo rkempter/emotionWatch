@@ -17,6 +17,7 @@ define([
             this.keyword = options.keyword;
             this.timeStep = options.timeStep;
             this.network = options.network;
+            this.keywordType = options.keywordType;
             this.currentDateTime = options.currentDateTime;
             this.fetch({ 
                 data: $.param({ 
@@ -24,7 +25,8 @@ define([
                     emotion: this.emotion,
                     hashtag: options.keyword,
                     windowsize: options.timeStep,
-                    network: options.network
+                    network: options.network,
+                    keywordType: options.keywordType
                 })
             });
 
@@ -38,7 +40,8 @@ define([
                         emotion: self.emotion,
                         hashtag: self.keyword,
                         windowsize: self.timeStep,
-                        network: self.network
+                        network: self.network,
+                        keywordType: self.keywordType
                     })
                 });
             });
@@ -54,7 +57,8 @@ define([
                     emotion: this.emotion,
                     hashtag: this.keyword,
                     windowsize: this.timeStep,
-                    network: this.network
+                    network: this.network,
+                    keywordType: this.keywordType
                 })
             });
         },

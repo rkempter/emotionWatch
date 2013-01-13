@@ -1,3 +1,5 @@
+<% if(videoUrl.indexOf('undefined') == -1) { %>
 <video>
   <source src="<%= videoUrl %>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
 </video>
+<% } %>

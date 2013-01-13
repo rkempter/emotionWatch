@@ -19,7 +19,7 @@ define([
             var keyword = this.model.get('keyword');
             var keywordType = this.model.get('keywordType');
 
-            if(keywordType == 'event' && this.model.get('timeStep') == 3) {
+            if(keywordType == 'event' && this.model.get('timeStep') == 5) {
                 this.model.fetch({
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
@@ -50,9 +50,8 @@ define([
             if(this.model.get('video-element') === undefined || this.model.get('video-element') === null) {
                 // Get the video dom element
                 var video = document.querySelector('video');
+                console.log(video);
                 if(video !== null || this.model.get('video') !== undefined) {
-
-                    console.log(this.model.get('video'));
                     // Save the video dom element
                     this.model.set('video-element', video);
                     // Listen to any start time event, triggered by the clock
@@ -76,11 +75,11 @@ define([
                     self.listenTo(app, 'jumpToTime', self.jumpToVideo);
                     
                     var interval = setInterval(function(){
-                      if (self.model.get('video-element').readyState > 0) {
-                        // Safe duration of the video
-                        self.model.set('duration', Math.round(video.duration));
-                        clearInterval(interval);
-                      }
+                        if (self.model.get('video-element').readyState > 0 && video !== null) {
+                            // Safe duration of the video
+                            self.model.set('duration', Math.round(video.duration));
+                            clearInterval(interval);
+                        }
                     }, 500);
                 }
             }
@@ -90,7 +89,6 @@ define([
         // right position as well.
         jumpToVideo: function(params) {
             if(this.model.get('video') !== undefined) {
-                console.log(this.model.get('video-element'));
                 var dateTime = params.dateTime;
                 // Compute the fraction of time we've been advancing until now
                 var fraction = (dateTime.getTime()-this.model.get('startDateTime')) / (this.model.get('endDateTime').getTime() - this.model.get('startDateTime').getTime());
