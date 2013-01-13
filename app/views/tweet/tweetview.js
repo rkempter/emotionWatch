@@ -23,8 +23,14 @@ define([
             var coordinates = this.getCoordinates();
             var delay = this.getDelay();
             var animationName = this.getTranslation();
+            var style = '';
 
-            var style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s;";
+            if(this.model.get('keywordType') == 'event' && this.model.get('timeStep') == 5 && (this.model.get('x') > 4 && this.model.get('x') < 8)) { 
+                style = "display: none";
+            } else {
+                style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s;";
+            }
+            
             this.model.set('styler', style);
             this.render();
         },
@@ -61,17 +67,24 @@ define([
 
         getCoordinates: function() {
             var x = this.model.get('x');
+            var y = this.model.get('y');
             var width = app.windowWidth / 3;
 
-            if(x < 5) {
-                var y = x * 120;
-                var x = width + Math.pow(7, (x-2)) - 450;
-            } else {
-                var y = (x-5) * 120;
-                var x = 2 * width - Math.pow(7, (x-7))+100;
-            }
+            if(x < 5 && y < 5) {
+                var coord_x = width + Math.pow(7, (x-2)) - 450;
+                var coord_y = y * 120;
+            } else if (x > 4 && y < 5){
+                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                var coord_y = (y-5) * 120;
+            } else if (x > 4 && y > 4){
+                var coord_y = (y-5) * 120;
+                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+            } else if (x < 5 && y > 4){
+                var coord_y = (y-5) * 120;
+                var coord_x = width + Math.pow(7, (x-2)) - 450;
+            } 
 
-            return {x: x, y: y};
+            return {x: coord_x, y: coord_y};
         },
 
         getTranslation: function() {

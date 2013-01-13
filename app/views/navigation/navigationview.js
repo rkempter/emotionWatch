@@ -25,28 +25,20 @@ define([
         initialize: function() {
             var self = this;
             // Load Settings, Event Search and Keyword search views into modals
-            this.insertViews({
-                '#search-event .modal-body': new searchEventView(),
-                '#search-keyword .modal-body': new searchKeywordView(),
-                '#settings-modal .modal-body': new settingsView({
-                    model: new Backbone.Model(self.model.toJSON())
-                })
-            });
-            console.log(this.model.get('keywordType'));
-            console.log(this.model);
 
             if(this.model.get('keywordType') == 'event') {
-                console.log('fetch');
                 this.model.fetch({
                     data: $.param({
                         startDateTime: this.model.get('startDateTime'),
                         endDateTime: this.model.get('endDateTime'),
                         sport: this.model.get('keyword').slice(1)
-                    })
+                    }),
                 });
             }
             this.model.on('render', self.render, self);
             this.listenTo(app, 'close', this.close);
+
+            
         },
 
         // Show event search modal window when triggered
@@ -71,7 +63,6 @@ define([
 
         // Render template with small submenu for the three views
         render: function() {
-            console.log('rendering');
             var options = {};
             var network = this.model.get('network') || 'twitter';
             options.urlSingle = '/search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
@@ -88,8 +79,18 @@ define([
             options.keywordType = this.model.get('keywordType');
             console.log(options);
             var output = window.JST['app/templates/navbar.html'](options);
-            $( this.el ).html( output );
-        }
+            this.$el.html( output );
+        },
+
+        afterRender: function() {
+            this.insertViews({
+                '#search-event .modal-body': new searchEventView(),
+                '#search-keyword .modal-body': new searchKeywordView(),
+                '#settings-modal .modal-body': new settingsView({
+                    model: new Backbone.Model(self.model.toJSON())
+                })
+            });
+        },
     });
 
     return navigationView;

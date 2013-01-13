@@ -20,6 +20,28 @@ define([
             var self = this;
             this.listenTo(app, 'close', this.close);
             this.collection.on('add', this.addOne);
+
+            this.listenTo(app, 'change:globalTime', function(dateTime) {
+                var oldDateTime = self.collection.currentDateTime;
+                var newDateTime = new Date(oldDateTime.getTime() + self.collection.timeStep*1000);
+                self.collection.currentDateTime = dateTime;
+
+                if(dateTime.getTime() != newDateTime.getTime()) {
+                    this.$el.empty();
+                    this.$el.find('li').removeClass('stop-animation');
+                }
+
+                self.collection.fetch({
+                    data: $.param({
+                        datetime: self.collection.currentDateTime,
+                        emotion: self.collection.emotion,
+                        hashtag: self.collection.keyword,
+                        windowsize: self.collection.timeStep,
+                        network: self.collection.network,
+                        keywordType: self.collection.keywordType
+                    })
+                });
+            });
         },
 
         // If an emotion is selected in the dropdown box, change model

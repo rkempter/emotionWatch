@@ -721,7 +721,10 @@ h3 {
 }
 .top-navigation a {
   color: #ffffff;
-  text-decoration: none;
+  text-decoration: underline;
+}
+.top-navigation a:hover {
+  color: #1a1a1a;
 }
 .top-navigation #search-hashtag,
 .top-navigation #search-event {

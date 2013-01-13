@@ -20,6 +20,7 @@ define([
         },
 
         initialize: function() {
+            console.log('create eventsearch');
             var self = this;
             // Bind this to the render function
              _.bindAll(this, 'render');

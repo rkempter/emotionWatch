@@ -26,14 +26,15 @@ define([
             var self = this;
 
             // set the parameters of the current visualization
-            this.model.set('jump', false);
+            this.model.set('jump', true);
             this.model.set('startDateTime', options.startDateTime);
             this.model.set('endDateTime', options.endDateTime);
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
             this.model.set("label", "Stop");
             this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
-
+            self.model.set("firstDateTime", moment(options.currentDateTime).format("Do MMM YYYY HH:mm:ss"));
+            self.model.set("secondDateTime", moment(new Date(options.currentDateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
             this.listenTo(app, 'change:globalTime', function(dateTime) {
@@ -65,6 +66,8 @@ define([
 
             _.bindAll(this);
             $(document).on('keydown', this.triggerStartStopKey);
+
+            this.render();
         },
 
         close: function() {
@@ -195,9 +198,11 @@ define([
         afterRender: function() {
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
             var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
+            
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
             }
+
             if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
                 $('.time-block').css('width', position+'px');
             } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {

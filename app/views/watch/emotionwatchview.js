@@ -22,6 +22,8 @@ define([
 
             this.previewShape = null;
 
+            console.log("MODE: "+this.model.get("mode"));
+
             // Create a set of elements
             this.model.set("setOfElements", this.model.get('paper').set());
 
@@ -111,10 +113,14 @@ define([
                 this.drawLabelTexts();
             }
 
-            if(this.model.get("mode") == 'compare' || this.model.get("mode") == 'pattern') {
+            if(this.model.get("mode") == 'static' || this.model.get("mode") == 'pattern') {
                 // Pattern & compare view: you can click on any element and you jump to the single view with
                 // the current time as a parameter
+                console.log('mode');
+                console.log(this.model.get("mode"));
+
                 self.model.get("setOfElements").click(function(event) {
+                    console.log('click');
                     var keyword = self.model.get("topic");
                     var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
