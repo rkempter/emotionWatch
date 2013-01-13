@@ -3,19 +3,23 @@ define([
     "jquery",
     "lodash",
     "tweetcollection",
-    "app"
-], function(Backbone, $, _, tweetCollection, app) {
+    "app",
+    "tweetview"
+], function(Backbone, $, _, tweetCollection, app, tweetView) {
 
     var tweetCollectionView = Backbone.View.extend({
 
-        template: 'tweetview',
+        tagName: 'ul',
 
         events: {
             'change #emotion-category': 'triggerEmotionCategory'
         },
 
         initialize: function() {
+            _.bindAll(this, 'addOne');
+            var self = this;
             this.listenTo(app, 'close', this.close);
+            this.collection.on('add', this.addOne);
         },
 
         // If an emotion is selected in the dropdown box, change model
@@ -29,10 +33,13 @@ define([
             this.collection.setEmotion(emotion);
         },
 
-        // Render template
-        render: function() {
-            var output = window.JST['app/templates/tweetview.html']();
-            this.$el.html(output);
+        addOne: function(model) {
+            console.log('this takes hours');
+            var view = new tweetView({
+                model: model
+            });
+            this.collection.viewPointer.push(view);
+            this.$el.append(view.el);
         },
 
         // Close view

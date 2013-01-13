@@ -26,7 +26,7 @@ require.config({
     emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetfrequencymodel: "models/tweetfrequencymodel",
-    titlemodel: "models/title/titlemodel",
+    navigationmodel: "models/navigation/navigationmodel",
     videomodel: "models/video/videomodel",
 
     // collection
@@ -45,8 +45,8 @@ require.config({
     emotionview: "views/frontpage/emotionview",
     paperview: "views/canvas/paperview",
     timeview: "views/time/timeview",
+    timeview_compare: "views/time/timeview_compare",
     welcomeview: "views/frontpage/welcomeview",
-    titleview: "views/titleview",
     frequencypaperview: "views/canvas/frequencypaperview",
     videoview: "views/video/videoview",
     emotionwatchview: "views/watch/emotionwatchview",
@@ -74,7 +74,8 @@ require.config({
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
-    "plugins/bootstrap-modal": ['jquery']
+    "plugins/bootstrap-modal": ['jquery'],
+    "plugins/jquery.timer": ['jquery']
   }
 
 });

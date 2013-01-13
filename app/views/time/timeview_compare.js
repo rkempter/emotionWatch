@@ -9,7 +9,7 @@ define([
 
 ], function(app, Backbone, $, _, util, Constants) {
     
-    var timeView = Backbone.View.extend({
+    var timeCompareView = Backbone.View.extend({
 
         template: 'timetemplate',
         
@@ -20,10 +20,11 @@ define([
 
             options = options || {};
 
-            this.width = app.windowWidth;
-            console.log(this.width);
+            this.width = app.windowWidth / 2;
 
             var self = this;
+
+            this.clockMode = options.clockMode || 'active';
 
             // set the parameters of the current visualization
             this.model.set('jump', false);
@@ -32,6 +33,7 @@ define([
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
             this.model.set("label", "Stop");
+            this.network = options.network;
             this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
 
             // On date & time change, template needs to be rerendered!
@@ -61,10 +63,13 @@ define([
                 self.startTime();
             });
 
+            this.listenTo(app, 'pause:watch', this.pauseTime);
+            this.listenTo(app, 'resume:watch', this.resumeTime);
+
             this.listenTo(app, 'close', this.close);
 
             _.bindAll(this);
-            $(document).on('keydown', this.triggerStartStopKey);
+            $(document).on('keydown', self.triggerStartStopKey);
         },
 
         close: function() {
@@ -72,31 +77,34 @@ define([
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').stop();
             }
-            $(document).off();
             this.unbind(); // Unbind all local event bindings
             this.remove(); // Remove view from DOM
         },
 
         pauseTime: function() {
-            var width = $('.time-block').width();
-            $('.time-block').css('width', width+'px');
+            console.log('pauseTime')
+            var width = $('.'+this.network+' .time-block').width();
+            this.model.set('label', 'Start');
+            $('.'+this.network+' .time-block').css('width', width+'px');
             this.model.set('timeState', 'pause');
-            $('.time-block').removeClass('is-transitioning');
-            app.trigger('pause:watch');
+            $('.'+this.network+' .time-block').removeClass('is-transitioning');
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').pause();
             }
+            this.render();
         },
 
         resumeTime: function() {
-            var width = $('.time-block').width();
-            app.trigger('resume:watch');
+            console.log('resume');
+            var width = $('.'+this.network+' .time-block').width();
             this.model.set('timeState', 'running');
-            $('.time-block').addClass('is-transitioning');
-            $('.time-block').css('width', this.model.get('endPosition'));
+            this.model.set('label', 'Pause');
+            $('.'+this.network+' .time-block').addClass('is-transitioning');
+            $('.'+this.network+' .time-block').css('width', this.model.get('endPosition'));
             if(undefined !== this.model.get('interval')) {
                 this.model.get('interval').play();
             }
+            this.render();
         },
 
         // Start running the timer. If the current time is bigger than our
@@ -105,28 +113,29 @@ define([
         startTime: function() {
             var self = this;
             this.model.set('timeState', 'running');
+            $('.'+this.network+' .time-block').addClass('is-transitioning');
             
-            this.model.set('startInterval', setInterval(function(t) {
-                app.trigger('start:time');
-                clearInterval(self.model.get('startInterval'));
-            },1000));
+            if(this.clockMode == 'active') {
+                this.model.set('startInterval', setInterval(function(t) {
+                    app.trigger('start:time');
+                    clearInterval(self.model.get('startInterval'));
+                },1000));
+                
+                if(undefined === this.model.get('interval')) {
+                    var interval = $.timer(function() {
+                        if(self.model.get('currentDateTime').getTime() >= self.model.get('endDateTime').getTime()) {
+                            self.stopTime();
+                            return;
+                        }
+                        // create new time
+                        var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
+                        app.trigger("change:globalTime", currentDateTime);
+                    }, app.animationDuration, true);
 
-            $('.time-block').addClass('is-transitioning');
-            
-            if(undefined === this.model.get('interval')) {
-                var interval = $.timer(function() {
-                    if(self.model.get('currentDateTime').getTime() >= self.model.get('endDateTime').getTime()) {
-                        self.stopTime();
-                        return;
-                    }
-                    // create new time
-                    var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
-                    app.trigger("change:globalTime", currentDateTime);
-                }, app.animationDuration, true);
-
-                this.model.set('interval', interval);
-            } else {
-                this.model.get('interval').play();
+                    this.model.set('interval', interval);
+                } else {
+                    this.model.get('interval').play();
+                }
             }
         },
 
@@ -135,33 +144,23 @@ define([
         },
 
         triggerStartStop: function() {
-            if(this.model.get('label') == 'Stop') {
-                this.model.set('label', 'Start');
-                this.model.set('paused', true);
-                this.pauseTime();
-                this.render();
-
-            } else {
-                this.model.set('label', 'Stop');
-                this.model.set('paused', false);
-                this.resumeTime();
-                this.render();
+            if(this.model.get('timeState') == 'running') {
+                this.model.set('timeState', 'pause');
+                app.trigger('pause:watch');
+            } else if(this.model.get('timeState') == 'pause') {
+                this.model.set('timeState', 'running');
+                app.trigger('resume:watch');
             }
         },
 
         triggerStartStopKey: function(event) {
             if(event.keyCode == 32) {
-                if(this.model.get('label') == 'Stop') {
-                    this.model.set('label', 'Start');
-                    this.model.set('paused', true);
+                if(this.model.get('timeState') == 'running') {
+                    this.model.set('timeState', 'pause');
                     this.pauseTime();
-                    this.render();
-
-                } else {
-                    this.model.set('label', 'Stop');
-                    this.model.set('paused', false);
+                } else if(this.model.get('timeState') == 'pause') {
+                    this.model.set('timeState', 'running');
                     this.resumeTime();
-                    this.render();
                 }
             }
         },
@@ -169,7 +168,7 @@ define([
         computeFirstPosition: function() {
             var timeSpan = this.model.get('startDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get('startDateTime');
             var position = timeSpan / this.model.get('timeSpan') * this.width;
-            $('.time-block').css('width', position+'px');
+            $('.'+this.network+' .time-block').css('width', position+'px');
         },
 
         /**
@@ -179,6 +178,7 @@ define([
          */
         stopTime: function() {
             this.model.get('interval').stop();
+            this.model.set('interval', undefined);
             app.trigger('stop:time');
         },
 
@@ -196,21 +196,21 @@ define([
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
             var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
             if(position > this.width / 2) {
-                $('.time-block .dates').css('text-align', 'right').css('right', '45px');
+                $('.'+this.network+' .time-block .dates').css('text-align', 'right').css('right', '45px');
             }
             if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
-                $('.time-block').css('width', position+'px');
+                $('.'+this.network+' .time-block').css('width', position+'px');
             } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
-                $('.time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
+                $('.'+this.network+' .time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
                     $(this).addClass('is-transitioning');
                     next();
                 });
             }
 
             if(position > this.width) {
-                $('.current-time-box').addClass('max-right');
+                $('.'+this.network+' .current-time-box').addClass('max-right');
             } else {
-                $('.current-time-box').removeClass('max-right');
+                $('.'+this.network+' .current-time-box').removeClass('max-right');
             }
 
             this.model.set('endPoint', position);
@@ -224,5 +224,5 @@ define([
         
     });
 
-    return timeView;
+    return timeCompareView;
 }); 

@@ -54,7 +54,7 @@ define([
 
             // Compute appropriate timestep
             if(withVideo == 'true') {
-                var timeStep = 3;
+                var timeStep = 5;
             } else {
                 var timeStep = util.getTimeStep(startDateTime, endDateTime);
             }

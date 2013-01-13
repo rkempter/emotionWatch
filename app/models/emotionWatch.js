@@ -29,7 +29,8 @@ define([
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
               timeStep: this.get("timeStep"),
-              network: this.get("network")
+              network: this.get("network"),
+              keywordType: this.get("keywordType")
             })
         });
 

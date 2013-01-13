@@ -158,7 +158,7 @@ input,
 button,
 select,
 textarea {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "ff-tisa-web-pro", sans-serif;
 }
 label {
   display: block;
@@ -538,17 +538,18 @@ legend + .control-group {
   padding-left: 200px;
 }
 body {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "ff-tisa-web-pro", sans-serif;
   font-weight: 400;
   background: #0173d6;
   color: #ffffff;
   margin: 0;
   padding: 0;
-  -webkit-transition: background-color 3000ms linear;
-  -moz-transition: background-color 3000ms linear;
-  -o-transition: background-color 3000ms linear;
-  -ms-transition: background-color 3000ms linear;
-  transition: background-color 3000ms linear;
+  padding-top: 130px;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
 }
 body #bottom,
 body.empty #bottom {
@@ -608,6 +609,9 @@ body.frontpage {
 body.frontpage #bottom {
   background: #0173d6;
 }
+a {
+  text-decoration: underline;
+}
 ul {
   margin: 0 0 0 20px;
   padding: 0;
@@ -651,28 +655,69 @@ h3 {
   z-index: 2;
   width: 100%;
   top: 0;
-  height: 35px;
-  background-color: #1a1a1a;
-  line-height: 35px;
 }
-.top-navigation .logo {
-  margin-left: 25px;
-  float: left;
+.top-navigation .title {
+  text-align: center;
+  margin-top: 20px;
 }
-.top-navigation .menu {
-  margin-right: 25px;
-}
-.top-navigation ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  float: right;
-}
-.top-navigation li {
-  float: left;
-  margin-left: 20px;
-  line-height: 35px;
+.top-navigation .title .inside-title {
+  display: inline-block;
   position: relative;
+  min-width: 700px;
+}
+.top-navigation .title h1 {
+  min-width: 700px;
+  font-family: "league-gothic";
+  font-size: 45px;
+  text-transform: uppercase;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
+  margin-top: 0px;
+  text-align: center;
+  display: inline-block;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.top-navigation .title .menu-left {
+  width: 200px;
+  position: absolute;
+  left: -250px;
+  top: 5px;
+}
+.top-navigation .title .menu-left ul {
+  list-style: none;
+  text-align: right;
+}
+.top-navigation .title .menu-right {
+  width: 200px;
+  position: absolute;
+  right: -225px;
+  margin: 0;
+  top: 5px;
+}
+.top-navigation .title .menu-right ul {
+  list-style: none;
+  text-align: left;
+}
+.top-navigation .title .subinfo {
+  margin-top: 0px;
+}
+.top-navigation .title .subinfo .subinfo-tab {
+  width: 25%;
+  height: 50px;
+  float: left;
+}
+.top-navigation .title .subinfo .subinfo-tab h2 {
+  opacity: 0.4;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+.top-navigation .title .subinfo .subinfo-tab h3 {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 0;
 }
 .top-navigation a {
   color: #ffffff;
@@ -683,7 +728,7 @@ h3 {
   display: none;
   position: absolute;
   z-index: 100;
-  top: 35px;
+  top: 100px;
   left: 0;
   background-color: #1a1a1a;
   width: 300px;
@@ -726,11 +771,11 @@ h3 {
   width: 100%;
   position: fixed;
   bottom: 0px;
-  -webkit-transition: background-color 3000ms linear;
-  -moz-transition: background-color 3000ms linear;
-  -o-transition: background-color 3000ms linear;
-  -ms-transition: background-color 3000ms linear;
-  transition: background-color 3000ms linear;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
 }
 #index #bottom .date-time-freq,
 #pattern #bottom .date-time-freq {
@@ -793,43 +838,20 @@ svg .line {
   float: right;
   clear: both;
 }
-.welcome {
-  background: #0173d6;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 900px;
-  border: 1px solid #ffffff;
-  color: #ffffff;
-  margin: -350px 0 0 -450px;
-  padding: 2%;
-  z-index: 100;
+/** Frontpage **/
+#welcome-screen {
+  font-size: 18px;
+  font-weight: 300;
   text-align: center;
 }
-.welcome h2 {
-  margin-bottom: 20px;
+#welcome-screen .modal-header h3 {
+  font-size: 24px;
 }
-.welcome .form-horizontal .control-label {
-  text-align: left;
-  width: 160px;
+#welcome-screen ul {
+  list-style: none;
 }
-.welcome .form-horizontal .controls {
-  margin-left: 160px;
-}
-.welcome .btn-search {
-  margin-right: 12px;
-}
-.welcome .left {
-  margin: 0 2% 0 2%;
-  width: 45%;
-  float: left;
-}
-.welcome .right {
-  border-left: 1px solid #fff;
-  padding-left: 4%;
-  margin: 0 0 0 1%;
-  width: 45%;
-  float: left;
+#welcome-screen li {
+  margin: 5px 0;
 }
 /** Watch **/
 #index .watch {
@@ -860,14 +882,21 @@ svg .line {
   cursor: pointer;
 }
 #pattern .date-time-freq path.active {
-  fill: #cccccc;
+  fill: #a00202;
 }
 #pattern .date-time-freq path {
-  fill: #ac7b74;
+  fill: #acacac;
   stroke-width: 0;
 }
 #pattern .date-time-freq path:hover {
   fill: #cccccc;
+}
+#pattern .date-time-freq .hoverPath {
+  opacity: 0;
+}
+#pattern .date-time-freq .hoverPath:hover {
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0.3;
 }
 #index .date-time-freq path,
 #compare .date-time-freq path,
@@ -877,16 +906,25 @@ svg .line {
 }
 #index .date-time-freq path.visited,
 #compare .date-time-freq path.visited {
-  fill: #cccccc;
+  fill: #ebebeb;
 }
 #index .date-time-freq path.active,
 #compare .date-time-freq path.active {
-  fill: #000000;
+  fill: #a00202;
 }
 #index .date-time-freq path,
 #compare .date-time-freq path {
-  fill: #ac7b74;
+  fill: #acacac;
   stroke-width: 0;
+}
+#index .date-time-freq .hoverPath,
+#compare .date-time-freq .hoverPath {
+  opacity: 0;
+}
+#index .date-time-freq .hoverPath:hover,
+#compare .date-time-freq .hoverPath:hover {
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0.3;
 }
 #index .date-time-freq path:hover,
 #compare .date-time-freq path:hover {
@@ -897,16 +935,22 @@ svg .line {
   bottom: 0;
   left: 0;
   width: 0;
-  -webkit-transition: width 3s linear;
-  -moz-transition: width 3s linear;
-  -o-transition: width 3s linear;
-  transition: width 3s linear;
+}
+.time-block.is-transitioning {
+  -webkit-transition: width 5s linear;
+  -moz-transition: width 5s linear;
+  -o-transition: width 5s linear;
+  transition: width 5s linear;
 }
 .time-block .curtain {
   background-color: rgba(255, 255, 255, 0.2);
   height: 100px;
   width: 100%;
-  border-right: 1px solid red;
+  border-right: 1px solid #a00202;
+}
+.current-time-box.max-right {
+  position: fixed;
+  right: 25px;
 }
 .current-time-box .dates {
   position: absolute;
@@ -943,89 +987,130 @@ svg .line {
   float: right;
   margin-top: -27px;
 }
-.tweets a {
-  color: #ffffff;
+.tweets {
+  position: absolute;
+  width: 100%;
+  height: 540px;
+  -webkit-perspective: 300px;
+  -webkit-perspective-origin: 50% 30%;
 }
 .tweets ul {
-  margin-bottom: 100px;
+  list-style: none;
 }
-.tweets li {
-  position: relative;
+@-webkit-keyframes translation_right {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(100px, 10px, 0px);
+  }
+}
+@-webkit-keyframes translation_left {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translate3d(-100px, 10px, 0px);
+    opacity: 0;
+  }
+}
+.tweet {
+  width: 350px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-play-state: running;
+  position: absolute;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2px 5px 2px 40px;
   margin: 10px 0;
 }
-.tweets li p {
+.tweet a {
+  color: #ffffff;
+}
+.tweet p {
   margin: 3px 0;
   font-size: 14px;
 }
-.tweets li span.date {
+.tweet span.date {
   position: absolute;
   left: -20px;
   top: -5px;
   display: block;
-  background-color: #1a1a1a;
+  border: 2px solid #1a1a1a;
   height: 50px;
   line-height: 50px;
   text-align: center;
   width: 50px;
   border-radius: 30px;
+  background-color: #0173d6;
 }
-.tweets li span.date.guilt {
-  border: 2px solid #002da7;
+.tweet span.date.guilt {
+  background-color: #002da7;
 }
-.tweets li span.date.disappointment {
-  border: 2px solid #0032a7;
+.tweet span.date.disappointment {
+  background-color: #0032a7;
 }
-.tweets li span.date.envy {
-  border: 2px solid #004eac;
+.tweet span.date.envy {
+  background-color: #004eac;
 }
-.tweets li span.date.disgust {
-  border: 2px solid #187aac;
+.tweet span.date.disgust {
+  background-color: #187aac;
 }
-.tweets li span.date.contempt {
-  border: 2px solid #43acb0;
+.tweet span.date.contempt {
+  background-color: #43acb0;
 }
-.tweets li span.date.irritation {
-  border: 2px solid #3ea67c;
+.tweet span.date.irritation {
+  background-color: #3ea67c;
 }
-.tweets li span.date.involvement {
-  border: 2px solid #3fa652;
+.tweet span.date.involvement {
+  background-color: #3fa652;
 }
-.tweets li span.date.amusement {
-  border: 2px solid #40a630;
+.tweet span.date.amusement {
+  background-color: #40a630;
 }
-.tweets li span.date.joy {
-  border: 2px solid #6da529;
+.tweet span.date.joy {
+  background-color: #6da529;
 }
-.tweets li span.date.tenderness {
-  border: 2px solid #b1992d;
+.tweet span.date.tenderness {
+  background-color: #b1992d;
 }
-.tweets li span.date.wonderment {
-  border: 2px solid #ac6b1e;
+.tweet span.date.wonderment {
+  background-color: #ac6b1e;
 }
-.tweets li span.date.relief {
-  border: 2px solid #a83f14;
+.tweet span.date.relief {
+  background-color: #a83f14;
 }
-.tweets li span.date.surprise {
-  border: 2px solid #a5270f;
+.tweet span.date.surprise {
+  background-color: #a5270f;
 }
-.tweets li span.date.longing {
-  border: 2px solid #a52834;
+.tweet span.date.longing {
+  background-color: #a52834;
 }
-.tweets li span.date.pity {
-  border: 2px solid #a32e68;
+.tweet span.date.pity {
+  background-color: #a32e68;
 }
-.tweets li span.date.sadness {
-  border: 2px solid #a3379c;
+.tweet span.date.sadness {
+  background-color: #a3379c;
 }
-.tweets li span.date.worry {
-  border: 2px solid #7e36ac;
+.tweet span.date.worry {
+  background-color: #7e36ac;
 }
-.tweets li span.date.shame {
-  border: 2px solid #4c2fab;
+.tweet span.date.shame {
+  background-color: #4c2fab;
 }
-/** Video **/
+.stop-animation .tweet {
+  display: none;
+  -webkit-animation: none !important;
+}
+/** o **/
 #player {
   width: 100%;
 }
@@ -1134,8 +1219,16 @@ svg .line {
   fill: #4c2fab;
 }
 /**** COMPARE ****/
+#compare .columns.twitter h2 {
+  text-align: left;
+  margin-left: 20px;
+}
+#compare .columns.weibo h2 {
+  text-align: right;
+  margin-right: 20px;
+}
 #compare .columns h2 {
-  text-align: center;
+  margin-top: 20px;
 }
 #compare .columns .bottom {
   position: absolute;
@@ -1143,9 +1236,12 @@ svg .line {
   left: 0px;
   height: 100px;
 }
+#compare .columns .bottom .time-block {
+  position: absolute;
+}
 #compare .columns .watch {
   position: relative;
-  margin-top: 140px;
+  margin-top: 10px;
 }
 #compare .columns .watch .paper {
   position: relative;
@@ -1167,6 +1263,7 @@ svg .line {
 #compare #left-column .bottom {
   left: 0;
   width: 50%;
+  border-right: 1px solid #1a1a1a;
 }
 #compare #right-column {
   width: 50%;
@@ -1183,11 +1280,12 @@ svg .line {
 .detail-block div {
   z-index: 10;
   padding: 5px;
+  text-align: center;
   position: fixed;
-  bottom: 110px;
+  bottom: 115px;
   height: 100px;
-  width: 150px;
-  margin-left: -75px;
+  width: 160px;
+  margin-left: -80px;
   background: #cccccc;
   color: #1a1a1a;
   border-radius: 10px;
@@ -1201,8 +1299,9 @@ svg .line {
 .detail-block div p {
   margin: 0;
 }
-.detail-block div h4 {
-  margin: 0 0 5px;
+.detail-block div p.tweet-nbr {
+  margin: 8px 0;
+  font-weight: 600;
 }
 .detail-block div:before {
   position: absolute;
@@ -1345,6 +1444,9 @@ input[type="color"],
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+select {
+  height: 30px;
 }
 /**** Modal ****/
 .modal {
