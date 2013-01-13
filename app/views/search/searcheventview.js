@@ -54,10 +54,9 @@ define([
             var keyword;
 
             // Compute appropriate timestep
+            var timeStep = util.getTimeStep(startDateTime, endDateTime);
             if(withVideo == 'true') {
-                var timeStep = 5;
-            } else {
-                var timeStep = util.getTimeStep(startDateTime, endDateTime);
+                timeStep = 5;
             }
             
             // Select keyword according to the network
@@ -103,7 +102,7 @@ define([
             var video = $('#event-event option:selected').attr('data-hasvideo');
             var selectedEvent = $('#event-event option:selected').text();
             this.model.set('selectedEvent', selectedEvent);
-            if(video != '') {
+            if(video !== '') {
                 this.model.set('hasVideo', true);
             }
             this.render();

@@ -17,13 +17,12 @@ define([
             // Listen to global close event
             this.listenTo(app, 'close', this.close);
 
-            
         },
 
         close: function() {
             this.remove();
             this.unbind();
-        },
+        }
 
         
     });

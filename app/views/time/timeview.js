@@ -134,7 +134,7 @@ define([
         },
 
         events: {
-            'click #start-stop-control': 'triggerStartStop',
+            'click #start-stop-control': 'triggerStartStop'
         },
 
         triggerStartStop: function() {
@@ -219,7 +219,7 @@ define([
             }
 
             this.model.set('endPoint', position);
-            if(this.model.get('paused') == true) {
+            if(this.model.get('paused') === true) {
                 this.$el.css('-webkit-animation-play-state', 'paused');
             } else {
                 this.$el.css('-webkit-animation-play-state', 'running');

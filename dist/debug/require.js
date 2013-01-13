@@ -388,7 +388,7 @@ var requirejs, require, define;
 this['JST']['app/templates/compare-layout.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="compare">\n    <div class="navigation"></div>\n\n    <div class="weibo columns" id="left-column">\n        <div class="watch">\n            <h2>Weibo</h2>\n            <div class="paper"></div>\n            <div class="watch-view"></div>\n        </div>\n        <div class="bottom">\n            <div class="date-time-freq">\n                <div class="paper"></div>\n                <div class="freq"></div>\n            </div>\n        </div>\n    </div>\n    <div class="" id="middle-column">\n        <div class="keyword-title"></div>\n        <div class="time-block"></div>\n    </div>\n    <div class="twitter columns" id="right-column">\n        <div class="watch">\n            <h2>Twitter</h2>\n            <div class="paper"></div>\n            <div class="watch-view"></div>\n        </div>\n        <div class="bottom">\n            <div class="date-time-freq">\n                <div class="paper"></div>\n                <div class="freq"></div>\n            </div>\n        </div>\n    </div>\n    <div class="watches"></div>\n</div>';
+__p+='<div id="compare">\n    <div class="navigation"></div>\n\n    <div class="weibo columns" id="left-column">\n        <div class="watch">\n            <h2>Weibo</h2>\n            <div class="paper"></div>\n            <div class="watch-view"></div>\n        </div>\n        <div class="bottom">\n            <div class="time-block">\n                <div class="curtain"></div>\n                <div class="current-time-box"></div>\n            </div>\n            <div class="date-time-freq">\n                <div class="paper"></div>\n            </div>\n        </div>\n    </div>\n    <div class="" id="middle-column">\n        <div class="keyword-title"></div>\n        <div class="time-block"></div>\n    </div>\n    <div class="twitter columns" id="right-column">\n        <div class="watch">\n            <h2>Twitter</h2>\n            <div class="paper"></div>\n            <div class="watch-view"></div>\n        </div>\n        <div class="bottom">\n            <div class="time-block">\n                <div class="curtain"></div>\n                <div class="current-time-box"></div>\n            </div>\n            <div class="date-time-freq">\n                <div class="paper"></div>\n            </div>\n        </div>\n    </div>\n    <div class="watches"></div>\n</div>';
 }
 return __p;
 };
@@ -410,12 +410,12 @@ return __p;
 this['JST']['app/templates/detailview.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<h4>Timeslot</h4>\n<p><small>from</small> '+
-( localStartDateTime )+
-'</p>\n<p><small>until</small> '+
-( localEndDateTime )+
-'</p>\n<p>Tweets: '+
+__p+='<p>'+
+( moment(new Date(localStartDateTime)).format("DD.MM.YYYY HH:mm:ss") )+
+'</p>\n<p class="tweet-nbr">'+
 ( tweetCount )+
+' tweets</p>\n<p>'+
+( moment(new Date(localEndDateTime)).format("DD.MM.YYYY HH:mm:ss") )+
 '</p>';
 }
 return __p;
@@ -456,7 +456,7 @@ return __p;
 this['JST']['app/templates/main-layout.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="index">\n    <div class="navigation"></div>\n    <div class="detail-block"></div>\n\n    <div class="columns" id="left-column">\n        <div class="tweets"></div>\n    </div>\n    <div class="columns" id="middle-column">\n        <div class="keyword-title"></div>\n        <div class="watch">\n            <div class="paper">\n            </div>\n        </div>\n        \n    </div>\n    <div class="columns" id="right-column">\n        <div class="inner">\n            <div id="player"></div>\n            <div class="time-block"></div>\n        </div>\n    </div>\n    <div id="bottom">\n        <div class="date-time-freq">\n            <div class="paper"></div>\n        </div>\n    </div>\n    <div class="watches"></div>\n    \n</div>';
+__p+='<div id="index">\n    <div class="navigation"></div>\n    <div class="detail-block"></div>\n\n    <div class="columns" id="left-column">\n        <div class="tweets">\n        <div class="tweet-container">\n</div></div>\n    </div>\n    <div class="columns" id="middle-column">\n        <div class="keyword-title"></div>\n        <div class="watch">\n            <div class="paper">\n            </div>\n        </div>\n        \n    </div>\n    <div class="columns" id="right-column">\n        <div class="inner">\n            <div id="player"></div>\n            \n        </div>\n    </div>\n    <div id="bottom">\n        <div class="time-block">\n            <div class="curtain"></div>\n            <div class="current-time-box">\n            </div>\n        </div>\n        <div class="date-time-freq">\n            <div class="paper"></div>\n        </div>\n    </div>\n    <div class="watches"></div>\n    \n</div>';
 }
 return __p;
 };
@@ -464,7 +464,37 @@ return __p;
 this['JST']['app/templates/navbar.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div class="top-navigation">\n  <div class="logo"><a href="/">The Olympic Emotion Project</a></div>\n  <div class="menu">\n    <ul>\n      <li id="settings-btn" data-toggle="modal">\n        Settings\n      </li>\n      <li id="search-event-btn" data-toggle="modal">\n        Search event\n      </li>\n      <li id="search-keyword-btn" data-toggle="modal">\n        Search hashtag / athlete\n      </li>\n      <li>About the project</li>\n      <li><a href="http://www.github.com/rkempter">Github</a></li>\n    </ul>\n  </div>\n</div>';
+__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div class="top-navigation">\n  <div class="title">\n\n    <div class="inside-title">\n      <div class="menu-left">\n        <ul>\n          <li><a href="/">Home</a></li>\n          <li id="settings-btn" class="modal-link" data-toggle="modal">\n            Settings\n          </li>\n          <li id="search-event-btn" class="modal-link" data-toggle="modal">\n            Search event\n          </li>\n          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">\n            Search hashtag\n          </li>\n        </ul>\n      </div>\n      ';
+ if(keywordType == 'event' && event !== undefined) { 
+;__p+='\n        <h1>'+
+( sport, gender, event )+
+'</h1>\n      ';
+ } else if(keywordType == 'keyword' && hashtag !== undefined) { 
+;__p+='\n        <h1>'+
+( hashtag )+
+'</h1>\n      ';
+ } else { 
+;__p+='\n        <h1>Event or keyword not found</h1>\n      ';
+ } 
+;__p+='\n      <div class="subinfo">\n        <div class="subinfo-tab start">\n          <h2>Date and time of begin</h2>\n          <h3>'+
+( moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm") )+
+'</h3>\n        </div>\n        <div class="subinfo-tab end">\n          <h2>Date and time of end</h2>\n          <h3>'+
+( moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm") )+
+'</h3>\n        </div>\n        <div class="subinfo-tab timestep">\n          <h2>Interval</h2>\n          <h3>'+
+( timeStep )+
+'</h3>\n        </div>\n        <div class="subinfo-tab timestep">\n          <h2>Network</h2>\n          <h3>'+
+( network )+
+'</h3>\n        </div>\n      </div>\n      <div class="menu-right">\n        <ul>\n          <li><a href="'+
+( urlSingle )+
+'">Single watch view</a></li>\n          <li><a href="'+
+( urlPattern )+
+'">Pattern watch view</a></li>\n          ';
+ if(keywordType == 'event') { 
+;__p+='\n          <li><a href="'+
+( urlCompare )+
+'">Compare Twitter & Weibo</a></li>\n          ';
+ } 
+;__p+='\n        </ul>\n      </div>\n    </div>\n    \n  </div>\n\n  \n</div>';
 }
 return __p;
 };
@@ -488,25 +518,191 @@ return __p;
 this['JST']['app/templates/searcheventtemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<h2>Search an event</h2>\n<div class="input-control">\n    <label for="event-gender">Choose gender</label>\n    <div class="inner-control">\n        <select name="event-gender" id="event-gender">\n            <option value="men">Male</option>\n            <option value="women">Female</option>\n        </select>\n    </div>\n</div>\n<div class="input-control">\n    <label for="event-sport">Choose a sport</label>\n    <div class="inner-control">\n        <select name="event-sport" id="event-sport">\n            <option value="diving">Diving</option>\n            <option value="swimming">Swimming</option>\n            <option value="synchronised swimming">Synchronised Swimming</option>\n            <option value="waterpolo">Waterpolo</option>\n            <option value="archery">Archery</option>\n            <option value="badminton">Badminton</option>\n            <option value="basketball">Basketball</option>\n            <option value="boxing">Boxing</option>\n            <option value="canoe slalom">Canoe Slalom</option>\n            <option value="canoe sprint">Canoe Sprint</option>\n            <option value="cycling">Cycling</option>\n            <option value="cycling-bmx">Cycling - BMX</option>\n            <option value="cycling-road">Cycling - Road</option>\n            <option value="cycling-track">Cycling - Track</option>\n            <option value="cycling-mountain bike">Cycling - Mountain Bike</option>\n            <option value="equestrian">Equestrian</option>\n            <option value="fencing">Fencing</option>\n            <option value="football">Football</option>\n            <option value="golf">Golf</option>\n            <option value="gymnastics">Gymnastics</option>\n            <option value="trampoline">Trampoline</option>\n            <option value="handball">Handball</option>\n            <option value="hockey">Hockey</option>\n            <option value="judo">Judo</option>\n            <option value="modern pentathlon">Modern Pentathlon</option>\n            <option value="rowing">Rowing</option>\n            <option value="sailing">Sailing</option>\n            <option value="shooting">Shooting</option>\n            <option value="table tennis">Table tennis</option>\n            <option value="taekwondo">Taekwondo</option>\n            <option value="tennis">Tennis</option>\n            <option value="triathlon">Triathlon</option>\n            <option value="volleyball">Volleyball</option>\n            <option value="beach volleyball">Beach Volleyball</option>\n            <option value="weightlifting">Weightlifting</option>\n            <option value="wrestling">Wrestling</option>\n            <option value="athletics">Athletics</option>\n        </select>\n    </div>\n</div>\n\n';
+__p+='<div class="form-horizontal">\n    <h2>Search an event</h2>\n    <div class="control-group">\n        <label class="control-label" for="event-gender">Choose gender: </label>\n        <div class="controls">\n            <select name="event-gender" id="event-gender">\n                <option value="men" ';
+ if(gender == 'men') { 
+;__p+=' selected ';
+ } 
+;__p+='>Male</option>\n                <option value="women" ';
+ if(gender == 'women') { 
+;__p+=' selected ';
+ } 
+;__p+='>Female</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="event-sport">Choose a sport</label>\n        <div class="controls">\n            <select name="event-sport" id="event-sport">\n                <option value="empty" selected></option>\n                <option value="diving" ';
+ if(sport == 'diving') { 
+;__p+=' selected ';
+ } 
+;__p+='>Diving</option>\n                <option value="swimming" ';
+ if(sport == 'swimming') { 
+;__p+=' selected ';
+ } 
+;__p+='>Swimming</option>\n                <option value="synchronised-swimming" ';
+ if(sport == 'synchronised-swimming') { 
+;__p+=' selected ';
+ } 
+;__p+='>Synchronised Swimming</option>\n                <option value="waterpolo" ';
+ if(sport == 'waterpolo') { 
+;__p+=' selected ';
+ } 
+;__p+='>Waterpolo</option>\n                <option value="archery" ';
+ if(sport == 'archery') { 
+;__p+=' selected ';
+ } 
+;__p+='>Archery</option>\n                <option value="badminton" ';
+ if(sport == 'badminton') { 
+;__p+=' selected ';
+ } 
+;__p+='>Badminton</option>\n                <option value="basketball" ';
+ if(sport == 'basketball') { 
+;__p+=' selected ';
+ } 
+;__p+='>Basketball</option>\n                <option value="boxing" ';
+ if(sport == 'boxing') { 
+;__p+=' selected ';
+ } 
+;__p+='>Boxing</option>\n                <option value="canoe-slalom" ';
+ if(sport == 'canoe-slalom') { 
+;__p+=' selected ';
+ } 
+;__p+='>Canoe Slalom</option>\n                <option value="canoe-sprint" ';
+ if(sport == 'canoe-sprint') { 
+;__p+=' selected ';
+ } 
+;__p+='>Canoe Sprint</option>\n                <option value="cycling" ';
+ if(sport == 'cycling') { 
+;__p+=' selected ';
+ } 
+;__p+='>Cycling</option>\n                <option value="cycling-bmx" ';
+ if(sport == 'cycling-bmx') { 
+;__p+=' selected ';
+ } 
+;__p+='>Cycling - BMX</option>\n                <option value="cycling-road" ';
+ if(sport == 'cycling-road') { 
+;__p+=' selected ';
+ } 
+;__p+='>Cycling - Road</option>\n                <option value="cycling-track" ';
+ if(sport == 'cycling-track') { 
+;__p+=' selected ';
+ } 
+;__p+='>Cycling - Track</option>\n                <option value="cycling-mountainbike" ';
+ if(sport == 'cycling-mountainbike') { 
+;__p+=' selected ';
+ } 
+;__p+='>Cycling - Mountain Bike</option>\n                <option value="equestrian" ';
+ if(sport == 'equestrian') { 
+;__p+=' selected ';
+ } 
+;__p+='>Equestrian</option>\n                <option value="fencing" ';
+ if(sport == 'fencing') { 
+;__p+=' selected ';
+ } 
+;__p+='>Fencing</option>\n                <option value="football" ';
+ if(sport == 'football') { 
+;__p+=' selected ';
+ } 
+;__p+='>Football</option>\n                <option value="golf" ';
+ if(sport == 'golf') { 
+;__p+=' selected ';
+ } 
+;__p+='>Golf</option>\n                <option value="gymnastics" ';
+ if(sport == 'gymnastics') { 
+;__p+=' selected ';
+ } 
+;__p+='>Gymnastics</option>\n                <option value="trampoline" ';
+ if(sport == 'trampoline') { 
+;__p+=' selected ';
+ } 
+;__p+='>Trampoline</option>\n                <option value="handball" ';
+ if(sport == 'handball') { 
+;__p+=' selected ';
+ } 
+;__p+='>Handball</option>\n                <option value="hockey" ';
+ if(sport == 'hockey') { 
+;__p+=' selected ';
+ } 
+;__p+='>Hockey</option>\n                <option value="judo" ';
+ if(sport == 'v') { 
+;__p+=' selected ';
+ } 
+;__p+='>Judo</option>\n                <option value="modern-pentathlon" ';
+ if(sport == 'modern-pentathlon') { 
+;__p+=' selected ';
+ } 
+;__p+='>Modern Pentathlon</option>\n                <option value="rowing" ';
+ if(sport == 'rowing') { 
+;__p+=' selected ';
+ } 
+;__p+='>Rowing</option>\n                <option value="sailing" ';
+ if(sport == 'sailing') { 
+;__p+=' selected ';
+ } 
+;__p+='>Sailing</option>\n                <option value="shooting" ';
+ if(sport == 'shooting') { 
+;__p+=' selected ';
+ } 
+;__p+='>Shooting</option>\n                <option value="table-tennis" ';
+ if(sport == 'table-tennis') { 
+;__p+=' selected ';
+ } 
+;__p+='>Table tennis</option>\n                <option value="taekwondo" ';
+ if(sport == 'taekwondo') { 
+;__p+=' selected ';
+ } 
+;__p+='>Taekwondo</option>\n                <option value="tennis" ';
+ if(sport == 'tennis') { 
+;__p+=' selected ';
+ } 
+;__p+='>Tennis</option>\n                <option value="triathlon" ';
+ if(sport == 'triathlon') { 
+;__p+=' selected ';
+ } 
+;__p+='>Triathlon</option>\n                <option value="volleyball" ';
+ if(sport == 'volleyball') { 
+;__p+=' selected ';
+ } 
+;__p+='>Volleyball</option>\n                <option value="beachvolleyball" ';
+ if(sport == 'beachvolleyball') { 
+;__p+=' selected ';
+ } 
+;__p+='>Beach Volleyball</option>\n                <option value="weightlifting" ';
+ if(sport == 'weightlifting') { 
+;__p+=' selected ';
+ } 
+;__p+='>Weightlifting</option>\n                <option value="wrestling" ';
+ if(sport == 'wrestling') { 
+;__p+=' selected ';
+ } 
+;__p+='>Wrestling</option>\n                <option value="athletics" ';
+ if(sport == 'athletics') { 
+;__p+=' selected ';
+ } 
+;__p+='>Athletics</option>\n            </select>\n        </div>\n    </div>\n\n    ';
  if (events.length > 0) { 
-;__p+='\n<div class="input-control">\n    <label for="event-network">Choose an event</label>\n    <div class="inner-control">\n        <select id="event-event">\n             ';
+;__p+='\n    <div class="control-group">\n        <label class="control-label" for="event-event">Choose an event</label>\n        <div class="controls">\n            <select id="event-event" name="event-event">\n                <option value="empty" selected></option>\n                 ';
  _.each(events, function(event) { 
-;__p+='\n                 <option data-startdatetime="'+
+;__p+='\n                     <option ';
+ if(selectedEvent == event.event) { 
+;__p+=' selected ';
+ } 
+;__p+='data-hasvideo="'+
+( event.video )+
+'" data-startdatetime="'+
 ( event.startDateTime )+
 '" data-enddatetime="'+
 ( event.endDateTime )+
 '" data-hashtag-twitter="'+
 ( event.hashtag_twitter )+
-'" data-hashtag-weibo="'+
+'" data-hashtag-weibo="#'+
 ( event.hashtag_weibo )+
 '">'+
 ( event.event )+
-'</option>\n             ';
+'</option>\n                 ';
  }); 
-;__p+='\n         </select>\n    </div>\n</div>\n';
+;__p+='\n             </select>\n        </div>\n    </div>\n    ';
  } 
-;__p+='\n<div class="input-control">\n    <label for="event-network">Network</label>\n    <div class="inner-control">\n        <select id="event-network" name="event-network">\n            <option value="twitter" selected>Twitter</option>\n            <option value="weibo">Weibo</option>\n        </select>\n    </div>\n</div>\n<button class="btn btn-search" id="event-search">Search event</button>';
+;__p+='\n    <div class="control-group">\n        <label class="control-label" for="event-network">Network</label>\n        <div class="controls">\n            <select id="event-network" name="event-network">\n                <option value="twitter" selected>Twitter</option>\n                <option value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    ';
+ if (hasVideo == true) { 
+;__p+='\n    <div class="control-group">\n        <label class="control-label" for="event-video">Show video?</label>\n        <div class="controls">\n           <select id="event-video" name="event-video">\n                <option value="true">Yes</option>\n                <option value="false" selected>No</option>\n            </select>\n        </div>\n    </div>\n    ';
+ } 
+;__p+='\n    <button class="btn btn-search" id="event-search">Search event</button>\n</div>';
 }
 return __p;
 };
@@ -514,7 +710,7 @@ return __p;
 this['JST']['app/templates/searchkeywordtemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<h2>Search a keyword or athlete / person</h2>\n<div class="input-control">\n    <label for="keyword">Keyword (with # or @)</label>\n    <div class="inner-control">\n        <input type="text" id="keyword" />\n    </div>\n</div>\n<div class="input-control">\n    <label for="keyword-network">Network</label>\n    <div class="inner-control">\n        <select id="keyword-network" name="keyword-network">\n            <option value="twitter" selected>Twitter</option>\n            <option value="weibo">Weibo</option>\n        </select>\n    </div>\n</div>\n<div class="input-control">\n    <label for="keyword-start-date-time">Startdate & time</label>\n    <div class="inner-control">\n        <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />\n        <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />\n    </div>\n</div>\n <div class="input-control">\n    <label for="keyword-end-date-time">Enddate & time</label>\n    <div class="inner-control">\n        <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-end-date" />\n        <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />\n    </div>\n</div>\n<button class="btn btn-search keyword-search">Search keyword or athlete</button>';
+__p+='<div class="form-horizontal">\n    <h2>Search a keyword</h2>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Hashtag (with #)</label>\n        <div class="controls">\n            <input type="text" id="keyword" name="keyword" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Network</label>\n        <div class="controls">\n            <select id="keyword-network" name="keyword-network">\n                <option value="twitter" selected>Twitter</option>\n                <option value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at beginning</label>\n        <div class="controls">\n            <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at beginning</label>\n        <div class="controls">\n            <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at end</label>\n        <div class="controls">\n            <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-end-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at end</label>\n        <div class="controls">\n            <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />\n        </div>\n    </div>\n    <button class="btn btn-search keyword-search">Search keyword or athlete</button>\n</div>';
 }
 return __p;
 };
@@ -522,17 +718,61 @@ return __p;
 this['JST']['app/templates/settingstemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="settings">\n    <h2>Settings</h2>\n    <div class="input-control">\n        <label>Animation duration of one step</label>\n        <div class="inner-control">\n            <input type="text" name="animation-duration" id="animation-duration" value="'+
-( animationDuration )+
-'" />\n        </div>\n    </div>\n    <div class="input-control">\n        <label>Length of a time step</label>\n        <div class="inner-control">\n            <input type="text" name="time-step" id="time-step" value="'+
-( timeStep )+
-'" />\n        </div>\n    </div>\n    <div class="input-control">\n        <label>Network</label>\n        <div class="inner-control">\n            <select id="network">\n                <option value="twitter">Twitter</option>\n                <option value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    <div class="input-control">\n        <label>Date & time at beginning</label>\n        <div class="inner-control">\n            <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="'+
+__p+='<div id="settings" class="form-horizontal">\n    <h2>Settings</h2>\n    <div class="control-group">\n        <label class="control-label" for="time-step">Length of a time step</label>\n        <div class="controls">\n          <select id="time-step" name="time-step">\n                <option ';
+ if(timeStep == 5) { 
+;__p+=' selected ';
+ } 
+;__p+='value="5">5 seconds</option>\n                <option ';
+ if(timeStep == 15) { 
+;__p+=' selected ';
+ } 
+;__p+='value="15">15 seconds</option>\n                <option ';
+ if(timeStep == 60) { 
+;__p+=' selected ';
+ } 
+;__p+='value="60">1 minute</option>\n                <option ';
+ if(timeStep == 120) { 
+;__p+=' selected ';
+ } 
+;__p+='value="120">2 minutes</option>\n                <option ';
+ if(timeStep == 300) { 
+;__p+=' selected ';
+ } 
+;__p+='value="300">5 minutes</option>\n                <option ';
+ if(timeStep == 900) { 
+;__p+=' selected ';
+ } 
+;__p+='value="900">15 minutes</option>\n                <option ';
+ if(timeStep == 1800) { 
+;__p+=' selected ';
+ } 
+;__p+='value="1800">30 minutes</option>\n                <option ';
+ if(timeStep == 3600) { 
+;__p+=' selected ';
+ } 
+;__p+='value="3600">1 hour</option>\n                <option ';
+ if(timeStep == 7200) { 
+;__p+=' selected ';
+ } 
+;__p+='value="7200">2 hours</option>\n                <option ';
+ if(timeStep == 43200) { 
+;__p+=' selected ';
+ } 
+;__p+='value="43200">12 hours</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="network">Network</label>\n        <div class="controls">\n            <select id="network" name="network">\n                <option ';
+ if(network == 'twitter') { 
+;__p+=' selected ';
+ } 
+;__p+='value="twitter">Twitter</option>\n                <option ';
+ if(network == 'weibo') { 
+;__p+=' selected ';
+ } 
+;__p+='value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="start-date">Date at beginning</label>\n        <div class="controls">\n            <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="'+
 ( startDate )+
-'" />\n            <input type="time" name="start-time" id="start-time" value="'+
+'" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="start-time">Time at beginning</label>\n        <div class="controls">\n            <input type="time" name="start-time" id="start-time" value="'+
 ( startTime )+
-'" />\n        </div>\n    </div>\n    <div class="input-control">\n        <label>Date & time at end</label>\n        <div class="inner-control">\n            <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date" id="end-date" value="'+
+'" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="end-date">Date at end</label>\n        <div class="controls">\n            <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date" id="end-date" value="'+
 ( endDate )+
-'" />\n            <input type="time" name="end-time" id="end-time" value="'+
+'" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="end-time">Time at end</label>\n        <div class="controls">\n            <input type="time" name="end-time" id="end-time" value="'+
 ( endTime )+
 '" />\n        </div>\n    </div>\n    <button class="btn btn-search" id="settings-change">Change settings</button>\n</div>';
 }
@@ -542,9 +782,9 @@ return __p;
 this['JST']['app/templates/timetemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="time-box">\n    <div id="start-stop-control">'+
+__p+='<div id="start-stop-control">'+
 ( label )+
-'</div>\n    <span class="date">From '+
+'</div>\n<div class="dates">\n    <span class="date">From '+
 ( firstDateTime )+
 '</span>\n    <span class="date">until '+
 ( secondDateTime )+
@@ -594,15 +834,17 @@ return __p;
 this['JST']['app/templates/tweet.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<li>\n     <span class="date '+
+__p+='<div class="tweet" style="'+
+( styler )+
+'">\n     <span class="date '+
 ( emotion )+
 '">'+
 ( moment(new Date(datetime)).format("HH:mm") )+
 '</span>\n     <p>'+
 ( tweet )+
-'\n     <small>'+
+'</p>\n     <small>'+
 ( user )+
-'</small>\n</li>';
+'</small>\n</div>';
 }
 return __p;
 };
@@ -610,7 +852,7 @@ return __p;
 this['JST']['app/templates/tweetview.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="inner">\n    <div class="title-box">\n        <h2>Tweets / weibos</h2>\n        <select id="emotion-category">\n            <option value="all">Show all</option>\n            <option value="love">Love</option>\n            <option value="pride">Pride</option>\n            <option value="surprise">Surprise</option>\n            <option value="excitement">Excitement</option>\n            <option value="joy">Joy</option>\n            <option value="like">Like</option>\n            <option value="anger">Anger</option>\n            <option value="shame">Shame</option>\n            <option value="shock">Shock</option>\n            <option value="anxiety">Anxiety</option>\n            <option value="sadness">Sadness</option>\n            <option value="dislike">Dislike</option>\n        </select>\n    </div>\n    <ul>\n\n    </ul>\n</div>';
+__p+='';
 }
 return __p;
 };
@@ -618,9 +860,13 @@ return __p;
 this['JST']['app/templates/videotemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<video>\n  <source src="'+
+__p+='';
+ if(videoUrl.indexOf('undefined') == -1) { 
+;__p+='\n<video>\n  <source src="'+
 ( videoUrl )+
-'" type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\' />\n</video>';
+'" type=\'video/mp4; codecs="avc1.42E01E, mp4a.40.2"\' />\n</video>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -628,7 +874,7 @@ return __p;
 this['JST']['app/templates/welcome.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<h1>The Olympic Emotion Project</h1>\n<p>The Olympic Emotion Project aims at extracting emotions from tweets and weibos sent during the Olympic Games and related to the same. The projects objective is to visualize the reaction of users to specific happenings like wins and losses. Every hashtag or person, including athletes, who were tweeting during the olympics, have an emotional profile, indicating the found emotions in the tweets related to that person.</p>\n<div class="left">\n    \n</div>\n<div class="right">\n    \n</div>\n<div style="clear: both;"></div>';
+__p+='<div id="welcome-screen" class="modal show" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <h3 id="myModalLabel">Welcome!</h3>\n  </div>\n  <div class="modal-body">\n    <p>Dive into one of our most interesting picks and revive the emotions of the Olympic Events!</p>\n    <h4>The most intersting picks of the Olympic Games</h4>\n    <ul>\n        <li>\n          <a href="#search/twitter/event/swimming/5/1343588400000/1343588940000">\n            Swimming: 4x100m Free Men\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344253775000/1344255755000">\n            Gymnastics (Women): Uneven Bars Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344345780000/1344348060000">\n            Gymnastics Women: Artistic Floor Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/tennis/5/1343588400000/1343588940000">\n            Tennis Men\'s Single Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/swimming/5/1344015480000/1344015840000">\n            Swimming: 100m Butterfly Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/keyword/badminton/1800/1343685600000/1343771999000">\n            Badminton: Scandal\n          </a>\n        </li>\n    </ul>\n  </div>\n</div>';
 }
 return __p;
 };;
@@ -23751,6 +23997,8 @@ define('constants',['backbone'], function(Backbone) {
         timeCircleRadiusDifference: 10,
         timeCircleMaxThickness: 50,
 
+        videoInterval: 5,
+
         centerZeroCircleRadius: 20,
 
         patternCircleRadius: 100,
@@ -23764,44 +24012,69 @@ define('constants',['backbone'], function(Backbone) {
         emotionShapeFillColor: '#aaaaaa',
         emotionShapeStrokeColor: '#aaaaaa',
 
-        labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
-    
+        //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
+        labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
+
         nullEmotion:
             [
-                { emotion: "love",
+                { emotion: "involvement",
+                  value: 0 
+                },
+                { emotion: "amusement",
                   value: 0 
                 },
                 { emotion: "pride",
                   value: 0 
                 },
+                { emotion: "happiness",
+                  value: 0 
+                },
+                { emotion: "pleasure",
+                  value: 0 
+                },
+                { emotion: "love",
+                  value: 0 
+                },
+                { emotion: "awe",
+                  value: 0 
+                },
+                { emotion: "relief",
+                  value: 0 
+                },
                 { emotion: "surprise",
                   value: 0 
                 },
-                { emotion: "excitement",
+                { emotion: "nostalgia",
                   value: 0 
                 },
-                { emotion: "joy",
-                  value: 0 
-                },
-                { emotion: "like",
-                  value: 0 
-                },
-                { emotion: "anger",
-                  value: 0 
-                },
-                { emotion: "shame",
-                  value: 0 
-                },
-                { emotion: "shock",
-                  value: 0 
-                },
-                { emotion: "anxiety",
+                { emotion: "pity",
                   value: 0 
                 },
                 { emotion: "sadness",
                   value: 0 
                 },
-                { emotion: "dislike",
+                { emotion: "worry",
+                  value: 0 
+                },
+                { emotion: "shame",
+                  value: 0 
+                },
+                { emotion: "guilt",
+                  value: 0 
+                },
+                { emotion: "regret",
+                  value: 0 
+                },
+                { emotion: "envy",
+                  value: 0 
+                },
+                { emotion: "disgust",
+                  value: 0 
+                },
+                { emotion: "contempt",
+                  value: 0 
+                },
+                { emotion: "anger",
                   value: 0 
                 }
             ]
@@ -24595,7 +24868,9 @@ function($, _, Backbone, Raphael, Constants) {
     // The root path to run the application.
     root: "/",
 
-    animationDuration: 4500
+    animationDuration: 5000,
+
+    windowWidth: $(window).width()
 
     // Global SVG Canvas
   };
@@ -24727,7 +25002,6 @@ define('util',['backbone', 'constants'], function(Backbone, Constants) {
         getAngleFromTime: function(startDateTime, endDateTime, currentDateTime) {
           var timeSpan = (endDateTime.getTime() - startDateTime.getTime()) / 1000;
           var currentTimeSec = (currentDateTime.getTime() - startDateTime.getTime()) / 1000;
-          
 
           return parseFloat(currentTimeSec / timeSpan * Constants.angle);
         },
@@ -24858,7 +25132,8 @@ define('emotionwatch',[
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
               timeStep: this.get("timeStep"),
-              network: this.get("network")
+              network: this.get("network"),
+              keywordType: this.get("keywordType")
             })
         });
 
@@ -25101,8 +25376,8 @@ define('emotionwatch',[
      */
      
     getPoint: function(value, iteration) {
-        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / 12 *iteration);
-        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / 12 *iteration);
+        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / Constants.labels.length *iteration);
+        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / Constants.labels.length *iteration);
         var point = { "x": x, "y": y };
 
         return point;
@@ -25145,8 +25420,8 @@ define('emotionwatch',[
         var firstPoint = this.getPoint(dataSet[0].value, 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
-
-        for(var i = 1; i < 12; i++) {
+        var totalNbr = Constants.labels.length;
+        for(var i = 1; i < totalNbr; i++) {
           var currentPoint = this.getPoint(dataSet[i].value, i);
           var pathDiff = this.getRelativePoint(currentPoint, previous);
           pathString += " l "+pathDiff.x+" "+pathDiff.y;
@@ -25193,9 +25468,9 @@ define('tweetfrequencyview',[
           if(this.model.get('mode') == 'compare') {
             // If we have two visualizations at the same time, we use half of the
             // window as a base for the computations
-            this.pixelLength = $(window).width() / 2;
+            this.pixelLength = app.windowWidth / 2;
           } else {
-            this.pixelLength = $(window).width();
+            this.pixelLength = app.windowWidth;
           }
 
           // The pair of points our slot is positioned
@@ -25204,6 +25479,7 @@ define('tweetfrequencyview',[
 
           // Draw the time slot on the canvas
           this.drawTimeSlot(); 
+          this.drawHoverSlot();
 
           // Bind the events to the view
           this.model.on("reset", self.changeToReset, self);
@@ -25250,8 +25526,48 @@ define('tweetfrequencyview',[
           // Save the timeslot element in the model
           this.model.set("timeSlot", timeSlot);
 
+        },
+
+        /**
+         * Draws the timeSlot element
+         *
+         */
+        drawHoverSlot: function() {
+          var self = this;
+
+          // Compute the four points necessary for the path
+          var leftBottomPoint = this.startPoint;
+          var leftTopPoint = util.getLinearPoint(this.startPoint, 1, 100);
+          var rightBottomPoint = this.endPoint;
+          var rightTopPoint = util.getLinearPoint(this.endPoint, 1, 100);
+
+          // Create an SVG path for the timeslot
+          var path = [];
+          path.push(["M", leftBottomPoint.x, leftBottomPoint.y]);
+          path.push(["L", leftTopPoint.x, leftTopPoint.y]);
+          path.push(["L", rightTopPoint.x, rightTopPoint.y]);
+          path.push(["L", rightBottomPoint.x, rightBottomPoint.y]);
+          path.push(["Z"]);
+
+          // Draw the path on the canvas
+          var hoverSlot = this.model.get("paper").path(path);
+          hoverSlot.node.setAttribute('class', 'hoverPath');
+
+          // Bind the mouseover event to a method;
+          hoverSlot.mouseover(function() {
+            self.mouseover();
+          });
+
+          // Bind the mouseout event to the mouseout method
+          hoverSlot.mouseout(function() {
+            self.mouseout();
+          });
+
+          // Save the hoverSlot element in the model
+          this.model.set("hoverSlot", hoverSlot);
+
           // Bind the rest of timeslot events
-          self.bindTimeSlotEvents();
+          self.bindHoverSlotEvents();
         },
 
         mouseover: function() {
@@ -25297,14 +25613,15 @@ define('tweetfrequencyview',[
           this.model.get("timeSlot").node.setAttribute("class", "");
         },
 
-        bindTimeSlotEvents: function() {
+        bindHoverSlotEvents: function() {
           var self = this;
 
-          var timeSlotElement = self.model.get("timeSlot");
+          var hoverSlotElement = self.model.get("hoverSlot");
 
           // Clicking on a timeslots changes the global time and jumps to
           // the time of the timeslot!
-          timeSlotElement.click(function() {
+          hoverSlotElement.click(function() {
+            console.log('click');
             params = {};
             params.dateTime = self.model.get("localStartDateTime");
             params.cid = self.model.cid;
@@ -25381,6 +25698,8 @@ define('Constants',['backbone'], function(Backbone) {
         timeCircleRadiusDifference: 10,
         timeCircleMaxThickness: 50,
 
+        videoInterval: 5,
+
         centerZeroCircleRadius: 20,
 
         patternCircleRadius: 100,
@@ -25394,44 +25713,69 @@ define('Constants',['backbone'], function(Backbone) {
         emotionShapeFillColor: '#aaaaaa',
         emotionShapeStrokeColor: '#aaaaaa',
 
-        labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
-    
+        //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
+        labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
+
         nullEmotion:
             [
-                { emotion: "love",
+                { emotion: "involvement",
+                  value: 0 
+                },
+                { emotion: "amusement",
                   value: 0 
                 },
                 { emotion: "pride",
                   value: 0 
                 },
+                { emotion: "happiness",
+                  value: 0 
+                },
+                { emotion: "pleasure",
+                  value: 0 
+                },
+                { emotion: "love",
+                  value: 0 
+                },
+                { emotion: "awe",
+                  value: 0 
+                },
+                { emotion: "relief",
+                  value: 0 
+                },
                 { emotion: "surprise",
                   value: 0 
                 },
-                { emotion: "excitement",
+                { emotion: "nostalgia",
                   value: 0 
                 },
-                { emotion: "joy",
-                  value: 0 
-                },
-                { emotion: "like",
-                  value: 0 
-                },
-                { emotion: "anger",
-                  value: 0 
-                },
-                { emotion: "shame",
-                  value: 0 
-                },
-                { emotion: "shock",
-                  value: 0 
-                },
-                { emotion: "anxiety",
+                { emotion: "pity",
                   value: 0 
                 },
                 { emotion: "sadness",
                   value: 0 
                 },
-                { emotion: "dislike",
+                { emotion: "worry",
+                  value: 0 
+                },
+                { emotion: "shame",
+                  value: 0 
+                },
+                { emotion: "guilt",
+                  value: 0 
+                },
+                { emotion: "regret",
+                  value: 0 
+                },
+                { emotion: "envy",
+                  value: 0 
+                },
+                { emotion: "disgust",
+                  value: 0 
+                },
+                { emotion: "contempt",
+                  value: 0 
+                },
+                { emotion: "anger",
                   value: 0 
                 }
             ]
@@ -25461,6 +25805,7 @@ define('tweetfrequencycollection',[
             this.mode = options.mode || 'regular';
             this.network = options.network || 'twitter';
             this.keyword = options.keyword;
+            this.keywordType = options.keywordType;
             this.modelIndex = 0;
             
             this.viewPointer = [];
@@ -25495,7 +25840,8 @@ define('tweetfrequencycollection',[
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
-                    keyword: self.keyword
+                    keyword: self.keyword,
+                    keywordType: options.keywordType
                 }) 
             });
         },
@@ -25510,6 +25856,7 @@ define('tweetfrequencycollection',[
 
         // Parse the received data
         parse: function(frequencies) {
+            console.log(frequencies);
             var self = this;
 
             // Figure out the maximal frequency
@@ -25529,7 +25876,7 @@ define('tweetfrequencycollection',[
             var localEndDateTime = new Date(self.startDateTime.getTime() + self.timeStep * 1000);
 
             // Go trough the complete timeinterval
-            while(localStartDateTime.getTime() <= self.endDateTime.getTime()) {
+            while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
                 // If we didn't get a frequency for a timeslot, the frequency is zero!
                 var value = frequencies[localStartDateTime.getTime()] || 0;
                 var scaling = 0;
@@ -25599,7 +25946,6 @@ define('tweetfrequencycollection',[
 
         activateSlot: function(nbr) {
             var model = this.at(nbr) || null;
-            console.log(model);
 
             if(null !== model) {
                 model.trigger('activate');
@@ -25659,6 +26005,8 @@ define('emotionwatchview',[
             var self = this;
 
             this.previewShape = null;
+
+            console.log("MODE: "+this.model.get("mode"));
 
             // Create a set of elements
             this.model.set("setOfElements", this.model.get('paper').set());
@@ -25730,6 +26078,9 @@ define('emotionwatchview',[
                     self.createPreview(params);
                 });
 
+                this.listenTo(app, 'pause:watch', this.pauseTime);
+                this.listenTo(app, 'resume:watch', this.resumeTime);
+
                 // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
                 // Removes the preview from the canvas
                 this.listenTo(app, 'preview:mouseout', function(params) {
@@ -25740,16 +26091,20 @@ define('emotionwatchview',[
                 this.model.on('parsed', this.createEmotionShape, this);
 
                 // Bind animation to events
-                this.activateWatch();
+                //this.activateWatch();
                 
                 // Draw the labels
                 this.drawLabelTexts();
             }
 
-            if(this.model.get("mode") == 'compare' || this.model.get("mode") == 'pattern') {
+            if(this.model.get("mode") == 'static' || this.model.get("mode") == 'pattern') {
                 // Pattern & compare view: you can click on any element and you jump to the single view with
                 // the current time as a parameter
+                console.log('mode');
+                console.log(this.model.get("mode"));
+
                 self.model.get("setOfElements").click(function(event) {
+                    console.log('click');
                     var keyword = self.model.get("topic");
                     var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
@@ -25797,7 +26152,6 @@ define('emotionwatchview',[
                 "fill": "#000"
             });
             this.model.get("centerCircle").toFront();
-            console.log(this.model.get("currentFrequencyRatio"));
             var strokeWidth = this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness || 0;
 
             this.model.set("timeCircleBorder", this.drawCircle(this.model.get("emotionCircleRadius")+strokeWidth/2, this.model.get("centerPoint").x, this.model.get("centerPoint").y));
@@ -25823,6 +26177,7 @@ define('emotionwatchview',[
         // Therefore, we draw a circle in the background with the color of the dominant
         // emoiton
         drawDominantEmotion: function() {
+            var paper = this.model.get('paper');
             this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("dominantEmotionCircle").toBack();
             var dominantEmotion = this.model.getDominantEmotion();
@@ -25830,6 +26185,14 @@ define('emotionwatchview',[
             this.model.get("setOfElements").push(
                 this.model.get("dominantEmotionCircle")
             );
+            if(dominantEmotion != 'empty') {
+                var textPointx = this.model.get('centerPoint').x;
+                var textPointy = this.model.get('centerPoint').y - 50;
+                var text = paper.print(textPointx, textPointy, dominantEmotion, paper.getFont("Sanchez"), 18);
+                var textLength = text.getBBox().width;
+                text.transform("t"+(-textLength/2)+",0");
+                text.node.setAttribute('class', 'pattern-text');
+            }
         },
 
         /**
@@ -25888,6 +26251,12 @@ define('emotionwatchview',[
             );
         },
 
+        afterRender: function() {
+            if(this.model.get('mode') !== 'pattern') {
+                this.activateWatch();
+            }
+        },
+
         /**
          * Initializes the timeline shape (used only at initialization)
          *
@@ -25907,25 +26276,41 @@ define('emotionwatchview',[
          * Changes the path of the emotion shape and animates the changement
          */
         animateEmotionShape: function() {
+            console.log('animate it again!');
             var options = {};
             var newPath = this.model.getCurrentEmotionShapePath(options);
 
-            if(this.model.get("emotionShape")) {
-                this.model.get("emotionShape").animate({
-                    path: newPath
-                }, app.animationDuration, Constants.animationType);
-            }            
+            var animationObject = Raphael.animation({
+                path: newPath
+            }, app.animationDuration, Constants.animationType);
+
+            if(undefined !== this.model.get("emotionShape")) {
+                this.model.get("emotionShape").animate(animationObject);
+            }
         },
 
         animateCircle: function() {
             var thickness = parseFloat(this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness) || 1;
-
-            if(this.model.get("timeCircleBorder")) {
-                this.model.get("timeCircleBorder").animate({
-                    "stroke-width": thickness,
-                    "r": this.model.get("emotionCircleRadius") + thickness / 2
-                }, app.animationDuration, Constants.animationType);
+            var animationObject = Raphael.animation({
+                "stroke-width": thickness,
+                "r": this.model.get("emotionCircleRadius") + thickness / 2
+            }, app.animationDuration, Constants.animationType);
+            if(undefined !== this.model.get("timeCircleBorder")) {
+                this.model.get("timeCircleBorder").animate(animationObject);
             }
+        },
+
+        // We pause the animation instantely in case of a time pause
+        pauseTime: function() {
+            this.model.get("timeCircleBorder").pause();
+            this.model.get("emotionShape").pause();
+        },
+
+        // If we get a resume time event, we continue moving the animation of
+        // the shape from where it paused before.
+        resumeTime: function() {
+            this.model.get("timeCircleBorder").resume();
+            this.model.get("emotionShape").resume();
         },
 
         /**
@@ -26005,6 +26390,7 @@ define('emotionwatchview',[
             var labelTexts = Constants.labels;
             // How many labels do we have? (configurable)
             var totalNbr = labelTexts.length;
+            console.log(totalNbr);
             // Load the canvas
             var paper = this.model.get("paper");
             // Center point of the circle
@@ -26019,11 +26405,11 @@ define('emotionwatchview',[
                 var angle = i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
                 // THe point where we start drawing the label
-                var point = this.model.getPoint(1.35, i);
+                var point = this.model.getPoint(1.36, i);
                 // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
                 // Draw the text on the canvas
-                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 16);
+                var text = paper.print(point.x, point.y, textToPrint, paper.getFont("Sanchez"), 20);
                 // Get the length of the text
                 var length = text.getBBox().width;
                 // Create the path of the line
@@ -26085,6 +26471,7 @@ define('emotionwatchcollection',[
             this.currentDateTime = new Date(options.currentDateTime) || this.startDateTime;
             this.keyword = options.keyword || null;
             this.network = options.network || 'twitter';
+            this.keywordType = options.keywordType;
             var self = this;
             this.timeStep = options.timeStep || (this.endDateTime.getTime() - this.startDateTime.getTime()) / 24 / 1000;
 
@@ -26102,7 +26489,7 @@ define('emotionwatchcollection',[
 
         viewInitialized: function() {
             // How large is the space we have?
-            var width = $(window).width();
+            var width = app.windowWidth;
             // Compute the number of watches per line
             this.elementsPerLine = Math.floor(width / (this.radius * 2 + this.spaceBetween));
             // How much space do we need?
@@ -26116,7 +26503,8 @@ define('emotionwatchcollection',[
                     endDateTime: this.endDateTime,
                     topic: this.keyword,
                     network: this.network,
-                    timeStep: this.timeStep
+                    timeStep: this.timeStep,
+                    keywordType: this.keywordType
                 })
             });
         },
@@ -26137,7 +26525,7 @@ define('emotionwatchcollection',[
             // Keeps the position of each model in the array
             var i = 0;
             // Go through all 
-            while(localStartDateTime.getTime() <= this.endDateTime.getTime()) {
+            while(localStartDateTime.getTime() < this.endDateTime.getTime()) {
                 var x = this.sideSpace + 45 + this.spaceBetween + this.getCoordinateX(i)*(2*this.radius + this.spaceBetween);
                 var y = this.radius+ this.spaceBetween + this.getCoordinateY(i)*(2*this.radius + this.spaceBetween);
 
@@ -26213,7 +26601,7 @@ define('emotionwatchcollectionview',[
 
         initialize: function() {
             // Create canvas for Paper
-            app.paper = Raphael(0, 100, "100%", 2000);
+            app.paper = Raphael(0, 140, "100%", 2000);
             // Assign canvas DOM element to view element
             this.el = app.paper.canvas;
             // Let the collection know that the view has been initialized
@@ -26233,6 +26621,780 @@ define('emotionwatchcollectionview',[
 
     return emotionWatchCollectionView;
 });
+define('tweetview',[
+    "app",
+    "backbone",
+    "jquery",
+    "lodash",
+    "util",
+    "constants"
+
+], function(app, Backbone, $, _, util, Constants) {
+    
+    var tweetView = Backbone.View.extend({
+
+        template: 'tweet',
+
+        tagName: 'li',
+
+        initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.listenTo(app, 'pause:watch', this.pauseAnimation);
+            this.listenTo(app, 'resume:watch', this.resumeAnimation);
+
+            var coordinates = this.getCoordinates();
+            var delay = this.getDelay();
+            var animationName = this.getTranslation();
+            var style = '';
+
+            if(this.model.get('keywordType') == 'event' && this.model.get('timeStep') == 5 && (this.model.get('x') > 4 && this.model.get('x') < 8)) { 
+                style = "display: none";
+            } else {
+                style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s;";
+            }
+            
+            this.model.set('styler', style);
+            this.render();
+        },
+
+        events: {
+            'webkitAnimationEnd': 'addEndClass'
+        },
+
+        addEndClass: function() {
+            this.$el.addClass('stop-animation');
+        },
+
+        pauseAnimation: function() {
+            console.log('pause');
+            this.$('.tweet').css('-webkit-animation-play-state', 'paused');
+        },
+
+        resumeAnimation: function() {
+            console.log('resume');
+            this.$('.tweet').css('-webkit-animation-play-state', 'running');
+        },
+        
+        render: function(template) {
+            var output = template({
+                emotion: this.model.get('emotion'),
+                styler: this.model.get('styler'),
+                datetime: this.model.get('datetime'),
+                user: this.model.get('user'),
+                tweet: this.model.get('tweet'),
+                cid: this.model.cid
+            });
+            this.$el.html(output);
+        },
+
+        getCoordinates: function() {
+            var x = this.model.get('x');
+            var y = this.model.get('y');
+            var width = app.windowWidth / 3;
+
+            if(x < 5 && y < 5) {
+                var coord_x = width + Math.pow(7, (x-2)) - 450;
+                var coord_y = y * 120;
+            } else if (x > 4 && y < 5){
+                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                var coord_y = (y-5) * 120;
+            } else if (x > 4 && y > 4){
+                var coord_y = (y-5) * 120;
+                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+            } else if (x < 5 && y > 4){
+                var coord_y = (y-5) * 120;
+                var coord_x = width + Math.pow(7, (x-2)) - 450;
+            } 
+
+            return {x: coord_x, y: coord_y};
+        },
+
+        getTranslation: function() {
+            var x = this.model.get('x');
+            if(x > 4) {
+                return 'translation_right';
+            } else {
+                return 'translation_left';
+            }
+        },
+
+        getDelay: function() {
+            var currTimeSpan = (new Date(this.model.get('datetime')).getTime() - this.model.get('currentDateTime').getTime()) / 1000;
+            var timeSpan = this.model.get('timeStep');
+
+            return Math.round(Math.floor(currTimeSpan / timeSpan * app.animationDuration/2000));
+        },
+
+        close: function() {
+            this.unbind();
+            this.$el.remove();
+            this.stopListening();
+        }
+        
+    });
+
+    return tweetView;
+});
+define('tweetcollection',[
+    "app",
+    "backbone",
+    "lodash",
+    "jquery",
+    "constants",
+    "tweetview"
+], function(app, Backbone, _, $, Constants, tweetView) {
+
+    var tweetCollection = Backbone.Collection.extend({
+
+        viewPointer: [],
+
+        initialize: function(options) {
+            var self = this;
+            this.emotion = '';
+            this.keyword = options.keyword;
+            this.timeStep = options.timeStep;
+            this.network = options.network;
+            this.keywordType = options.keywordType;
+            this.currentDateTime = options.currentDateTime;
+            this.fetch({ 
+                data: $.param({ 
+                    datetime: self.dateTime,
+                    emotion: this.emotion,
+                    hashtag: options.keyword,
+                    windowsize: options.timeStep,
+                    network: options.network,
+                    keywordType: options.keywordType
+                })
+            });
+
+            // Listen to the globalTime change event triggered from the clock.
+            // Fetch new tweets according to the dateTime and the time slot length
+        },
+
+        // If emotion choosen, fetch tweets according to the emotion
+        setEmotion: function(emotion) {
+            this.emotion = emotion;
+            
+            this.fetch({
+                data: $.param({
+                    datetime: this.currentDateTime,
+                    emotion: this.emotion,
+                    hashtag: this.keyword,
+                    windowsize: this.timeStep,
+                    network: this.network,
+                    keywordType: this.keywordType
+                })
+            });
+        },
+
+        url: function() {
+            return 'http://localhost:8080/tweets';
+        },
+
+        parse: function(response) {
+
+            // Delete tweets from the dom
+            if(this.viewPointer.length > 30) {
+                for(var j = 0; j < 10; j++) {
+                    var delModel = this.shift();
+                    var view = this.viewPointer.shift();
+                    view.close();
+                }
+            }
+
+            var x_numbers = this.generateRandomNumbers(response.length);
+            var y_numbers = _.shuffle(x_numbers);
+            console.log(y_numbers);
+            
+            var startDateTime = this.startDateTime;
+            var endDateTime = this.endDateTime;
+
+            for(var i = 0; i < response.length; i++) {
+                var text = response[i].tweet;
+                text = this.replaceHashtags(text);
+                response[i].tweet = text;
+
+                var model = new Backbone.Model(response[i]);
+                model.set('x', x_numbers[i]);
+                model.set('y', x_numbers[i]);
+                console.log(y_numbers[i]);
+                model.set('keywordType', this.keywordType);
+                model.set('timeStep', this.timeStep);
+                model.set('currentDateTime', this.currentDateTime);
+                
+                this.add(model);
+            }
+        },
+
+        // Uses Regex to replace hashtags with links to visualizations
+        // of these hashtags
+        replaceHashtags: function(text) {
+            var hashtags = text.match(/(\B#\w+|\B#([\u4E00-\uFA29]+|\w+)\#)/gi) || [];
+            for(var i = 0; i < hashtags.length; i++) {
+                // Create the link to the visualization page
+                var url = '/search/'+this.network+'/keyword/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
+                var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
+                // Replace the hashtags with links
+                text = text.replace(hashtags[i], replacement);
+            }
+
+            return text;
+        },
+
+        generateRandomNumbers: function(limit) {
+            var unique_random_numbers = [];
+            while (unique_random_numbers.length < limit ) {
+                var random_number = Math.round(Math.random()*(limit-1));
+                if (unique_random_numbers.indexOf(random_number) == -1) {
+                    unique_random_numbers.push( random_number );
+                }
+            }
+
+            return unique_random_numbers;
+        }
+    });
+
+    return tweetCollection;
+});
+define('tweetcollectionview',[
+    "backbone",
+    "jquery",
+    "lodash",
+    "tweetcollection",
+    "app",
+    "tweetview"
+], function(Backbone, $, _, tweetCollection, app, tweetView) {
+
+    var tweetCollectionView = Backbone.View.extend({
+
+        tagName: 'ul',
+
+        events: {
+            'change #emotion-category': 'triggerEmotionCategory'
+        },
+
+        initialize: function() {
+            _.bindAll(this, 'addOne');
+            var self = this;
+            this.listenTo(app, 'close', this.close);
+            this.collection.on('add', this.addOne);
+
+            this.listenTo(app, 'change:globalTime', function(dateTime) {
+                var oldDateTime = self.collection.currentDateTime;
+                var newDateTime = new Date(oldDateTime.getTime() + self.collection.timeStep*1000);
+                self.collection.currentDateTime = dateTime;
+
+                if(dateTime.getTime() != newDateTime.getTime()) {
+                    this.$el.empty();
+                    this.$el.find('li').removeClass('stop-animation');
+                }
+
+                self.collection.fetch({
+                    data: $.param({
+                        datetime: self.collection.currentDateTime,
+                        emotion: self.collection.emotion,
+                        hashtag: self.collection.keyword,
+                        windowsize: self.collection.timeStep,
+                        network: self.collection.network,
+                        keywordType: self.collection.keywordType
+                    })
+                });
+            });
+        },
+
+        // If an emotion is selected in the dropdown box, change model
+        triggerEmotionCategory: function(event) {
+            var emotion = $('#emotion-category option:selected').val();
+
+            if(emotion == 'all') {
+                emotion = '';
+            }
+
+            this.collection.setEmotion(emotion);
+        },
+
+        addOne: function(model) {
+            console.log('this takes hours');
+            var view = new tweetView({
+                model: model
+            });
+            this.collection.viewPointer.push(view);
+            this.$el.append(view.el);
+        },
+
+        // Close view
+        close: function() {
+            // Remove all subviews
+
+            for(var i = 0; i < this.collection.viewPointer.length; i++) {
+                var view = this.collection.viewPointer[i];
+                view.close();
+            }
+
+            if(this.collection) {
+                this.collection.stopListening();
+                this.collection.remove();
+            }
+
+            this.unbind();
+            this.remove();
+        }
+    });
+
+    return tweetCollectionView;
+});
+define('videoview',[
+    "app",
+    "backbone",
+    "jquery",
+    "lodash",
+    "util",
+    "constants"
+
+], function(app, Backbone, $, _, util, Constants) {
+    
+    var videoView = Backbone.View.extend({
+
+        template: "videotemplate",
+
+        initialize: function() {
+            var self = this;
+            this.listenTo(app, 'close', this.close);
+
+            var keyword = this.model.get('keyword');
+            var keywordType = this.model.get('keywordType');
+
+            if(keywordType == 'event' && this.model.get('timeStep') == 5) {
+                this.model.fetch({
+                    data: $.param({
+                        startDateTime: this.model.get('startDateTime'),
+                        endDateTime: this.model.get('endDateTime'),
+                        sport: this.model.get('keyword')
+                    })
+                });
+            } 
+            self.render();
+        },
+          
+        close: function() {
+            this.remove();
+            this.unbind();
+        },
+
+        render: function(template) {
+            var output = template({ 
+                videoUrl: "http://localhost:8080/videos/"+this.model.get("video")
+            });
+            this.$el.html( output );
+        },
+
+        // Use the afterrender method. Video dom element generated and accessible   
+        afterRender: function() {
+            var self = this;
+            // Check if video-element already retrieved
+            if(this.model.get('video-element') === undefined || this.model.get('video-element') === null) {
+                // Get the video dom element
+                var video = document.querySelector('video');
+                console.log(video);
+                if(video !== null || this.model.get('video') !== undefined) {
+                    // Save the video dom element
+                    this.model.set('video-element', video);
+                    // Listen to any start time event, triggered by the clock
+                    self.listenTo(app, 'start:time', function() {
+                        console.log('gooo');
+                        self.model.get('video-element').play();
+                    });
+                    // Listen to a stop time event, triggered by the clock
+                    self.listenTo(app, 'stop:time', function() {
+                        self.model.get('video-element').pause();
+                    });
+
+                    self.listenTo(app, 'pause:watch', function() {
+                        self.model.get('video-element').pause();
+                    });
+
+                    self.listenTo(app, 'resume:watch', function() {
+                        self.model.get('video-element').play();
+                    });
+
+                    self.listenTo(app, 'jumpToTime', self.jumpToVideo);
+                    
+                    var interval = setInterval(function(){
+                        if (self.model.get('video-element').readyState > 0 && video !== null) {
+                            // Safe duration of the video
+                            self.model.set('duration', Math.round(video.duration));
+                            clearInterval(interval);
+                        }
+                    }, 500);
+                }
+            }
+        },
+
+        // When a jumpToTime event is triggered, we need to bring the video in the
+        // right position as well.
+        jumpToVideo: function(params) {
+            if(this.model.get('video') !== undefined) {
+                var dateTime = params.dateTime;
+                // Compute the fraction of time we've been advancing until now
+                var fraction = (dateTime.getTime()-this.model.get('startDateTime')) / (this.model.get('endDateTime').getTime() - this.model.get('startDateTime').getTime());
+                // Compute the time in the video
+                var videoTime = fraction * this.model.get('duration');
+                // Jump to the time
+                this.model.get('video-element').currentTime = videoTime;
+            }
+        }
+
+    });
+
+    return videoView;
+});
+/**
+ * jquery.timer.js
+ *
+ * Copyright (c) 2011 Jason Chavannes <jason.chavannes@gmail.com>
+ *
+ * http://jchavannes.com/jquery-timer
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+;(function($) {
+	$.timer = function(func, time, autostart) {	
+	 	this.set = function(func, time, autostart) {
+	 		this.init = true;
+	 	 	if(typeof func == 'object') {
+		 	 	var paramList = ['autostart', 'time'];
+	 	 	 	for(var arg in paramList) {if(func[paramList[arg]] != undefined) {eval(paramList[arg] + " = func[paramList[arg]]");}};
+ 	 			func = func.action;
+	 	 	}
+	 	 	if(typeof func == 'function') {this.action = func;}
+		 	if(!isNaN(time)) {this.intervalTime = time;}
+		 	if(autostart && !this.isActive) {
+			 	this.isActive = true;
+			 	this.setTimer();
+		 	}
+		 	return this;
+	 	};
+	 	this.once = function(time) {
+			var timer = this;
+	 	 	if(isNaN(time)) {time = 0;}
+			window.setTimeout(function() {timer.action();}, time);
+	 		return this;
+	 	};
+		this.play = function(reset) {
+			if(!this.isActive) {
+				if(reset) {this.setTimer();}
+				else {this.setTimer(this.remaining);}
+				this.isActive = true;
+			}
+			return this;
+		};
+		this.pause = function() {
+			if(this.isActive) {
+				this.isActive = false;
+				this.remaining -= new Date() - this.last;
+				this.clearTimer();
+			}
+			return this;
+		};
+		this.stop = function() {
+			this.isActive = false;
+			this.remaining = this.intervalTime;
+			this.clearTimer();
+			return this;
+		};
+		this.toggle = function(reset) {
+			if(this.isActive) {this.pause();}
+			else if(reset) {this.play(true);}
+			else {this.play();}
+			return this;
+		};
+		this.reset = function() {
+			this.isActive = false;
+			this.play(true);
+			return this;
+		};
+		this.clearTimer = function() {
+			window.clearTimeout(this.timeoutObject);
+		};
+	 	this.setTimer = function(time) {
+			var timer = this;
+	 	 	if(typeof this.action != 'function') {return;}
+	 	 	if(isNaN(time)) {time = this.intervalTime;}
+		 	this.remaining = time;
+	 	 	this.last = new Date();
+			this.clearTimer();
+			this.timeoutObject = window.setTimeout(function() {timer.go();}, time);
+		};
+	 	this.go = function() {
+	 		if(this.isActive) {
+	 			this.action();
+	 			this.setTimer();
+	 		}
+	 	};
+	 	
+	 	if(this.init) {
+	 		return new $.timer(func, time, autostart);
+	 	} else {
+			this.set(func, time, autostart);
+	 		return this;
+	 	}
+	};
+})(jQuery);
+define("plugins/jquery.timer", function(){});
+
+define('timeview',[
+    "app",
+    "backbone",
+    "jquery",
+    "lodash",
+    "util",
+    "constants",
+    "plugins/jquery.timer"
+
+], function(app, Backbone, $, _, util, Constants) {
+    
+    var timeView = Backbone.View.extend({
+
+        template: 'timetemplate',
+        
+        initialize: function(options) {
+            _.bindAll(this, 'render');
+            
+            this.model = new Backbone.Model();
+
+            options = options || {};
+
+            this.width = app.windowWidth;
+            console.log(this.width);
+
+            var self = this;
+
+            // set the parameters of the current visualization
+            this.model.set('jump', true);
+            this.model.set('startDateTime', options.startDateTime);
+            this.model.set('endDateTime', options.endDateTime);
+            this.model.set('currentDateTime', options.currentDateTime);
+            this.model.set('timeStep', options.timeStep);
+            this.model.set("label", "Stop");
+            this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
+            self.model.set("firstDateTime", moment(options.currentDateTime).format("Do MMM YYYY HH:mm:ss"));
+            self.model.set("secondDateTime", moment(new Date(options.currentDateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
+            // On date & time change, template needs to be rerendered!
+            // If the time is not running, we need to start the watch
+            this.listenTo(app, 'change:globalTime', function(dateTime) {
+                var oldDateTime = this.model.get('currentDateTime');
+                var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
+
+                // Check if we do a jump
+                if(newDateTime.getTime() == dateTime.getTime()) {
+                    this.model.set('jump', false);
+                } else {
+                    this.model.set('jump', true);
+                }
+
+                this.model.set('currentDateTime', dateTime);
+                if(this.model.get('interval') === undefined) {
+                    self.startTime();
+                }
+
+                self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
+                self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
+                self.render(self.template);
+            });
+
+            this.listenTo(app, 'start:watch', function() {
+                self.startTime();
+            });
+
+            this.listenTo(app, 'close', this.close);
+
+            _.bindAll(this);
+            $(document).on('keydown', this.triggerStartStopKey);
+
+            this.render();
+        },
+
+        close: function() {
+            // Stop interval first
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').stop();
+            }
+            $(document).off();
+            this.unbind(); // Unbind all local event bindings
+            this.remove(); // Remove view from DOM
+        },
+
+        pauseTime: function() {
+            var width = $('.time-block').width();
+            $('.time-block').css('width', width+'px');
+            this.model.set('timeState', 'pause');
+            $('.time-block').removeClass('is-transitioning');
+            app.trigger('pause:watch');
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').pause();
+            }
+        },
+
+        resumeTime: function() {
+            var width = $('.time-block').width();
+            app.trigger('resume:watch');
+            this.model.set('timeState', 'running');
+            $('.time-block').addClass('is-transitioning');
+            $('.time-block').css('width', this.model.get('endPosition'));
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').play();
+            }
+        },
+
+        // Start running the timer. If the current time is bigger than our
+        // interval, the clock needs to be stopped. Every animationDuration, 
+        // the clock triggers a global time change.
+        startTime: function() {
+            var self = this;
+            this.model.set('timeState', 'running');
+            
+            this.model.set('startInterval', setInterval(function(t) {
+                app.trigger('start:time');
+                clearInterval(self.model.get('startInterval'));
+            },1000));
+
+            $('.time-block').addClass('is-transitioning');
+            
+            if(undefined === this.model.get('interval')) {
+                var interval = $.timer(function() {
+                    if(self.model.get('currentDateTime').getTime() >= self.model.get('endDateTime').getTime()) {
+                        self.stopTime();
+                        return;
+                    }
+                    // create new time
+                    var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
+                    app.trigger("change:globalTime", currentDateTime);
+                }, app.animationDuration, true);
+
+                this.model.set('interval', interval);
+            } else {
+                this.model.get('interval').play();
+            }
+        },
+
+        events: {
+            'click #start-stop-control': 'triggerStartStop'
+        },
+
+        triggerStartStop: function() {
+            if(this.model.get('label') == 'Stop') {
+                this.model.set('label', 'Start');
+                this.model.set('paused', true);
+                this.pauseTime();
+                this.render();
+
+            } else {
+                this.model.set('label', 'Stop');
+                this.model.set('paused', false);
+                this.resumeTime();
+                this.render();
+            }
+        },
+
+        triggerStartStopKey: function(event) {
+            if(event.keyCode == 32) {
+                if(this.model.get('label') == 'Stop') {
+                    this.model.set('label', 'Start');
+                    this.model.set('paused', true);
+                    this.pauseTime();
+                    this.render();
+
+                } else {
+                    this.model.set('label', 'Stop');
+                    this.model.set('paused', false);
+                    this.resumeTime();
+                    this.render();
+                }
+            }
+        },
+
+        computeFirstPosition: function() {
+            var timeSpan = this.model.get('startDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get('startDateTime');
+            var position = timeSpan / this.model.get('timeSpan') * this.width;
+            $('.time-block').css('width', position+'px');
+        },
+
+        /**
+         * stopTime
+         *
+         * Clears the interval and removes the variable 'interval' from the model.
+         */
+        stopTime: function() {
+            this.model.get('interval').stop();
+            app.trigger('stop:time');
+        },
+
+        // render the template with labe, date and time.
+        render: function(template) {
+            var output = template({ 
+                label: this.model.get("label"), 
+                firstDateTime: this.model.get('firstDateTime'),
+                secondDateTime: this.model.get('secondDateTime')
+            });
+            this.$el.html(output);
+        },
+
+        afterRender: function() {
+            var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
+            var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
+            
+            if(position > this.width / 2) {
+                $('.time-block .dates').css('text-align', 'right').css('right', '45px');
+            }
+
+            if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
+                $('.time-block').css('width', position+'px');
+            } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
+                $('.time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
+                    $(this).addClass('is-transitioning');
+                    next();
+                });
+            }
+
+            if(position > this.width) {
+                $('.current-time-box').addClass('max-right');
+            } else {
+                $('.current-time-box').removeClass('max-right');
+            }
+
+            this.model.set('endPoint', position);
+            if(this.model.get('paused') === true) {
+                this.$el.css('-webkit-animation-play-state', 'paused');
+            } else {
+                this.$el.css('-webkit-animation-play-state', 'running');
+            }
+                
+        }
+        
+    });
+
+    return timeView;
+}); 
 //     Underscore.js 1.4.2
 //     http://underscorejs.org
 //     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
@@ -27436,455 +28598,6 @@ define('emotionwatchcollectionview',[
 
 define("underscore", function(){});
 
-define('tweetview',[
-    "app",
-    "backbone",
-    "jquery",
-    "lodash",
-    "util",
-    "constants"
-
-], function(app, Backbone, $, _, util, Constants) {
-    
-    var tweetView = Backbone.View.extend({
-
-        template: 'tweet',
-
-        tagName: 'li',
-        
-        render: function() {
-            var html = window.JST['app/templates/tweet.html'](this.model.toJSON());
-            $('.tweets ul').append( html );
-        },
-
-        close: function() {
-            this.unbind();
-            this.remove();
-        }
-        
-    });
-
-    return tweetView;
-});
-define('tweetcollection',[
-    "app",
-    "backbone",
-    "underscore",
-    "jquery",
-    "constants",
-    "tweetview"
-], function(app, Backbone, _, $, Constants, tweetView) {
-
-    var tweetCollection = Backbone.Collection.extend({
-
-        viewPointer: [],
-
-        initialize: function(options) {
-            var self = this;
-            this.emotion = '';
-            this.keyword = options.keyword;
-            this.timeStep = options.timeStep;
-            this.network = options.network;
-            this.currentDateTime = options.currentDateTime;
-            this.fetch({ 
-                data: $.param({ 
-                    datetime: self.dateTime,
-                    emotion: this.emotion,
-                    hashtag: options.keyword,
-                    windowsize: options.timeStep,
-                    network: options.network
-                })
-            });
-
-            // Listen to the globalTime change event triggered from the clock.
-            // Fetch new tweets according to the dateTime and the time slot length
-            this.listenTo(app, 'change:globalTime', function(dateTime) {
-                console.log('I am still here!');
-                self.currentDateTime = dateTime;
-                self.fetch({
-                    data: $.param({
-                        datetime: self.currentDateTime,
-                        emotion: self.emotion,
-                        hashtag: self.keyword,
-                        windowsize: self.timeStep,
-                        network: self.network
-                    })
-                });
-            });
-        },
-
-        // If emotion choosen, fetch tweets according to the emotion
-        setEmotion: function(emotion) {
-            this.emotion = emotion;
-            
-            this.fetch({
-                data: $.param({
-                    datetime: this.currentDateTime,
-                    emotion: this.emotion,
-                    hashtag: this.keyword,
-                    windowsize: this.timeStep,
-                    network: this.network
-                })
-            });
-        },
-
-        url: function() {
-            return 'http://localhost:8080/tweets';
-        },
-
-        parse: function(response) {
-
-            this.reset();
-            $('.tweets ul').empty();
-
-            console.log(response);
-            this.viewPointer = [];
-
-            for(var i = 0; i < response.length; i++) {
-                var text = response[i].tweet;
-                text = this.replaceHashtags(text);
-                text = this.replaceUsers(text);
-                response[i].tweet = text;
-
-                var model = new Backbone.Model(response[i]);
-                var view = new tweetView({
-                    model: model
-                });
-
-                this.add(model);
-
-                this.viewPointer.push(view);
-                view.render();
-            }
-        },
-
-        // Uses Regex to replace hashtags with links to visualizations
-        // of these hashtags
-        replaceHashtags: function(text) {
-            var hashtags = text.match(/(\B#\w+|\B#([\u4E00-\uFA29]+|\w+)\#)/gi) || [];
-            for(var i = 0; i < hashtags.length; i++) {
-                // Create the link to the visualization page
-                var url = '/search/'+this.network+'/keyword/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
-                var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
-                // Replace the hashtags with links
-                text = text.replace(hashtags[i], replacement);
-            }
-
-            return text;
-        },
-
-        // Uses Regex to replace users with links to visualizations
-        // of these users
-        replaceUsers: function(text) {
-            var hashtags = text.match(/(\B@\w+|\B@([\u4E00-\uFA29]+|\w+))/gi) || [];
-            for(var i = 0; i < hashtags.length; i++) {
-                var url = '/search/'+this.network+'/user/'+hashtags[i].slice(1)+'/'+86400+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
-                var replacement = '<a href="'+url+'">'+hashtags[i]+'</a>';
-                text = text.replace(hashtags[i], replacement);
-            }
-
-            return text;
-        }
-    });
-
-    return tweetCollection;
-});
-define('tweetcollectionview',[
-    "backbone",
-    "jquery",
-    "lodash",
-    "tweetcollection",
-    "app"
-], function(Backbone, $, _, tweetCollection, app) {
-
-    var tweetCollectionView = Backbone.View.extend({
-
-        template: 'tweetview',
-
-        events: {
-            'change #emotion-category': 'triggerEmotionCategory'
-        },
-
-        initialize: function() {
-            this.listenTo(app, 'close', this.close);
-        },
-
-        // If an emotion is selected in the dropdown box, change model
-        triggerEmotionCategory: function(event) {
-            var emotion = $('#emotion-category option:selected').val();
-
-            if(emotion == 'all') {
-                emotion = '';
-            }
-
-            this.collection.setEmotion(emotion);
-        },
-
-        // Render template
-        render: function() {
-            var output = window.JST['app/templates/tweetview.html']();
-            this.$el.html(output);
-        },
-
-        // Close view
-        close: function() {
-            // Remove all subviews
-
-            for(var i = 0; i < this.collection.viewPointer.length; i++) {
-                var view = this.collection.viewPointer[i];
-                view.close();
-            }
-
-            if(this.collection) {
-                this.collection.stopListening();
-                this.collection.remove();
-            }
-
-            this.unbind();
-            this.remove();
-        }
-    });
-
-    return tweetCollectionView;
-});
-define('videoview',[
-    "app",
-    "backbone",
-    "jquery",
-    "lodash",
-    "util",
-    "constants"
-
-], function(app, Backbone, $, _, util, Constants) {
-    
-    var videoView = Backbone.View.extend({
-
-        template: "videotemplate",
-
-        initialize: function() {
-            this.listenTo(app, 'close', this.close);
-
-            var keyword = this.model.get('keyword');
-            var keywordType = this.model.get('keywordType');
-
-            if(keywordType == 'event') {
-                this.model.fetch({
-                    data: $.param({
-                        startDateTime: this.model.get('startDateTime'),
-                        endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword').slice(1)
-                    })
-                });
-            }
-        },
-          
-        close: function() {
-            this.remove();
-            this.unbind();
-        },
-
-        render: function(template) {
-            var output = template({ 
-                videoUrl: "http://localhost:8080/video/"+this.model.get("video")
-            });
-            this.$el.html( output );
-        }
-
-    });
-
-    return videoView;
-});
-define('timeview',[
-    "app",
-    "backbone",
-    "jquery",
-    "lodash",
-    "util",
-    "constants"
-
-], function(app, Backbone, $, _, util, Constants) {
-    
-    var timeView = Backbone.View.extend({
-
-        template: 'timetemplate',
-        
-        initialize: function(options) {
-            _.bindAll(this, 'render');
-            
-            this.model = new Backbone.Model();
-
-            options = options || {};
-
-            var self = this;
-
-            // set the parameters of the current visualization
-            this.model.set('startDateTime', options.startDateTime);
-            this.model.set('endDateTime', options.endDateTime);
-            this.model.set('currentDateTime', options.currentDateTime);
-            this.model.set('timeStep', options.timeStep);
-            this.model.set("label", "Stop");
-
-            // On date & time change, template needs to be rerendered!
-            // If the time is not running, we need to start the watch
-
-            this.listenTo(app, 'change:globalTime', function(dateTime) {
-                self.model.set('currentDateTime', dateTime);
-                if(this.model.get('interval') === undefined) {
-                    self.startTime();
-                }
-                console.log(self.model.cid);
-                self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
-                self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
-                self.render(self.template);
-            });
-
-            this.listenTo(app, 'stop:watch', function() {
-                self.stopTime();
-            });
-
-            this.listenTo(app, 'start:watch', function() {
-                self.startTime();
-            });
-
-            this.listenTo(app, 'close', this.close);
-        },
-
-        close: function() {
-            // Stop interval first
-            if(undefined !== this.model.get('interval')) {
-                clearInterval(this.model.get('interval'));
-            }
-            this.unbind(); // Unbind all local event bindings
-            this.remove(); // Remove view from DOM
-        },
-
-        // Start running the timer. If the current time is bigger than our
-        // interval, the clock needs to be stopped. Every animationDuration, 
-        // the clock triggers a global time change.
-        startTime: function() {
-            var self = this;
-
-            if(undefined === this.model.get('interval')) {
-                var interval = setInterval(function() {
-                    if(self.model.get('currentDateTime').getTime() > self.model.get('endDateTime').getTime()) {
-                        self.stopTime();
-                        return;
-                    }
-                    // create new time
-                    var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
-                    
-                    app.trigger("change:globalTime", currentDateTime);
-
-                }, app.animationDuration);
-
-                this.model.set('interval', interval);
-            }
-        },
-
-        events: {
-            'click #start-stop-control': 'triggerStartStop'
-        },
-
-        triggerStartStop: function() {
-            if(this.model.get('label') == 'Stop') {
-                this.model.set('label', 'Start');
-                this.stopTime();
-                this.render();
-            } else {
-                this.model.set('label', 'Stop');
-                this.startTime();
-                this.render();
-            }
-        },
-
-
-        /**
-         * stopTime
-         *
-         * Clears the interval and removes the variable 'interval' from the model.
-         */
-        stopTime: function() {
-            if(undefined !== this.model.get('interval')) {
-                clearInterval(this.model.get('interval'));
-                this.model.set('interval', undefined);
-            }
-        },
-
-        // render the template with labe, date and time.
-        render: function(template) {
-            var output = template({ 
-                label: this.model.get("label"), 
-                firstDateTime: this.model.get('firstDateTime'),
-                secondDateTime: this.model.get('secondDateTime')
-            });
-            this.$el.html(output);
-        }
-        
-    });
-
-    return timeView;
-}); 
-define('titleview',[
-    "app",
-    "backbone",
-    "jquery",
-    "lodash",
-    "util",
-    "constants"
-
-], function(app, Backbone, $, _, util, Constants) {
-    
-    var titleView = Backbone.View.extend({
-
-        template: 'titletemplate',
-
-        initialize: function() {
-            var self = this;
-            var keyword = this.model.get('keyword');
-            var keywordType = this.model.get('keywordType');
-            // Compute keyword type for urls
-            this.model.set('keywordType', keywordType);
-            // Listen to global close event
-            this.listenTo(app, 'close', this.close);
-
-            if(keywordType == 'event') {
-                this.model.fetch({
-                    data: $.param({
-                        startDateTime: this.model.get('startDateTime'),
-                        endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword').slice(1)
-                    })
-                });
-            }
-        },
-
-        close: function() {
-            this.remove();
-            this.unbind();
-        },
-
-        // Render template with small submenu for the three views
-        render: function() {
-            var urlSingle = '/search/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var urlPattern = '/pattern/'+this.model.get('network')+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var urlCompare = '/compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            var output = window.JST['app/templates/titletemplate.html']({ 
-                title: this.model.get("keyword"),
-                urlSingle: urlSingle,
-                urlPattern: urlPattern,
-                urlCompare: urlCompare,  
-                startDateTime: this.model.get('startDateTime'),
-                endDateTime: this.model.get('endDateTime'),
-                steps: util.getTimeStepFormat(this.model.get('timeStep')),
-                event: this.model.get("event") || null,
-                gender: this.model.get("gender") || null
-            });
-            $( this.el ).html( output );
-        }
-    });
-
-    return titleView;
-});
 define('searcheventview',[
     "app",
     "backbone",
@@ -27902,10 +28615,12 @@ define('searcheventview',[
         events: {
             'click #event-search': 'triggerEventSearch',
             'change #event-gender': 'triggerEventLoad',
-            'change #event-sport': 'triggerEventLoad'
+            'change #event-sport': 'triggerEventLoad',
+            'change #event-event': 'triggerEventSelection'
         },
 
         initialize: function() {
+            console.log('create eventsearch');
             var self = this;
             // Bind this to the render function
              _.bindAll(this, 'render');
@@ -27919,6 +28634,10 @@ define('searcheventview',[
             });
             // Create new model
             this.model = new searchEventModel();
+
+            this.model.set('gender', '');
+            this.model.set('sport', '');
+            this.model.set('video', false);
             // BInd on change of model to render method
             this.model.on("change", self.render, self);
             this.listenTo(app, 'close', this.close);
@@ -27926,14 +28645,20 @@ define('searcheventview',[
 
         triggerEventSearch: function(event) {
             // Read all values from the form
+            var withVideo = $('#event-video option:selected').val();
             var network = $('#event-network option:selected').val();
             var startDateTime = new Date($('#event-event option:selected').attr('data-startdatetime'));
             var endDateTime = new Date($('#event-event option:selected').attr('data-enddateTime'));
             var hashtagTwitter = $('#event-event option:selected').attr('data-hashtag-twitter');
             var hashtagWeibo = $('#event-event option:selected').attr('data-hashtag-weibo');
             var keyword;
+
             // Compute appropriate timestep
             var timeStep = util.getTimeStep(startDateTime, endDateTime);
+            if(withVideo == 'true') {
+                timeStep = 5;
+            }
+            
             // Select keyword according to the network
             switch(network) {
                 case 'twitter':
@@ -27942,11 +28667,13 @@ define('searcheventview',[
                 case 'weibo':
                     keyword = hashtagWeibo;
                     break;
-            } 
+            }
             // Find the keywordType (user, hashtag) @todo: keywordType event?
             var keywordType = util.getKeywordType(keyword);
             // Navigate to computeted route
-            app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+            if($('#event-sport option:selected').val() != 'empty' || $('#event-event option:selected').val() != 'empty') {
+                app.router.navigate('/search/'+network+'/event/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+            }
         },
 
         close: function() {
@@ -27958,23 +28685,39 @@ define('searcheventview',[
         triggerEventLoad: function() {
             var self = this;
             // Get gender and sport
-            var gender = $('#event-gender option:selected').val();
-            var sport = $('#event-sport option:selected').val();
+            this.model.set('gender', $('#event-gender option:selected').val());
+            this.model.set('sport', $('#event-sport option:selected').val());
             // Fetch events
             this.model.fetch({ 
                 data: $.param({ 
-                    gender: gender,
-                    sport: sport
+                    gender: this.model.get('gender'),
+                    sport: this.model.get('sport')
                 }),
                 silent: true,
                 url: "http://localhost:8080/specEvents"
             });
         },
 
+        triggerEventSelection: function() {
+            var video = $('#event-event option:selected').attr('data-hasvideo');
+            var selectedEvent = $('#event-event option:selected').text();
+            this.model.set('selectedEvent', selectedEvent);
+            if(video !== '') {
+                this.model.set('hasVideo', true);
+            }
+            this.render();
+        },
+
         // Render template
         render: function(template) {  
             var events = this.model.get('events') || [];
-            var output = template( { events: events } );
+            var output = template({ 
+                events: events, 
+                sport: this.model.get("sport"), 
+                gender: this.model.get("gender"),
+                hasVideo: this.model.get("hasVideo"),
+                selectedEvent: this.model.get("selectedEvent")
+            });
             this.$el.html( output );
         }
 
@@ -28061,19 +28804,18 @@ define('settingsview',[
 
       initialize: function() {
         keyword = this.model.get('keyword');
-        // Save the keywordType in the model as well
-        this.model.set('keywordType', util.getKeywordType(keyword));
+        this.currentDateTime = this.model.get('currentDateTime');
         this.listenTo(app, 'close', this.close);
       },
 
       triggerSettingsChange: function() {
+        console.log('triggering Settings');
         var network = $('#settings #network option:selected').val();
         var timeStep = $('#settings #time-step').val();
         var startDate = $('#settings #start-date').val();
         var startTime = $('#settings #start-time').val();
         var endDate = $('#settings #end-date').val();
         var endTime = $('#settings #end-time').val();
-        var animationDuration = $('#settings #animation-duration').val();
         var startDateTime = new Date(startDate+" "+startTime);
         var endDateTime = new Date(endDate+" "+endTime);
         var keywordType = this.model.get('keywordType');
@@ -28091,35 +28833,36 @@ define('settingsview',[
           change = true;
         } else if(endDateTime !== this.model.get('endDateTime')){
           change = true;
-        } else if(animationDuration !== this.model.get('animationDuration')){
-          app.animationDuration = animationDuration;
-          change = true;
-        } else if(currentDateTime <= startDateTime) {
+        } else if(this.currentDateTime <= startDateTime) {
           // We don't want the currentDateTime to be smaller as the startDateTime
           timeConflict = true;
-        } else if(currentDateTime > endDateTime) {
+        } else if(this.currentDateTime > endDateTime) {
           // And we don't want the currentDateTime to be bigger than the endDateTime
           timeConflict = true;
         }
 
         // Depending on the flags, we compute the route
         if(change && !timeConflict) {
-           app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime(), true);
+           app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
         } else if(change && timeConflict) {
-          app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+          app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
         }
       },
 
+
+
       // Render template with the paramters
       render: function(template) {
+        console.log(this.model.get('endDateTime'));
+        console.log(this.model.get('startDateTime'));
         var output = template({
           animationDuration: this.model.get('animationDuration'),
           timeStep: this.model.get('timeStep'),
           network: this.model.get('network'),
           startDate: moment(this.model.get('startDateTime')).format("YYYY-MM-DD"),
-          startTime: moment(this.model.get('startDateTime')).format("HH:mm"),
+          startTime: moment(this.model.get('startDateTime')).format("HH:mm:ss"),
           endDate: moment(this.model.get('endDateTime')).format("YYYY-MM-DD"),
-          endTime: moment(this.model.get('startDateTime')).format("HH:mm")
+          endTime: moment(this.model.get('endDateTime')).format("HH:mm:ss")
         });
 
         this.$el.html(output);
@@ -28381,8 +29124,9 @@ define('navigationview',[
     "searcheventview",
     "searchkeywordview",
     "settingsview",
+    "util",
     "plugins/bootstrap-modal"
-], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView) {
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, util) {
 
     var navigationView = Backbone.View.extend({
 
@@ -28394,17 +29138,23 @@ define('navigationview',[
             'click #settings-btn': 'triggerSettingsModal'
         },
 
-        initialize: function(options) {
+        initialize: function() {
+            var self = this;
             // Load Settings, Event Search and Keyword search views into modals
-            this.insertViews({
-                '#search-event .modal-body': new searchEventView(),
-                '#search-keyword .modal-body': new searchKeywordView(),
-                '#settings-modal .modal-body': new settingsView({
-                    model: new Backbone.Model(options)
-                })
-            });
 
+            if(this.model.get('keywordType') == 'event') {
+                this.model.fetch({
+                    data: $.param({
+                        startDateTime: this.model.get('startDateTime'),
+                        endDateTime: this.model.get('endDateTime'),
+                        sport: this.model.get('keyword')
+                    })
+                });
+            }
+            this.model.on('render', self.render, self);
             this.listenTo(app, 'close', this.close);
+
+            
         },
 
         // Show event search modal window when triggered
@@ -28425,6 +29175,37 @@ define('navigationview',[
         close: function() {
             this.remove();
             this.unbind();
+        },
+
+        beforeRender: function() {
+            this.insertViews({
+                '#search-event .modal-body': new searchEventView(),
+                '#search-keyword .modal-body': new searchKeywordView(),
+                '#settings-modal .modal-body': new settingsView({
+                    model: new Backbone.Model(this.model.toJSON())
+                })
+            });
+        },
+
+        // Render template with small submenu for the three views
+        render: function() {
+            var options = {};
+            var network = this.model.get('network') || 'twitter';
+            options.urlSingle = '#search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlPattern = '#pattern/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlCompare = '#compare/'+this.model.get('keywordType')+'/'+this.model.get('keyword').slice(1)+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.startDateTime = this.model.get('startDateTime');
+            options.endDateTime = this.model.get('endDateTime');
+            options.event = this.model.get('event');
+            options.sport = this.model.get('sport');
+            options.gender = this.model.get('gender');
+            options.hashtag = this.model.get('keyword');
+            options.timeStep = util.getTimeStepFormat(this.model.get('timeStep'));
+            options.network = network;
+            options.keywordType = this.model.get('keywordType');
+            console.log(options);
+            var output = window.JST['app/templates/navbar.html'](options);
+            this.$el.html( output );
         }
     });
 
@@ -28530,12 +29311,13 @@ define('paperview',[
 	}
 );
 define('emotionmodel',[
+    "app",
     "backbone",
     "underscore",
     "jquery",
     "util",
     "constants"
-], function(Backbone, _, $, util, Constants) {
+], function(app, Backbone, _, $, util, Constants) {
 
     var emotionModel = Backbone.Model.extend({
 
@@ -28545,7 +29327,7 @@ define('emotionmodel',[
 
         getCenterPoint: function() {
             // Compute a random center point in the limits of the window
-            var width = $(window).width();
+            var width = app.windowWidth;
             var height = $(window).height();
             var x = Math.random() * width;
             var y = Math.random() * height;
@@ -28802,14 +29584,6 @@ define('welcomeview',[
         template: 'welcome',
 
         initialize: function() {
-
-            // Insert the eventSearch view on the left side and the
-            // keyword search view on the right.
-            this.insertViews({ 
-                ".left": new searchEventView(),
-                ".right": new searchKeywordView()
-            });
-
             // Bind view to close event
             this.listenTo(app, 'close', this.close);
         },
@@ -28842,6 +29616,7 @@ define('detailview',[
             _.bindAll(this, "render");
 
             var self = this;
+            this.model.set('initialized', false);
 
             // Bind to mouseover and mouseout events to show or hide the
             // slot details
@@ -28863,6 +29638,7 @@ define('detailview',[
             this.model.set('localEndDateTime', moment(params.localEndDateTime).format("MM. DD. YYYY HH:mm"));
             this.model.set('tweetCount', params.tweetCount);
             this.model.set('dominantEmotion', params.dominantEmotion);
+            this.model.set('initialized', true);
         },
 
         hideDetail: function() {
@@ -28870,8 +29646,10 @@ define('detailview',[
         },
 
         render: function(template) {
-            var output = template(this.model.toJSON());
-            this.$el.html(output).removeClass('hide').addClass('show').css('left', this.model.get('left'));
+            if(this.model.get('initialized') === true) {
+                var output = template(this.model.toJSON());
+                this.$el.html(output).removeClass('hide').addClass('show').css('left', this.model.get('left'));
+            }
         },
 
         close: function() {
@@ -28882,30 +29660,30 @@ define('detailview',[
 
     return detailView;
 });
-define('titlemodel',[
+define('navigationmodel',[
   'app',
   'lodash',
   'backbone',
   'constants'
 ], function(app, _, Backbone, Constants) {
 
-    var titleModel = Backbone.Model.extend({
+    var navigationModel = Backbone.Model.extend({
         
         urlRoot: function() {
           return "http://localhost:8080/getEventInfo";
         },
 
         parse: function(response) {
-          console.log('parsing');
-          console.log(response);
           for(var i = 0; i < response.length; i++) {
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);
           }
+          console.log('trigger!');
+          this.trigger('render');
         }
     });
 
-    return titleModel;
+    return navigationModel;
 
 });
 define('videomodel',[
@@ -28931,6 +29709,234 @@ define('videomodel',[
     return videoModel;
 
 });
+define('timeview_compare',[
+    "app",
+    "backbone",
+    "jquery",
+    "lodash",
+    "util",
+    "constants",
+    "plugins/jquery.timer"
+
+], function(app, Backbone, $, _, util, Constants) {
+    
+    var timeCompareView = Backbone.View.extend({
+
+        template: 'timetemplate',
+        
+        initialize: function(options) {
+            _.bindAll(this, 'render');
+            
+            this.model = new Backbone.Model();
+
+            options = options || {};
+
+            this.width = app.windowWidth / 2;
+
+            var self = this;
+
+            this.clockMode = options.clockMode || 'active';
+
+            // set the parameters of the current visualization
+            this.model.set('jump', false);
+            this.model.set('startDateTime', options.startDateTime);
+            this.model.set('endDateTime', options.endDateTime);
+            this.model.set('currentDateTime', options.currentDateTime);
+            this.model.set('timeStep', options.timeStep);
+            this.model.set("label", "Stop");
+            this.network = options.network;
+            this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
+
+            // On date & time change, template needs to be rerendered!
+            // If the time is not running, we need to start the watch
+            this.listenTo(app, 'change:globalTime', function(dateTime) {
+                var oldDateTime = this.model.get('currentDateTime');
+                var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
+
+                // Check if we do a jump
+                if(newDateTime.getTime() == dateTime.getTime()) {
+                    this.model.set('jump', false);
+                } else {
+                    this.model.set('jump', true);
+                }
+
+                this.model.set('currentDateTime', dateTime);
+                if(this.model.get('interval') === undefined) {
+                    self.startTime();
+                }
+
+                self.model.set("firstDateTime", moment(dateTime).format("Do MMM YYYY HH:mm:ss"));
+                self.model.set("secondDateTime", moment(new Date(dateTime.getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
+                self.render(self.template);
+            });
+
+            this.listenTo(app, 'start:watch', function() {
+                self.startTime();
+            });
+
+            this.listenTo(app, 'pause:watch', this.pauseTime);
+            this.listenTo(app, 'resume:watch', this.resumeTime);
+
+            this.listenTo(app, 'close', this.close);
+
+            _.bindAll(this);
+            $(document).on('keydown', self.triggerStartStopKey);
+        },
+
+        close: function() {
+            // Stop interval first
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').stop();
+            }
+            this.unbind(); // Unbind all local event bindings
+            this.remove(); // Remove view from DOM
+        },
+
+        pauseTime: function() {
+            console.log('pauseTime')
+            var width = $('.'+this.network+' .time-block').width();
+            this.model.set('label', 'Start');
+            $('.'+this.network+' .time-block').css('width', width+'px');
+            this.model.set('timeState', 'pause');
+            $('.'+this.network+' .time-block').removeClass('is-transitioning');
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').pause();
+            }
+            this.render();
+        },
+
+        resumeTime: function() {
+            console.log('resume');
+            var width = $('.'+this.network+' .time-block').width();
+            this.model.set('timeState', 'running');
+            this.model.set('label', 'Pause');
+            $('.'+this.network+' .time-block').addClass('is-transitioning');
+            $('.'+this.network+' .time-block').css('width', this.model.get('endPosition'));
+            if(undefined !== this.model.get('interval')) {
+                this.model.get('interval').play();
+            }
+            this.render();
+        },
+
+        // Start running the timer. If the current time is bigger than our
+        // interval, the clock needs to be stopped. Every animationDuration, 
+        // the clock triggers a global time change.
+        startTime: function() {
+            var self = this;
+            this.model.set('timeState', 'running');
+            $('.'+this.network+' .time-block').addClass('is-transitioning');
+            
+            if(this.clockMode == 'active') {
+                this.model.set('startInterval', setInterval(function(t) {
+                    app.trigger('start:time');
+                    clearInterval(self.model.get('startInterval'));
+                },1000));
+                
+                if(undefined === this.model.get('interval')) {
+                    var interval = $.timer(function() {
+                        if(self.model.get('currentDateTime').getTime() >= self.model.get('endDateTime').getTime()) {
+                            self.stopTime();
+                            return;
+                        }
+                        // create new time
+                        var currentDateTime = new Date(self.model.get('currentDateTime').getTime()+self.model.get('timeStep')*1000);
+                        app.trigger("change:globalTime", currentDateTime);
+                    }, app.animationDuration, true);
+
+                    this.model.set('interval', interval);
+                } else {
+                    this.model.get('interval').play();
+                }
+            }
+        },
+
+        events: {
+            'click #start-stop-control': 'triggerStartStop',
+        },
+
+        triggerStartStop: function() {
+            if(this.model.get('timeState') == 'running') {
+                this.model.set('timeState', 'pause');
+                app.trigger('pause:watch');
+            } else if(this.model.get('timeState') == 'pause') {
+                this.model.set('timeState', 'running');
+                app.trigger('resume:watch');
+            }
+        },
+
+        triggerStartStopKey: function(event) {
+            if(event.keyCode == 32) {
+                if(this.model.get('timeState') == 'running') {
+                    this.model.set('timeState', 'pause');
+                    this.pauseTime();
+                } else if(this.model.get('timeState') == 'pause') {
+                    this.model.set('timeState', 'running');
+                    this.resumeTime();
+                }
+            }
+        },
+
+        computeFirstPosition: function() {
+            var timeSpan = this.model.get('startDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get('startDateTime');
+            var position = timeSpan / this.model.get('timeSpan') * this.width;
+            $('.'+this.network+' .time-block').css('width', position+'px');
+        },
+
+        /**
+         * stopTime
+         *
+         * Clears the interval and removes the variable 'interval' from the model.
+         */
+        stopTime: function() {
+            this.model.get('interval').stop();
+            this.model.set('interval', undefined);
+            app.trigger('stop:time');
+        },
+
+        // render the template with labe, date and time.
+        render: function(template) {
+            var output = template({ 
+                label: this.model.get("label"), 
+                firstDateTime: this.model.get('firstDateTime'),
+                secondDateTime: this.model.get('secondDateTime')
+            });
+            this.$el.html(output);
+        },
+
+        afterRender: function() {
+            var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
+            var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
+            if(position > this.width / 2) {
+                $('.'+this.network+' .time-block .dates').css('text-align', 'right').css('right', '45px');
+            }
+            if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
+                $('.'+this.network+' .time-block').css('width', position+'px');
+            } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
+                $('.'+this.network+' .time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
+                    $(this).addClass('is-transitioning');
+                    next();
+                });
+            }
+
+            if(position > this.width) {
+                $('.'+this.network+' .current-time-box').addClass('max-right');
+            } else {
+                $('.'+this.network+' .current-time-box').removeClass('max-right');
+            }
+
+            this.model.set('endPoint', position);
+            if(this.model.get('paused') == true) {
+                this.$el.css('-webkit-animation-play-state', 'paused');
+            } else {
+                this.$el.css('-webkit-animation-play-state', 'running');
+            }
+                
+        }
+        
+    });
+
+    return timeCompareView;
+}); 
 define('router',[
   // Application.
   "util",
@@ -28948,7 +29954,6 @@ define('router',[
   "tweetcollectionview",
   "videoview",
   "timeview",
-  "titleview",
   "navigationview",
   "tweetfrequencycollection",
   "frequencypaperview",
@@ -28956,11 +29961,12 @@ define('router',[
   "emotioncollectionview",
   "welcomeview",
   "detailview",
-  "titlemodel",
-  "videomodel"
+  "navigationmodel",
+  "videomodel",
+  "timeview_compare"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, titleView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, titleModel, videoModel) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -28978,6 +29984,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     index: function() {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
       
       app.useLayout('frontpage').setViews({
@@ -28993,13 +30000,15 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     search: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       $('#main').empty();
+      $('body').attr('class', '');
 
       app.trigger('close');
 
       var options = {};
+      options.network = network || 'twitter';
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.keywordType = keywordType;
-      options.network = network || 'twitter';
+
       options.mode = 'regular';
       options.timeStep = timeStep;
 
@@ -29012,7 +30021,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('main-layout').setViews({
-        ".time-block": new timeView(options),
+        "#bottom .current-time-box": new timeView(options),
 
         ".detail-block": new detailView({
           model: new Backbone.Model()
@@ -29023,10 +30032,15 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".date-time-freq .paper",
           "network": options.network
         }),
-        ".navigation": new navigationView(options),
+
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
+        }),
+
         "#player": new videoView({
           model: new videoModel(options)
         }),
+        
         ".watches": new emotionWatchView({ 
           model: new emotionWatch({ 
             paper: app.paper, 
@@ -29036,17 +30050,14 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 500, "y": 400},
+            centerPoint: {"x": 500, "y": 410},
             topic: options.keyword,
-            network: options.network
+            network: options.network,
+            keywordType: options.keywordType
           }) 
         }),
         ".tweets": new tweetCollectionView({
           collection: new tweetCollection(options)
-        }),
-        "#middle-column .keyword-title": new titleView({
-            model: new titleModel(options),
-            el: '#middle-column .keyword-title'
         }),
         ".bottom": new Backbone.View({
           collection: new tweetFrequencyCollection(options)
@@ -29056,11 +30067,13 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
 
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.network = network || 'twitter',
+      options.keywordType = keywordType;
       options.mode = 'pattern';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
@@ -29081,11 +30094,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "network": options.network
         }),
 
-        ".navigation": new navigationView(options),
-
-        "#middle-column .keyword-title": new titleView({
-          model: new titleModel(options),
-          el: '#middle-column .keyword-title'
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
         }),
 
         ".bottom": new Backbone.View({
@@ -29107,9 +30117,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
     compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       $('#main').empty();
+      $('body').attr('class', '');
       app.trigger('close');
       var options = {};
-      console.log(keyword);
+      options.keywordType = keywordType;
       options.keyword = util.combineKeyword(keyword, keywordType);
       options.mode = 'compare';
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
@@ -29122,11 +30133,25 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('compare-layout').setViews({
-        ".time-block": new timeView({
-            startDateTime: options.startDateTime,
-            endDateTime: options.endDateTime,
-            timeStep: options.timeStep,
-            currentDateTime: options.currentDateTime
+        ".weibo .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'active',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'weibo'
+        }),
+        ".twitter .bottom .current-time-box": new timeCompareView({
+          startDateTime: options.startDateTime,
+          endDateTime: options.endDateTime,
+          currentDateTime: options.currentDateTime,
+          timeStep: options.timeStep,
+          clockMode: 'passiv',
+          keyword: options.keyword,
+          keywordType: options.keywordType,
+          network: 'twitter'
         }),
         ".weibo .watch .paper": new paperView({ 
           "parent": ".weibo .watch .paper",
@@ -29146,16 +30171,14 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".twitter .date-time-freq .paper", 
           "network": "twitter"
         }),
-        ".navigation": new navigationView(options),
-        "#middle-column .keyword-title": new titleView({
-          model: new titleModel(options),
-          el: '#middle-column .keyword-title'
+        ".navigation": new navigationView({
+          model: new navigationModel(options)
         }),
         ".twitter .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'twitter',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -29167,7 +30190,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
+            'keyword': util.combineKeyword(keyword, keywordType),
             'network': 'weibo',
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -29185,8 +30208,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
-            network: 'twitter'
+            topic: util.combineKeyword(keyword, keywordType),
+            network: 'twitter',
+            keywordType: keywordType
           }),
           mode: 'compare'
         }),
@@ -29200,17 +30224,12 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 400, "y": 400},
-            topic: options.keyword,
-            network: 'weibo'
+            topic: util.combineKeyword(keyword, keywordType),
+            network: 'weibo',
+            keywordType: keywordType
           }),
           mode: 'compare'
         })
-      }).render();
-    },
-
-    about: function() {
-      app.useLayout().setViews({
-        ".navigation": new searchView({"template": "search-topbar"} )
       }).render();
     },
 
@@ -29295,7 +30314,7 @@ require.config({
     emotionmodel: "models/frontpage/emotionmodel",
     emotionwatch: "models/emotionWatch",
     tweetfrequencymodel: "models/tweetfrequencymodel",
-    titlemodel: "models/title/titlemodel",
+    navigationmodel: "models/navigation/navigationmodel",
     videomodel: "models/video/videomodel",
 
     // collection
@@ -29314,8 +30333,8 @@ require.config({
     emotionview: "views/frontpage/emotionview",
     paperview: "views/canvas/paperview",
     timeview: "views/time/timeview",
+    timeview_compare: "views/time/timeview_compare",
     welcomeview: "views/frontpage/welcomeview",
-    titleview: "views/titleview",
     frequencypaperview: "views/canvas/frequencypaperview",
     videoview: "views/video/videoview",
     emotionwatchview: "views/watch/emotionwatchview",
@@ -29343,7 +30362,8 @@ require.config({
     "plugins/backbone.layoutmanager": ["backbone"],
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
-    "plugins/bootstrap-modal": ['jquery']
+    "plugins/bootstrap-modal": ['jquery'],
+    "plugins/jquery.timer": ['jquery']
   }
 
 });

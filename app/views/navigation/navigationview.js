@@ -19,7 +19,7 @@ define([
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal',
+            'click #settings-btn': 'triggerSettingsModal'
         },
 
         initialize: function() {
@@ -32,7 +32,7 @@ define([
                         startDateTime: this.model.get('startDateTime'),
                         endDateTime: this.model.get('endDateTime'),
                         sport: this.model.get('keyword')
-                    }),
+                    })
                 });
             }
             this.model.on('render', self.render, self);
@@ -90,7 +90,7 @@ define([
             console.log(options);
             var output = window.JST['app/templates/navbar.html'](options);
             this.$el.html( output );
-        },
+        }
     });
 
     return navigationView;

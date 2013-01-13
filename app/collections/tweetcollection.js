@@ -58,8 +58,8 @@ define([
 
             // Delete tweets from the dom
             if(this.viewPointer.length > 30) {
-                for(var i = 0; i < 10; i++) {
-                    var model = this.shift();
+                for(var j = 0; j < 10; j++) {
+                    var delModel = this.shift();
                     var view = this.viewPointer.shift();
                     view.close();
                 }
