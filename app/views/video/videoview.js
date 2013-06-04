@@ -38,7 +38,7 @@ define([
 
         render: function(template) {
             var output = template({ 
-                videoUrl: "http://localhost:8080/videos/"+this.model.get("video")
+                videoUrl: app.server+"videos/"+this.model.get("video")
             });
             this.$el.html( output );
         },

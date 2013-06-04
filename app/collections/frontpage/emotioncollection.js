@@ -3,8 +3,9 @@ define([
     "underscore",
     "jquery",
     "emotionmodel",
-    "emotionview"
-], function(Backbone, _, $, emotionModel, emotionView) {
+    "emotionview",
+    "app"
+], function(Backbone, _, $, emotionModel, emotionView, app) {
 
     var emotionCollection = Backbone.Collection.extend({
 
@@ -15,7 +16,7 @@ define([
         },
 
         url: function() {
-            return "http://localhost:8080/frontPage";
+            return app.server+"frontPage";
         },
 
         parse: function(response) {

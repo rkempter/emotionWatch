@@ -8,7 +8,7 @@ define([
     var videoModel = Backbone.Model.extend({
         
         urlRoot: function() {
-          return "http://localhost:8080/getEventVideo";
+          return app.server+"getEventVideo";
         },
 
         parse: function(response) {

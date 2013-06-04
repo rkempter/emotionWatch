@@ -21,7 +21,7 @@ define([
             this.currentDateTime = options.currentDateTime;
             this.fetch({ 
                 data: $.param({ 
-                    datetime: self.dateTime,
+                    datetime: self.currentDateTime,
                     emotion: this.emotion,
                     hashtag: options.keyword,
                     windowsize: options.timeStep,
@@ -51,7 +51,7 @@ define([
         },
 
         url: function() {
-            return 'http://localhost:8080/tweets';
+            return app.server+'tweets';
         },
 
         parse: function(response) {

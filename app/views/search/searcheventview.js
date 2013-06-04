@@ -94,7 +94,7 @@ define([
                     sport: this.model.get('sport')
                 }),
                 silent: true,
-                url: "http://localhost:8080/specEvents"
+                url: app.server+"specEvents"
             });
         },
 

@@ -8,7 +8,7 @@ define([
     var navigationModel = Backbone.Model.extend({
         
         urlRoot: function() {
-          return "http://localhost:8080/getEventInfo";
+          return app.server+"getEventInfo";
         },
 
         parse: function(response) {

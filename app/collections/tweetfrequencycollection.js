@@ -65,9 +65,9 @@ define([
 
         url: function() {
             if(this.mode == 'compare') {
-                return 'http://localhost:8080/patternFrequency';
+                return app.server+'patternFrequency';
             } else {
-                return 'http://localhost:8080/frequency';
+                return app.server+'frequency';
             }
         },
 

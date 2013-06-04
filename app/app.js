@@ -21,10 +21,14 @@ function($, _, Backbone, Raphael, Constants) {
 
     animationDuration: 5000,
 
-    windowWidth: $(window).width()
+    windowWidth: $(window).width(),
+
+    // server: "http://grpupc1.epfl.ch:8124/"
+    server: "http://localhost:8080/"
 
     // Global SVG Canvas
   };
+
 
   // Localize or create a new JavaScript Template object.
   var JST = window.JST = window.JST || {};

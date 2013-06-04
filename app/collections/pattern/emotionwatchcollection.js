@@ -36,7 +36,7 @@ define([
         },
 
         url: function() {
-            return 'http://localhost:8080/emotionTweets';
+            return app.server+'emotionTweets';
         },
 
         viewInitialized: function() {

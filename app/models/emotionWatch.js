@@ -73,9 +73,9 @@ define([
     urlRoot: function() {
       // In the compare node, we load the data from another url
       if(this.get('mode') == 'compare') {
-        return "http://localhost:8080/emotionPatternTweets";
+        return app.server+"emotionPatternTweets";
       } else {
-        return "http://localhost:8080/emotionTweets";
+        return app.server+"emotionTweets";
       }
     },
 
