@@ -257,7 +257,7 @@ define([
       // If we are in regular mode, change the background color accordingly
       // to the current dominant emotion
       if(this.get('mode') == 'regular') {
-        $('body').attr('class', emotion);
+        $('body').attr('class', emotion.toLowerCase());
       }
 
       return emotion;

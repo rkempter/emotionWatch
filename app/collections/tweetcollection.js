@@ -67,7 +67,6 @@ define([
 
             var x_numbers = this.generateRandomNumbers(response.length);
             var y_numbers = _.shuffle(x_numbers);
-            console.log(y_numbers);
             
             var startDateTime = this.startDateTime;
             var endDateTime = this.endDateTime;
@@ -80,7 +79,6 @@ define([
                 var model = new Backbone.Model(response[i]);
                 model.set('x', x_numbers[i]);
                 model.set('y', x_numbers[i]);
-                console.log(y_numbers[i]);
                 model.set('keywordType', this.keywordType);
                 model.set('timeStep', this.timeStep);
                 model.set('currentDateTime', this.currentDateTime);

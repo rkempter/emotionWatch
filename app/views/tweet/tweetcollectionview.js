@@ -56,7 +56,6 @@ define([
         },
 
         addOne: function(model) {
-            console.log('this takes hours');
             var view = new tweetView({
                 model: model
             });

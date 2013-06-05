@@ -120,7 +120,6 @@ define([
                 console.log(this.model.get("mode"));
 
                 self.model.get("setOfElements").click(function(event) {
-                    console.log('click');
                     var keyword = self.model.get("topic");
                     var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
@@ -191,16 +190,17 @@ define([
 
         // On the pattern watches, one should see clearly the dominant emotion.
         // Therefore, we draw a circle in the background with the color of the dominant
-        // emoiton
+        // emotion
         drawDominantEmotion: function() {
             var paper = this.model.get('paper');
             this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("dominantEmotionCircle").toBack();
             var dominantEmotion = this.model.getDominantEmotion();
-            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion);
+            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion.toLowerCase());
             this.model.get("setOfElements").push(
                 this.model.get("dominantEmotionCircle")
             );
+
             if(dominantEmotion != 'empty') {
                 var textPointx = this.model.get('centerPoint').x;
                 var textPointy = this.model.get('centerPoint').y - 50;
