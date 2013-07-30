@@ -69,19 +69,20 @@ define([
             var x = this.model.get('x');
             var y = this.model.get('y');
             var width = app.windowWidth / 3;
+            var coord_x, coord_y;
 
             if(x < 5 && y < 5) {
-                var coord_x = width + Math.pow(7, (x-2)) - 450;
-                var coord_y = y * 120;
+                coord_x = width + Math.pow(7, (x-2)) - 450;
+                coord_y = y * 120;
             } else if (x > 4 && y < 5){
-                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
-                var coord_y = (y-5) * 120;
+                coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                coord_y = (y-5) * 120;
             } else if (x > 4 && y > 4){
-                var coord_y = (y-5) * 120;
-                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                coord_y = (y-5) * 120;
+                coord_x = 2 * width - Math.pow(7, (x-7))+100;
             } else if (x < 5 && y > 4){
-                var coord_y = (y-5) * 120;
-                var coord_x = width + Math.pow(7, (x-2)) - 450;
+                coord_y = (y-5) * 120;
+                coord_x = width + Math.pow(7, (x-2)) - 450;
             } 
 
             return {x: coord_x, y: coord_y};

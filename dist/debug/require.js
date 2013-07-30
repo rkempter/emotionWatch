@@ -874,7 +874,7 @@ return __p;
 this['JST']['app/templates/welcome.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="welcome-screen" class="modal show" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <h3 id="myModalLabel">Welcome!</h3>\n  </div>\n  <div class="modal-body">\n    <p>Dive into one of our most interesting picks and revive the emotions of the Olympic Events!</p>\n    <h4>The most intersting picks of the Olympic Games</h4>\n    <ul>\n        <li>\n          <a href="#search/twitter/event/swimming/5/1343588400000/1343588940000">\n            Swimming: 4x100m Free Men\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344253775000/1344255755000">\n            Gymnastics (Women): Uneven Bars Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344345780000/1344348060000">\n            Gymnastics Women: Artistic Floor Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/tennis/5/1343588400000/1343588940000">\n            Tennis Men\'s Single Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/swimming/5/1344015480000/1344015840000">\n            Swimming: 100m Butterfly Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/keyword/badminton/1800/1343685600000/1343771999000">\n            Badminton: Scandal\n          </a>\n        </li>\n    </ul>\n  </div>\n</div>';
+__p+='<div id="welcome-screen" class="modal show" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <h3 id="myModalLabel">Welcome!</h3>\n  </div>\n  <div class="modal-body">\n    <p>Dive into one of our most interesting picks and revive the emotions of the Olympic Events!</p>\n    <h4>The most interesting picks of the Olympic Games</h4>\n    <ul>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344343620000/1344346020000">\n            Gymnastics Artistic Women\'s Beam Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344256680000/1344258720000">\n            Gymnastics Artistic Men\'s Vault Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344253775000/1344255755000">\n            Gymnastics Artistic Women\'s Uneven Bars Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/gymnastics/5/1344346560000/1344348840000">\n            Gymnastics Artistic Women\'s Floor Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/tennis/5/1344160800000/1344168600000">\n            Tennis Men\'s Single Final\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/event/swimming/5/1344015480000/1344015840000">\n            Swimming: 100m Butterfly Final\n          </a>\n        </li>\n         <li>\n          <a href="#search/twitter/event/swimming/5/1343588400000/1343588940000">\n            Swimming: 4x100m Free Men\n          </a>\n        </li>\n        <li>\n          <a href="#search/twitter/keyword/badminton/1800/1343739600000/1343826000000">\n            Badminton Scandal: Eight players got charged because they tried to lose their games\n          </a>\n        </li>\n    </ul>\n  </div>\n</div>';
 }
 return __p;
 };;
@@ -24870,10 +24870,14 @@ function($, _, Backbone, Raphael, Constants) {
 
     animationDuration: 5000,
 
-    windowWidth: $(window).width()
+    windowWidth: $(window).width(),
+
+    server: "http://grpupc1.epfl.ch:8124/"
+    // server: "http://localhost:8080/"
 
     // Global SVG Canvas
   };
+
 
   // Localize or create a new JavaScript Template object.
   var JST = window.JST = window.JST || {};
@@ -25176,9 +25180,9 @@ define('emotionwatch',[
     urlRoot: function() {
       // In the compare node, we load the data from another url
       if(this.get('mode') == 'compare') {
-        return "http://localhost:8080/emotionPatternTweets";
+        return app.server+"emotionPatternTweets";
       } else {
-        return "http://localhost:8080/emotionTweets";
+        return app.server+"emotionTweets";
       }
     },
 
@@ -25360,7 +25364,7 @@ define('emotionwatch',[
       // If we are in regular mode, change the background color accordingly
       // to the current dominant emotion
       if(this.get('mode') == 'regular') {
-        $('body').attr('class', emotion);
+        $('body').attr('class', emotion.toLowerCase());
       }
 
       return emotion;
@@ -25848,9 +25852,9 @@ define('tweetfrequencycollection',[
 
         url: function() {
             if(this.mode == 'compare') {
-                return 'http://localhost:8080/patternFrequency';
+                return app.server+'patternFrequency';
             } else {
-                return 'http://localhost:8080/frequency';
+                return app.server+'frequency';
             }
         },
 
@@ -26104,7 +26108,6 @@ define('emotionwatchview',[
                 console.log(this.model.get("mode"));
 
                 self.model.get("setOfElements").click(function(event) {
-                    console.log('click');
                     var keyword = self.model.get("topic");
                     var keywordType = util.getKeywordType(keyword);
                     var startDateTime = self.model.get("startDate");
@@ -26175,16 +26178,17 @@ define('emotionwatchview',[
 
         // On the pattern watches, one should see clearly the dominant emotion.
         // Therefore, we draw a circle in the background with the color of the dominant
-        // emoiton
+        // emotion
         drawDominantEmotion: function() {
             var paper = this.model.get('paper');
             this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
             this.model.get("dominantEmotionCircle").toBack();
             var dominantEmotion = this.model.getDominantEmotion();
-            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion);
+            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion.toLowerCase());
             this.model.get("setOfElements").push(
                 this.model.get("dominantEmotionCircle")
             );
+
             if(dominantEmotion != 'empty') {
                 var textPointx = this.model.get('centerPoint').x;
                 var textPointy = this.model.get('centerPoint').y - 50;
@@ -26484,7 +26488,7 @@ define('emotionwatchcollection',[
         },
 
         url: function() {
-            return 'http://localhost:8080/emotionTweets';
+            return app.server+'emotionTweets';
         },
 
         viewInitialized: function() {
@@ -26692,19 +26696,20 @@ define('tweetview',[
             var x = this.model.get('x');
             var y = this.model.get('y');
             var width = app.windowWidth / 3;
+            var coord_x, coord_y;
 
             if(x < 5 && y < 5) {
-                var coord_x = width + Math.pow(7, (x-2)) - 450;
-                var coord_y = y * 120;
+                coord_x = width + Math.pow(7, (x-2)) - 450;
+                coord_y = y * 120;
             } else if (x > 4 && y < 5){
-                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
-                var coord_y = (y-5) * 120;
+                coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                coord_y = (y-5) * 120;
             } else if (x > 4 && y > 4){
-                var coord_y = (y-5) * 120;
-                var coord_x = 2 * width - Math.pow(7, (x-7))+100;
+                coord_y = (y-5) * 120;
+                coord_x = 2 * width - Math.pow(7, (x-7))+100;
             } else if (x < 5 && y > 4){
-                var coord_y = (y-5) * 120;
-                var coord_x = width + Math.pow(7, (x-2)) - 450;
+                coord_y = (y-5) * 120;
+                coord_x = width + Math.pow(7, (x-2)) - 450;
             } 
 
             return {x: coord_x, y: coord_y};
@@ -26759,7 +26764,7 @@ define('tweetcollection',[
             this.currentDateTime = options.currentDateTime;
             this.fetch({ 
                 data: $.param({ 
-                    datetime: self.dateTime,
+                    datetime: self.currentDateTime,
                     emotion: this.emotion,
                     hashtag: options.keyword,
                     windowsize: options.timeStep,
@@ -26789,7 +26794,7 @@ define('tweetcollection',[
         },
 
         url: function() {
-            return 'http://localhost:8080/tweets';
+            return app.server+'tweets';
         },
 
         parse: function(response) {
@@ -26805,7 +26810,6 @@ define('tweetcollection',[
 
             var x_numbers = this.generateRandomNumbers(response.length);
             var y_numbers = _.shuffle(x_numbers);
-            console.log(y_numbers);
             
             var startDateTime = this.startDateTime;
             var endDateTime = this.endDateTime;
@@ -26818,7 +26822,6 @@ define('tweetcollection',[
                 var model = new Backbone.Model(response[i]);
                 model.set('x', x_numbers[i]);
                 model.set('y', x_numbers[i]);
-                console.log(y_numbers[i]);
                 model.set('keywordType', this.keywordType);
                 model.set('timeStep', this.timeStep);
                 model.set('currentDateTime', this.currentDateTime);
@@ -26915,7 +26918,6 @@ define('tweetcollectionview',[
         },
 
         addOne: function(model) {
-            console.log('this takes hours');
             var view = new tweetView({
                 model: model
             });
@@ -26984,7 +26986,7 @@ define('videoview',[
 
         render: function(template) {
             var output = template({ 
-                videoUrl: "http://localhost:8080/videos/"+this.model.get("video")
+                videoUrl: app.server+"videos/"+this.model.get("video")
             });
             this.$el.html( output );
         },
@@ -28694,7 +28696,7 @@ define('searcheventview',[
                     sport: this.model.get('sport')
                 }),
                 silent: true,
-                url: "http://localhost:8080/specEvents"
+                url: app.server+"specEvents"
             });
         },
 
@@ -29489,8 +29491,9 @@ define('emotioncollection',[
     "underscore",
     "jquery",
     "emotionmodel",
-    "emotionview"
-], function(Backbone, _, $, emotionModel, emotionView) {
+    "emotionview",
+    "app"
+], function(Backbone, _, $, emotionModel, emotionView, app) {
 
     var emotionCollection = Backbone.Collection.extend({
 
@@ -29501,7 +29504,7 @@ define('emotioncollection',[
         },
 
         url: function() {
-            return "http://localhost:8080/frontPage";
+            return app.server+"frontPage";
         },
 
         parse: function(response) {
@@ -29670,7 +29673,7 @@ define('navigationmodel',[
     var navigationModel = Backbone.Model.extend({
         
         urlRoot: function() {
-          return "http://localhost:8080/getEventInfo";
+          return app.server+"getEventInfo";
         },
 
         parse: function(response) {
@@ -29696,7 +29699,7 @@ define('videomodel',[
     var videoModel = Backbone.Model.extend({
         
         urlRoot: function() {
-          return "http://localhost:8080/getEventVideo";
+          return app.server+"getEventVideo";
         },
 
         parse: function(response) {
@@ -29793,7 +29796,6 @@ define('timeview_compare',[
         },
 
         pauseTime: function() {
-            console.log('pauseTime')
             var width = $('.'+this.network+' .time-block').width();
             this.model.set('label', 'Start');
             $('.'+this.network+' .time-block').css('width', width+'px');
@@ -29851,7 +29853,7 @@ define('timeview_compare',[
         },
 
         events: {
-            'click #start-stop-control': 'triggerStartStop',
+            'click #start-stop-control': 'triggerStartStop'
         },
 
         triggerStartStop: function() {
@@ -29925,7 +29927,7 @@ define('timeview_compare',[
             }
 
             this.model.set('endPoint', position);
-            if(this.model.get('paused') == true) {
+            if(this.model.get('paused') === true) {
                 this.$el.css('-webkit-animation-play-state', 'paused');
             } else {
                 this.$el.css('-webkit-animation-play-state', 'running');
@@ -30266,6 +30268,7 @@ function(app, Router) {
   $(document).on("click", "a[href]:not([data-bypass])", function(evt) {
     // Get the absolute anchor href.
     var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
+    console.log(href);
     // Get the absolute root.
     var root = location.protocol + "//" + location.host + app.root;
 

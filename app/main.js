@@ -22,6 +22,7 @@ function(app, Router) {
   $(document).on("click", "a[href]:not([data-bypass])", function(evt) {
     // Get the absolute anchor href.
     var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
+    console.log(href);
     // Get the absolute root.
     var root = location.protocol + "//" + location.host + app.root;
 
