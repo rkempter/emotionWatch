@@ -439,15 +439,37 @@ define([
                 lines.push(line);
                 // Draw circle with the emotion
                 labelCirclePoint = this.model.getPoint(1.3, i);
-                var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
-                labelCircle.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
+                // var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
+
+
+                var labelColorRect = paper.rect(labelCirclePoint.x, labelCirclePoint.y, 140, 26, 13).toBack();
+                // labelColorPathArray.push(["M", labelCirclePoint.x, labelCirclePoint.y]);
+                // labelColorPathArray.push(["L", labelCirclePoint.x + (-length-20), labelCirclePoint.y]);
+                // var labelColorPath = paper.path(labelColorPathArray);
+
+                labelColorRect.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
 
                 // If the angle is between 90 and 270 degrees, we need to mirror the label
                 // and do a translation by the length of the label
+
+                console.log("========");
+                console.log(textToPrint);
+                console.log(point.x+" / "+point.y);
+                console.log(angle);
+
+
                 if(angle > 90 && angle <= 270) {
+                    var xDepl = Math.cos(angle/360 * 2*Math.PI) * 13;
+                    var yDepl = Math.sin(angle/360 * 2*Math.PI) * 13; 
+                    console.log(xDepl + " / " + yDepl)
                     text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
+                    labelColorRect.transform("r"+(angle+180)+","+point.x+","+(point.y)+",t"+(+140-xDepl)+","+(+yDepl));
+
                 } else {
+                    var xDepl = Math.cos(angle/360 * 2*Math.PI) * 13;
+                    var yDepl = Math.sin(angle/360 * 2*Math.PI) * 13; 
                     text.transform("r"+angle+","+point.x+","+point.y);
+                    labelColorRect.transform("r"+angle+","+point.x+","+point.y+",t"+(+xDepl)+","+(+yDepl));
                 }
                 // Set a css class to the label
                 text.node.setAttribute("class", "label");

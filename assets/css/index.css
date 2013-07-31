@@ -1,5 +1,4 @@
-/* H5BP styles. */
-
+/***** Variables *****/
 /** Emotions **/
 .clearfix {
   *zoom: 1;
@@ -949,9 +948,6 @@ svg .line {
   top: 170px;
   background: rgba(255, 255, 255, 0.5);
 }
-.labelcircle {
-  stroke: 0;
-}
 /** Timeline **/
 #pattern path,
 #pattern circle {
@@ -1209,7 +1205,6 @@ svg .line {
 }
 .emotion-circle,
 .labelcircle {
-  stroke-width: 0;
   z-index: 0;
 }
 .emotion-circle.empty,
@@ -1295,6 +1290,12 @@ svg .line {
 .emotion-circle.anger,
 .labelcircle.anger {
   fill: #3ea67c;
+}
+.emotion-circle {
+  stroke-width: 0;
+}
+.labelcircle {
+  stroke-width: 0;
 }
 /**** COMPARE ****/
 #compare .columns.twitter h2 {
@@ -1550,19 +1551,3 @@ select {
 .modal-backdrop {
   display: none;
 }
-
-/* Add Stylus stylesheets here, alll files ending in .styl will be compiled!
- * For example: @import "main.styl";
- *
- * Note: All stylesheets are relative to `assets/css`.
- *
- */ 
-
-
-
-
-
-/* Put development-only CSS below this line. */
-
-/***** Variables *****/
-
