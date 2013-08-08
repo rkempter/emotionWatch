@@ -173,7 +173,7 @@ define([
          changeToReset: function() {
           this.mouseout();
 
-          this.model.get("timeSlot").node.setAttribute("class", "");
+          this.model.get("timeSlot").node.setAttribute("class", this.emotion.toLowerCase());
         },
 
         bindHoverSlotEvents: function() {
