@@ -22,6 +22,7 @@ define([
           this.localEndDateTime = this.model.get("localEndDateTime");
           this.timeStep = this.model.get("timeStep");
           this.tweetCount = this.model.get("value");
+          this.emotion = this.model.get("emotion");
           this.val = this.model.get("scaling");
 
           // Get the width size of the window
@@ -72,6 +73,8 @@ define([
 
           // Draw the path on the canvas
           var timeSlot = this.model.get("paper").path(path);
+
+          timeSlot.node.setAttribute("class", self.emotion.toLowerCase());
 
           // Bind the mouseover event to a method;
           timeSlot.mouseover(function() {
@@ -170,7 +173,7 @@ define([
          changeToReset: function() {
           this.mouseout();
 
-          this.model.get("timeSlot").node.setAttribute("class", "");
+          this.model.get("timeSlot").node.setAttribute("class", this.emotion.toLowerCase());
         },
 
         bindHoverSlotEvents: function() {

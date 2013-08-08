@@ -155,7 +155,7 @@ define([
           this.set("currentDataSet", dataset);
         }
         // Get the dominant Emotion out from the data
-        this.getDominantEmotion();
+        this.dominantEmotion = this.getDominantEmotion();
     },
 
     /**

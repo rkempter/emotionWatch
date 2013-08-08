@@ -540,7 +540,7 @@ legend + .control-group {
 body {
   font-family: "ff-tisa-web-pro", sans-serif;
   font-weight: 400;
-  background: #787878;
+  background: #0173d6;
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -553,7 +553,7 @@ body {
 }
 body #bottom,
 body.empty #bottom {
-  background: #787878;
+  background: #0173d6;
 }
 body.involvement {
   background: #3fa652;
@@ -857,7 +857,7 @@ h3 {
   position: absolute;
   height: 100px;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 #index .inner,
 #pattern .inner {
@@ -934,7 +934,6 @@ svg .line {
   width: 100%;
   float: right;
   height: 500px;
-  margin-top: 30px;
 }
 #index .watch svg {
   position: relative !important;
@@ -958,6 +957,7 @@ svg .line {
   fill: #a00202;
 }
 #pattern .date-time-freq path {
+  fill: #acacac;
   stroke-width: 0;
 }
 #pattern .date-time-freq path:hover {
@@ -986,6 +986,7 @@ svg .line {
 }
 #index .date-time-freq path,
 #compare .date-time-freq path {
+  fill: #acacac;
   stroke-width: 0;
 }
 #index .date-time-freq .hoverPath,
@@ -1014,7 +1015,7 @@ svg .line {
   transition: width 5s linear;
 }
 .time-block .curtain {
-  background-color: rgba(120, 120, 120, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   height: 100px;
   width: 100%;
   border-right: 1px solid #a00202;
@@ -1126,10 +1127,7 @@ svg .line {
 .tweet .tweet-emotion {
   float: right;
   font-size: 11px;
-  padding: 3px 6px;
-}
-.tweet .tweet-emotion:first-letter {
-  text-transform: uppercase;
+  padding: 3px;
 }
 .tweet span.date.involvement,
 .tweet .tweet-emotion.involvement {
@@ -1231,176 +1229,91 @@ svg .line {
   z-index: 1;
 }
 .emotion-circle,
-.labelcircle,
-.date-time-freq {
+.labelcircle {
   z-index: 0;
 }
 .emotion-circle.empty,
-.labelcircle.empty,
-.date-time-freq.empty,
-.emotion-circle .empty,
-.labelcircle .empty,
-.date-time-freq .empty {
-  fill: #787878;
+.labelcircle.empty {
+  fill: #0173d6;
 }
 .emotion-circle.involvement,
-.labelcircle.involvement,
-.date-time-freq.involvement,
-.emotion-circle .involvement,
-.labelcircle .involvement,
-.date-time-freq .involvement {
+.labelcircle.involvement {
   fill: #3fa652;
 }
 .emotion-circle.amusement,
-.labelcircle.amusement,
-.date-time-freq.amusement,
-.emotion-circle .amusement,
-.labelcircle .amusement,
-.date-time-freq .amusement {
+.labelcircle.amusement {
   fill: #40a630;
 }
 .emotion-circle.pride,
-.labelcircle.pride,
-.date-time-freq.pride,
-.emotion-circle .pride,
-.labelcircle .pride,
-.date-time-freq .pride {
+.labelcircle.pride {
   fill: #4da62a;
 }
 .emotion-circle.happiness,
-.labelcircle.happiness,
-.date-time-freq.happiness,
-.emotion-circle .happiness,
-.labelcircle .happiness,
-.date-time-freq .happiness {
+.labelcircle.happiness {
   fill: #6da529;
 }
 .emotion-circle.pleasure,
-.labelcircle.pleasure,
-.date-time-freq.pleasure,
-.emotion-circle .pleasure,
-.labelcircle .pleasure,
-.date-time-freq .pleasure {
+.labelcircle.pleasure {
   fill: #94aa2d;
 }
 .emotion-circle.love,
-.labelcircle.love,
-.date-time-freq.love,
-.emotion-circle .love,
-.labelcircle .love,
-.date-time-freq .love {
+.labelcircle.love {
   fill: #b1992d;
 }
 .emotion-circle.awe,
-.labelcircle.awe,
-.date-time-freq.awe,
-.emotion-circle .awe,
-.labelcircle .awe,
-.date-time-freq .awe {
+.labelcircle.awe {
   fill: #ac6b1e;
 }
 .emotion-circle.relief,
-.labelcircle.relief,
-.date-time-freq.relief,
-.emotion-circle .relief,
-.labelcircle .relief,
-.date-time-freq .relief {
+.labelcircle.relief {
   fill: #a83f14;
 }
 .emotion-circle.surprise,
-.labelcircle.surprise,
-.date-time-freq.surprise,
-.emotion-circle .surprise,
-.labelcircle .surprise,
-.date-time-freq .surprise {
+.labelcircle.surprise {
   fill: #a5270f;
 }
 .emotion-circle.nostalgia,
-.labelcircle.nostalgia,
-.date-time-freq.nostalgia,
-.emotion-circle .nostalgia,
-.labelcircle .nostalgia,
-.date-time-freq .nostalgia {
+.labelcircle.nostalgia {
   fill: #a52834;
 }
 .emotion-circle.pity,
-.labelcircle.pity,
-.date-time-freq.pity,
-.emotion-circle .pity,
-.labelcircle .pity,
-.date-time-freq .pity {
+.labelcircle.pity {
   fill: #a32e68;
 }
 .emotion-circle.sadness,
-.labelcircle.sadness,
-.date-time-freq.sadness,
-.emotion-circle .sadness,
-.labelcircle .sadness,
-.date-time-freq .sadness {
+.labelcircle.sadness {
   fill: #a3379c;
 }
 .emotion-circle.worry,
-.labelcircle.worry,
-.date-time-freq.worry,
-.emotion-circle .worry,
-.labelcircle .worry,
-.date-time-freq .worry {
+.labelcircle.worry {
   fill: #7e36ac;
 }
 .emotion-circle.shame,
-.labelcircle.shame,
-.date-time-freq.shame,
-.emotion-circle .shame,
-.labelcircle .shame,
-.date-time-freq .shame {
+.labelcircle.shame {
   fill: #4c2fab;
 }
 .emotion-circle.guilt,
-.labelcircle.guilt,
-.date-time-freq.guilt,
-.emotion-circle .guilt,
-.labelcircle .guilt,
-.date-time-freq .guilt {
+.labelcircle.guilt {
   fill: #002da7;
 }
 .emotion-circle.regret,
-.labelcircle.regret,
-.date-time-freq.regret,
-.emotion-circle .regret,
-.labelcircle .regret,
-.date-time-freq .regret {
+.labelcircle.regret {
   fill: #0032a7;
 }
 .emotion-circle.envy,
-.labelcircle.envy,
-.date-time-freq.envy,
-.emotion-circle .envy,
-.labelcircle .envy,
-.date-time-freq .envy {
+.labelcircle.envy {
   fill: #004eac;
 }
 .emotion-circle.disgust,
-.labelcircle.disgust,
-.date-time-freq.disgust,
-.emotion-circle .disgust,
-.labelcircle .disgust,
-.date-time-freq .disgust {
+.labelcircle.disgust {
   fill: #187aac;
 }
 .emotion-circle.contempt,
-.labelcircle.contempt,
-.date-time-freq.contempt,
-.emotion-circle .contempt,
-.labelcircle .contempt,
-.date-time-freq .contempt {
+.labelcircle.contempt {
   fill: #43acb0;
 }
 .emotion-circle.anger,
-.labelcircle.anger,
-.date-time-freq.anger,
-.emotion-circle .anger,
-.labelcircle .anger,
-.date-time-freq .anger {
+.labelcircle.anger {
   fill: #3ea67c;
 }
 .emotion-circle {

@@ -154,6 +154,7 @@ define([
             this.model.on("change:currentDataSet", this.animateEmotionShape, this);
             this.model.on("change:currentDataSet", this.animateCircle, this);
             this.model.on("change:currentDateTime", this.animateTimeLine, this);
+            this.model.on("change:currentDateSet", this.highlightDominantEmotion, this);
         },
 
         // draw elements that are not bound to any data.
@@ -305,6 +306,21 @@ define([
             }
         },
 
+        highlightDominantEmotion: function() {
+            var rects = this.model.get("colorLabels");
+            var dominantEmotion = this.model.get("dominantEmotion");
+
+            for(var rect in rects) {
+                if(rects.hasOwnProperty(rect)) {
+                    if(rect !== dominantEmotion && dominantEmotion !== 'empty') {
+                        rects[rect].animate({"fill-opacity": 0.5}, 1000);
+                    } else {
+                        rects[rect].animate({"fill-opacity": 1}, 1000);
+                    }
+                }
+            }
+        },
+
         animateCircle: function() {
             var thickness = parseFloat(this.model.get("currentFrequencyRatio") * Constants.timeCircleMaxThickness) || 1;
             var animationObject = Raphael.animation({
@@ -415,6 +431,7 @@ define([
             var radius = this.model.get("emotionCircleRadius")*1.3;
             var labels = [];
             var lines = [];
+            var rects = [];
 
             for(var i = 0; i < labelTexts.length; i++) {
                 // The angle between consecutive labels
@@ -439,23 +456,70 @@ define([
                 lines.push(line);
                 // Draw circle with the emotion
                 labelCirclePoint = this.model.getPoint(1.3, i);
-                var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
-                labelCircle.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
+                // var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
+
+
+                var labelColorRect = paper.rect(labelCirclePoint.x, labelCirclePoint.y, 140, 30).toBack();
+                // labelColorPathArray.push(["M", labelCirclePoint.x, labelCirclePoint.y]);
+                // labelColorPathArray.push(["L", labelCirclePoint.x + (-length-20), labelCirclePoint.y]);
+                // var labelColorPath = paper.path(labelColorPathArray);
+
+                labelColorRect.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
 
                 // If the angle is between 90 and 270 degrees, we need to mirror the label
                 // and do a translation by the length of the label
-                if(angle > 90 && angle <= 270) {
+
+                console.log("========");
+                console.log(textToPrint);
+                console.log(point.x+" / "+point.y);
+                console.log(angle);
+                
+                var xDepl, yDepl;
+
+                // angle = 0;
+
+                if(angle > 0 && angle <= 180) {
+                    xDepl = Math.cos(angle/360 * 2*Math.PI) * 15;
+                    yDepl = Math.sin(angle/360 * 2*Math.PI) * 15;
+                } else {
+                    xDepl = Math.sin(angle/360 * 2*Math.PI) * 15;
+                    yDepl = Math.cos(angle/360 * 2*Math.PI) * 15; 
+                }
+
+                console.log(xDepl + "/" + yDepl);
+
+                // var xDepl = 0; var yDepl = 0;
+
+                if(angle > 0 && angle <= 90) {
+                    text.transform("r"+angle+","+point.x+","+point.y);
+                } else if(angle > 90 && angle <= 180) {
+                    text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
+                } else if(angle > 180 && angle <= 270) {
                     text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
                 } else {
                     text.transform("r"+angle+","+point.x+","+point.y);
                 }
+
+                if(angle >= 0 && angle < 90) {
+                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(+xDepl)+","+(-yDepl));
+                } else if(angle >= 90 && angle <= 180) {
+                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(-yDepl));
+                } else if(angle > 180 && angle < 270) {
+                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(yDepl));
+                } else {
+                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(+yDepl));
+                }
+
+                
                 // Set a css class to the label
                 text.node.setAttribute("class", "label");
                 // Push the label to the array
-                labels.push(text);
+                labels[textToPrint] = text;
+                rects[textToPrint] = labelColorRect;
             }
 
             this.model.set("labels", labels);
+            this.model.set("colorLabels", rects);
         }
     });
 

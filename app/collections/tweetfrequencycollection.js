@@ -79,7 +79,7 @@ define([
             // Figure out the maximal frequency
             var max = 0;
             for(var time in frequencies) {
-                var freq = parseInt(frequencies[time]);
+                var freq = parseInt(frequencies[time].frequency);
                 if(max < freq) {
                     max = freq;
                 }
@@ -95,8 +95,12 @@ define([
             // Go trough the complete timeinterval
             while(localStartDateTime.getTime() < self.endDateTime.getTime()) {
                 // If we didn't get a frequency for a timeslot, the frequency is zero!
-                var value = frequencies[localStartDateTime.getTime()] || 0;
+                var bar = frequencies[localStartDateTime.getTime()] || {};
+
+                var value = bar.frequency || 0;
+                var emotion = bar.emotion || 'empty';
                 var scaling = 0;
+
                 // Normalize the frequency value
                 if(max !== 0) {
                     scaling = parseFloat(value / max);
@@ -105,6 +109,7 @@ define([
                 // Create model for the current slot
                 var model = new tweetFrequencyModel({
                     "value": value,
+                    "emotion": emotion,
                     "timeStep": this.timeStep,
                     "scaling": scaling,
                     "localStartDateTime": localStartDateTime,
