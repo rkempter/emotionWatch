@@ -27,6 +27,7 @@
 @contempt: #43acb0;
 @anger: #3ea67c;
 @olympicBlue: #0173d6;
+@empty: #787878;
 
 @gray10: #ebebeb;
 @gray: #1a1a1a;
@@ -57,7 +58,7 @@
 body{
     font-family: "ff-tisa-web-pro", sans-serif;
     font-weight: 400;
-    background: @olympicBlue;
+    background: @empty;
     color: @white;
     margin: 0;
     padding: 0;
@@ -69,7 +70,7 @@ body{
     transition: background-color 500ms linear;
 
     #bottom, &.empty #bottom{
-        background: @olympicBlue;
+        background: @empty;
     }
 
     &.involvement{
@@ -407,7 +408,7 @@ h3{
             position: absolute;
             height: 100px;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(120, 120, 120, 0.8);
         }
         clear:both;
         height: 100px;
@@ -551,7 +552,6 @@ svg{
         }
 
         path{
-            fill: @gray40;
             stroke-width: 0;
         }
 
@@ -584,7 +584,6 @@ svg{
         }
 
         path{
-            fill: @gray40;
             stroke-width: 0;
         }
 
@@ -612,7 +611,7 @@ svg{
         .transition(width 5s linear);
     }
     .curtain{
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(120, 120, 120, 0.2);
         height: 100px;
         width: 100%;
         border-right: 1px solid @activeElement;
@@ -727,7 +726,19 @@ svg{
         width: 50px;
         border-radius: 30px;
         background-color: @olympicBlue;
+    }
 
+    .tweet-emotion{
+        float: right;
+        font-size: 11px;
+        padding: 3px 6px;
+
+        &:first-letter{
+            text-transform: uppercase;
+        }
+    }
+
+    span.date, .tweet-emotion {
         &.involvement{
             background-color: @involvement;
         }
@@ -807,7 +818,6 @@ svg{
         &.anger{
             background-color: @anger;
         }
-
     }
     
     
@@ -842,90 +852,90 @@ svg{
     }
 }
 
-.emotion-circle, .labelcircle{
+.emotion-circle, .labelcircle, .date-time-freq{
     z-index: 0;
 
-    &.empty{
+    &.empty, .empty{
         fill: @olympicBlue;
     }
 
-    &.involvement{
+    &.involvement, .involvement{
         fill: @involvement;
     }
 
-    &.amusement{
+    &.amusement, .amusement{
         fill: @amusement;
     }
 
-    &.pride{
+    &.pride, .pride{
         fill: @pride;
     }
 
-    &.happiness{
+    &.happiness, .happiness{
         fill: @happiness;
     }
 
-    &.pleasure{
+    &.pleasure, .pleasure{
         fill: @pleasure;
     }
 
-    &.love{
+    &.love, .love{
         fill: @love;
     }
 
-    &.awe{
+    &.awe, .awe{
         fill: @awe;
     }
     
-    &.relief{
+    &.relief, .relief{
         fill: @relief;
     }
 
-    &.surprise{
+    &.surprise, .surprise{
         fill: @surprise;
     }
 
-    &.nostalgia{
+    &.nostalgia, .nostalgia{
         fill: @nostalgia;
     }
 
-    &.pity{
+    &.pity, .pity{
         fill: @pity;
     }
 
-    &.sadness{
+    &.sadness, .sadness{
         fill: @sadness;
     }
 
-    &.worry{
+    &.worry, .worry{
         fill: @worry;
     }
 
-    &.shame{
+    &.shame, .shame{
         fill: @shame;
     }
 
-    &.guilt{
+    &.guilt, .guilt{
         fill: @guilt;
     }
 
-    &.regret{
+    &.regret, .regret{
         fill: @regret;
     }
 
-    &.envy{
+    &.envy, .envy{
         fill: @envy;
     }
 
-    &.disgust{
+    &.disgust, .disgust{
         fill: @disgust;
     }
 
-    &.contempt{
+    &.contempt, .contempt{
         fill: @contempt;
     }
 
-    &.anger{
+    &.anger, .anger{
         fill: @anger;
     }
 }
