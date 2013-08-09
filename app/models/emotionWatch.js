@@ -2,8 +2,9 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants'
-], function(app, _, Backbone, Constants) {
+  'constants',
+  'util'
+], function(app, _, Backbone, Constants, util) {
 
   var emotionWatch = Backbone.Model.extend({
     

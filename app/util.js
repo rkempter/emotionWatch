@@ -139,6 +139,17 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
           }
         },
 
+        isValidDate: function(date) {
+          if( Object.prototype.toString.call(d) === "[object Date]" ) {
+              if(isNaN(d.getTime())) {
+                return false;
+              }
+              return true;
+          }
+
+          return false;
+        },
+
         getTimeStepFormat: function(timeStep) {
           index = 0;
           while((timeStep / 60) > 1) {

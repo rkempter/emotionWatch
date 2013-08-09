@@ -1,0 +1,85 @@
+<div id="settings" class="form-horizontal">
+    <h2>Initialize the comparison</h2>
+    <h3>General settings</h3>
+    <div class="control-group">
+        <label class="control-label" for="time-step">Length of a time step</label>
+        <div class="controls">
+          <select id="time-step" name="time-step">
+                <option <% if(timeStep == 5) { %> selected <% } %>value="5">5 seconds</option>
+                <option <% if(timeStep == 15) { %> selected <% } %>value="15">15 seconds</option>
+                <option <% if(timeStep == 60) { %> selected <% } %>value="60">1 minute</option>
+                <option <% if(timeStep == 120) { %> selected <% } %>value="120">2 minutes</option>
+                <option <% if(timeStep == 300) { %> selected <% } %>value="300">5 minutes</option>
+                <option <% if(timeStep == 900) { %> selected <% } %>value="900">15 minutes</option>
+                <option <% if(timeStep == 1800) { %> selected <% } %>value="1800">30 minutes</option>
+                <option <% if(timeStep == 3600) { %> selected <% } %>value="3600">1 hour</option>
+                <option <% if(timeStep == 7200) { %> selected <% } %>value="7200">2 hours</option>
+                <option <% if(timeStep == 43200) { %> selected <% } %>value="43200">12 hours</option>
+            </select>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="start-date">Date at beginning</label>
+        <div class="controls">
+            <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="<%= startDate %>" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="start-time">Time at beginning</label>
+        <div class="controls">
+            <input type="time" name="start-time" id="start-time" value="<%= startTime %>" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="end-date">Date at end</label>
+        <div class="controls">
+            <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date-left" id="end-date" value="<%= endDate %>" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="end-time">Time at end</label>
+        <div class="controls">
+            <input type="time" name="end-time-left" id="end-time" value="<%= endTime %>" />
+        </div>
+    </div>
+    <hr />
+
+    <h2>Left watch</h2>
+
+    <div class="control-group">
+        <label class="control-label" for="network">Hashtags or athlete's twitter name (with # and @)</label>
+        <p class="help">If multiple hashtags or twitter names are entered, seperate them by comma</p>
+        <div class="controls">
+            <input type="text" name="hashtag-left" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="network">Network</label>
+        <div class="controls">
+            <select id="network" name="network-left">
+                <option <% if(network == 'twitter') { %> selected <% } %>value="twitter">Twitter</option>
+                <option <% if(network == 'weibo') { %> selected <% } %>value="weibo">Weibo</option>
+            </select>
+        </div>
+    </div>
+    <hr />
+    <h2>Right watch</h2>
+    <div class="control-group">
+        <label class="control-label" for="network">Hashtags or athlete's twitter name (with # and @)</label>
+        <p class="help">If multiple hashtags or twitter names are entered, seperate them by comma</p>
+        <div class="controls">
+            <input type="text" name="hashtag-right" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="network">Network</label>
+        <div class="controls">
+            <select id="network" name="network-right">
+                <option <% if(network == 'twitter') { %> selected <% } %>value="twitter">Twitter</option>
+                <option <% if(network == 'weibo') { %> selected <% } %>value="weibo">Weibo</option>
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-search" id="settings-change">Start</button>
+</div>

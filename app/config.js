@@ -54,6 +54,7 @@ require.config({
     emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
+    compareview: "views/compare/compareview",
 
     templates: "templates"
     

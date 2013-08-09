@@ -24,10 +24,11 @@ define([
   "detailview",
   "navigationmodel",
   "videomodel",
-  "timeview_compare"
+  "timeview_compare",
+  "compareview"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView, compareView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -40,13 +41,19 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'pattern',
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
-      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare'
+      "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare',
+      "compare/:networkLeft/:keywordTypeLeft/:keywordLeft/:networkRight/:keywordTypeRight/:keywordRight/:timeStep/:startDateTime/:endDateTime": 'compare',
+      'compare': 'compareInit'
     },
 
-    index: function() {
+    close: function() {
       $('#main').empty();
       $('body').attr('class', '');
       app.trigger('close');
+    },
+
+    index: function() {
+      this.close();
       
       app.useLayout('frontpage').setViews({
         ".paper": new emotionCollectionView({
@@ -60,10 +67,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     search: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
-      $('#main').empty();
-      $('body').attr('class', '');
-
-      app.trigger('close');
+      this.close();
 
       var options = {};
       options.network = network || 'twitter';
@@ -127,9 +131,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
-      $('#main').empty();
-      $('body').attr('class', '');
-      app.trigger('close');
+      this.close();
 
       var options = {};
       options.keyword = util.combineKeyword(keyword, keywordType);
@@ -176,14 +178,32 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       }).render();
     },
 
-    compare: function(keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
-      $('#main').empty();
-      $('body').attr('class', '');
-      app.trigger('close');
+    compareInit: function() {
+      app
+        .useLayout('comparison-wrapper')
+        .setViews({
+          '#comparison': new compareView()
+        }).render();
+    },
+
+    compare: function(networkLeft, keywordTypeLeft, keywordLeft, networkRight, keywordTypeRight, keywordRight, timeStep, startDateTime, endDateTime, currentDateTime) {
+      this.close();
+
       var options = {};
-      options.keywordType = keywordType;
-      options.keyword = util.combineKeyword(keyword, keywordType);
+      options.leftId = 'left';
+      options.rightId = 'right';
+      options.keywordTypeLeft = keywordTypeLeft;
+      options.keywordTypeRight = keywordTypeRight;
+      options.keywordLeft = util.combineKeyword(keywordLeft, keywordTypeLeft);
+      options.keywordRight = util.combineKeyword(keywordRight, keywordTypeRight);
+      options.networkLeft = networkLeft;
+      options.networkRight = networkRight;
+
+
+      console.log(options);
+
       options.mode = 'compare';
+
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
       options.timeStep = timeStep;
@@ -194,103 +214,111 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.currentDateTime = new Date(currentDateTime_raw);
 
       app.useLayout('compare-layout').setViews({
-        ".weibo .bottom .current-time-box": new timeCompareView({
+        // left bottom
+        ".left-watch .bottom .current-time-box": new timeCompareView({
           startDateTime: options.startDateTime,
           endDateTime: options.endDateTime,
           currentDateTime: options.currentDateTime,
           timeStep: options.timeStep,
           clockMode: 'active',
-          keyword: options.keyword,
-          keywordType: options.keywordType,
-          network: 'weibo'
+          keyword: options.keywordLeft,
+          keywordType: options.keywordTypeLeft,
+          network: options.networkLeft
         }),
-        ".twitter .bottom .current-time-box": new timeCompareView({
+        // right bottom
+        ".right-watch .bottom .current-time-box": new timeCompareView({
           startDateTime: options.startDateTime,
           endDateTime: options.endDateTime,
           currentDateTime: options.currentDateTime,
           timeStep: options.timeStep,
           clockMode: 'passiv',
-          keyword: options.keyword,
-          keywordType: options.keywordType,
-          network: 'twitter'
+          keyword: options.keywordRight,
+          keywordType: options.keywordTypeRight,
+          network: options.networkRight
         }),
-        ".weibo .watch .paper": new paperView({ 
-          "parent": ".weibo .watch .paper",
+        // right paper
+        ".left-watch .watch .paper": new paperView({ 
+          "parent": ".left-watch .watch .paper",
           "mode": "compare",
-          "network": "weibo"
+          "network": options.networkLeft
         }),
-        ".twitter .watch .paper": new paperView({ 
-          "parent": ".twitter .watch .paper",
+        // left paper
+        ".right-watch .watch .paper": new paperView({ 
+          "parent": ".right-watch .watch .paper",
           "mode": "compare",
-          "network": "twitter"
+          "network": options.networkRight
         }),
-        ".weibo .date-time-freq .paper": new frequencyPaperView({ 
-          "parent": ".weibo .date-time-freq .paper", 
-          "network": "weibo"
+        ".left-watch .date-time-freq .paper": new frequencyPaperView({ 
+          "parent": ".left-watch .date-time-freq .paper", 
+          "network": options.networkLeft,
+          "id": options.leftId
         }),
-        ".twitter .date-time-freq .paper": new frequencyPaperView({
-          "parent": ".twitter .date-time-freq .paper", 
-          "network": "twitter"
+        ".right-watch .date-time-freq .paper": new frequencyPaperView({
+          "parent": ".right-watch .date-time-freq .paper", 
+          "network": options.networkRight,
+          "id": options.rightId
         }),
         ".navigation": new navigationView({
           model: new navigationModel(options)
         }),
-        ".twitter .bottom .freq": new Backbone.View({
+        ".right-watch .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keyword, keywordType),
-            'network': 'twitter',
+            'keyword': util.combineKeyword(keywordRight, keywordTypeRight),
+            'network': options.networkRight,
             'timeStep': options.timeStep,
             'mode': options.mode,
-            'currentDateTime': options.currentDateTime
+            'currentDateTime': options.currentDateTime,
+            'id': options.rightId
           }),
           mode: 'compare'
         }),
-        ".weibo .bottom .freq": new Backbone.View({
+        ".left-watch .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keyword, keywordType),
-            'network': 'weibo',
+            'keyword': util.combineKeyword(keywordLeft, keywordTypeLeft),
+            'network': options.networkLeft,
             'timeStep': options.timeStep,
             'mode': options.mode,
-            'currentDateTime': options.currentDateTime
+            'currentDateTime': options.currentDateTime,
+            'id': options.leftId
           }),
           mode: 'compare'
         }),
-        ".twitter .watch .watch-view": new emotionWatchView({ 
-          model: new emotionWatch({
-            paper: app.paper.twitter, 
-            mode: options.mode,
-            emotionCircleRadius: 250,
-            timeStep: options.timeStep,
-            startDate: options.startDateTime,
-            currentDateTime: options.currentDateTime,
-            endDate: options.endDateTime,
-            centerPoint: {"x": 400, "y": 400},
-            topic: util.combineKeyword(keyword, keywordType),
-            network: 'twitter',
-            keywordType: keywordType
-          }),
-          mode: 'compare'
-        }),
-        ".weibo .watch .watch-view": new emotionWatchView({ 
-          model: new emotionWatch({
-            paper: app.paper.weibo, 
-            mode: options.mode,
-            emotionCircleRadius: 250,
-            timeStep: options.timeStep,
-            startDate: options.startDateTime,
-            currentDateTime: options.currentDateTime,
-            endDate: options.endDateTime,
-            centerPoint: {"x": 400, "y": 400},
-            topic: util.combineKeyword(keyword, keywordType),
-            network: 'weibo',
-            keywordType: keywordType
-          }),
-          mode: 'compare'
-        })
+        // ".right-watch .watch .watch-view": new emotionWatchView({ 
+        //   model: new emotionWatch({
+        //     paper: app.paper.right, 
+        //     mode: options.mode,
+        //     emotionCircleRadius: 250,
+        //     timeStep: options.timeStep,
+        //     startDate: options.startDateTime,
+        //     currentDateTime: options.currentDateTime,
+        //     endDate: options.endDateTime,
+        //     centerPoint: {"x": 400, "y": 400},
+        //     topic: util.combineKeyword(keywordRight, keywordTypeRight),
+        //     network: options.networkRight,
+        //     keywordType: keywordTypeRight
+        //   }),
+        //   mode: 'compare'
+        // }),
+        // ".left-watch .watch .watch-view": new emotionWatchView({ 
+        //   model: new emotionWatch({
+        //     paper: app.paper.left, 
+        //     mode: options.mode,
+        //     emotionCircleRadius: 250,
+        //     timeStep: options.timeStep,
+        //     startDate: options.startDateTime,
+        //     currentDateTime: options.currentDateTime,
+        //     endDate: options.endDateTime,
+        //     centerPoint: {"x": 400, "y": 400},
+        //     topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
+        //     network: options.networkLeft,
+        //     keywordType: keywordTypeLeft
+        //   }),
+        //   mode: 'compare'
+        // })
       }).render();
     },
 

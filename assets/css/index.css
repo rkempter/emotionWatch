@@ -544,7 +544,7 @@ body {
   color: #ffffff;
   margin: 0;
   padding: 0;
-  padding-top: 130px;
+  padding-top: 100px;
   -webkit-transition: background-color 500ms linear;
   -moz-transition: background-color 500ms linear;
   -o-transition: background-color 500ms linear;
@@ -949,6 +949,26 @@ svg .line {
   top: 170px;
   background: rgba(255, 255, 255, 0.5);
 }
+/** Loading **/
+#loading #loading-label {
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+  height: 100px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 18px;
+}
+#loading #curtain {
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
 /** Timeline **/
 #pattern path,
 #pattern circle {
@@ -1000,6 +1020,45 @@ svg .line {
 #index .date-time-freq path:hover,
 #compare .date-time-freq path:hover {
   fill: #444444;
+}
+#compare .navigation {
+  text-align: center;
+  margin: -30px auto 40px auto;
+}
+#compare .navigation .lead {
+  font-size: 16px;
+}
+#compare .control-group {
+  margin: 0 auto;
+  width: 240px;
+  text-align: center;
+}
+#compare .control-group .control-label {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+}
+#compare #initialization-form {
+  width: 80%;
+  margin: 0 auto;
+}
+#compare #initialization-form .init-column {
+  width: 33.33333333%;
+  float: left;
+}
+#compare #initialization-form .init-column h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+#compare #initialization-form .submit {
+  padding-top: 60px;
+  clear: both;
+  text-align: center;
+}
+#compare #initialization-form .btn {
+  font-size: 25px;
+  font-weight: 600;
+  padding: 15px 20px;
 }
 .time-block {
   position: fixed;
