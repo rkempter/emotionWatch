@@ -23,7 +23,7 @@ define([
             this.network = options.network || 'twitter';
             this.keyword = options.keyword;
             this.keywordType = options.keywordType;
-            this.collectionId = options.id;
+            this.collectionId = options.id  || 'normal';
             this.modelIndex = 0;
             
             this.viewPointer = [];

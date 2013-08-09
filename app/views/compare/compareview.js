@@ -1,17 +1,16 @@
 define([
+    'util',
     'app',
     'underscore',
     'backbone',
     'raphael',
     'jquery',
-    'emotionwatch',
-    'emotionwatchview',
-    'constants'], 
-    function(app, _, Backbone, Raphael, $) {
+    ], 
+    function(util, app, _, Backbone, Raphael, $) {
 
         var compareView = Backbone.View.extend({
 
-            template: 'compare-layout',
+            template: 'compare-init',
 
             events: {
                 'click #load-visualization': 'evaluateForm'
@@ -21,13 +20,16 @@ define([
                 this.networkLeft = $('#initialization-form #networkLeft').val();
                 this.networkRight = $('#initialization-form #networkRight').val();
                 this.keywordLeft = $('#initialization-form #keywordLeft').val();
-                this.keywordRight = $('#initialization-form #networkRight').val();
+                this.keywordRight = $('#initialization-form #keywordRight').val();
                 var startDate = $('#initialization-form #start-date').val();
                 var startTime = $('#initialization-form #start-time').val();
                 var endDate = $('#initialization-form #end-date').val();
                 var endTime = $('#initialization-form #end-time').val();
+                this.keywordTypeLeft = util.getKeywordType(this.keywordLeft);
+                this.keywordTypeRight = util.getKeywordType(this.keywordRight);
                 this.startDateTime = new Date(startDate + " "+startTime);
                 this.endDateTime = new Date(endDate+" "+endTime);
+                this.timeStep = util.getTimeStep(this.startDateTime, this.endDateTime);
 
                 if('' === this.keywordLeft ||
                     '' === this.keywordRight ||
@@ -37,15 +39,17 @@ define([
                     $('.alert-error').text('Please fill out all the fields correctly!')
                 } else {
                     var url = "#compare/";
-                    url += networkLeft+"/";
-                    url += keywordTypeLeft+"/";
-                    url += keywordLeft.slice(1)+"/";
-                    url += networkRight+"/";
-                    url += keywordTypeRight+"/";
-                    url += keywordRight+"/";
-                    url += timeStep+"/";
-                    url += startDateTime.getTime()+"/";
-                    url += endDateTime.getTime();
+                    url += this.networkLeft.toLowerCase()+"/";
+                    url += this.keywordTypeLeft+"/";
+                    url += this.keywordLeft.slice(1)+"/";
+                    url += this.networkRight.toLowerCase()+"/";
+                    url += this.keywordTypeRight+"/";
+                    url += this.keywordRight.slice(1)+"/";
+                    url += this.timeStep+"/";
+                    url += this.startDateTime.getTime()+"/";
+                    url += this.endDateTime.getTime();
+
+                    console.log(url);
 
                     app.router.navigate(url, true);     
                 }

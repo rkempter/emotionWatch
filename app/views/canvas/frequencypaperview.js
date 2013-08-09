@@ -14,7 +14,7 @@ define([
 				options = options || {};
 				var parent = options.parent || null;
 				var network = options.network;
-				var id = options.id;
+				var id = options.id || 'normal';
 
 				// We have a paper array with the paper corresponding to twitter or weibo
 				// visualization. This is due to the fact that we need different canvas for the

@@ -140,8 +140,8 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
         },
 
         isValidDate: function(date) {
-          if( Object.prototype.toString.call(d) === "[object Date]" ) {
-              if(isNaN(d.getTime())) {
+          if( Object.prototype.toString.call(date) === "[object Date]" ) {
+              if(isNaN(date.getTime())) {
                 return false;
               }
               return true;

@@ -43,7 +43,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare',
       "compare/:networkLeft/:keywordTypeLeft/:keywordLeft/:networkRight/:keywordTypeRight/:keywordRight/:timeStep/:startDateTime/:endDateTime": 'compare',
-      'compare': 'compareInit'
+      'comparesearch': 'compareInit'
     },
 
     close: function() {
@@ -95,7 +95,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
-          "network": options.network
         }),
 
         ".navigation": new navigationView({
@@ -154,7 +153,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
-          "network": options.network
         }),
 
         ".navigation": new navigationView({
@@ -199,19 +197,18 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.networkLeft = networkLeft;
       options.networkRight = networkRight;
 
-
-      console.log(options);
-
       options.mode = 'compare';
 
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
       options.timeStep = timeStep;
-      currentDateTime_raw = parseInt(currentDateTime) || options.startDateTime;
+      currentDateTime_raw = options.startDateTime;
 
       options.startDateTime = new Date(startDateTime_raw);
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = new Date(currentDateTime_raw);
+
+      console.log('is time: '+util.isValidDate(options.startDateTime));
 
       app.useLayout('compare-layout').setViews({
         // left bottom
@@ -240,26 +237,21 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".left-watch .watch .paper": new paperView({ 
           "parent": ".left-watch .watch .paper",
           "mode": "compare",
-          "network": options.networkLeft
+          "id": options.leftId
         }),
         // left paper
         ".right-watch .watch .paper": new paperView({ 
           "parent": ".right-watch .watch .paper",
           "mode": "compare",
-          "network": options.networkRight
+          "id": options.rightId
         }),
         ".left-watch .date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".left-watch .date-time-freq .paper", 
-          "network": options.networkLeft,
           "id": options.leftId
         }),
         ".right-watch .date-time-freq .paper": new frequencyPaperView({
           "parent": ".right-watch .date-time-freq .paper", 
-          "network": options.networkRight,
           "id": options.rightId
-        }),
-        ".navigation": new navigationView({
-          model: new navigationModel(options)
         }),
         ".right-watch .bottom .freq": new Backbone.View({
           collection: new tweetFrequencyCollection({
@@ -287,38 +279,38 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }),
           mode: 'compare'
         }),
-        // ".right-watch .watch .watch-view": new emotionWatchView({ 
-        //   model: new emotionWatch({
-        //     paper: app.paper.right, 
-        //     mode: options.mode,
-        //     emotionCircleRadius: 250,
-        //     timeStep: options.timeStep,
-        //     startDate: options.startDateTime,
-        //     currentDateTime: options.currentDateTime,
-        //     endDate: options.endDateTime,
-        //     centerPoint: {"x": 400, "y": 400},
-        //     topic: util.combineKeyword(keywordRight, keywordTypeRight),
-        //     network: options.networkRight,
-        //     keywordType: keywordTypeRight
-        //   }),
-        //   mode: 'compare'
-        // }),
-        // ".left-watch .watch .watch-view": new emotionWatchView({ 
-        //   model: new emotionWatch({
-        //     paper: app.paper.left, 
-        //     mode: options.mode,
-        //     emotionCircleRadius: 250,
-        //     timeStep: options.timeStep,
-        //     startDate: options.startDateTime,
-        //     currentDateTime: options.currentDateTime,
-        //     endDate: options.endDateTime,
-        //     centerPoint: {"x": 400, "y": 400},
-        //     topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
-        //     network: options.networkLeft,
-        //     keywordType: keywordTypeLeft
-        //   }),
-        //   mode: 'compare'
-        // })
+        ".right-watch .watch .watch-view": new emotionWatchView({ 
+          model: new emotionWatch({
+            paper: app.paper[options.rightId], 
+            mode: options.mode,
+            emotionCircleRadius: 250,
+            timeStep: options.timeStep,
+            startDate: options.startDateTime,
+            currentDateTime: options.currentDateTime,
+            endDate: options.endDateTime,
+            centerPoint: {"x": 400, "y": 400},
+            topic: util.combineKeyword(keywordRight, keywordTypeRight),
+            network: options.networkRight,
+            keywordType: keywordTypeRight
+          }),
+          mode: 'compare'
+        }),
+        ".left-watch .watch .watch-view": new emotionWatchView({ 
+          model: new emotionWatch({
+            paper: app.paper[options.leftId], 
+            mode: options.mode,
+            emotionCircleRadius: 250,
+            timeStep: options.timeStep,
+            startDate: options.startDateTime,
+            currentDateTime: options.currentDateTime,
+            endDate: options.endDateTime,
+            centerPoint: {"x": 400, "y": 400},
+            topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
+            network: options.networkLeft,
+            keywordType: keywordTypeLeft
+          }),
+          mode: 'compare'
+        })
       }).render();
     },
 

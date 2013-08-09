@@ -1469,6 +1469,9 @@ svg .line {
   stroke-width: 0;
 }
 /**** COMPARE ****/
+#compare .columns {
+  height: 20px;
+}
 #compare .columns.twitter h2 {
   text-align: left;
   margin-left: 20px;
