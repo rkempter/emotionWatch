@@ -55,6 +55,7 @@ require.config({
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
     compareview: "views/compare/compareview",
+    comparetitleview: "views/compare/comparetitleview",
 
     templates: "templates"
     

@@ -25,10 +25,11 @@ define([
   "navigationmodel",
   "videomodel",
   "timeview_compare",
-  "compareview"
+  "compareview",
+  "comparetitleview"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView, compareView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView, compareView, compareTitleView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -114,7 +115,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 500, "y": 410},
+            centerPoint: {"x": 470, "y": 460},
             topic: options.keyword,
             network: options.network,
             keywordType: options.keywordType
@@ -210,7 +211,14 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
       console.log('is time: '+util.isValidDate(options.startDateTime));
 
+      console.log(options.keywordLeft);
+
       app.useLayout('compare-layout').setViews({
+        // title
+        ".information": new compareTitleView({
+          model: new Backbone.Model(options)
+        }),
+
         // left bottom
         ".left-watch .bottom .current-time-box": new timeCompareView({
           startDateTime: options.startDateTime,
@@ -288,7 +296,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 400, "y": 400},
+            centerPoint: {"x": 470, "y": 460},
             topic: util.combineKeyword(keywordRight, keywordTypeRight),
             network: options.networkRight,
             keywordType: keywordTypeRight
@@ -304,7 +312,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 400, "y": 400},
+            centerPoint: {"x": 470, "y": 460},
             topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
             network: options.networkLeft,
             keywordType: keywordTypeLeft

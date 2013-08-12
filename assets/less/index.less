@@ -382,6 +382,19 @@ h3{
 
 /***** Basic Layout *****/
 
+.date-time-freq{
+     position: absolute;
+     height: 100px;
+     padding: 0 2%;
+     width: 96%;
+     background-color: rgba(255, 255, 255, 0.4);
+
+     svg{
+        margin: 0 auto;
+        left: auto !important;
+     }
+}
+
 #index, #pattern{
 
     .columns{
@@ -404,12 +417,7 @@ h3{
     }
 
     #bottom{
-        .date-time-freq{
-            position: absolute;
-            height: 100px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.4);
-        }
+        
         clear:both;
         height: 100px;
         opacity: 0.9;
@@ -680,6 +688,7 @@ svg{
     position: fixed;
     bottom: 0;
     left: 0;
+    padding-left: 2%;
     width: 0;
     &.is-transitioning{
         .transition(width 5s linear);
@@ -1025,6 +1034,42 @@ svg{
 /**** COMPARE ****/
 
 #compare{
+
+    .middle-separator{
+        background: #888;
+        width: 1px;
+        height: 300px;
+        position: absolute;
+        top: 50%;
+        margin-top: -150px;
+        left: 50%;
+    }
+
+    .information{
+    
+        .controls{
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        h2{
+            border-bottom: 1px solid #888;
+            margin: 20px 60px 0;
+
+            small{
+                color: #aaa;
+                font-size: 16px;
+            }
+        }
+    }
+    ul{
+        list-style: none;
+    }
+
+    
+
+
+
     .columns{
         height: 20px;
         &.twitter{
@@ -1061,7 +1106,7 @@ svg{
 
         .watch .paper{
             position:relative;
-            width: 65%;
+            width: 100%;
             margin: 0 auto;
             margin-top: -50px;
         }

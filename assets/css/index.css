@@ -818,6 +818,17 @@ h3 {
   display: block;
 }
 /***** Basic Layout *****/
+.date-time-freq {
+  position: absolute;
+  height: 100px;
+  padding: 0 2%;
+  width: 96%;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.date-time-freq svg {
+  margin: 0 auto;
+  left: auto !important;
+}
 #index .columns,
 #pattern .columns {
   margin-top: 40px;
@@ -851,13 +862,6 @@ h3 {
   -o-transition: background-color 500ms linear;
   -ms-transition: background-color 500ms linear;
   transition: background-color 500ms linear;
-}
-#index #bottom .date-time-freq,
-#pattern #bottom .date-time-freq {
-  position: absolute;
-  height: 100px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.4);
 }
 #index .inner,
 #pattern .inner {
@@ -1064,6 +1068,7 @@ svg .line {
   position: fixed;
   bottom: 0;
   left: 0;
+  padding-left: 2%;
   width: 0;
 }
 .time-block.is-transitioning {
@@ -1469,6 +1474,30 @@ svg .line {
   stroke-width: 0;
 }
 /**** COMPARE ****/
+#compare .middle-separator {
+  background: #888;
+  width: 1px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  margin-top: -150px;
+  left: 50%;
+}
+#compare .information .controls {
+  text-align: center;
+  margin: 0 auto;
+}
+#compare .information h2 {
+  border-bottom: 1px solid #888;
+  margin: 20px 60px 0;
+}
+#compare .information h2 small {
+  color: #aaa;
+  font-size: 16px;
+}
+#compare ul {
+  list-style: none;
+}
 #compare .columns {
   height: 20px;
 }
@@ -1498,7 +1527,7 @@ svg .line {
 }
 #compare .columns .watch .paper {
   position: relative;
-  width: 65%;
+  width: 100%;
   margin: 0 auto;
   margin-top: -50px;
 }
