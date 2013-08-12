@@ -20,6 +20,8 @@ define(['backbone'], function(Backbone) {
 
         videoInterval: 5,
 
+        initialAngle: 9 * 2 * Math.PI / 360,
+
         centerZeroCircleRadius: 20,
 
         patternCircleRadius: 100,
@@ -34,7 +36,9 @@ define(['backbone'], function(Backbone) {
         emotionShapeStrokeColor: '#aaaaaa',
 
         //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
-        labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
+        //labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
+        labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure'],
+
 
         nullEmotion:
             [

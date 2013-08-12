@@ -568,10 +568,10 @@ body.amusement #bottom {
   background: #40a630;
 }
 body.pride {
-  background: #4da62a;
+  background: #fb0000;
 }
 body.pride #bottom {
-  background: #4da62a;
+  background: #fb0000;
 }
 body.happiness {
   background: #6da529;
@@ -1141,7 +1141,7 @@ svg .line {
 }
 .tweet span.date.pride,
 .tweet .tweet-emotion.pride {
-  background-color: #4da62a;
+  background-color: #fb0000;
 }
 .tweet span.date.happiness,
 .tweet .tweet-emotion.happiness {
@@ -1265,7 +1265,7 @@ svg .line {
 .emotion-circle .pride,
 .labelcircle .pride,
 .date-time-freq .pride {
-  fill: #4da62a;
+  fill: #fb0000;
 }
 .emotion-circle.happiness,
 .labelcircle.happiness,

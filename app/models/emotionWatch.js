@@ -273,8 +273,8 @@ define([
      */
      
     getPoint: function(value, iteration) {
-        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / Constants.labels.length *iteration);
-        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / Constants.labels.length *iteration);
+        var x = this.get("centerPoint").x + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.cos(Constants.angle / Constants.labels.length *iteration + Constants.initialAngle);
+        var y = this.get("centerPoint").y + (Constants.centerZeroCircleRadius + (this.get("emotionCircleRadius")-Constants.centerZeroCircleRadius) * value) * Math.sin(Constants.angle / Constants.labels.length *iteration + Constants.initialAngle);
         var point = { "x": x, "y": y };
 
         return point;
