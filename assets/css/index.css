@@ -1474,6 +1474,9 @@ svg .line {
   stroke-width: 0;
 }
 /**** COMPARE ****/
+#compare .current-time-box {
+  display: none;
+}
 #compare .middle-separator {
   background: #888;
   width: 1px;
