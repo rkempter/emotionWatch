@@ -1705,6 +1705,19 @@ select {
   fill: #ffffff;
   stroke: none;
 }
+#compare .information {
+  margin-top: -100px;
+}
+#compare .information .left-watch-info,
+#compare .information .right-watch-info {
+  text-align: center;
+  width: 50%;
+  float: left;
+}
+#compare .information .middle-info {
+  width: 100%;
+  text-align: center;
+}
 /**** Modal ****/
 .modal-link {
   cursor: pointer;
