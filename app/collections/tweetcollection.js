@@ -23,7 +23,7 @@ define([
                 data: $.param({ 
                     datetime: self.currentDateTime,
                     emotion: this.emotion,
-                    hashtag: options.keyword,
+                    hashtag: options.keyword.split(","),
                     windowsize: options.timeStep,
                     network: options.network,
                     keywordType: options.keywordType
@@ -42,7 +42,7 @@ define([
                 data: $.param({
                     datetime: this.currentDateTime,
                     emotion: this.emotion,
-                    hashtag: this.keyword,
+                    hashtag: this.keyword.split(","),
                     windowsize: this.timeStep,
                     network: this.network,
                     keywordType: this.keywordType

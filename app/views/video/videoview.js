@@ -22,9 +22,7 @@ define([
             if(keywordType == 'event' && this.model.get('timeStep') == 5) {
                 this.model.fetch({
                     data: $.param({
-                        startDateTime: this.model.get('startDateTime'),
-                        endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword')
+                        id: this.model.get('keyword'),
                     })
                 });
             } 

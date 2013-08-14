@@ -58,18 +58,14 @@ define([
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
-                    keyword: self.keyword,
+                    keyword: self.keyword.split(","),
                     keywordType: options.keywordType
                 }) 
             });
         },
 
         url: function() {
-            if(this.mode == 'compare') {
-                return app.server+'patternFrequency';
-            } else {
-                return app.server+'frequency';
-            }
+            return app.server+'frequency';
         },
 
         // Parse the received data

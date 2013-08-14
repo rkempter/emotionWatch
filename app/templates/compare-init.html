@@ -10,7 +10,7 @@
             <div class="control-group">
                 <label class="control-label" for="keywordLeft">Search term</label>
                 <div class="controls">
-                    <input type="text" name="keywordLeft" id="keywordLeft" />
+                    <input type="text" data-provide="typeahead" name="keywordLeft" id="keywordLeft" class="typeahead" />
                 </div>
             </div>
             <div class="control-group">
@@ -25,6 +25,22 @@
             </div>
         </div>
         <div class="init-column" id="general-info">
+            <h2>Pick an event (not mandatory)</h2>
+            <div class="control-group">
+                <label for="events" class="control-label">Event</label>
+                <div class="controls">
+                    <select name="events" id="events">
+                        <option value="" selected>No event</option>
+                        <option value="513">Uneven Bars Final (Gymnastics) - Women</option>
+                        <option value="512">Vault (Gymnastics) - Men</option>
+                        <option value="506">Floor Exercise (Gymnastics) - Women</option>
+                        <option value="505">Balance Beam (Gymnastics) - Women</option>
+                        <option value="901">Final (Tennis) - Men</option>
+                    </select>
+                </div>
+            </div>
+
+
             <h2>Date & Time</h2>
             <div class="control-group">
                 <label class="control-label" for="start-date">Date at beginning</label>
@@ -58,7 +74,7 @@
             <div class="control-group">
                 <label class="control-label" for="keywordRight">Search term</label>
                 <div class="controls">
-                    <input type="text" name="keywordRight" id="keywordRight" />
+                    <input type="text" data-provide="typeahead" name="keywordRight" class="typeahead" id="keywordRight" />
                 </div>
             </div>
             <div class="control-group">

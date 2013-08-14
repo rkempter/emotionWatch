@@ -537,6 +537,190 @@ legend + .control-group {
 .form-horizontal .form-actions {
   padding-left: 200px;
 }
+.dropup,
+.dropdown {
+  position: relative;
+}
+.dropdown-toggle {
+  *margin-bottom: -3px;
+}
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  outline: 0;
+}
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid #1a1a1a;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+.dropdown .caret {
+  margin-top: 8px;
+  margin-left: 2px;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #000000;
+  white-space: nowrap;
+}
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #c7c7c7;
+  background-image: -moz-linear-gradient(top, #cccccc, #bfbfbf);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cccccc), to(#bfbfbf));
+  background-image: -webkit-linear-gradient(top, #cccccc, #bfbfbf);
+  background-image: -o-linear-gradient(top, #cccccc, #bfbfbf);
+  background-image: linear-gradient(to bottom, #cccccc, #bfbfbf);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcccccc', endColorstr='#ffbfbfbf', GradientType=0);
+}
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+  color: #000000;
+  text-decoration: none;
+  outline: 0;
+  background-color: #151515;
+  background-image: -moz-linear-gradient(top, #1a1a1a, #0d0d0d);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1a1a1a), to(#0d0d0d));
+  background-image: -webkit-linear-gradient(top, #1a1a1a, #0d0d0d);
+  background-image: -o-linear-gradient(top, #1a1a1a, #0d0d0d);
+  background-image: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff1a1a1a', endColorstr='#ff0d0d0d', GradientType=0);
+}
+.dropdown-menu .disabled > a,
+.dropdown-menu .disabled > a:hover {
+  color: #cccccc;
+}
+.dropdown-menu .disabled > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none;
+  cursor: default;
+}
+.open {
+  *z-index: 1000;
+}
+.open > .dropdown-menu {
+  display: block;
+}
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  border-top: 0;
+  border-bottom: 4px solid #1a1a1a;
+  content: "";
+}
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropup .dropdown-submenu > .dropdown-menu {
+  top: auto;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -2px;
+  -webkit-border-radius: 5px 5px 5px 0;
+  -moz-border-radius: 5px 5px 5px 0;
+  border-radius: 5px 5px 5px 0;
+}
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover > a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+.dropdown .dropdown-menu .nav-header {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.typeahead {
+  margin-top: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
 body {
   font-family: "ff-tisa-web-pro", sans-serif;
   font-weight: 400;
@@ -574,28 +758,28 @@ body.pride #bottom {
   background: #4da62a;
 }
 body.happiness {
-  background: #6da529;
+  background: #e5d953;
 }
 body.happiness #bottom {
-  background: #6da529;
+  background: #e5d953;
 }
 body.pleasure {
-  background: #94aa2d;
+  background: #e5d953;
 }
 body.pleasure #bottom {
-  background: #94aa2d;
+  background: #e5d953;
 }
 body.love {
-  background: #b1992d;
+  background: #a6c160;
 }
 body.love #bottom {
-  background: #b1992d;
+  background: #a6c160;
 }
 body.awe {
-  background: #ac6b1e;
+  background: #6ac9cb;
 }
 body.awe #bottom {
-  background: #ac6b1e;
+  background: #6ac9cb;
 }
 body.relief {
   background: #a83f14;
@@ -604,10 +788,10 @@ body.relief #bottom {
   background: #a83f14;
 }
 body.surprise {
-  background: #a5270f;
+  background: #33a9c5;
 }
 body.surprise #bottom {
-  background: #a5270f;
+  background: #33a9c5;
 }
 body.nostalgia {
   background: #a52834;
@@ -622,16 +806,16 @@ body.pity #bottom {
   background: #a32e68;
 }
 body.sadness {
-  background: #a3379c;
+  background: #4956a5;
 }
 body.sadness #bottom {
-  background: #a3379c;
+  background: #4956a5;
 }
 body.worry {
-  background: #7e36ac;
+  background: #2eb69e;
 }
 body.worry #bottom {
-  background: #7e36ac;
+  background: #2eb69e;
 }
 body.shame {
   background: #4c2fab;
@@ -658,22 +842,22 @@ body.envy #bottom {
   background: #004eac;
 }
 body.disgust {
-  background: #187aac;
+  background: #8d418b;
 }
 body.disgust #bottom {
-  background: #187aac;
+  background: #8d418b;
 }
 body.contempt {
-  background: #43acb0;
+  background: #e9746d;
 }
 body.contempt #bottom {
-  background: #43acb0;
+  background: #e9746d;
 }
 body.anger {
-  background: #3ea67c;
+  background: #df4442;
 }
 body.anger #bottom {
-  background: #3ea67c;
+  background: #df4442;
 }
 body.frontpage {
   background: #0173d6;
@@ -1209,19 +1393,19 @@ svg .line {
 }
 .tweet span.date.happiness,
 .tweet .tweet-emotion.happiness {
-  background-color: #6da529;
+  background-color: #e5d953;
 }
 .tweet span.date.pleasure,
 .tweet .tweet-emotion.pleasure {
-  background-color: #94aa2d;
+  background-color: #e5d953;
 }
 .tweet span.date.love,
 .tweet .tweet-emotion.love {
-  background-color: #b1992d;
+  background-color: #a6c160;
 }
 .tweet span.date.awe,
 .tweet .tweet-emotion.awe {
-  background-color: #ac6b1e;
+  background-color: #6ac9cb;
 }
 .tweet span.date.relief,
 .tweet .tweet-emotion.relief {
@@ -1229,7 +1413,7 @@ svg .line {
 }
 .tweet span.date.surprise,
 .tweet .tweet-emotion.surprise {
-  background-color: #a5270f;
+  background-color: #33a9c5;
 }
 .tweet span.date.nostalgia,
 .tweet .tweet-emotion.nostalgia {
@@ -1241,11 +1425,11 @@ svg .line {
 }
 .tweet span.date.sadness,
 .tweet .tweet-emotion.sadness {
-  background-color: #a3379c;
+  background-color: #4956a5;
 }
 .tweet span.date.worry,
 .tweet .tweet-emotion.worry {
-  background-color: #7e36ac;
+  background-color: #2eb69e;
 }
 .tweet span.date.shame,
 .tweet .tweet-emotion.shame {
@@ -1265,15 +1449,15 @@ svg .line {
 }
 .tweet span.date.disgust,
 .tweet .tweet-emotion.disgust {
-  background-color: #187aac;
+  background-color: #8d418b;
 }
 .tweet span.date.contempt,
 .tweet .tweet-emotion.contempt {
-  background-color: #43acb0;
+  background-color: #e9746d;
 }
 .tweet span.date.anger,
 .tweet .tweet-emotion.anger {
-  background-color: #3ea67c;
+  background-color: #df4442;
 }
 .stop-animation .tweet {
   display: none;
@@ -1337,7 +1521,7 @@ svg .line {
 .emotion-circle .happiness,
 .labelcircle .happiness,
 .date-time-freq .happiness {
-  fill: #6da529;
+  fill: #e5d953;
 }
 .emotion-circle.pleasure,
 .labelcircle.pleasure,
@@ -1345,7 +1529,7 @@ svg .line {
 .emotion-circle .pleasure,
 .labelcircle .pleasure,
 .date-time-freq .pleasure {
-  fill: #94aa2d;
+  fill: #e5d953;
 }
 .emotion-circle.love,
 .labelcircle.love,
@@ -1353,7 +1537,7 @@ svg .line {
 .emotion-circle .love,
 .labelcircle .love,
 .date-time-freq .love {
-  fill: #b1992d;
+  fill: #a6c160;
 }
 .emotion-circle.awe,
 .labelcircle.awe,
@@ -1361,7 +1545,7 @@ svg .line {
 .emotion-circle .awe,
 .labelcircle .awe,
 .date-time-freq .awe {
-  fill: #ac6b1e;
+  fill: #6ac9cb;
 }
 .emotion-circle.relief,
 .labelcircle.relief,
@@ -1377,7 +1561,7 @@ svg .line {
 .emotion-circle .surprise,
 .labelcircle .surprise,
 .date-time-freq .surprise {
-  fill: #a5270f;
+  fill: #33a9c5;
 }
 .emotion-circle.nostalgia,
 .labelcircle.nostalgia,
@@ -1401,7 +1585,7 @@ svg .line {
 .emotion-circle .sadness,
 .labelcircle .sadness,
 .date-time-freq .sadness {
-  fill: #a3379c;
+  fill: #4956a5;
 }
 .emotion-circle.worry,
 .labelcircle.worry,
@@ -1409,7 +1593,7 @@ svg .line {
 .emotion-circle .worry,
 .labelcircle .worry,
 .date-time-freq .worry {
-  fill: #7e36ac;
+  fill: #2eb69e;
 }
 .emotion-circle.shame,
 .labelcircle.shame,
@@ -1449,7 +1633,7 @@ svg .line {
 .emotion-circle .disgust,
 .labelcircle .disgust,
 .date-time-freq .disgust {
-  fill: #187aac;
+  fill: #8d418b;
 }
 .emotion-circle.contempt,
 .labelcircle.contempt,
@@ -1457,7 +1641,7 @@ svg .line {
 .emotion-circle .contempt,
 .labelcircle .contempt,
 .date-time-freq .contempt {
-  fill: #43acb0;
+  fill: #e9746d;
 }
 .emotion-circle.anger,
 .labelcircle.anger,
@@ -1465,7 +1649,7 @@ svg .line {
 .emotion-circle .anger,
 .labelcircle .anger,
 .date-time-freq .anger {
-  fill: #3ea67c;
+  fill: #df4442;
 }
 .emotion-circle {
   stroke-width: 0;

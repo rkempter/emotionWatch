@@ -9,23 +9,23 @@
 @involvement: #3fa652;
 @amusement: #40a630;
 @pride: #4da62a;
-@happiness: #6da529;
-@pleasure: #94aa2d;
-@love: #b1992d;
-@awe: #ac6b1e;
+@happiness: #e5d953;
+@pleasure: #e5d953;
+@love: #a6c160;
+@awe: #6ac9cb;
 @relief: #a83f14;
-@surprise: #a5270f;
+@surprise: #33a9c5;
 @nostalgia: #a52834;
 @pity: #a32e68;
-@sadness: #a3379c;
-@worry: #7e36ac;
+@sadness: #4956a5;
+@worry: #2eb69e;
 @shame: #4c2fab;
 @guilt: #002da7;
 @regret: #0032a7;
 @envy: #004eac;
-@disgust: #187aac;
-@contempt: #43acb0;
-@anger: #3ea67c;
+@disgust: #8d418b;
+@contempt: #e9746d;
+@anger: #df4442;
 @olympicBlue: #0173d6;
 @empty: #787878;
 
@@ -50,10 +50,27 @@
 
 @baseFontFamily: "ff-tisa-web-pro", sans-serif;
 
+// Dropdowns
+// -------------------------
+@dropdownBackground:            @white;
+@dropdownBorder:                rgba(0,0,0,.2);
+@dropdownDividerTop:            #e5e5e5;
+@dropdownDividerBottom:         @white;
+
+@dropdownLinkColor:             @grayDark;
+@dropdownLinkColorHover:        @white;
+@dropdownLinkColorActive:       @dropdownLinkColor;
+
+@dropdownLinkBackgroundActive:  @gray;
+@zindexDropdown:          1000;
+@dropdownLinkBackgroundHover:   @grayLight;
+@baseBorderRadius: 5px;
+
 
 @import "bootstrap/mixins.less";
 @import "bootstrap/modals.less";
 @import "bootstrap/forms.less";
+@import "bootstrap/dropdowns.less";
 
 body{
     font-family: "ff-tisa-web-pro", sans-serif;

@@ -5,6 +5,7 @@ define([
     'backbone',
     'raphael',
     'jquery',
+    'plugins/bootstrap-typeahead'
     ], 
     function(util, app, _, Backbone, Raphael, $) {
 
@@ -13,7 +14,8 @@ define([
             template: 'compare-init',
 
             events: {
-                'click #load-visualization': 'evaluateForm'
+                'click #load-visualization': 'evaluateForm',
+                'change #events': 'loadEventInfo'
             },
 
             evaluateForm: function() {
@@ -53,6 +55,31 @@ define([
 
                     app.router.navigate(url, true);     
                 }
+            },
+
+            loadEventInfo: function() {
+                var eventInfo = $('#events option:selected').val();
+
+                if(eventInfo === '') {
+                    return;
+                }
+
+                $.get(app.server+'event/'+eventInfo, function(data) {
+                    var startDate = data.startDate;
+                    var endDate = data.endDate;
+                    var startTime = data.startTime;
+                    var endTime = data.endTime;
+                    var topics = data.topics;
+
+                    $('#initialization-form #start-date').val(startDate);
+                    $('#initialization-form #start-time').val(startTime);
+                    $('#initialization-form #end-date').val(endDate);
+                    $('#initialization-form #end-time').val(endTime);
+
+                    $('.typeahead').typeahead({
+                        source: topics
+                    });
+                });
             },
 
             close: function() {

@@ -34,8 +34,7 @@ define([
                 self.collection.fetch({
                     data: $.param({
                         datetime: self.collection.currentDateTime,
-                        emotion: self.collection.emotion,
-                        hashtag: self.collection.keyword,
+                        hashtag: self.collection.keyword.split(","),
                         windowsize: self.collection.timeStep,
                         network: self.collection.network,
                         keywordType: self.collection.keywordType
