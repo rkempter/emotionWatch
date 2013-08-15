@@ -16,26 +16,28 @@ define([
 				var width = options.width || Constants.paperWidth;
 				var height = options.height || Constants.paperHeight;
 				var mode = options.mode || 'regular';
-				var network = options.network;
+				var id = options.id || 'normal';
 				var x = options.x || null;
 				var y = options.y || null;
 
+				console.log('id:'+id);
+
 				if(mode !== 'regular') {
 					if (app.paper instanceof Array) {
-						app.paper[network] = Raphael(0, 0, "100%", 600);
-						app.paper[network].setViewBox(0, 0, 800, 800, true);
-						this.el = app.paper[network].canvas;
+						app.paper[id] = Raphael(0, 0, "100%", 600);
+						app.paper[id].setViewBox(0, 0, 940, 920, true);
+						this.el = app.paper[id].canvas;
 						this.$el = $(this.el);
 					} else {
 						app.paper = [];
-						app.paper[network] = Raphael(0, 0, "100%", 600);
-						app.paper[network].setViewBox(0, 0, 800, 800, true);
-						this.el = app.paper[network].canvas;
+						app.paper[id] = Raphael(0, 0, "100%", 600);
+						app.paper[id].setViewBox(0, 0, 940, 920, true);
+						this.el = app.paper[id].canvas;
 						this.$el = $(this.el);
 					}
 				} else {
 					app.paper = Raphael($(parent), 0, "100%", 540);
-					app.paper.setViewBox(0, 0, 900, 900, false);
+					app.paper.setViewBox(0, 0, 940, 920, false);
 					this.el = app.paper.canvas;
 					this.$el = $(this.el);
 				}

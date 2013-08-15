@@ -2,8 +2,9 @@ define([
   'app',
   'lodash',
   'backbone',
-  'constants'
-], function(app, _, Backbone, Constants) {
+  'constants',
+  'util'
+], function(app, _, Backbone, Constants, util) {
 
   var emotionWatch = Backbone.Model.extend({
     
@@ -25,7 +26,7 @@ define([
       if(this.get('mode') == 'regular' || this.get('mode') == 'compare') {
         this.fetch({ 
             data: $.param({
-              topic: this.get("topic"),
+              keyword: this.get("topic").split(","),
               startDateTime: this.get("startDate"),
               endDateTime: this.get("endDate"),
               timeStep: this.get("timeStep"),
@@ -72,11 +73,7 @@ define([
 
     urlRoot: function() {
       // In the compare node, we load the data from another url
-      if(this.get('mode') == 'compare') {
-        return app.server+"emotionPatternTweets";
-      } else {
-        return app.server+"emotionTweets";
-      }
+      return app.server+"emotionTweets";
     },
 
     /**

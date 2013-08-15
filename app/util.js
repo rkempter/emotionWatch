@@ -123,6 +123,8 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
         getKeywordType: function(keyword) {
           if(keyword.indexOf('#') !== -1) {
             return 'keyword';
+          } else if(!isNaN(parseInt(keyword))) {
+            return 'event';
           } else {
             return 'user';
           }
@@ -131,12 +133,23 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
         combineKeyword: function(keyword, keywordType) {
           switch(keywordType) {
             case 'user':
-              return '@'+keyword;
+              return keyword;
             case 'keyword':
               return '#'+keyword;
             case 'event':
-              return '#'+keyword;
+              return keyword;
           }
+        },
+
+        isValidDate: function(date) {
+          if( Object.prototype.toString.call(date) === "[object Date]" ) {
+              if(isNaN(date.getTime())) {
+                return false;
+              }
+              return true;
+          }
+
+          return false;
         },
 
         getTimeStepFormat: function(timeStep) {

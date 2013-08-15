@@ -26,12 +26,10 @@ define([
             var self = this;
             // Load Settings, Event Search and Keyword search views into modals
 
-            if(this.model.get('keywordType') == 'event') {
+            if(this.model.get('keywordType') === 'event') {
                 this.model.fetch({
                     data: $.param({
-                        startDateTime: this.model.get('startDateTime'),
-                        endDateTime: this.model.get('endDateTime'),
-                        sport: this.model.get('keyword')
+                        id: this.model.get('keyword')
                     })
                 });
             }

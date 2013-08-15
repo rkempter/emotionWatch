@@ -1,0 +1,22 @@
+<div class="top">
+    <div class="left-watch-info info-column">
+        <h2><%= keywordLeft %> <small>Network: <%= networkLeft %></small></h2>
+    </div>
+    <div class="right-watch-info info-column">
+        <h2><%= keywordRight %> <small>Network: <%= networkRight %></small></h2>
+    </div>
+</div>
+ 
+<div class="middle info-column">
+    <div class="video"></div>
+    <div id="middle-info">
+        <ul>
+            <li>Start: <%=moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
+            <li>End: <%=moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
+            <li>Current: [<span class="dateTime"></span>]</li>
+        </ul>
+    </div>
+    <div class="controls">
+        <button id="start-stop-control-btn" class="btn btn-primary">Pause</button>
+    </div>
+</div>

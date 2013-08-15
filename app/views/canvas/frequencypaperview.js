@@ -14,19 +14,20 @@ define([
 				options = options || {};
 				var parent = options.parent || null;
 				var network = options.network;
+				var id = options.id || 'normal';
 
 				// We have a paper array with the paper corresponding to twitter or weibo
 				// visualization. This is due to the fact that we need different canvas for the
 				// compare visualization.
 				if(app.frequencyPaper instanceof Array) {
-					app.frequencyPaper[network] = Raphael(0, 0, "100%", 100);
+					app.frequencyPaper[id] = Raphael(0, 0, "100%", 100);
 				} else {
 					app.frequencyPaper = [];
-					app.frequencyPaper[network] = Raphael(0, 0, "100%", 100);
+					app.frequencyPaper[id] = Raphael(0, 0, "100%", 100);
 				}
 
 				// Assign the canvas DOM element to the view's element
-				this.el = app.frequencyPaper[network].canvas;
+				this.el = app.frequencyPaper[id].canvas;
 				this.$el = $(this.el);
 
 				// Bind the close event to the close function.

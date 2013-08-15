@@ -23,6 +23,7 @@ define([
             this.network = options.network || 'twitter';
             this.keyword = options.keyword;
             this.keywordType = options.keywordType;
+            this.collectionId = options.id  || 'normal';
             this.modelIndex = 0;
             
             this.viewPointer = [];
@@ -57,18 +58,14 @@ define([
                     windowsize: self.timeStep,
                     startDateTime: self.startDateTime,
                     endDateTime: self.endDateTime,
-                    keyword: self.keyword,
+                    keyword: self.keyword.split(","),
                     keywordType: options.keywordType
                 }) 
             });
         },
 
         url: function() {
-            if(this.mode == 'compare') {
-                return app.server+'patternFrequency';
-            } else {
-                return app.server+'frequency';
-            }
+            return app.server+'frequency';
         },
 
         // Parse the received data
@@ -118,7 +115,7 @@ define([
                     "endDateTime": self.endDateTime,
                     "centerPoint": self.centerPoint,
                     "mode": self.mode,
-                    "paper": app.frequencyPaper[this.network]
+                    "paper": app.frequencyPaper[this.collectionId]
                 });
 
                 models.push(model);

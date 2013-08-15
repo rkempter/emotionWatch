@@ -54,6 +54,8 @@ require.config({
     emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
+    compareview: "views/compare/compareview",
+    comparetitleview: "views/compare/comparetitleview",
 
     templates: "templates"
     
@@ -75,7 +77,8 @@ require.config({
     "plugins/bootstrap-tab": ["jquery"],
     "plugins/jquery.scrollto": ['jquery'],
     "plugins/bootstrap-modal": ['jquery'],
-    "plugins/jquery.timer": ['jquery']
+    "plugins/jquery.timer": ['jquery'],
+    "plugins/bootstrap-typeahead": ['jquery']
   }
 
 });
