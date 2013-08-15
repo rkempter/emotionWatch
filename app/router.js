@@ -205,11 +205,11 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
       options.timeStep = timeStep;
-      currentDateTime_raw = options.startDateTime;
+      
 
       options.startDateTime = new Date(startDateTime_raw);
       options.endDateTime = new Date(endDateTime_raw);
-      options.currentDateTime = new Date(currentDateTime_raw);
+      options.currentDateTime = options.startDateTime;
 
       console.log('is time: '+util.isValidDate(options.startDateTime));
 
@@ -342,11 +342,10 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
       endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
       options.timeStep = timeStep;
-      currentDateTime_raw = options.startDateTime;
 
       options.startDateTime = new Date(startDateTime_raw);
       options.endDateTime = new Date(endDateTime_raw);
-      options.currentDateTime = new Date(currentDateTime_raw);
+      options.currentDateTime = options.startDateTime;
 
       console.log('is time: '+util.isValidDate(options.startDateTime));
 

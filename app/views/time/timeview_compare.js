@@ -114,11 +114,8 @@ define([
             this.model.set('timeState', 'running');
             $('.'+this.network+' .time-block').addClass('is-transitioning');
             
-            if(this.clockMode == 'active') {
-                this.model.set('startInterval', setInterval(function(t) {
-                    app.trigger('start:time');
-                    clearInterval(self.model.get('startInterval'));
-                },1000));
+            if(this.clockMode === 'active') {
+                app.trigger('start:time');
                 
                 if(undefined === this.model.get('interval')) {
                     var interval = $.timer(function() {

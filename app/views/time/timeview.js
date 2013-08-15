@@ -38,6 +38,7 @@ define([
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
             this.listenTo(app, 'change:globalTime', function(dateTime) {
+                console.log(dateTime);
                 var oldDateTime = this.model.get('currentDateTime');
                 var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
 
@@ -182,7 +183,7 @@ define([
             app.trigger('stop:time');
         },
 
-        // render the template with labe, date and time.
+        // render the template with label, date and time.
         render: function(template) {
             var output = template({ 
                 label: this.model.get("label"), 
@@ -199,6 +200,8 @@ define([
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
             }
+
+            console.log('rendering again!');
 
             if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
                 $('.time-block').css('width', position+'px');
