@@ -565,60 +565,7 @@ svg{
     }
 }
 
-/** Loading **/
-
-#loading{
-    #loading-label {
-        position: absolute;
-        left: 50%;
-        margin-left: -150px;
-        width: 300px;
-        height: 100px;
-        background: @white;
-        color: @black;
-        font-size: 18px;
-    }
-
-    #curtain{
-        position: absolute;
-        z-index: 5;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        background: rgba(0,0,0, 0.2);
-    }
-}
-
 /** Timeline **/
-
-#pattern {
-    path, circle{
-        cursor: pointer;
-    }
-
-    .date-time-freq{
-        path.active{
-            fill: @activeElement;
-        }
-
-        path{
-            stroke-width: 0;
-        }
-
-        path:hover{
-            fill: @grayLight;
-        }
-
-        .hoverPath{
-            opacity: 0;
-            &:hover{
-                background: rgba(255, 255, 255, 0.3);
-                opacity: 0.3;
-            }
-        }
-    }
-}
 
 #index, #compare {
     .date-time-freq{
@@ -1048,6 +995,10 @@ svg{
     stroke-width: 0;
 }
 
+.watch .paper{
+    text-align: center;
+}
+
 /**** COMPARE ****/
 
 #compare{
@@ -1129,6 +1080,7 @@ svg{
             position:relative;
             width: 100%;
             margin: 0 auto;
+            text-align: center;
             margin-top: -50px;
         }
     }
@@ -1367,6 +1319,36 @@ select{
         width: 100%;
         z-index: 10;
         top: 230px;
+    }
+}
+
+/**** Loading ***/
+
+#loading{
+    .loading-background{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: @black;
+        opacity: 0.6;
+        z-index: 1000;
+    }
+
+    .loading-text{
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        top: 200px;
+        z-index: 1001;
+    }
+
+    #start-all{
+        display: none;
+        font-size: 25px;
+        font-weight: 600;
+        padding: 15px 20px;
     }
 }
 

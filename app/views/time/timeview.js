@@ -109,10 +109,7 @@ define([
             var self = this;
             this.model.set('timeState', 'running');
             
-            this.model.set('startInterval', setInterval(function(t) {
-                app.trigger('start:time');
-                clearInterval(self.model.get('startInterval'));
-            },1000));
+            app.trigger('start:time');
 
             $('.time-block').addClass('is-transitioning');
             

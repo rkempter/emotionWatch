@@ -27,91 +27,32 @@ define([
             // Create a set of elements
             this.model.set("setOfElements", this.model.get('paper').set());
 
-            if(this.model.get("mode") !== 'regular' && this.model.get("mode") !== 'compare') {
+            this.drawRemainingElements();
 
-                // Draw remaining elements
-                self.drawRemainingElements();
-                
-                // Create the shape
-                self.createEmotionShape();
+            // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
+            // Draws a preview of the hovered timeslot.
+            this.listenTo(app, 'preview:mouseover', function(params) {
+                self.createPreview(params);
+            });
 
-                // Add the emotion shape to the set of elements, so that we can treat the complete
-                // watch as one single element.
-                this.model.get("setOfElements").push(
-                    this.model.get('emotionShape')
-                );
+            this.listenTo(app, 'pause:watch', this.pauseTime);
+            this.listenTo(app, 'resume:watch', this.resumeTime);
+            this.listenTo(app, 'start:all', this.activateWatch);
 
-                // Draw background with the dominant emotion
-                self.drawDominantEmotion();
+            // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
+            // Removes the preview from the canvas
+            this.listenTo(app, 'preview:mouseout', function(params) {
+                self.removePreview(params);
+            });
 
-                var nbr = (self.model.get("currentDateTime").getTime() - self.model.get("startDate").getTime()) / (self.model.get("timeStep")*1000);
+            // Create the shape when all data from the server is parsed.
+            this.model.on('parsed', this.createEmotionShape, this);
 
-                // Pattern view: If hovering over the watch, show slot on timeline
-                self.model.get("setOfElements").mouseover(function(event) {
-                    app.trigger("pattern:mouseover", nbr);
-                });
-
-                // Pattern view: let timeline now, that user is not hovering anymore over the watch
-                self.model.get("setOfElements").mouseout(function(event) {
-                    app.trigger("pattern:mouseout", nbr);
-                });
-
-                // Listen to a jumpToTime event: Triggered in pattern view. Scroll to element
-                this.listenTo(app, 'jumpToTime', function(params) {
-                    if(params.dateTime.getTime() == self.model.get("currentDateTime").getTime()) {
-                        $.scrollTo(self.model.get("centerPoint").y-90, { duration: 1000 });
-                    }
-                });
-
-                // Listne to any scroll event
-                this.listenTo(this.model, 'scroll:model', function() {
-                    $.scrollTo(self.model.get("centerPoint").y-90);
-                });
-
-                // If hovering over watch or on a timeslot on the timeline, show only
-                // the 'hovered' element and let all the others disappear.
-                this.listenTo(app, 'preview:mouseover', function(params) {
-                    if(self.model.get("currentDateTime").getTime() !== params.localStartDateTime.getTime()) {
-                        self.model.get("setOfElements").attr({
-                            opacity: 0.5
-                        });
-                    }
-                });
-
-                // Show all elements again
-                this.listenTo(app, 'preview:mouseout', function(params) {
-                    self.model.get("setOfElements").attr({
-                        opacity: 1
-                    });
-                });
-
-            } else {
-                this.drawRemainingElements();
-
-                // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
-                // Draws a preview of the hovered timeslot.
-                this.listenTo(app, 'preview:mouseover', function(params) {
-                    self.createPreview(params);
-                });
-
-                this.listenTo(app, 'pause:watch', this.pauseTime);
-                this.listenTo(app, 'resume:watch', this.resumeTime);
-
-                // Listen to the preview:mouseover event, triggered in the tweetfrequencyview.
-                // Removes the preview from the canvas
-                this.listenTo(app, 'preview:mouseout', function(params) {
-                    self.removePreview(params);
-                });
-
-                // Create the shape when all data from the server is parsed.
-                this.model.on('parsed', this.createEmotionShape, this);
-
-                // Bind animation to events
-                //this.activateWatch();
-                
-                // Draw the labels
-                this.drawLabelTexts();
-            }
+            // Bind animation to events
+            //this.activateWatch();
+            
+            // Draw the labels
+            this.drawLabelTexts();
 
             if(this.model.get("mode") == 'static' || this.model.get("mode") == 'pattern') {
                 // Pattern & compare view: you can click on any element and you jump to the single view with
@@ -269,9 +210,7 @@ define([
         },
 
         afterRender: function() {
-            if(this.model.get('mode') !== 'pattern') {
-                this.activateWatch();
-            }
+            // this.activateWatch();
         },
 
         /**

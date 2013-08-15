@@ -179,6 +179,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
     },
 
     compareInit: function() {
+      this.close();
       app
         .useLayout('comparison-wrapper')
         .setViews({

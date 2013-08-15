@@ -19,7 +19,8 @@ define([
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal'
+            'click #settings-btn': 'triggerSettingsModal',
+            'click #start-all': 'startAll'
         },
 
         initialize: function() {
@@ -35,8 +36,20 @@ define([
             }
             this.model.on('render', self.render, self);
             this.listenTo(app, 'close', this.close);
-
+            this.listenTo(app, 'loaded', this.showStart);
             
+        },
+
+        showStart: function() {
+            $('#loading .loading-text h2').hide();
+            $('#loading #start-all').show(); 
+        },
+
+        startAll: function() {
+            $loading = $('#loading');
+            $loading.hide();
+
+            app.trigger('start:all');
         },
 
         // Show event search modal window when triggered

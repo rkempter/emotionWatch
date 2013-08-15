@@ -34,15 +34,6 @@ define([
                 self.jumpToGlobalTime(params.cid);
             });
 
-            this.listenTo(app, "pattern:mouseover", this.activateSlot);
-            this.listenTo(app, "pattern:mouseout", this.deactivateSlot);
-
-            // Pattern view: When scroll, mark the right elements as visited.
-            this.listenTo(app, 'scroll:activate', function(id) {
-                self.modelIndex = id;
-                self.activateModels();
-            });
-
             if(this.mode == 'regular' || this.mode == 'compare') {
                 // In regular and compare view, module needs to listen to the
                 // globalTime event.
@@ -70,7 +61,6 @@ define([
 
         // Parse the received data
         parse: function(frequencies) {
-            console.log(frequencies);
             var self = this;
 
             // Figure out the maximal frequency
@@ -129,6 +119,8 @@ define([
                 localStartDateTime = new Date(localStartDateTime.getTime() + self.timeStep * 1000);
                 localEndDateTime = new Date(localEndDateTime.getTime() + self.timeStep * 1000);
             }
+
+            app.trigger('loaded');
 
             return models;
         },

@@ -13,14 +13,30 @@ define([
         template: 'compare-title-template',
 
         events: {
-            'click #start-stop-control-btn': 'triggerStartStop'
+            'click #start-stop-control-btn': 'triggerStartStop',
+            'click #start-all': 'startAll'
         },
 
         initialize: function() {
             _.bindAll(this, "render");
-            console.log(this.model.toJSON());
 
+            console.log(this.model.toJSON());
             this.listenTo(app, 'close', this.close);
+            this.listenTo(app, 'loaded', this.showStart);
+        },
+
+        showStart: function() {
+            console.log('show start loaded');
+            $('#loading .loading-text h2').hide();
+            $('#loading #start-all').show(); 
+        },
+
+        startAll: function() {
+            console.log('start!');
+            $loading = $('#loading');
+            $loading.hide();
+
+            app.trigger('start:all');
         },
 
         triggerStartStop: function() {
@@ -42,6 +58,10 @@ define([
         render: function() {
             var output = window.JST['app/templates/compare-title-template.html'](this.model.toJSON());
             this.$el.html(output)
+        },
+
+        afterRender: function() {
+            
         }
 
         

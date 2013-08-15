@@ -74,7 +74,7 @@ define([
           // Draw the path on the canvas
           var timeSlot = this.model.get("paper").path(path);
 
-          timeSlot.node.setAttribute("id", self.emotion.toLowerCase());
+          timeSlot.node.setAttribute("class", self.emotion.toLowerCase());
 
           // Bind the mouseover event to a method;
           timeSlot.mouseover(function() {

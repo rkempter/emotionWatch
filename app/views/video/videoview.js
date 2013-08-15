@@ -54,7 +54,6 @@ define([
                     this.model.set('video-element', video);
                     // Listen to any start time event, triggered by the clock
                     self.listenTo(app, 'start:time', function() {
-                        console.log('gooo');
                         self.model.get('video-element').play();
                     });
                     // Listen to a stop time event, triggered by the clock
