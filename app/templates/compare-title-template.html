@@ -1,19 +1,19 @@
 <div class="top">
     <div class="left-watch-info info-column">
-        <h2><%= keywordsLeft %> <small>Network: <%= networkLeft %></small></h2>
+        <h2><%= keywordLeft %> <small>Network: <%= networkLeft %></small></h2>
     </div>
     <div class="right-watch-info info-column">
-        <h2><%= keywordsRight %> <small>Network: <%= networkRight %></small></h2>
+        <h2><%= keywordRight %> <small>Network: <%= networkRight %></small></h2>
     </div>
 </div>
  
 <div class="middle info-column">
     <div class="video"></div>
-    <div class="middle-info">
+    <div id="middle-info">
         <ul>
-            <li>Start: <=% startDateTime %></li>
-            <li>End: <=% endDateTime %></li>
-            <li>Current: [6th Aug 2012 14:13:45, 6th Aug 2012 14:14:00]</li>
+            <li>Start: <%=moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
+            <li>End: <%=moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
+            <li>Current: [<span class="dateTime"></span>]</li>
         </ul>
     </div>
     <div class="controls">

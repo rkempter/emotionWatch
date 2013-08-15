@@ -1337,14 +1337,36 @@ select{
 // Compare header
 #compare .information{
     margin-top: -100px;
+    min-height: 140px;
+
+    .video{
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        top: 50px;
+
+        video{
+            width: 300px;
+        }
+    }
+
     .left-watch-info, .right-watch-info{
         text-align: center;
         width: 50%;
         float: left;
     }
-    .middle-info{
+    #middle-info{
+        position: absolute;
+        bottom: 120px;
         width: 100%;
         text-align: center;
+    }
+
+    .controls{
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        top: 230px;
     }
 }
 

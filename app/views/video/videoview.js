@@ -15,18 +15,18 @@ define([
         initialize: function() {
             var self = this;
             this.listenTo(app, 'close', this.close);
+            _.bindAll(this, 'render');
 
-            var keyword = this.model.get('keyword');
+            var eventId = this.model.get('keyword');
             var keywordType = this.model.get('keywordType');
 
             if(keywordType == 'event' && this.model.get('timeStep') == 5) {
                 this.model.fetch({
                     data: $.param({
-                        id: this.model.get('keyword'),
+                        id: eventId
                     })
                 });
-            } 
-            self.render();
+            }
         },
           
         close: function() {

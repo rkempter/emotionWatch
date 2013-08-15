@@ -17,10 +17,10 @@ define([
         },
 
         initialize: function() {
-            
-            // Listen to global close event
-            this.listenTo(app, 'close', this.close);
+            _.bindAll(this, "render");
+            console.log(this.model.toJSON());
 
+            this.listenTo(app, 'close', this.close);
         },
 
         triggerStartStop: function() {
@@ -37,6 +37,11 @@ define([
         close: function() {
             this.remove();
             this.unbind();
+        },
+
+        render: function() {
+            var output = window.JST['app/templates/compare-title-template.html'](this.model.toJSON());
+            this.$el.html(output)
         }
 
         

@@ -1923,6 +1923,16 @@ select {
 }
 #compare .information {
   margin-top: -100px;
+  min-height: 140px;
+}
+#compare .information .video {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 50px;
+}
+#compare .information .video video {
+  width: 300px;
 }
 #compare .information .left-watch-info,
 #compare .information .right-watch-info {
@@ -1930,9 +1940,17 @@ select {
   width: 50%;
   float: left;
 }
-#compare .information .middle-info {
+#compare .information #middle-info {
+  position: absolute;
+  bottom: 120px;
   width: 100%;
   text-align: center;
+}
+#compare .information .controls {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  top: 230px;
 }
 /**** Modal ****/
 .modal-link {
