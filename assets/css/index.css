@@ -1227,6 +1227,9 @@ svg .line {
   width: 100%;
   border-right: 1px solid #a00202;
 }
+#compare .curtain {
+  display: none;
+}
 .current-time-box.max-right {
   position: fixed;
   right: 25px;

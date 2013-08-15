@@ -33,6 +33,7 @@ define([
             this.model.set('currentDateTime', options.currentDateTime);
             this.model.set('timeStep', options.timeStep);
             this.model.set("label", "Stop");
+            this.model.set("identifier", options.identifier);
             this.network = options.network;
             this.model.set("timeSpan", options.endDateTime.getTime() - options.startDateTime.getTime());
 
@@ -187,36 +188,6 @@ define([
             });
             this.$el.html(output);
         },
-
-        afterRender: function() {
-            var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
-            var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
-            if(position > this.width / 2) {
-                $('.'+this.network+' .time-block .dates').css('text-align', 'right').css('right', '45px');
-            }
-            if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
-                $('.'+this.network+' .time-block').css('width', position+'px');
-            } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
-                $('.'+this.network+' .time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
-                    $(this).addClass('is-transitioning');
-                    next();
-                });
-            }
-
-            if(position > this.width) {
-                $('.'+this.network+' .current-time-box').addClass('max-right');
-            } else {
-                $('.'+this.network+' .current-time-box').removeClass('max-right');
-            }
-
-            this.model.set('endPoint', position);
-            if(this.model.get('paused') === true) {
-                this.$el.css('-webkit-animation-play-state', 'paused');
-            } else {
-                this.$el.css('-webkit-animation-play-state', 'running');
-            }
-                
-        }
         
     });
 

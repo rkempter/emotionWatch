@@ -328,8 +328,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       this.close();
 
       var options = {};
-      options.leftId = 'left';
-      options.rightId = 'right';
+      options.leftId = 'left-watch';
+      options.rightId = 'right-watch';
       options.keywordTypeLeft = keywordTypeLeft;
       options.keywordTypeRight = keywordTypeRight;
       options.keywordLeft = util.combineKeyword(keywordLeft, keywordTypeLeft);
@@ -372,6 +372,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           currentDateTime: options.currentDateTime,
           timeStep: options.timeStep,
           clockMode: 'active',
+          identifier: options.leftId,
           keyword: options.keywordLeft,
           keywordType: options.keywordTypeLeft,
           network: options.networkLeft
@@ -383,6 +384,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           currentDateTime: options.currentDateTime,
           timeStep: options.timeStep,
           clockMode: 'passiv',
+          identifier: options.rightId,
           keyword: options.keywordRight,
           keywordType: options.keywordTypeRight,
           network: options.networkRight
