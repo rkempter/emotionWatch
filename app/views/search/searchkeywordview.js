@@ -35,7 +35,7 @@ define([
             // Get keywordType (hashtag, user)
             var keywordType = util.getKeywordType(keyword);
             // Navigate to computed route
-            app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+            app.router.navigate('/search/'+network+'/'+keywordType+'/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
             this.listenTo(app, 'close', this.close);
         },
 

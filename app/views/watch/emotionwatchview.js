@@ -69,7 +69,7 @@ define([
                     var timeStep = self.model.get("timeStep");
                     var network = self.model.get("network");
 
-                    var url = 'search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
+                    var url = 'search/'+network+'/'+keywordType+'/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+currentDateTime.getTime();
                     app.router.navigate(url, true);
                 });
             }

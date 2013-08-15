@@ -130,17 +130,6 @@ define(['backbone', 'constants'], function(Backbone, Constants) {
           }
         },
 
-        combineKeyword: function(keyword, keywordType) {
-          switch(keywordType) {
-            case 'user':
-              return keyword;
-            case 'keyword':
-              return '#'+keyword;
-            case 'event':
-              return keyword;
-          }
-        },
-
         isValidDate: function(date) {
           if( Object.prototype.toString.call(date) === "[object Date]" ) {
               if(isNaN(date.getTime())) {

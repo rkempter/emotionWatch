@@ -72,7 +72,7 @@ define([
             var keywordType = util.getKeywordType(keyword);
             // Navigate to computeted route
             if($('#event-sport option:selected').val() != 'empty' || $('#event-event option:selected').val() != 'empty') {
-                app.router.navigate('/search/'+network+'/event/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+                app.router.navigate('/search/'+network+'/event/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
             }
         },
 

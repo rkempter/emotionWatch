@@ -43,10 +43,10 @@ define([
                     var url = "#compare/";
                     url += this.networkLeft.toLowerCase()+"/";
                     url += this.keywordTypeLeft+"/";
-                    url += this.keywordLeft.slice(1)+"/";
+                    url += this.keywordLeft+"/";
                     url += this.networkRight.toLowerCase()+"/";
                     url += this.keywordTypeRight+"/";
-                    url += this.keywordRight.slice(1)+"/";
+                    url += this.keywordRight+"/";
                     url += this.timeStep+"/";
                     url += this.startDateTime.getTime()+"/";
                     url += this.endDateTime.getTime();
@@ -60,10 +60,10 @@ define([
                     url += this.eventInfo+"/";
                     url += this.networkLeft.toLowerCase()+"/";
                     url += this.keywordTypeLeft+"/";
-                    url += this.keywordLeft.slice(1)+"/";
+                    url += this.keywordLeft+"/";
                     url += this.networkRight.toLowerCase()+"/";
                     url += this.keywordTypeRight+"/";
-                    url += this.keywordRight.slice(1)+"/";
+                    url += this.keywordRight+"/";
                     url += this.timeStep+"/";
                     url += this.startDateTime.getTime()+"/";
                     url += this.endDateTime.getTime();

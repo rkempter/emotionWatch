@@ -58,9 +58,9 @@ define([
 
         // Depending on the flags, we compute the route
         if(change && !timeConflict) {
-           app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
+           app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime()+'/'+this.currentDateTime.getTime(), true);
         } else if(change && timeConflict) {
-          app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword.slice(1)+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
+          app.router.navigate('#search/'+network+'/'+keywordType+'/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
         }
       },
 

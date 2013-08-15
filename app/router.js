@@ -73,7 +73,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
 
       var options = {};
       options.network = network || 'twitter';
-      options.keyword = util.combineKeyword(keyword, keywordType);
+      options.keyword = keyword;
       options.keywordType = keywordType;
 
       options.mode = 'regular';
@@ -135,7 +135,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       this.close();
 
       var options = {};
-      options.keyword = util.combineKeyword(keyword, keywordType);
+      options.keyword = keyword;
       options.network = network || 'twitter',
       options.keywordType = keywordType;
       options.mode = 'pattern';
@@ -195,8 +195,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.rightId = 'right';
       options.keywordTypeLeft = keywordTypeLeft;
       options.keywordTypeRight = keywordTypeRight;
-      options.keywordLeft = util.combineKeyword(keywordLeft, keywordTypeLeft);
-      options.keywordRight = util.combineKeyword(keywordRight, keywordTypeRight);
+      options.keywordLeft = keywordLeft;
+      options.keywordRight = keywordRight;
       options.networkLeft = networkLeft;
       options.networkRight = networkRight;
 
@@ -267,7 +267,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keywordRight, keywordTypeRight),
+            'keyword': keywordRight,
             'network': options.networkRight,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -280,7 +280,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keywordLeft, keywordTypeLeft),
+            'keyword': keywordLeft,
             'network': options.networkLeft,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -299,7 +299,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 470, "y": 460},
-            topic: util.combineKeyword(keywordRight, keywordTypeRight),
+            topic: keywordRight,
             network: options.networkRight,
             keywordType: keywordTypeRight
           }),
@@ -315,7 +315,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 470, "y": 460},
-            topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
+            topic: keywordLeft,
             network: options.networkLeft,
             keywordType: keywordTypeLeft
           }),
@@ -332,8 +332,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.rightId = 'right-watch';
       options.keywordTypeLeft = keywordTypeLeft;
       options.keywordTypeRight = keywordTypeRight;
-      options.keywordLeft = util.combineKeyword(keywordLeft, keywordTypeLeft);
-      options.keywordRight = util.combineKeyword(keywordRight, keywordTypeRight);
+      options.keywordLeft = keywordLeft;
+      options.keywordRight = keywordRight;
       options.networkLeft = networkLeft;
       options.networkRight = networkRight;
 
@@ -413,7 +413,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keywordRight, keywordTypeRight),
+            'keyword': keywordRight,
             'network': options.networkRight,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -426,7 +426,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
-            'keyword': util.combineKeyword(keywordLeft, keywordTypeLeft),
+            'keyword': keywordLeft,
             'network': options.networkLeft,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -445,7 +445,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 470, "y": 460},
-            topic: util.combineKeyword(keywordRight, keywordTypeRight),
+            topic: keywordRight,
             network: options.networkRight,
             keywordType: keywordTypeRight
           }),
@@ -461,7 +461,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
             centerPoint: {"x": 470, "y": 460},
-            topic: util.combineKeyword(keywordLeft, keywordTypeLeft),
+            topic: keywordLeft,
             network: options.networkLeft,
             keywordType: keywordTypeLeft
           }),

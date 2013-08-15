@@ -89,7 +89,7 @@ define([
             this.model.get("emotionShape").click(function() {
                 var keywordType = util.getKeywordType(self.model.get('label'));
                 var timeStep = util.getTimeStep(new Date(Constants.startDateTime), new Date(Constants.endDateTime));
-                var url = 'search/'+self.model.get('network')+'/'+keywordType+'/'+self.model.get('label').slice(1)+'/'+timeStep+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
+                var url = 'search/'+self.model.get('network')+'/'+keywordType+'/'+self.model.get('label')+'/'+timeStep+'/'+Constants.startDateTime+'/'+Constants.endDateTime;
                 app.router.navigate(url, true);
             });
 
