@@ -1171,7 +1171,7 @@ svg .line {
 }
 #compare .navigation {
   text-align: center;
-  margin: -30px auto 40px auto;
+  margin: -100px auto 40px auto;
 }
 #compare .navigation .lead {
   font-size: 16px;
@@ -1933,6 +1933,9 @@ select {
   width: 100%;
   top: 200px;
   z-index: 1001;
+}
+#loading .loading-text h2 {
+  border-bottom: none;
 }
 #loading #start-all {
   display: none;

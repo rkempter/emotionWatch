@@ -10,6 +10,10 @@ define([
 
     var tweetFrequencyCollection = Backbone.Collection.extend({
 
+        events: {
+            'sync': 'notify'
+        },
+
         initialize: function(options) {
             options = options || {};
             var self = this;
@@ -42,6 +46,11 @@ define([
                 });
             }
 
+            this.listenTo(this, 'sync', function() {
+                console.log('synced');
+                app.trigger('loaded');
+            });
+
             // Fetching the necessary data from the server.
             self.fetch({
                 data: $.param({
@@ -53,6 +62,10 @@ define([
                     keywordType: options.keywordType
                 }) 
             });
+        },
+
+        notify: function() {
+            
         },
 
         url: function() {
@@ -119,8 +132,6 @@ define([
                 localStartDateTime = new Date(localStartDateTime.getTime() + self.timeStep * 1000);
                 localEndDateTime = new Date(localEndDateTime.getTime() + self.timeStep * 1000);
             }
-
-            app.trigger('loaded');
 
             return models;
         },

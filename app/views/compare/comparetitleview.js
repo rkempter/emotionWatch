@@ -19,16 +19,19 @@ define([
 
         initialize: function() {
             _.bindAll(this, "render");
+            var self = this;
 
             console.log(this.model.toJSON());
             this.listenTo(app, 'close', this.close);
-            this.listenTo(app, 'loaded', this.showStart);
+            this.listenTo(app, 'loaded', self.showStart);
         },
 
         showStart: function() {
-            console.log('show start loaded');
+            this.start = true;
             $('#loading .loading-text h2').hide();
             $('#loading #start-all').show(); 
+
+            console.log($('#loading'));
         },
 
         startAll: function() {
@@ -57,11 +60,14 @@ define([
 
         render: function() {
             var output = window.JST['app/templates/compare-title-template.html'](this.model.toJSON());
-            this.$el.html(output)
+            this.$el.html(output);
         },
 
         afterRender: function() {
-            
+            if(this.start === true) {
+                $('#loading .loading-text h2').hide();
+                $('#loading #start-all').show(); 
+            }
         }
 
         

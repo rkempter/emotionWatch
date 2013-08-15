@@ -78,7 +78,7 @@ require.config({
     "plugins/jquery.scrollto": ['jquery'],
     "plugins/bootstrap-modal": ['jquery'],
     "plugins/jquery.timer": ['jquery'],
-    "plugins/bootstrap-typeahead": ['jquery']
+    "plugins/typeahead.min": ['jquery']
   }
 
 });

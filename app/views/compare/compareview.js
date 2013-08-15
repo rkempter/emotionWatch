@@ -5,7 +5,7 @@ define([
     'backbone',
     'raphael',
     'jquery',
-    'plugins/bootstrap-typeahead'
+    'plugins/typeahead.min'
     ], 
     function(util, app, _, Backbone, Raphael, $) {
 
@@ -27,6 +27,7 @@ define([
                 var startTime = $('#initialization-form #start-time').val();
                 var endDate = $('#initialization-form #end-date').val();
                 var endTime = $('#initialization-form #end-time').val();
+                this.eventInfo = $('#events option:selected').val();
                 this.keywordTypeLeft = util.getKeywordType(this.keywordLeft);
                 this.keywordTypeRight = util.getKeywordType(this.keywordRight);
                 this.startDateTime = new Date(startDate + " "+startTime);
@@ -37,9 +38,8 @@ define([
                     '' === this.keywordRight ||
                     !util.isValidDate(this.startDateTime) ||
                     !util.isValidDate(this.endDateTime)) {
-                    console.log('error');
                     $('.alert-error').text('Please fill out all the fields correctly!')
-                } else {
+                } else if(this.eventInfo === '') {
                     var url = "#compare/";
                     url += this.networkLeft.toLowerCase()+"/";
                     url += this.keywordTypeLeft+"/";
@@ -54,6 +54,23 @@ define([
                     console.log(url);
 
                     app.router.navigate(url, true);     
+                } else {
+                    var url = "#compare/";
+                    url += "event/";
+                    url += this.eventInfo+"/";
+                    url += this.networkLeft.toLowerCase()+"/";
+                    url += this.keywordTypeLeft+"/";
+                    url += this.keywordLeft.slice(1)+"/";
+                    url += this.networkRight.toLowerCase()+"/";
+                    url += this.keywordTypeRight+"/";
+                    url += this.keywordRight.slice(1)+"/";
+                    url += this.timeStep+"/";
+                    url += this.startDateTime.getTime()+"/";
+                    url += this.endDateTime.getTime();
+
+                    console.log(url);
+
+                    app.router.navigate(url, true);    
                 }
             },
 
@@ -65,8 +82,11 @@ define([
                 }
 
                 $.get(app.server+'event/'+eventInfo, function(data) {
-                    var startDate = data.startDate;
-                    var endDate = data.endDate;
+                    console.log(data);
+                    var expr = /[\d]{4}-[\d]{2}-[\d]{2}/;
+                    var startDate = expr.exec(data.startDate)[0];
+                    var endDate = expr.exec(data.endDate)[0];
+                    console.log(startDate)
                     var startTime = data.startTime;
                     var endTime = data.endTime;
                     var topics = data.topics;
@@ -76,9 +96,7 @@ define([
                     $('#initialization-form #end-date').val(endDate);
                     $('#initialization-form #end-time').val(endTime);
 
-                    $('.typeahead').typeahead({
-                        source: topics
-                    });
+
                 });
             },
 
