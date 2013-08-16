@@ -5,7 +5,6 @@ define([
     "lodash",
     "util",
     "constants"
-
 ], function(app, Backbone, $, _, util, Constants) {
     
     var searchEventView = Backbone.View.extend({
@@ -13,112 +12,54 @@ define([
         template: 'searcheventtemplate',
 
         events: {
-            'click #event-search': 'triggerEventSearch',
-            'change #event-gender': 'triggerEventLoad',
-            'change #event-sport': 'triggerEventLoad',
-            'change #event-event': 'triggerEventSelection'
+            'click #event-search': 'triggerEventLoading'
         },
 
-        initialize: function() {
-            console.log('create eventsearch');
-            var self = this;
+        initialize: function(options) {
             // Bind this to the render function
-             _.bindAll(this, 'render');
-
-            // Define shorthand the welcomeModel
-            var searchEventModel = Backbone.Model.extend({
-                // Define Parse method of model
-                parse: function(response) {
-                    self.model.set('events', response);
-                }
+            // Define shorthand the model
+            var model = Backbone.Model.extend({
+                urlRoot: function() {
+                    return app.server+"getEventList";
+                } 
             });
             // Create new model
-            this.model = new searchEventModel();
+            this.model = new model();
 
-            this.model.set('gender', '');
-            this.model.set('sport', '');
-            this.model.set('video', false);
-            // BInd on change of model to render method
-            this.model.on("change", self.render, self);
+            this.model.fetch();
             this.listenTo(app, 'close', this.close);
         },
 
-        triggerEventSearch: function(event) {
-            // Read all values from the form
-            var withVideo = $('#event-video option:selected').val();
-            var network = $('#event-network option:selected').val();
-            var startDateTime = new Date($('#event-event option:selected').attr('data-startdatetime'));
-            var endDateTime = new Date($('#event-event option:selected').attr('data-enddateTime'));
-            var hashtagTwitter = $('#event-event option:selected').attr('data-hashtag-twitter');
-            var hashtagWeibo = $('#event-event option:selected').attr('data-hashtag-weibo');
-            var keyword;
+        triggerEventLoading: function() {
+            $option = $('#event-selection option:selected');
 
-            // Compute appropriate timestep
-            var timeStep = util.getTimeStep(startDateTime, endDateTime);
-            if(withVideo == 'true') {
-                timeStep = 5;
-            }
-            
-            // Select keyword according to the network
-            switch(network) {
-                case 'twitter':
-                    keyword = hashtagTwitter;
-                    break;
-                case 'weibo':
-                    keyword = hashtagWeibo;
-                    break;
-            }
-            // Find the keywordType (user, hashtag) @todo: keywordType event?
-            var keywordType = util.getKeywordType(keyword);
-            // Navigate to computeted route
-            if($('#event-sport option:selected').val() != 'empty' || $('#event-event option:selected').val() != 'empty') {
-                app.router.navigate('/search/'+network+'/event/'+keyword+'/'+timeStep+'/'+startDateTime.getTime()+'/'+endDateTime.getTime(), true);
-            }
+            var id = $option.val();
+            var startDateTime = $option.attr('data-start');
+            var endDateTime = $option.attr('data-end');
+            var network = $('#event-network option:selected').val();
+
+            var url = '#search/';
+            url += network+"/";
+            url += 'event/';
+            url += id+"/";
+            url += 5+"/";
+            url += new Date(startDateTime).getTime()+"/";
+            url += new Date(endDateTime).getTime();
+
+            console.log(url);
+
+            app.router.navigate(url, true);
         },
+
+        // Render template
+        // render: function(template) {
+        //     var output = template(this.model.toJSON());
+        //     this.$el.html( output );
+        // },
 
         close: function() {
             this.remove();
             this.unbind();
-        },
-
-        // If sport selected, load the possible events
-        triggerEventLoad: function() {
-            var self = this;
-            // Get gender and sport
-            this.model.set('gender', $('#event-gender option:selected').val());
-            this.model.set('sport', $('#event-sport option:selected').val());
-            // Fetch events
-            this.model.fetch({ 
-                data: $.param({ 
-                    gender: this.model.get('gender'),
-                    sport: this.model.get('sport')
-                }),
-                silent: true,
-                url: app.server+"specEvents"
-            });
-        },
-
-        triggerEventSelection: function() {
-            var video = $('#event-event option:selected').attr('data-hasvideo');
-            var selectedEvent = $('#event-event option:selected').text();
-            this.model.set('selectedEvent', selectedEvent);
-            if(video !== '') {
-                this.model.set('hasVideo', true);
-            }
-            this.render();
-        },
-
-        // Render template
-        render: function(template) {  
-            var events = this.model.get('events') || [];
-            var output = template({ 
-                events: events, 
-                sport: this.model.get("sport"), 
-                gender: this.model.get("gender"),
-                hasVideo: this.model.get("hasVideo"),
-                selectedEvent: this.model.get("selectedEvent")
-            });
-            this.$el.html( output );
         }
 
     });

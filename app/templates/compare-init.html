@@ -1,18 +1,11 @@
 <div id="compare">
     <div class="navigation">
         <h1 class="title">Compare events, topics or athletes</h1>
-        <p class="lead">Search for hashtags (with #, multiple hashtags separated by commas), athletes (seperated by commas) or events.</p>
     </div>
 
     <div id="initialization-form">
         <div class="init-column" id="left-watch">
             <h2>Left watch</h2>
-            <div class="control-group">
-                <label class="control-label" for="keywordLeft">Search term</label>
-                <div class="controls">
-                    <input type="text" data-provide="typeahead" name="keywordLeft" id="keywordLeft" class="typeahead" />
-                </div>
-            </div>
             <div class="control-group">
                 <label class="control-label" for="networkLeft">Network</label>
                 <div class="controls">
@@ -23,68 +16,50 @@
                     </select>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="keywordLeft">Search term</label>
+                <div id="keywordLeft" class="keywords">
+                    <% for(var i = 0; i < keywords.length; i++) { %>
+                        <label class="checkbox">
+                          <input type="checkbox" value="<%= keywords[i] %>" checked> <%= keywords[i] %>
+                        </label>
+                    <% }; %>
+                </div>
+            </div>
         </div>
         <div class="init-column" id="general-info">
-            <h2>Pick an event (not mandatory)</h2>
+            <h2>Pick an event</h2>
             <div class="control-group">
                 <label for="events" class="control-label">Event</label>
                 <div class="controls">
                     <select name="events" id="events">
-                        <option value="" selected>No event</option>
-                        <option value="513">Uneven Bars Final (Gymnastics) - Women</option>
-                        <option value="512">Vault (Gymnastics) - Men</option>
-                        <option value="506">Floor Exercise (Gymnastics) - Women</option>
-                        <option value="505">Balance Beam (Gymnastics) - Women</option>
-                        <option value="901">Final (Tennis) - Men</option>
+                        <% for(var event in events) { %>
+                        <option <% if(eventId === event) {%>selected<% }%> value="<%=events[event].id%>"><%=events[event].event%> (<%=events[event].sport%>) - <%=events[event].gender%></option>
+                        <% } %>
                     </select>
-                </div>
-            </div>
-
-
-            <h2>Date & Time</h2>
-            <div class="control-group">
-                <label class="control-label" for="start-date">Date at beginning</label>
-                <div class="controls">
-                    <input type="date" min="2012-07-26" max="2012-08-14" name="start-date" id="start-date" value="2012-08-06"/>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="start-time">Time at beginning</label>
-                <div class="controls">
-                    <input type="time" name="start-time" id="start-time" value="13:49:35"/>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="end-date">Date at end</label>
-                <div class="controls">
-                    <input type="date" min="2012-07-26" max="2012-08-14"  name="end-date" id="end-date" value="2012-08-06" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="end-time">Time at end</label>
-                <div class="controls">
-                    <input type="time" name="end-time" id="end-time" value="14:22:35" />
                 </div>
             </div>
         </div>
         <div class="init-column" id="right-watch">
             <h2>Right watch</h2>
             <div class="control-group">
-                <label class="control-label" for="keywordRight">Search term</label>
-                <div class="controls">
-                    <input type="text" data-provide="typeahead" name="keywordRight" class="typeahead" id="keywordRight" />
-                </div>
-            </div>
-            <div class="control-group">
                 <label class="control-label" for="networkRight">Network</label>
                 <div class="controls">
                     <select id="networkRight" name="networkRight">
-                        <option>Twitter</option>
+                        <option selected>Twitter</option>
                         <option>Weibo</option>
                         <option>Both</option>
                     </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="keywordRight">Search term</label>
+                <div id="keywordRight" class="keywords">
+                    <% for(var i = 0; i < keywords.length; i++) { %>
+                        <label class="checkbox">
+                          <input type="checkbox" value="<%= keywords[i] %>" checked> <%= keywords[i]%>
+                        </label>
+                    <% }; %>
                 </div>
             </div>
         </div>

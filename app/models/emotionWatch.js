@@ -244,11 +244,10 @@ define([
 
       var emotion = 'empty';
       var max = 0;
-      for(var i = 0; i < dataset.length; i++) {
-        var emotionset = dataset[i];
-        if(max < dataset[i].value) {
-          max = dataset[i].value;
-          emotion = dataset[i].emotion;
+      for(var index in dataset) {
+        if(max < dataset[index]) {
+          max = dataset[index];
+          emotion = index;
         }
       }
       // If we are in regular mode, change the background color accordingly
@@ -311,12 +310,14 @@ define([
       }
 
       if(null !== dataSet) {
-        var firstPoint = this.getPoint(dataSet[0].value, 0);
+        var firstPoint = this.getPoint(dataSet[Constants.labels[0].toLowerCase()], 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
         var totalNbr = Constants.labels.length;
+        console.log(dataSet);
         for(var i = 1; i < totalNbr; i++) {
-          var currentPoint = this.getPoint(dataSet[i].value, i);
+          console.log(dataSet[Constants.labels[i].toLowerCase()]);
+          var currentPoint = this.getPoint(dataSet[Constants.labels[i].toLowerCase()], i);
           var pathDiff = this.getRelativePoint(currentPoint, previous);
           pathString += " l "+pathDiff.x+" "+pathDiff.y;
           previous = currentPoint;

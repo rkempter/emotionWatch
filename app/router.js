@@ -45,7 +45,8 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'compare',
       "compare/:networkLeft/:keywordTypeLeft/:keywordLeft/:networkRight/:keywordTypeRight/:keywordRight/:timeStep/:startDateTime/:endDateTime": 'compare',
       "compare/event/:eventId/:networkLeft/:keywordTypeLeft/:keywordLeft/:networkRight/:keywordTypeRight/:keywordRight/:timeStep/:startDateTime/:endDateTime": 'compareEvent',
-      'comparesearch': 'compareInit'
+      'comparesearch': 'compareInit',
+      "comparesearch/:eventId": "compareInit"
     },
 
     close: function() {
@@ -178,12 +179,16 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       }).render();
     },
 
-    compareInit: function() {
+    compareInit: function(eventId) {
       this.close();
+
+      options = {};
+      options.eventId = eventId;
+
       app
         .useLayout('comparison-wrapper')
         .setViews({
-          '#comparison': new compareView()
+          '#comparison': new compareView(options)
         }).render();
     },
 

@@ -72,17 +72,14 @@
       <div class="menu-right">
         <ul>
           <li><a href="<%= urlSingle %>">Single watch view</a></li>
-          <li><a href="<%= urlPattern %>">Pattern watch view</a></li>
           <% if(keywordType == 'event') { %>
-          <li><a href="<%= urlCompare %>">Compare Twitter & Weibo</a></li>
+          <li><a href="#comparesearch/<%= keyword %>">Compare Twitter & Weibo</a></li>
           <% } %>
         </ul>
       </div>
     </div>
     
   </div>
-
-  
 </div>
 
 <div id="loading">

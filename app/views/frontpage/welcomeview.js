@@ -16,7 +16,24 @@ define([
 
         initialize: function() {
             // Bind view to close event
+            var model = Backbone.Model.extend({
+                urlRoot: function() {
+                    return app.server+"getEventList";
+                },
+                parse: function(data) {
+                    this.set('events', data);
+                }
+            });
+
+            this.model = new model();
+
+            this.model.fetch();
             this.listenTo(app, 'close', this.close);
+        },
+
+        render: function(template) {
+            var output = template(this.model.toJSON());
+            this.$el.html( output );
         },
 
         close: function() {

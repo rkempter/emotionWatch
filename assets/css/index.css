@@ -724,7 +724,7 @@ legend + .control-group {
 body {
   font-family: "ff-tisa-web-pro", sans-serif;
   font-weight: 400;
-  background: #787878;
+  background: #857a65;
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -737,127 +737,127 @@ body {
 }
 body #bottom,
 body.empty #bottom {
-  background: #787878;
+  background: #857a65;
 }
 body.involvement {
-  background: #3fa652;
+  background: #f3913b;
 }
 body.involvement #bottom {
-  background: #3fa652;
+  background: #f3913b;
 }
 body.amusement {
-  background: #40a630;
+  background: #e4633a;
 }
 body.amusement #bottom {
-  background: #40a630;
+  background: #e4633a;
 }
 body.pride {
-  background: #4da62a;
+  background: #ffb014;
 }
 body.pride #bottom {
-  background: #4da62a;
+  background: #ffb014;
 }
 body.happiness {
-  background: #e5d953;
+  background: #fff028;
 }
 body.happiness #bottom {
-  background: #e5d953;
+  background: #fff028;
 }
 body.pleasure {
-  background: #e5d953;
+  background: #bac300;
 }
 body.pleasure #bottom {
-  background: #e5d953;
+  background: #bac300;
 }
 body.love {
-  background: #a6c160;
+  background: #c9ff81;
 }
 body.love #bottom {
-  background: #a6c160;
+  background: #c9ff81;
 }
 body.awe {
-  background: #6ac9cb;
+  background: #46dc00;
 }
 body.awe #bottom {
-  background: #6ac9cb;
+  background: #46dc00;
 }
 body.relief {
-  background: #a83f14;
+  background: #91f790;
 }
 body.relief #bottom {
-  background: #a83f14;
+  background: #91f790;
 }
 body.surprise {
-  background: #33a9c5;
+  background: #01c889;
 }
 body.surprise #bottom {
-  background: #33a9c5;
+  background: #01c889;
 }
 body.nostalgia {
-  background: #a52834;
+  background: #73efe8;
 }
 body.nostalgia #bottom {
-  background: #a52834;
+  background: #73efe8;
 }
 body.pity {
-  background: #a32e68;
+  background: #4da9f0;
 }
 body.pity #bottom {
-  background: #a32e68;
+  background: #4da9f0;
 }
 body.sadness {
-  background: #4956a5;
+  background: #053ba5;
 }
 body.sadness #bottom {
-  background: #4956a5;
+  background: #053ba5;
 }
 body.worry {
-  background: #2eb69e;
+  background: #395cda;
 }
 body.worry #bottom {
-  background: #2eb69e;
+  background: #395cda;
 }
 body.shame {
-  background: #4c2fab;
+  background: #2a2972;
 }
 body.shame #bottom {
-  background: #4c2fab;
+  background: #2a2972;
 }
 body.guilt {
-  background: #002da7;
+  background: #755edc;
 }
 body.guilt #bottom {
-  background: #002da7;
+  background: #755edc;
 }
 body.regret {
-  background: #0032a7;
+  background: #712fbf;
 }
 body.regret #bottom {
-  background: #0032a7;
+  background: #712fbf;
 }
 body.envy {
-  background: #004eac;
+  background: #d235ff;
 }
 body.envy #bottom {
-  background: #004eac;
+  background: #d235ff;
 }
 body.disgust {
-  background: #8d418b;
+  background: #6e006e;
 }
 body.disgust #bottom {
-  background: #8d418b;
+  background: #6e006e;
 }
 body.contempt {
-  background: #e9746d;
+  background: #af259d;
 }
 body.contempt #bottom {
-  background: #e9746d;
+  background: #af259d;
 }
 body.anger {
-  background: #df4442;
+  background: #cc0100;
 }
 body.anger #bottom {
-  background: #df4442;
+  background: #cc0100;
 }
 body.frontpage {
   background: #0173d6;
@@ -1344,83 +1344,83 @@ svg .line {
 }
 .tweet span.date.involvement,
 .tweet .tweet-emotion.involvement {
-  background-color: #3fa652;
+  background-color: #f3913b;
 }
 .tweet span.date.amusement,
 .tweet .tweet-emotion.amusement {
-  background-color: #40a630;
+  background-color: #e4633a;
 }
 .tweet span.date.pride,
 .tweet .tweet-emotion.pride {
-  background-color: #4da62a;
+  background-color: #ffb014;
 }
 .tweet span.date.happiness,
 .tweet .tweet-emotion.happiness {
-  background-color: #e5d953;
+  background-color: #fff028;
 }
 .tweet span.date.pleasure,
 .tweet .tweet-emotion.pleasure {
-  background-color: #e5d953;
+  background-color: #bac300;
 }
 .tweet span.date.love,
 .tweet .tweet-emotion.love {
-  background-color: #a6c160;
+  background-color: #c9ff81;
 }
 .tweet span.date.awe,
 .tweet .tweet-emotion.awe {
-  background-color: #6ac9cb;
+  background-color: #46dc00;
 }
 .tweet span.date.relief,
 .tweet .tweet-emotion.relief {
-  background-color: #a83f14;
+  background-color: #91f790;
 }
 .tweet span.date.surprise,
 .tweet .tweet-emotion.surprise {
-  background-color: #33a9c5;
+  background-color: #01c889;
 }
 .tweet span.date.nostalgia,
 .tweet .tweet-emotion.nostalgia {
-  background-color: #a52834;
+  background-color: #73efe8;
 }
 .tweet span.date.pity,
 .tweet .tweet-emotion.pity {
-  background-color: #a32e68;
+  background-color: #4da9f0;
 }
 .tweet span.date.sadness,
 .tweet .tweet-emotion.sadness {
-  background-color: #4956a5;
+  background-color: #053ba5;
 }
 .tweet span.date.worry,
 .tweet .tweet-emotion.worry {
-  background-color: #2eb69e;
+  background-color: #395cda;
 }
 .tweet span.date.shame,
 .tweet .tweet-emotion.shame {
-  background-color: #4c2fab;
+  background-color: #2a2972;
 }
 .tweet span.date.guilt,
 .tweet .tweet-emotion.guilt {
-  background-color: #002da7;
+  background-color: #755edc;
 }
 .tweet span.date.regret,
 .tweet .tweet-emotion.regret {
-  background-color: #0032a7;
+  background-color: #712fbf;
 }
 .tweet span.date.envy,
 .tweet .tweet-emotion.envy {
-  background-color: #004eac;
+  background-color: #d235ff;
 }
 .tweet span.date.disgust,
 .tweet .tweet-emotion.disgust {
-  background-color: #8d418b;
+  background-color: #6e006e;
 }
 .tweet span.date.contempt,
 .tweet .tweet-emotion.contempt {
-  background-color: #e9746d;
+  background-color: #af259d;
 }
 .tweet span.date.anger,
 .tweet .tweet-emotion.anger {
-  background-color: #df4442;
+  background-color: #cc0100;
 }
 .stop-animation .tweet {
   display: none;
@@ -1452,7 +1452,7 @@ svg .line {
 .emotion-circle .empty,
 .labelcircle .empty,
 .date-time-freq .empty {
-  fill: #787878;
+  fill: #857a65;
 }
 .emotion-circle.involvement,
 .labelcircle.involvement,
@@ -1460,7 +1460,7 @@ svg .line {
 .emotion-circle .involvement,
 .labelcircle .involvement,
 .date-time-freq .involvement {
-  fill: #3fa652;
+  fill: #f3913b;
 }
 .emotion-circle.amusement,
 .labelcircle.amusement,
@@ -1468,7 +1468,7 @@ svg .line {
 .emotion-circle .amusement,
 .labelcircle .amusement,
 .date-time-freq .amusement {
-  fill: #40a630;
+  fill: #e4633a;
 }
 .emotion-circle.pride,
 .labelcircle.pride,
@@ -1476,7 +1476,7 @@ svg .line {
 .emotion-circle .pride,
 .labelcircle .pride,
 .date-time-freq .pride {
-  fill: #4da62a;
+  fill: #ffb014;
 }
 .emotion-circle.happiness,
 .labelcircle.happiness,
@@ -1484,7 +1484,7 @@ svg .line {
 .emotion-circle .happiness,
 .labelcircle .happiness,
 .date-time-freq .happiness {
-  fill: #e5d953;
+  fill: #fff028;
 }
 .emotion-circle.pleasure,
 .labelcircle.pleasure,
@@ -1492,7 +1492,7 @@ svg .line {
 .emotion-circle .pleasure,
 .labelcircle .pleasure,
 .date-time-freq .pleasure {
-  fill: #e5d953;
+  fill: #bac300;
 }
 .emotion-circle.love,
 .labelcircle.love,
@@ -1500,7 +1500,7 @@ svg .line {
 .emotion-circle .love,
 .labelcircle .love,
 .date-time-freq .love {
-  fill: #a6c160;
+  fill: #c9ff81;
 }
 .emotion-circle.awe,
 .labelcircle.awe,
@@ -1508,7 +1508,7 @@ svg .line {
 .emotion-circle .awe,
 .labelcircle .awe,
 .date-time-freq .awe {
-  fill: #6ac9cb;
+  fill: #46dc00;
 }
 .emotion-circle.relief,
 .labelcircle.relief,
@@ -1516,7 +1516,7 @@ svg .line {
 .emotion-circle .relief,
 .labelcircle .relief,
 .date-time-freq .relief {
-  fill: #a83f14;
+  fill: #91f790;
 }
 .emotion-circle.surprise,
 .labelcircle.surprise,
@@ -1524,7 +1524,7 @@ svg .line {
 .emotion-circle .surprise,
 .labelcircle .surprise,
 .date-time-freq .surprise {
-  fill: #33a9c5;
+  fill: #01c889;
 }
 .emotion-circle.nostalgia,
 .labelcircle.nostalgia,
@@ -1532,7 +1532,7 @@ svg .line {
 .emotion-circle .nostalgia,
 .labelcircle .nostalgia,
 .date-time-freq .nostalgia {
-  fill: #a52834;
+  fill: #73efe8;
 }
 .emotion-circle.pity,
 .labelcircle.pity,
@@ -1540,7 +1540,7 @@ svg .line {
 .emotion-circle .pity,
 .labelcircle .pity,
 .date-time-freq .pity {
-  fill: #a32e68;
+  fill: #4da9f0;
 }
 .emotion-circle.sadness,
 .labelcircle.sadness,
@@ -1548,7 +1548,7 @@ svg .line {
 .emotion-circle .sadness,
 .labelcircle .sadness,
 .date-time-freq .sadness {
-  fill: #4956a5;
+  fill: #053ba5;
 }
 .emotion-circle.worry,
 .labelcircle.worry,
@@ -1556,7 +1556,7 @@ svg .line {
 .emotion-circle .worry,
 .labelcircle .worry,
 .date-time-freq .worry {
-  fill: #2eb69e;
+  fill: #395cda;
 }
 .emotion-circle.shame,
 .labelcircle.shame,
@@ -1564,7 +1564,7 @@ svg .line {
 .emotion-circle .shame,
 .labelcircle .shame,
 .date-time-freq .shame {
-  fill: #4c2fab;
+  fill: #2a2972;
 }
 .emotion-circle.guilt,
 .labelcircle.guilt,
@@ -1572,7 +1572,7 @@ svg .line {
 .emotion-circle .guilt,
 .labelcircle .guilt,
 .date-time-freq .guilt {
-  fill: #002da7;
+  fill: #755edc;
 }
 .emotion-circle.regret,
 .labelcircle.regret,
@@ -1580,7 +1580,7 @@ svg .line {
 .emotion-circle .regret,
 .labelcircle .regret,
 .date-time-freq .regret {
-  fill: #0032a7;
+  fill: #712fbf;
 }
 .emotion-circle.envy,
 .labelcircle.envy,
@@ -1588,7 +1588,7 @@ svg .line {
 .emotion-circle .envy,
 .labelcircle .envy,
 .date-time-freq .envy {
-  fill: #004eac;
+  fill: #d235ff;
 }
 .emotion-circle.disgust,
 .labelcircle.disgust,
@@ -1596,7 +1596,7 @@ svg .line {
 .emotion-circle .disgust,
 .labelcircle .disgust,
 .date-time-freq .disgust {
-  fill: #8d418b;
+  fill: #6e006e;
 }
 .emotion-circle.contempt,
 .labelcircle.contempt,
@@ -1604,7 +1604,7 @@ svg .line {
 .emotion-circle .contempt,
 .labelcircle .contempt,
 .date-time-freq .contempt {
-  fill: #e9746d;
+  fill: #af259d;
 }
 .emotion-circle.anger,
 .labelcircle.anger,
@@ -1612,7 +1612,7 @@ svg .line {
 .emotion-circle .anger,
 .labelcircle .anger,
 .date-time-freq .anger {
-  fill: #df4442;
+  fill: #cc0100;
 }
 .emotion-circle {
   stroke-width: 0;
@@ -1918,6 +1918,46 @@ select {
   width: 100%;
   z-index: 10;
   top: 230px;
+}
+.dropdown label {
+  color: #1a1a1a;
+  text-align: left;
+}
+.dropdown-checkbox-toggle {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 /**** Loading ***/
 #loading .loading-background {

@@ -377,7 +377,7 @@ define([
                 var angle = 360 / totalNbr / 2 + i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
                 // THe point where we start drawing the label
-                var point = this.model.getPoint(1.36, i);
+                var point = this.model.getPoint(1.5, i);
                 // At the same time, we draw a small line from the center to the label
                 var linePoint = this.model.getPoint(1.25, i);
                 // Draw the text on the canvas
@@ -394,67 +394,22 @@ define([
                 line.node.setAttribute("class", "line");
                 lines.push(line);
                 // Draw circle with the emotion
-                labelCirclePoint = this.model.getPoint(1.3, i);
-                // var labelCircle = this.drawCircle(5, labelCirclePoint.x, labelCirclePoint.y);
-
-
-                var labelColorRect = paper.rect(labelCirclePoint.x, labelCirclePoint.y, 140, 30).toBack();
-                // labelColorPathArray.push(["M", labelCirclePoint.x, labelCirclePoint.y]);
-                // labelColorPathArray.push(["L", labelCirclePoint.x + (-length-20), labelCirclePoint.y]);
-                // var labelColorPath = paper.path(labelColorPathArray);
-
-                labelColorRect.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
+                // Draw circle with the emotion
+                labelCirclePoint = this.model.getPoint(1.35, i);
+                var labelCircle = this.drawCircle(15, labelCirclePoint.x, labelCirclePoint.y);
+                labelCircle.node.setAttribute('class', 'labelcircle '+textToPrint.toLowerCase());
 
                 // If the angle is between 90 and 270 degrees, we need to mirror the label
                 // and do a translation by the length of the label
-
-                console.log("========");
-                console.log(textToPrint);
-                console.log(point.x+" / "+point.y);
-                console.log(angle);
-                
-                var xDepl, yDepl;
-
-                // angle = 0;
-
-                if(angle > 0 && angle <= 180) {
-                    xDepl = Math.cos(angle/360 * 2*Math.PI) * 15;
-                    yDepl = Math.sin(angle/360 * 2*Math.PI) * 15;
-                } else {
-                    xDepl = Math.sin(angle/360 * 2*Math.PI) * 15;
-                    yDepl = Math.cos(angle/360 * 2*Math.PI) * 15; 
-                }
-
-                console.log(xDepl + "/" + yDepl);
-
-                // var xDepl = 0; var yDepl = 0;
-
-                if(angle > 0 && angle <= 90) {
-                    text.transform("r"+angle+","+point.x+","+point.y);
-                } else if(angle > 90 && angle <= 180) {
-                    text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
-                } else if(angle > 180 && angle <= 270) {
+                if(angle > 90 && angle <= 270) {
                     text.transform("r"+(angle+180)+","+point.x+","+point.y+",t"+(-length)+",0");
                 } else {
                     text.transform("r"+angle+","+point.x+","+point.y);
                 }
-
-                if(angle >= 0 && angle < 90) {
-                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(+xDepl)+","+(-yDepl));
-                } else if(angle >= 90 && angle <= 180) {
-                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(-yDepl));
-                } else if(angle > 180 && angle < 270) {
-                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(yDepl));
-                } else {
-                    labelColorRect.transform("r"+(angle)+","+labelCirclePoint.x+","+labelCirclePoint.y+",t"+(-xDepl)+","+(+yDepl));
-                }
-
-                
                 // Set a css class to the label
                 text.node.setAttribute("class", "label");
                 // Push the label to the array
-                labels[textToPrint] = text;
-                rects[textToPrint] = labelColorRect;
+                labels.push(text);
             }
 
             this.model.set("labels", labels);

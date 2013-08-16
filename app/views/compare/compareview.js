@@ -1,11 +1,10 @@
 define([
     'util',
     'app',
-    'underscore',
+    'lodash',
     'backbone',
     'raphael',
     'jquery',
-    'plugins/typeahead.min'
     ], 
     function(util, app, _, Backbone, Raphael, $) {
 
@@ -15,29 +14,62 @@ define([
 
             events: {
                 'click #load-visualization': 'evaluateForm',
-                'change #events': 'loadEventInfo'
+                'change #events': 'setEventInfoEvent'
+            },
+
+            initialize: function(options) {
+                _.bindAll(this, 'render');
+
+                var model = Backbone.Model.extend({
+                    urlRoot: function() {
+                        return app.server+"getEventList";
+                    },
+                    parse: function(data) {
+                        this.set("events", data);
+                        for(var id in data) {
+                            if(parseInt(this.get("eventId")) === parseInt(id)) {
+                                var keywords = data[id].twitter;
+                                if(data[id].weibo !== null) {
+                                    keywords += ",";
+                                    keywords += data[id].weibo;
+                                }
+
+                                this.set("keywords", keywords.split(","));
+                                this.set("startDateTime", data[id].startDateTime);
+                                this.set("endDateTime", data[id].endDateTime);
+                            }
+                        }
+                    }
+                });
+
+                this.model = new model();
+                this.model.set('eventId', 513);
+
+                if(options.eventId !== undefined) {
+                    this.model.set('eventId', options.eventId);
+                }
+
+                this.model.fetch();
+                this.listenTo(app, 'close', this.close);
             },
 
             evaluateForm: function() {
+                var startDateTime = new Date(this.model.get("startDateTime"));
+                var endDateTime = new Date(this.model.get("endDateTime"));
                 this.networkLeft = $('#initialization-form #networkLeft').val();
                 this.networkRight = $('#initialization-form #networkRight').val();
-                this.keywordLeft = $('#initialization-form #keywordLeft').val();
-                this.keywordRight = $('#initialization-form #keywordRight').val();
-                var startDate = $('#initialization-form #start-date').val();
-                var startTime = $('#initialization-form #start-time').val();
-                var endDate = $('#initialization-form #end-date').val();
-                var endTime = $('#initialization-form #end-time').val();
-                this.eventInfo = $('#events option:selected').val();
-                this.keywordTypeLeft = util.getKeywordType(this.keywordLeft);
-                this.keywordTypeRight = util.getKeywordType(this.keywordRight);
-                this.startDateTime = new Date(startDate + " "+startTime);
-                this.endDateTime = new Date(endDate+" "+endTime);
-                this.timeStep = util.getTimeStep(this.startDateTime, this.endDateTime);
+                this.keywordLeft = this.extractKeywords($('#initialization-form #keywordLeft input:checked'));
+                this.keywordRight = this.extractKeywords($('#initialization-form #keywordRight input:checked'));
+                this.eventInfo = this.model.get("eventId");
+                this.keywordTypeLeft = 'keyword';
+                this.keywordTypeRight = 'keyword';
+                this.timeStep = 5;
+
+                console.log(this.keywordRight);
+                console.log(this.keywordLeft);
 
                 if('' === this.keywordLeft ||
-                    '' === this.keywordRight ||
-                    !util.isValidDate(this.startDateTime) ||
-                    !util.isValidDate(this.endDateTime)) {
+                    '' === this.keywordRight) {
                     $('.alert-error').text('Please fill out all the fields correctly!')
                 } else if(this.eventInfo === '') {
                     var url = "#compare/";
@@ -48,10 +80,8 @@ define([
                     url += this.keywordTypeRight+"/";
                     url += this.keywordRight+"/";
                     url += this.timeStep+"/";
-                    url += this.startDateTime.getTime()+"/";
-                    url += this.endDateTime.getTime();
-
-                    console.log(url);
+                    url += startDateTime.getTime()+"/";
+                    url += endDateTime.getTime();
 
                     app.router.navigate(url, true);     
                 } else {
@@ -65,8 +95,8 @@ define([
                     url += this.keywordTypeRight+"/";
                     url += this.keywordRight+"/";
                     url += this.timeStep+"/";
-                    url += this.startDateTime.getTime()+"/";
-                    url += this.endDateTime.getTime();
+                    url += startDateTime.getTime()+"/";
+                    url += endDateTime.getTime();
 
                     console.log(url);
 
@@ -74,30 +104,49 @@ define([
                 }
             },
 
-            loadEventInfo: function() {
+            setEventInfoEvent: function(e) {
                 var eventInfo = $('#events option:selected').val();
+                
+                this.setEventInfo(eventInfo);
+            },
 
-                if(eventInfo === '') {
-                    return;
+            setEventInfo: function(eventId) {
+                var events = this.model.get("events");
+                var event = events[eventId];
+
+                this.model.set('startDateTime', event.startDateTime);
+                this.model.set('endDateTime', event.endDateTime);
+                this.model.set('eventId', eventId);
+
+                var keywords = event.twitter;
+
+                if(event.weibo !== null) {
+                    keywords += ",";
+                    keywords += event.weibo;
                 }
 
-                $.get(app.server+'event/'+eventInfo, function(data) {
-                    console.log(data);
-                    var expr = /[\d]{4}-[\d]{2}-[\d]{2}/;
-                    var startDate = expr.exec(data.startDate)[0];
-                    var endDate = expr.exec(data.endDate)[0];
-                    console.log(startDate)
-                    var startTime = data.startTime;
-                    var endTime = data.endTime;
-                    var topics = data.topics;
+                this.model.set("keywords", keywords.split(","));
 
-                    $('#initialization-form #start-date').val(startDate);
-                    $('#initialization-form #start-time').val(startTime);
-                    $('#initialization-form #end-date').val(endDate);
-                    $('#initialization-form #end-time').val(endTime);
+                console.log(keywords);
 
+                this.render();
+            },
 
+            extractKeywords: function($element) {
+                var keywords = [];
+                $element.each(function(i) {
+                    keywords.push($(this).val());
                 });
+
+                console.log(keywords);
+
+                return keywords.join(",");
+            },
+
+            render: function(template) {
+                console.log(this.model.toJSON());
+                var output = template(this.model.toJSON());
+                this.$el.html( output );
             },
 
             close: function() {

@@ -42,68 +42,27 @@ define(['backbone'], function(Backbone) {
         labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure'],
 
 
-        nullEmotion:
-            [
-                { emotion: "involvement",
-                  value: 0 
-                },
-                { emotion: "amusement",
-                  value: 0 
-                },
-                { emotion: "pride",
-                  value: 0 
-                },
-                { emotion: "happiness",
-                  value: 0 
-                },
-                { emotion: "pleasure",
-                  value: 0 
-                },
-                { emotion: "love",
-                  value: 0 
-                },
-                { emotion: "awe",
-                  value: 0 
-                },
-                { emotion: "relief",
-                  value: 0 
-                },
-                { emotion: "surprise",
-                  value: 0 
-                },
-                { emotion: "nostalgia",
-                  value: 0 
-                },
-                { emotion: "pity",
-                  value: 0 
-                },
-                { emotion: "sadness",
-                  value: 0 
-                },
-                { emotion: "worry",
-                  value: 0 
-                },
-                { emotion: "shame",
-                  value: 0 
-                },
-                { emotion: "guilt",
-                  value: 0 
-                },
-                { emotion: "regret",
-                  value: 0 
-                },
-                { emotion: "envy",
-                  value: 0 
-                },
-                { emotion: "disgust",
-                  value: 0 
-                },
-                { emotion: "contempt",
-                  value: 0 
-                },
-                { emotion: "anger",
-                  value: 0 
-                }
-            ]
+        nullEmotion: {
+            "involvement": 0, 
+            "amusement": 0,
+            "pride": 0,
+            "happiness": 0,
+            "pleasure":0, 
+            "love": 0,
+            "awe": 0,
+            "relief": 0,
+            "surprise": 0,
+            "nostalgia": 0, 
+            "pity": 0,
+            "sadness": 0,
+            "worry": 0,
+            "shame": 0,
+            "guilt": 0,
+            "regret": 0, 
+            "envy": 0,
+            "disgust": 0,
+            "contempt": 0, 
+            "anger": 0
+        }
     };
 });

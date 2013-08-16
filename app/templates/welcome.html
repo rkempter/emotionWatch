@@ -6,46 +6,12 @@
     <p>Dive into one of our most interesting picks and revive the emotions of the Olympic Events!</p>
     <h4>The most interesting picks of the Olympic Games</h4>
     <ul>
+        <% for(var i in events) { %>
         <li>
-          <a href="#search/twitter/event/gymnastics/5/1344343620000/1344346020000">
-            Gymnastics Artistic Women's Beam Final
-          </a>
+          <h3><%=events[i].sport%>, <%=events[i].event%>, <%=events[i].gender%></h3>
+          <a href="#search/twitter/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Twitter</a> <a href="#search/weibo/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Weibo</a> <a href="#search/both/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Both</a>
         </li>
-        <li>
-          <a href="#search/twitter/event/gymnastics/5/1344256680000/1344258720000">
-            Gymnastics Artistic Men's Vault Final
-          </a>
-        </li>
-        <li>
-          <a href="#search/twitter/event/gymnastics/5/1344253775000/1344255755000">
-            Gymnastics Artistic Women's Uneven Bars Final
-          </a>
-        </li>
-        <li>
-          <a href="#search/twitter/event/gymnastics/5/1344346560000/1344348840000">
-            Gymnastics Artistic Women's Floor Final
-          </a>
-        </li>
-        <li>
-          <a href="#search/twitter/event/901/5/1344163500000/1344171300000">
-            Tennis Men's Single Final
-          </a>
-        </li>
-        <li>
-          <a href="#search/twitter/event/swimming/5/1344015480000/1344015840000">
-            Swimming: 100m Butterfly Final
-          </a>
-        </li>
-         <li>
-          <a href="#search/twitter/event/swimming/5/1343588400000/1343588940000">
-            Swimming: 4x100m Free Men
-          </a>
-        </li>
-        <li>
-          <a href="#search/twitter/keyword/badminton/1800/1343739600000/1343826000000">
-            Badminton Scandal: Eight players got charged because they tried to lose their games
-          </a>
-        </li>
+        <% } %>
     </ul>
   </div>
 </div>
