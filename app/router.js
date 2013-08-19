@@ -35,6 +35,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
   var Router = Backbone.Router.extend({
     routes: {
       "": "index",
+      "home": "index",
       "about/": "about",
       "search": "search",
       "search/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'search',
@@ -117,7 +118,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 470, "y": 460},
+            centerPoint: Constants.centerPoint,
             topic: options.keyword,
             network: options.network,
             keywordType: options.keywordType
@@ -303,7 +304,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 470, "y": 460},
+            centerPoint: Constants.centerPoint,
             topic: keywordRight,
             network: options.networkRight,
             keywordType: keywordTypeRight
@@ -319,7 +320,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 470, "y": 460},
+            centerPoint: Constants.centerPoint,
             topic: keywordLeft,
             network: options.networkLeft,
             keywordType: keywordTypeLeft
@@ -366,7 +367,9 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           model: new videoModel({
             keyword: eventId,
             keywordType: 'event',
-            timeStep: 5
+            timeStep: 5,
+            startDateTime: options.startDateTime,
+            endDateTime: options.endDateTime
           })
         }),
 
@@ -449,7 +452,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 470, "y": 460},
+            centerPoint: Constants.centerPoint,
             topic: keywordRight,
             network: options.networkRight,
             keywordType: keywordTypeRight
@@ -465,7 +468,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             startDate: options.startDateTime,
             currentDateTime: options.currentDateTime,
             endDate: options.endDateTime,
-            centerPoint: {"x": 470, "y": 460},
+            centerPoint: Constants.centerPoint,
             topic: keywordLeft,
             network: options.networkLeft,
             keywordType: keywordTypeLeft

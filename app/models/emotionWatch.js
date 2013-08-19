@@ -144,15 +144,17 @@ define([
      */
     setCurrentDataSet: function() {
         var dateTime = this.get("currentDateTime");
+
         var dataset = this.get("queue")[dateTime.toMysqlFormat()];
+
         if(undefined === dataset) {
           // If no dataset for this moment, show the nullEmotion set
           this.set("currentDataSet", Constants.nullEmotion);
         } else {
           this.set("currentDataSet", dataset);
         }
-        // Get the dominant Emotion out from the data
-        this.dominantEmotion = this.getDominantEmotion();
+
+        
     },
 
     /**
@@ -301,6 +303,10 @@ define([
     getCurrentEmotionShapePath: function(options) {
       var dateTime = options.dateTime || null;
       var dataSet = null;
+
+      // Get the dominant Emotion out from the data
+      this.set('dominantEmotion', this.getDominantEmotion());
+
       if(null === dateTime) {
         dataSet = this.get("currentDataSet");
       } else {
@@ -314,9 +320,8 @@ define([
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
         var totalNbr = Constants.labels.length;
-        console.log(dataSet);
+
         for(var i = 1; i < totalNbr; i++) {
-          console.log(dataSet[Constants.labels[i].toLowerCase()]);
           var currentPoint = this.getPoint(dataSet[Constants.labels[i].toLowerCase()], i);
           var pathDiff = this.getRelativePoint(currentPoint, previous);
           pathString += " l "+pathDiff.x+" "+pathDiff.y;

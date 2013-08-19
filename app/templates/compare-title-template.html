@@ -1,9 +1,11 @@
 <div class="top">
     <div class="left-watch-info info-column">
         <h2><%= keywordLeft %> <small>Network: <%= networkLeft %></small></h2>
+        <a href="<%= leftLink %>">Analyze in Single Watch View</a>
     </div>
     <div class="right-watch-info info-column">
         <h2><%= keywordRight %> <small>Network: <%= networkRight %></small></h2>
+        <a href="<%= rightLink %>">Analyze in Single Watch View</a>
     </div>
 </div>
  
@@ -11,20 +13,17 @@
     <div class="video"></div>
     <div id="middle-info">
         <ul>
+            <li>
+                <h3>Current</h3>
+                <span class="dateTime">
+                    <%= firstDateTime %> - <%= secondDateTime %>
+                </span>
+            </li>
             <li>Start: <%=moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
             <li>End: <%=moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm:ss")%></li>
-            <li>Current: [<span class="dateTime"></span>]</li>
         </ul>
     </div>
     <div class="controls">
         <button id="start-stop-control-btn" class="btn btn-primary">Pause</button>
-    </div>
-</div>
-
-<div id="loading">
-    <div class="loading-background"></div>
-    <div class="loading-text">
-        <h2>Loading...</h2>
-        <button id="start-all" class="btn btn-primary">Start Visualisation</button>
     </div>
 </div>

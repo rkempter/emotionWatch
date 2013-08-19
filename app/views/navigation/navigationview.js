@@ -1,6 +1,6 @@
 define([
     "app",
-    "underscore",
+    "lodash",
     "jquery", 
     "backbone", 
     "raphael",
@@ -19,12 +19,12 @@ define([
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal',
-            'click #start-all': 'startAll'
+            'click #settings-btn': 'triggerSettingsModal'
         },
 
         initialize: function() {
             var self = this;
+            _.bindAll(this, 'render');
             // Load Settings, Event Search and Keyword search views into modals
 
             if(this.model.get('keywordType') === 'event') {
@@ -34,10 +34,10 @@ define([
                     })
                 });
             }
-            this.model.on('render', self.render, self);
-            this.listenTo(app, 'close', this.close);
-            this.listenTo(app, 'loaded', this.showStart);
-            
+
+            this.listenTo(app, 'close', self.close);
+            this.model.on("change", this.render, this);
+            this.listenTo(app, 'loaded', self.showStart);
         },
 
         showStart: function() {
@@ -69,42 +69,47 @@ define([
         },
 
         close: function() {
+            this.searchEvent.close();
+            this.searchKeyword.close();
+            this.settings.close();
+
+            // Remove view
             this.remove();
             this.unbind();
         },
 
         beforeRender: function() {
+            this.searchEvent = new searchEventView();
+            this.searchKeyword = new searchKeywordView();
+            this.settings = new settingsView({
+                model: new Backbone.Model(this.model.toJSON())
+            });
+
             this.insertViews({
-                '#search-event .modal-body': new searchEventView(),
-                '#search-keyword .modal-body': new searchKeywordView(),
-                '#settings-modal .modal-body': new settingsView({
-                    model: new Backbone.Model(this.model.toJSON())
-                })
+                '#search-event .modal-body': this.searchEvent,
+                '#search-keyword .modal-body': this.searchKeyword,
+                '#settings-modal .modal-body': this.settings
             });
         },
 
         // Render template with small submenu for the three views
-        render: function() {
-            var options = {};
-            var network = this.model.get('network') || 'twitter';
-            options.urlSingle = '#search/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
-            options.urlPattern = '#pattern/'+network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+        render: function(template) {
+            var options = this.model.toJSON();
+            options.urlSingle = '#search/'+options.network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
+            options.urlPattern = '#pattern/'+options.network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.urlCompare = '#compareinit/'+this.model.get('keyword');
-            options.startDateTime = this.model.get('startDateTime');
-            options.endDateTime = this.model.get('endDateTime');
-            options.event = this.model.get('event');
-            options.sport = this.model.get('sport');
-            options.gender = this.model.get('gender');
-            options.hashtag = this.model.get('keyword');
-            options.timeStep = util.getTimeStepFormat(this.model.get('timeStep'));
-            options.network = network;
-            options.keywordType = this.model.get('keywordType');
-            console.log(options);
-            var output = window.JST['app/templates/navbar.html'](options);
-            this.$el.html( output );
+            if(options.keywordType !== 'event' || options.sport !== undefined) {
+                var output = template(options);
+                this.$el.html( output );
+            }
         },
 
         afterRender: function() {
+            var self = this;
+            $('#start-all').click(function(e) {
+                e.preventDefault();
+                self.startAll();
+            });
             if(this.start === true) {
                 $('#loading .loading-text h2').hide();
                 $('#loading #start-all').show(); 

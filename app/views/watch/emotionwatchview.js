@@ -21,8 +21,7 @@ define([
             var self = this;
 
             this.previewShape = null;
-
-            console.log("MODE: "+this.model.get("mode"));
+            this.activated = false;
 
             // Create a set of elements
             this.model.set("setOfElements", this.model.get('paper').set());
@@ -47,18 +46,13 @@ define([
 
             // Create the shape when all data from the server is parsed.
             this.model.on('parsed', this.createEmotionShape, this);
-
-            // Bind animation to events
-            //this.activateWatch();
             
             // Draw the labels
             this.drawLabelTexts();
 
-            if(this.model.get("mode") == 'static' || this.model.get("mode") == 'pattern') {
+            if(this.model.get("mode") == 'static') {
                 // Pattern & compare view: you can click on any element and you jump to the single view with
                 // the current time as a parameter
-                console.log('mode');
-                console.log(this.model.get("mode"));
 
                 self.model.get("setOfElements").click(function(event) {
                     var keyword = self.model.get("topic");
@@ -90,12 +84,15 @@ define([
 
         // Actiavtion of the watch: activate animations on the watch elements
         activateWatch: function() {
-            var self = this;
-            app.trigger('start:watch');
-            this.model.on("change:currentDataSet", this.animateEmotionShape, this);
-            this.model.on("change:currentDataSet", this.animateCircle, this);
-            this.model.on("change:currentDateTime", this.animateTimeLine, this);
-            this.model.on("change:currentDateSet", this.highlightDominantEmotion, this);
+            if(this.activated === false) {
+                this.activated = true;
+                var self = this;
+                app.trigger('start:watch');
+                this.model.on("change:currentDataSet", this.animateEmotionShape, this);
+                this.model.on("change:currentDataSet", this.animateCircle, this);
+                this.model.on("change:currentDateTime", this.animateTimeLine, this);
+                this.model.on("change:currentDateSet", this.highlightDominantEmotion, this);
+            }
         },
 
         // draw elements that are not bound to any data.
@@ -128,29 +125,6 @@ define([
                 this.model.get("centerCircle"),
                 this.model.get("timeCircleBorder")
             );
-        },
-
-        // On the pattern watches, one should see clearly the dominant emotion.
-        // Therefore, we draw a circle in the background with the color of the dominant
-        // emotion
-        drawDominantEmotion: function() {
-            var paper = this.model.get('paper');
-            this.model.set("dominantEmotionCircle", this.drawCircle(this.model.get("emotionCircleRadius"), this.model.get("centerPoint").x, this.model.get("centerPoint").y));
-            this.model.get("dominantEmotionCircle").toBack();
-            var dominantEmotion = this.model.getDominantEmotion();
-            this.model.get("dominantEmotionCircle").node.setAttribute('class', 'emotion-circle '+dominantEmotion.toLowerCase());
-            this.model.get("setOfElements").push(
-                this.model.get("dominantEmotionCircle")
-            );
-
-            if(dominantEmotion != 'empty') {
-                var textPointx = this.model.get('centerPoint').x;
-                var textPointy = this.model.get('centerPoint').y - 50;
-                var text = paper.print(textPointx, textPointy, dominantEmotion, paper.getFont("Sanchez"), 18);
-                var textLength = text.getBBox().width;
-                text.transform("t"+(-textLength/2)+",0");
-                text.node.setAttribute('class', 'pattern-text');
-            }
         },
 
         /**
@@ -199,6 +173,7 @@ define([
          */
         createEmotionShape: function() {
             this.model.set("emotionShape", this.drawEmotionShape());
+
             this.model.get("emotionShape").attr({ 
                 "fill": Constants.emotionShapeFillColor,
                 "stroke": Constants.emotionShapeStrokeColor
@@ -207,10 +182,6 @@ define([
             this.model.get("setOfElements").push(
                 this.model.get("emotionShape")
             );
-        },
-
-        afterRender: function() {
-            // this.activateWatch();
         },
 
         /**
@@ -239,6 +210,11 @@ define([
             var animationObject = Raphael.animation({
                 path: newPath
             }, app.animationDuration, Constants.animationType);
+
+            if(this.model.get('mode') === 'compare') {
+                var dominantEmotion = this.model.get("dominantEmotion");
+                this.model.get("emotionShape").node.setAttribute('class', dominantEmotion.toLowerCase());
+            }
 
             if(undefined !== this.model.get("emotionShape")) {
                 this.model.get("emotionShape").animate(animationObject);

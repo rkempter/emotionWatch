@@ -18,6 +18,7 @@ define([
       },
 
       initialize: function() {
+        _.bindAll(this, 'render');
         keyword = this.model.get('keyword');
         this.currentDateTime = this.model.get('currentDateTime');
         this.listenTo(app, 'close', this.close);
@@ -68,8 +69,7 @@ define([
 
       // Render template with the paramters
       render: function(template) {
-        console.log(this.model.get('endDateTime'));
-        console.log(this.model.get('startDateTime'));
+        console.log('rendering settingsview');
         var output = template({
           animationDuration: this.model.get('animationDuration'),
           timeStep: this.model.get('timeStep'),

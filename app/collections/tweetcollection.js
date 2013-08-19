@@ -29,9 +29,6 @@ define([
                     keywordType: options.keywordType
                 })
             });
-
-            // Listen to the globalTime change event triggered from the clock.
-            // Fetch new tweets according to the dateTime and the time slot length
         },
 
         // If emotion choosen, fetch tweets according to the emotion
@@ -55,6 +52,7 @@ define([
         },
 
         parse: function(response) {
+            console.log(response);
 
             // Delete tweets from the dom
             if(this.viewPointer.length > 30) {

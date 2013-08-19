@@ -21,7 +21,7 @@
                 <div id="keywordLeft" class="keywords">
                     <% for(var i = 0; i < keywords.length; i++) { %>
                         <label class="checkbox">
-                          <input type="checkbox" value="<%= keywords[i] %>" checked> <%= keywords[i] %>
+                          <input type="checkbox" value="<%= keywords[i] %>"> <%= keywords[i] %>
                         </label>
                     <% }; %>
                 </div>
@@ -37,6 +37,11 @@
                         <option <% if(eventId === event) {%>selected<% }%> value="<%=events[event].id%>"><%=events[event].event%> (<%=events[event].sport%>) - <%=events[event].gender%></option>
                         <% } %>
                     </select>
+                </div>
+            </div>
+            <div class="submit">
+                <button id="load-visualization" class="btn btn-primary">Load visualization</button>
+                <div class="alert alert-error">
                 </div>
             </div>
         </div>
@@ -57,18 +62,11 @@
                 <div id="keywordRight" class="keywords">
                     <% for(var i = 0; i < keywords.length; i++) { %>
                         <label class="checkbox">
-                          <input type="checkbox" value="<%= keywords[i] %>" checked> <%= keywords[i]%>
+                          <input type="checkbox" value="<%= keywords[i] %>"> <%= keywords[i]%>
                         </label>
                     <% }; %>
                 </div>
             </div>
-        </div>
-        
-        <div class="submit">
-            <button id="load-visualization" class="btn btn-primary">Load visualization</button>
-            <div class="alert alert-error">
-            </div>
-            
         </div>
     </div>
 </div>

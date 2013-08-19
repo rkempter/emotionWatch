@@ -3,7 +3,11 @@
     <div class="control-group">
         <label class="control-label" for="event-sport">Choose an event</label>
         <div class="controls">
-            
+            <select id="event-selection">
+                <% for(var i in events) { %>
+                <option value="<%=events[i].id%>"><%= events[i].sport%>, <%=events[i].event %>, <%=events[i].gender%></option>
+                <% } %>
+            </select>
         </div>
     </div>
     <div class="control-group">

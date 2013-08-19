@@ -16,26 +16,32 @@ define([
         },
 
         initialize: function(options) {
+            
             // Bind this to the render function
             // Define shorthand the model
             var model = Backbone.Model.extend({
                 urlRoot: function() {
                     return app.server+"getEventList";
-                } 
+                },
+                parse: function(data) {
+                    this.set('events', data);
+                }
             });
             // Create new model
             this.model = new model();
-
+            _.bindAll(this, 'render');
             this.model.fetch();
+            this.model.on("change", this.render, this);
             this.listenTo(app, 'close', this.close);
+            
         },
 
         triggerEventLoading: function() {
             $option = $('#event-selection option:selected');
 
             var id = $option.val();
-            var startDateTime = $option.attr('data-start');
-            var endDateTime = $option.attr('data-end');
+            var events = this.model.get('events');
+            var event = events[id];
             var network = $('#event-network option:selected').val();
 
             var url = '#search/';
@@ -43,19 +49,19 @@ define([
             url += 'event/';
             url += id+"/";
             url += 5+"/";
-            url += new Date(startDateTime).getTime()+"/";
-            url += new Date(endDateTime).getTime();
-
-            console.log(url);
+            url += new Date(event.startDateTime).getTime()+"/";
+            url += new Date(event.endDateTime).getTime();
 
             app.router.navigate(url, true);
         },
 
         // Render template
-        // render: function(template) {
-        //     var output = template(this.model.toJSON());
-        //     this.$el.html( output );
-        // },
+        render: function(template) {
+            if(this.model.get('events') !== undefined) {
+                var output = template(this.model.toJSON());
+                this.$el.html( output );
+            }
+        },
 
         close: function() {
             this.remove();

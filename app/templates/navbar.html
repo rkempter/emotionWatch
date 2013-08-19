@@ -32,7 +32,7 @@
     <div class="inside-title">
       <div class="menu-left">
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="#home">Home</a></li>
           <li id="settings-btn" class="modal-link" data-toggle="modal">
             Settings
           </li>
@@ -44,20 +44,20 @@
           </li>
         </ul>
       </div>
-      <% if(keywordType == 'event' && event !== undefined) { %>
+      <% if(keywordType === 'event' && event !== undefined) { %>
         <h1><%= sport, gender, event %></h1>
-      <% } else if(keywordType == 'keyword' && hashtag !== undefined) { %>
-        <h1><%= hashtag %></h1>
+      <% } else if(keywordType == 'keyword' && keyword !== undefined) { %>
+        <h1><%= keyword %></h1>
       <% } else { %>
         <h1>Event or keyword not found</h1>
       <% } %>
       <div class="subinfo">
         <div class="subinfo-tab start">
-          <h2>Date and time of begin</h2>
+          <h2>Timestamp of begin</h2>
           <h3><%= moment(new Date(startDateTime)).format("DD.MM.YYYY HH:mm") %></h3>
         </div>
         <div class="subinfo-tab end">
-          <h2>Date and time of end</h2>
+          <h2>Timestamp of end</h2>
           <h3><%= moment(new Date(endDateTime)).format("DD.MM.YYYY HH:mm") %></h3>
         </div>
         <div class="subinfo-tab timestep">
@@ -74,18 +74,11 @@
           <li><a href="<%= urlSingle %>">Single watch view</a></li>
           <% if(keywordType == 'event') { %>
           <li><a href="#comparesearch/<%= keyword %>">Compare Twitter & Weibo</a></li>
+          <% } else { %>
+          <li><a href="#comparesearch">Compare Twitter & Weibo</a></li>
           <% } %>
         </ul>
       </div>
     </div>
-    
   </div>
-</div>
-
-<div id="loading">
-    <div class="loading-background"></div>
-    <div class="loading-text">
-        <h2>Loading...</h2>
-        <button id="start-all" class="btn btn-primary">Start Visualisation</button>
-    </div>
 </div>

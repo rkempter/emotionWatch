@@ -1177,7 +1177,7 @@ svg .line {
   font-size: 16px;
 }
 #compare .control-group {
-  margin: 0 auto;
+  margin: 15px auto;
   width: 240px;
   text-align: center;
 }
@@ -1441,177 +1441,228 @@ svg .line {
 #pattern path {
   z-index: 1;
 }
+#compare .watch path {
+  transition-property: fill;
+  transition-duration: 5s;
+  transition-timing-function: linear;
+}
+#compare .watch path.empty {
+  fill: #aaaaaa;
+}
 .emotion-circle,
 .labelcircle,
-.date-time-freq {
+.date-time-freq,
+#compare .watch {
   z-index: 0;
 }
 .emotion-circle.empty,
 .labelcircle.empty,
 .date-time-freq.empty,
+#compare .watch.empty,
 .emotion-circle .empty,
 .labelcircle .empty,
-.date-time-freq .empty {
+.date-time-freq .empty,
+#compare .watch .empty {
   fill: #857a65;
 }
 .emotion-circle.involvement,
 .labelcircle.involvement,
 .date-time-freq.involvement,
+#compare .watch.involvement,
 .emotion-circle .involvement,
 .labelcircle .involvement,
-.date-time-freq .involvement {
+.date-time-freq .involvement,
+#compare .watch .involvement {
   fill: #f3913b;
 }
 .emotion-circle.amusement,
 .labelcircle.amusement,
 .date-time-freq.amusement,
+#compare .watch.amusement,
 .emotion-circle .amusement,
 .labelcircle .amusement,
-.date-time-freq .amusement {
+.date-time-freq .amusement,
+#compare .watch .amusement {
   fill: #e4633a;
 }
 .emotion-circle.pride,
 .labelcircle.pride,
 .date-time-freq.pride,
+#compare .watch.pride,
 .emotion-circle .pride,
 .labelcircle .pride,
-.date-time-freq .pride {
+.date-time-freq .pride,
+#compare .watch .pride {
   fill: #ffb014;
 }
 .emotion-circle.happiness,
 .labelcircle.happiness,
 .date-time-freq.happiness,
+#compare .watch.happiness,
 .emotion-circle .happiness,
 .labelcircle .happiness,
-.date-time-freq .happiness {
+.date-time-freq .happiness,
+#compare .watch .happiness {
   fill: #fff028;
 }
 .emotion-circle.pleasure,
 .labelcircle.pleasure,
 .date-time-freq.pleasure,
+#compare .watch.pleasure,
 .emotion-circle .pleasure,
 .labelcircle .pleasure,
-.date-time-freq .pleasure {
+.date-time-freq .pleasure,
+#compare .watch .pleasure {
   fill: #bac300;
 }
 .emotion-circle.love,
 .labelcircle.love,
 .date-time-freq.love,
+#compare .watch.love,
 .emotion-circle .love,
 .labelcircle .love,
-.date-time-freq .love {
+.date-time-freq .love,
+#compare .watch .love {
   fill: #c9ff81;
 }
 .emotion-circle.awe,
 .labelcircle.awe,
 .date-time-freq.awe,
+#compare .watch.awe,
 .emotion-circle .awe,
 .labelcircle .awe,
-.date-time-freq .awe {
+.date-time-freq .awe,
+#compare .watch .awe {
   fill: #46dc00;
 }
 .emotion-circle.relief,
 .labelcircle.relief,
 .date-time-freq.relief,
+#compare .watch.relief,
 .emotion-circle .relief,
 .labelcircle .relief,
-.date-time-freq .relief {
+.date-time-freq .relief,
+#compare .watch .relief {
   fill: #91f790;
 }
 .emotion-circle.surprise,
 .labelcircle.surprise,
 .date-time-freq.surprise,
+#compare .watch.surprise,
 .emotion-circle .surprise,
 .labelcircle .surprise,
-.date-time-freq .surprise {
+.date-time-freq .surprise,
+#compare .watch .surprise {
   fill: #01c889;
 }
 .emotion-circle.nostalgia,
 .labelcircle.nostalgia,
 .date-time-freq.nostalgia,
+#compare .watch.nostalgia,
 .emotion-circle .nostalgia,
 .labelcircle .nostalgia,
-.date-time-freq .nostalgia {
+.date-time-freq .nostalgia,
+#compare .watch .nostalgia {
   fill: #73efe8;
 }
 .emotion-circle.pity,
 .labelcircle.pity,
 .date-time-freq.pity,
+#compare .watch.pity,
 .emotion-circle .pity,
 .labelcircle .pity,
-.date-time-freq .pity {
+.date-time-freq .pity,
+#compare .watch .pity {
   fill: #4da9f0;
 }
 .emotion-circle.sadness,
 .labelcircle.sadness,
 .date-time-freq.sadness,
+#compare .watch.sadness,
 .emotion-circle .sadness,
 .labelcircle .sadness,
-.date-time-freq .sadness {
+.date-time-freq .sadness,
+#compare .watch .sadness {
   fill: #053ba5;
 }
 .emotion-circle.worry,
 .labelcircle.worry,
 .date-time-freq.worry,
+#compare .watch.worry,
 .emotion-circle .worry,
 .labelcircle .worry,
-.date-time-freq .worry {
+.date-time-freq .worry,
+#compare .watch .worry {
   fill: #395cda;
 }
 .emotion-circle.shame,
 .labelcircle.shame,
 .date-time-freq.shame,
+#compare .watch.shame,
 .emotion-circle .shame,
 .labelcircle .shame,
-.date-time-freq .shame {
+.date-time-freq .shame,
+#compare .watch .shame {
   fill: #2a2972;
 }
 .emotion-circle.guilt,
 .labelcircle.guilt,
 .date-time-freq.guilt,
+#compare .watch.guilt,
 .emotion-circle .guilt,
 .labelcircle .guilt,
-.date-time-freq .guilt {
+.date-time-freq .guilt,
+#compare .watch .guilt {
   fill: #755edc;
 }
 .emotion-circle.regret,
 .labelcircle.regret,
 .date-time-freq.regret,
+#compare .watch.regret,
 .emotion-circle .regret,
 .labelcircle .regret,
-.date-time-freq .regret {
+.date-time-freq .regret,
+#compare .watch .regret {
   fill: #712fbf;
 }
 .emotion-circle.envy,
 .labelcircle.envy,
 .date-time-freq.envy,
+#compare .watch.envy,
 .emotion-circle .envy,
 .labelcircle .envy,
-.date-time-freq .envy {
+.date-time-freq .envy,
+#compare .watch .envy {
   fill: #d235ff;
 }
 .emotion-circle.disgust,
 .labelcircle.disgust,
 .date-time-freq.disgust,
+#compare .watch.disgust,
 .emotion-circle .disgust,
 .labelcircle .disgust,
-.date-time-freq .disgust {
+.date-time-freq .disgust,
+#compare .watch .disgust {
   fill: #6e006e;
 }
 .emotion-circle.contempt,
 .labelcircle.contempt,
 .date-time-freq.contempt,
+#compare .watch.contempt,
 .emotion-circle .contempt,
 .labelcircle .contempt,
-.date-time-freq .contempt {
+.date-time-freq .contempt,
+#compare .watch .contempt {
   fill: #af259d;
 }
 .emotion-circle.anger,
 .labelcircle.anger,
 .date-time-freq.anger,
+#compare .watch.anger,
 .emotion-circle .anger,
 .labelcircle .anger,
-.date-time-freq .anger {
+.date-time-freq .anger,
+#compare .watch .anger {
   fill: #cc0100;
 }
 .emotion-circle {
@@ -1713,12 +1764,16 @@ svg .line {
   font-size: 18px;
 }
 /**** Detail ****/
+.detail-block {
+  position: relative;
+  margin-left: 2%;
+}
 .detail-block div {
   z-index: 10;
   padding: 5px;
   text-align: center;
-  position: fixed;
-  bottom: 115px;
+  position: absolute;
+  bottom: 15px;
   height: 100px;
   width: 160px;
   margin-left: -80px;
@@ -1906,12 +1961,28 @@ select {
   text-align: center;
   width: 50%;
   float: left;
+  position: relative;
+  z-index: 900;
+}
+#compare .information .left-watch-info a,
+#compare .information .right-watch-info a {
+  color: #ffffff;
+  font-size: 13px;
+  display: block;
+  margin-top: 15px;
 }
 #compare .information #middle-info {
   position: absolute;
   bottom: 120px;
   width: 100%;
   text-align: center;
+}
+#compare .information #middle-info h3 {
+  margin-bottom: 0px;
+}
+#compare .information #middle-info .dateTime {
+  display: block;
+  margin-bottom: 10px;
 }
 #compare .information .controls {
   position: absolute;
@@ -1958,6 +2029,10 @@ select {
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.checkbox {
+  text-align: left;
+  cursor: pointer;
 }
 /**** Loading ***/
 #loading .loading-background {

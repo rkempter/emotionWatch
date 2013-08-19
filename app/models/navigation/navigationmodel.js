@@ -15,9 +15,8 @@ define([
           for(var i = 0; i < response.length; i++) {
             this.set('event', response[i].event);
             this.set('gender', response[i].gender);
+            this.set('sport', response[i].sport);
           }
-          console.log('trigger!');
-          this.trigger('render');
         }
     });
 

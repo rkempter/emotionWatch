@@ -24,7 +24,7 @@ define(['backbone'], function(Backbone) {
 
         centerZeroCircleRadius: 20,
 
-        centerPoint: { x: 470, y: 460 },
+        centerPoint: { x: 470, y: 480 },
 
         patternCircleRadius: 100,
 

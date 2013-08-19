@@ -31,6 +31,7 @@
 
 @gray10: #ebebeb;
 @gray: #1a1a1a;
+@shapeGray: #aaaaaa;
 @grayDark: #000;
 @grayLight: #cccccc;
 @grayLighter: #cccccc;
@@ -610,7 +611,7 @@ svg{
     }
 
     .control-group{
-        margin: 0 auto;
+        margin: 15px auto;
         width: 240px;
         text-align: center;
 
@@ -904,7 +905,17 @@ svg{
     }
 }
 
-.emotion-circle, .labelcircle, .date-time-freq{
+#compare .watch path{
+    transition-property: fill;
+    transition-duration: 5s;
+    transition-timing-function: linear;
+
+    &.empty{
+        fill: @shapeGray;
+    }
+}
+
+.emotion-circle, .labelcircle, .date-time-freq, #compare .watch{
     z-index: 0;
 
     &.empty, .empty{
@@ -1127,6 +1138,11 @@ svg{
 
 /**** Detail ****/
 
+.detail-block{
+    position: relative;
+    margin-left: 2%;
+}
+
 .detail-block div{
     z-index: 10;
     padding: 5px;
@@ -1159,8 +1175,8 @@ svg{
         height: 10px;
     }
 
-    position: fixed;
-    bottom: 115px;
+    position: absolute;
+    bottom: 15px;
     height: 100px;
     width: 160px;
     margin-left: -80px;
@@ -1311,12 +1327,29 @@ select{
         text-align: center;
         width: 50%;
         float: left;
+        position: relative;
+        z-index: 900;
+
+        a{
+            color: @white;
+            font-size: 13px;
+            display: block;
+            margin-top: 15px;
+        }
     }
     #middle-info{
         position: absolute;
         bottom: 120px;
         width: 100%;
         text-align: center;
+
+        h3{
+            margin-bottom: 0px;
+        }
+        .dateTime{
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 
     .controls{
@@ -1336,6 +1369,11 @@ select{
 
 .dropdown-checkbox-toggle{
     .btn
+}
+
+.checkbox{
+    text-align: left;
+    cursor: pointer;
 }
 
 /**** Loading ***/

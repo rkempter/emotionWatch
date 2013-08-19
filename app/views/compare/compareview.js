@@ -70,7 +70,7 @@ define([
 
                 if('' === this.keywordLeft ||
                     '' === this.keywordRight) {
-                    $('.alert-error').text('Please fill out all the fields correctly!')
+                    $('.alert-error').text('Please select at least one keyword on each side!')
                 } else if(this.eventInfo === '') {
                     var url = "#compare/";
                     url += this.networkLeft.toLowerCase()+"/";

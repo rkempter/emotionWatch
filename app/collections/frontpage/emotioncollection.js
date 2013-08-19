@@ -23,7 +23,7 @@ define([
             for(var i = 0; i < response.length; i++) {
                 var label = response[i].hashtag;
                 var network = response[i].network;
-                console.log(network);
+
                 var emotions = [];
                 for(var index in response[i]) {
                     if(index !== 'hashtag' && index !== 'network') {

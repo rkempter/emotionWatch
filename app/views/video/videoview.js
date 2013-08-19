@@ -5,7 +5,6 @@ define([
     "lodash",
     "util",
     "constants"
-
 ], function(app, Backbone, $, _, util, Constants) {
     
     var videoView = Backbone.View.extend({
@@ -15,7 +14,7 @@ define([
         initialize: function() {
             var self = this;
             this.listenTo(app, 'close', this.close);
-            _.bindAll(this, 'render');
+            this.model.on("change", this.render, this);
 
             var eventId = this.model.get('keyword');
             var keywordType = this.model.get('keywordType');
@@ -30,8 +29,11 @@ define([
         },
           
         close: function() {
+            if(this.model.get('video-element') !== undefined)
+                this.model.get('video-element').pause();
             this.remove();
             this.unbind();
+            this.model.unbind("change", this.render);
         },
 
         render: function(template) {
@@ -49,27 +51,27 @@ define([
                 // Get the video dom element
                 var video = document.querySelector('video');
                 console.log(video);
-                if(video !== null || this.model.get('video') !== undefined) {
+                if(video !== null && this.model.get('video') !== undefined) {
                     // Save the video dom element
                     this.model.set('video-element', video);
                     // Listen to any start time event, triggered by the clock
-                    self.listenTo(app, 'start:time', function() {
+                    this.listenTo(app, 'start:time', function() {
                         self.model.get('video-element').play();
                     });
                     // Listen to a stop time event, triggered by the clock
-                    self.listenTo(app, 'stop:time', function() {
+                    this.listenTo(app, 'stop:time', function() {
                         self.model.get('video-element').pause();
                     });
 
-                    self.listenTo(app, 'pause:watch', function() {
+                    this.listenTo(app, 'pause:watch', function() {
                         self.model.get('video-element').pause();
                     });
 
-                    self.listenTo(app, 'resume:watch', function() {
+                    this.listenTo(app, 'resume:watch', function() {
                         self.model.get('video-element').play();
                     });
 
-                    self.listenTo(app, 'jumpToTime', self.jumpToVideo);
+                    this.listenTo(app, 'jumpToTime', self.jumpToVideo);
                     
                     var interval = setInterval(function(){
                         if (self.model.get('video-element').readyState > 0 && video !== null) {

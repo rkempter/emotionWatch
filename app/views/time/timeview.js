@@ -21,7 +21,6 @@ define([
             options = options || {};
 
             this.width = app.windowWidth;
-            console.log(this.width);
 
             var self = this;
 
@@ -200,8 +199,6 @@ define([
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
             }
-
-            console.log('rendering again!');
 
             if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
                 $('.time-block').css('width', position+'px');

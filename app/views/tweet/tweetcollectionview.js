@@ -11,15 +11,14 @@ define([
 
         tagName: 'ul',
 
-        events: {
-            'change #emotion-category': 'triggerEmotionCategory'
-        },
+        className: 'stop-animation',
 
         initialize: function() {
             _.bindAll(this, 'addOne');
             var self = this;
             this.listenTo(app, 'close', this.close);
             this.collection.on('add', this.addOne);
+            this.listenTo(app, 'start:all', this.startTweetAnimation);
 
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 var oldDateTime = self.collection.currentDateTime;
@@ -43,23 +42,16 @@ define([
             });
         },
 
-        // If an emotion is selected in the dropdown box, change model
-        triggerEmotionCategory: function(event) {
-            var emotion = $('#emotion-category option:selected').val();
-
-            if(emotion == 'all') {
-                emotion = '';
-            }
-
-            this.collection.setEmotion(emotion);
-        },
-
         addOne: function(model) {
             var view = new tweetView({
                 model: model
             });
             this.collection.viewPointer.push(view);
             this.$el.append(view.el);
+        },
+
+        startTweetAnimation: function() {
+            this.$el.removeClass('stop-animation');
         },
 
         // Close view

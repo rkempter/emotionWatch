@@ -28,11 +28,12 @@ define([
             if(this.model.get('keywordType') == 'event' && this.model.get('timeStep') == 5 && (this.model.get('x') > 4 && this.model.get('x') < 8)) { 
                 style = "display: none";
             } else {
-                style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s;";
+                style = "opacity: 0; left: "+coordinates.x+"px; top: "+coordinates.y+"px; -webkit-transform: translate3d(0, 0, -150px); -webkit-animation-name: "+animationName+"; -webkit-animation-delay: "+delay+"s; -webkit-animation-play-state, paused;";
             }
             
             this.model.set('styler', style);
             this.render();
+           
         },
 
         events: {
@@ -43,13 +44,15 @@ define([
             this.$el.addClass('stop-animation');
         },
 
+        removeStopClass: function() {
+            this.$el.removeClass('stop-animation');
+        },
+
         pauseAnimation: function() {
-            console.log('pause');
             this.$('.tweet').css('-webkit-animation-play-state', 'paused');
         },
 
         resumeAnimation: function() {
-            console.log('resume');
             this.$('.tweet').css('-webkit-animation-play-state', 'running');
         },
         
