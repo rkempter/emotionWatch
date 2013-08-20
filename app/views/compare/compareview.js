@@ -142,6 +142,20 @@ define([
                 }
             },
 
+            afterRender: function() {
+                $('.toggle').click(function(e) {
+                    $el = $(this);
+
+                    var elements = $el.is('#toggle-left') ? '#keywordLeft input' : '#keywordRight input';
+
+                    if($el.prop('checked')) {
+                        $(elements).prop('checked', true);
+                    } else {
+                        $(elements).prop('checked', false);
+                    }
+                });
+            },
+
             close: function() {
                 this.remove();
                 this.unbind();

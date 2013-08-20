@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="keywordLeft">Search term</label>
+                <input type="checkbox" id="toggle-left" title="Toggle all" class="toggle"><label class="control-label" for="keywordLeft">Search term</label>
                 <div id="keywordLeft" class="keywords">
                     <% for(var i = 0; i < keywords.length; i++) { %>
                         <label class="checkbox">
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="keywordRight">Search term</label>
+                <input type="checkbox" id="toggle-right"  title="Toggle all" class="toggle"><label class="control-label" for="keywordRight">Search term</label>
                 <div id="keywordRight" class="keywords">
                     <% for(var i = 0; i < keywords.length; i++) { %>
                         <label class="checkbox">
