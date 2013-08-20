@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<% if(keywordType === 'event') { %>
+<% if(keywordType === 'event' || eventId !== undefined) { %>
 <div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -76,11 +76,14 @@
             Settings
           </li>
           <% } %>
-          <% if(keywordType == 'event') { %>
+          <% if(eventId !== undefined) { %>
+          <li><a href="#comparesearch/<%= eventId %>">Compare keywords</a></li>
+          <li><a href="#compare/event/<%=eventId %>/twitter/event/<%=eventId%>/weibo/event/<%=eventId%>/5/<%=startDateTime.getTime()%>/<%=endDateTime.getTime()%>">Compare Twitter & Weibo</a></li>
+          <% } else if(keywordType === 'event') {%>
           <li><a href="#comparesearch/<%= keyword %>">Compare keywords</a></li>
           <li><a href="#compare/event/<%=keyword %>/twitter/event/<%=keyword%>/weibo/event/<%=keyword%>/5/<%=startDateTime.getTime()%>/<%=endDateTime.getTime()%>">Compare Twitter & Weibo</a></li>
           <% } %>
-          <% if(keywordType === 'event') { %>
+          <% if(keywordType === 'event' || eventId !== undefined) { %>
           <li id="search-keyword-btn" class="modal-link" data-toggle="modal">
             Filter by keywords
           </li>

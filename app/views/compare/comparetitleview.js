@@ -27,10 +27,38 @@ define([
             this.model.set("secondDateTime", moment(new Date(this.model.get("currentDateTime").getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
 
             this.generateLinks();
+            this.loadEventData();
 
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 self.changeCurrentDateTime(dateTime);
             });
+        },
+
+        loadEventData: function() {
+            var self = this;
+            if(this.model.get('keywordTypeLeft') === 'event') {
+                $.get(app.server+"getEventInfo", {
+                    id: this.model.get('keywordLeft')
+                }, function(data) {
+                    if(data.length === 1) {
+                        self.model.set('sportLeft', data[0].sport);
+                        self.model.set('eventLeft', data[0].event);
+                        self.model.set('genderLeft', data[0].gender);
+                    }
+                });
+            }
+
+            if(this.model.get('keywordTypeRight') === 'event') {
+                $.get(app.server+"getEventInfo", {
+                    id: this.model.get('keywordRight')
+                }, function(data) {
+                    if(data.length === 1) {
+                        self.model.set('sportRight', data[0].sport);
+                        self.model.set('eventRight', data[0].event);
+                        self.model.set('genderRight', data[0].gender);
+                    }
+                });
+            }
         },
 
         changeCurrentDateTime: function(dateTime) {

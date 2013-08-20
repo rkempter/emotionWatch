@@ -72,6 +72,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.network = network || 'twitter';
       options.keyword = keyword;
       options.keywordType = keywordType;
+      options.eventId = undefined;
 
       options.mode = 'regular';
       options.timeStep = timeStep;
@@ -135,6 +136,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.network = network || 'twitter';
       options.keyword = keyword;
       options.keywordType = keywordType;
+      options.eventId = eventId;
 
       options.mode = 'regular';
       options.timeStep = timeStep;

@@ -82,9 +82,11 @@ define([
         beforeRender: function() {
             this.searchEvent = new searchEventView();
 
-            if(this.model.get('keywordType') === 'event') {
+            if(this.model.get('keywordType') === 'event' || this.model.get('eventId') !== undefined) {
+                var id = this.model.get('keywordType') === 'event' ? this.model.get('keyword') : this.model.get('eventId');
+
                 this.searchKeyword = new searchKeywordView({
-                    id: this.model.get('keyword'),
+                    id: id,
                     network: this.model.get('network'),
                     timeStep: this.model.get('timeStep'),
                     "event": this.model.get('event'),
@@ -92,7 +94,7 @@ define([
                     sport: this.model.get('sport')
                 });
                 this.insertView('#search-keyword .modal-body', this.searchKeyword);
-            }
+            };
 
             this.settings = new settingsView({
                 model: new Backbone.Model(this.model.toJSON())
@@ -111,6 +113,7 @@ define([
             options.urlPattern = '#pattern/'+options.network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.urlCompare = '#compareinit/'+this.model.get('keyword');
             if(options.keywordType !== 'event' || options.sport !== undefined) {
+                console.log(options);
                 var output = template(options);
                 this.$el.html( output );
             }

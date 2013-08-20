@@ -1,7 +1,9 @@
 <div class="top">
     <div class="left-watch-info info-column">
         <h2 title="<%= keywordLeft%>">
-        <% if(keywordLeft.length < 25) { %>
+        <% if(keywordTypeLeft === 'event') { %>
+            <%=eventLeft%>, <%=sportLeft%>, <%=genderLeft%>
+        <% } else if(keywordLeft.length < 25) { %>
             <%= keywordLeft %>
         <% } else { %>
             <%= keywordLeft.substring(0, 25) %>...
@@ -12,7 +14,9 @@
     </div>
     <div class="right-watch-info info-column">
         <h2 title="<%= keywordRight%>">
-        <% if(keywordRight.length < 25) { %>
+        <% if(keywordTypeRight === 'event') { %>
+            <%=eventRight%>, <%=sportRight%>, <%=genderRight%>
+        <% } else if(keywordRight.length < 25) { %>
             <%= keywordRight %>
         <% } else { %>
             <%= keywordRight.substring(0, 25) %>...
