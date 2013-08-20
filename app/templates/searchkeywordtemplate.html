@@ -2,13 +2,21 @@
     <h2><%=event%> (<%=sport%>) - <%=gender%></h2>
     <p>Select search terms that you want to visualize of this specific event</p>
     <div class="control-group">
-        <label class="control-label" for="keywordLeft">Possible Search terms</label>
         <div id="keywords" class="keywords">
-            <% for(var i = 0; i < topics.length; i++) { %>
+            <div class="column">
+            <% for(var i = 0; i < Math.ceil(topics.length/2); i++) { %>
                 <label class="checkbox">
                   <input type="checkbox" value="<%= topics[i] %>" checked> <%= topics[i] %>
                 </label>
             <% }; %>
+            </div>
+            <div class="column">
+                <% for(var i = Math.ceil(topics.length/2); i < topics.length; i++) { %>
+                <label class="checkbox">
+                  <input type="checkbox" value="<%= topics[i] %>" checked> <%= topics[i] %>
+                </label>
+            <% }; %>
+            </div>
         </div>
     </div>
 

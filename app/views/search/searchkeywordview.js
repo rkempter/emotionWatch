@@ -57,8 +57,8 @@ define([
                 url += "keyword/";
                 url += keywords + "/";
                 url += this.model.get('timeStep') + "/";
-                url += this.model.get('startDateTime') + "/";
-                url += this.model.get('endDateTime');
+                url += new Date(this.model.get('startDateTime')).getTime() + "/";
+                url += new Date(this.model.get('endDateTime')).getTime();
 
                 app.router.navigate(url, true);
             } else {

@@ -70,7 +70,8 @@ define([
 
         close: function() {
             this.searchEvent.close();
-            this.searchKeyword.close();
+            if(this.searchKeyword !== undefined)
+                this.searchKeyword.close();
             this.settings.close();
 
             // Remove view
@@ -79,17 +80,19 @@ define([
         },
 
         beforeRender: function() {
-            console.log(this.model.toJSON());
             this.searchEvent = new searchEventView();
 
-            this.searchKeyword = new searchKeywordView({
-                id: this.model.get('keyword'),
-                network: this.model.get('network'),
-                timeStep: this.model.get('timeStep'),
-                "event": this.model.get('event'),
-                gender: this.model.get('gender'),
-                sport: this.model.get('sport')
-            });
+            if(this.model.get('keywordType') === 'event') {
+                this.searchKeyword = new searchKeywordView({
+                    id: this.model.get('keyword'),
+                    network: this.model.get('network'),
+                    timeStep: this.model.get('timeStep'),
+                    "event": this.model.get('event'),
+                    gender: this.model.get('gender'),
+                    sport: this.model.get('sport')
+                });
+                this.insertView('#search-keyword .modal-body', this.searchKeyword);
+            }
 
             this.settings = new settingsView({
                 model: new Backbone.Model(this.model.toJSON())
@@ -97,7 +100,6 @@ define([
 
             this.insertViews({
                 '#search-event .modal-body': this.searchEvent,
-                '#search-keyword .modal-body': this.searchKeyword,
                 '#settings-modal .modal-body': this.settings
             });
         },
