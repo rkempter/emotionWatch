@@ -350,6 +350,7 @@ define([
                 // The angle between consecutive labels
                 var angle = 360 / totalNbr / 2 + i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
+
                 // THe point where we start drawing the label
                 var point = this.model.getPoint(1.5, i);
                 // At the same time, we draw a small line from the center to the label
