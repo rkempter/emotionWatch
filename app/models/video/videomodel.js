@@ -13,7 +13,6 @@ define([
 
         parse: function(response) {
           for(var i = 0; i < response.length; i++) {
-            console.log(response[i]);
             this.set('video', response[i].video);
           }
         }

@@ -1,17 +1,20 @@
-<div id="welcome-screen" class="modal show" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">
-  <div class="modal-header">
-    <h3 id="myModalLabel">Welcome!</h3>
-  </div>
-  <div class="modal-body">
-    <p>Dive into one of our most interesting picks and revive the emotions of the Olympic Events!</p>
-    <h4>The most interesting picks of the Olympic Games</h4>
+<div id="welcome">
+  <h1 class="title">The Olympic Emotion Project</h1>
+
+  <div class="events">
+  <h2>The most interesting picks of the Olympic Games 2012 in London</h2>
+
     <ul>
-        <% for(var i in events) { %>
-        <li>
-          <h3><%=events[i].sport%>, <%=events[i].event%>, <%=events[i].gender%></h3>
-          <a href="#search/twitter/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Twitter</a> <a href="#search/weibo/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Weibo</a> <a href="#search/both/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Both</a>
-        </li>
-        <% } %>
+      <% for(var i in events) { %>
+      <li>
+        <h3><%=events[i].sport%>, <%=events[i].event%>, <%=events[i].gender%></h3>
+        <a href="#search/twitter/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Twitter</a> <a href="#search/weibo/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Weibo</a> <a href="#search/both/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Both</a>
+        <a href="#comparesearch/<%=events[i].id%>">Compare</a>
+      </li>
+      <% } %>
     </ul>
   </div>
+
+  <p class="lead">To get more information about this project, visit the <a href="http://grpupc1.epfl.ch/~valentina/OlympicProjectPage/OlympicProject.html">project page</a></p>
+
 </div>

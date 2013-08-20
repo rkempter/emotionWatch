@@ -10,7 +10,6 @@ define([
   "emotionwatch",
   "emotionwatchview",
   "emotionwatchcollection",
-  "emotionwatchcollectionview",
   "tweetcollection",
   "tweetcollectionview",
   "videoview",
@@ -26,10 +25,11 @@ define([
   "videomodel",
   "timeview_compare",
   "compareview",
-  "comparetitleview"
+  "comparetitleview",
+  "tweetfrequencycollectionview"
 ],
 
-function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, emotionWatchCollectionView, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView, compareView, compareTitleView) {
+function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWatchView, emotionWatchCollection, tweetCollection, tweetCollectionView, videoView, timeView, navigationView, tweetFrequencyCollection, frequencyPaperView, paperView, emotionCollectionView, welcomeView, detailView, navigationModel, videoModel, timeCompareView, compareView, compareTitleView, tweetFrequencyCollectionView) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
@@ -60,12 +60,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       this.close();
       
       app.useLayout('frontpage').setViews({
-        ".paper": new emotionCollectionView({
-          "width": "100%",
-          "height": "100%",
-          "x": 0,
-          "y": 0
-        }),
         ".welcome": new welcomeView()
       }).render();
     },
@@ -127,7 +121,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         ".tweets": new tweetCollectionView({
           collection: new tweetCollection(options)
         }),
-        ".bottom": new Backbone.View({
+        ".bottom": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection(options)
         })
       }).render();
@@ -163,7 +157,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           model: new navigationModel(options)
         }),
 
-        ".bottom": new Backbone.View({
+        ".bottom": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection(options)
         }),
         
@@ -217,10 +211,6 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = options.startDateTime;
 
-      console.log('is time: '+util.isValidDate(options.startDateTime));
-
-      console.log(options.keywordLeft);
-
       app.useLayout('compare-layout').setViews({
         // title
         ".information": new compareTitleView({
@@ -269,7 +259,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".right-watch .date-time-freq .paper", 
           "id": options.rightId
         }),
-        ".right-watch .bottom .freq": new Backbone.View({
+        ".right-watch .bottom .freq": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
@@ -282,7 +272,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }),
           mode: 'compare'
         }),
-        ".left-watch .bottom .freq": new Backbone.View({
+        ".left-watch .bottom .freq": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
@@ -353,17 +343,13 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = options.startDateTime;
 
-      console.log('is time: '+util.isValidDate(options.startDateTime));
-
-      console.log(options.keywordLeft);
-
       app.useLayout('compare-layout').setViews({
         // title
         ".information": new compareTitleView({
           model: new Backbone.Model(options)
         }),
 
-        ".video": new videoView({
+        "#video": new videoView({
           model: new videoModel({
             keyword: eventId,
             keywordType: 'event',
@@ -417,7 +403,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           "parent": ".right-watch .date-time-freq .paper", 
           "id": options.rightId
         }),
-        ".right-watch .bottom .freq": new Backbone.View({
+        ".right-watch .bottom .freq": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
@@ -430,7 +416,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           }),
           mode: 'compare'
         }),
-        ".left-watch .bottom .freq": new Backbone.View({
+        ".left-watch .bottom .freq": new tweetFrequencyCollectionView({
           collection: new tweetFrequencyCollection({
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,

@@ -44,12 +44,9 @@ define([
             this.start = true;
             $('#loading .loading-text h2').hide();
             $('#loading #start-all').show(); 
-
-            console.log($('#loading'));
         },
 
         startAll: function() {
-            console.log('start!');
             $loading = $('#loading');
             $loading.hide();
 
@@ -93,7 +90,6 @@ define([
         },
 
         render: function(template) {
-            console.log(this.model.toJSON());
             var output = template(this.model.toJSON());
             this.$el.html(output);
         },

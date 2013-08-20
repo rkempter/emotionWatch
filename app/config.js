@@ -51,11 +51,11 @@ require.config({
     videoview: "views/video/videoview",
     emotionwatchview: "views/watch/emotionwatchview",
     navigationview: "views/navigation/navigationview",
-    emotionwatchcollectionview: "views/pattern/emotionwatchcollectionview",
     tweetcollectionview: "views/tweet/tweetcollectionview",
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
     compareview: "views/compare/compareview",
     comparetitleview: "views/compare/comparetitleview",
+    tweetfrequencycollectionview: "views/frequency/tweetfrequencycollectionview",
 
     templates: "templates"
     

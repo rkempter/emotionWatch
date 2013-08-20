@@ -21,6 +21,13 @@ define([
         },
 
         close: function() {
+
+            if(this.collection) {
+                this.collection.stopListening();
+                this.collection.remove();
+                this.collection.unbind();
+            }
+            
             this.remove();
             this.unbind();
         }

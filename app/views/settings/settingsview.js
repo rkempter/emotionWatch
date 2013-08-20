@@ -25,7 +25,6 @@ define([
       },
 
       triggerSettingsChange: function() {
-        console.log('triggering Settings');
         var network = $('#settings #network option:selected').val();
         var timeStep = $('#settings #time-step').val();
         var startDate = $('#settings #start-date').val();
@@ -69,7 +68,6 @@ define([
 
       // Render template with the paramters
       render: function(template) {
-        console.log('rendering settingsview');
         var output = template({
           animationDuration: this.model.get('animationDuration'),
           timeStep: this.model.get('timeStep'),

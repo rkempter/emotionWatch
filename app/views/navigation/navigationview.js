@@ -79,8 +79,18 @@ define([
         },
 
         beforeRender: function() {
+            console.log(this.model.toJSON());
             this.searchEvent = new searchEventView();
-            this.searchKeyword = new searchKeywordView();
+
+            this.searchKeyword = new searchKeywordView({
+                id: this.model.get('keyword'),
+                network: this.model.get('network'),
+                timeStep: this.model.get('timeStep'),
+                "event": this.model.get('event'),
+                gender: this.model.get('gender'),
+                sport: this.model.get('sport')
+            });
+
             this.settings = new settingsView({
                 model: new Backbone.Model(this.model.toJSON())
             });

@@ -1,43 +1,18 @@
 <div class="form-horizontal">
-    <h2>Search a keyword</h2>
+    <h2><%=event%> (<%=sport%>) - <%=gender%></h2>
+    <p>Select search terms that you want to visualize of this specific event</p>
     <div class="control-group">
-        <label class="control-label" for="keyword">Hashtag (with #)</label>
-        <div class="controls">
-            <input type="text" id="keyword" name="keyword" />
+        <label class="control-label" for="keywordLeft">Possible Search terms</label>
+        <div id="keywords" class="keywords">
+            <% for(var i = 0; i < topics.length; i++) { %>
+                <label class="checkbox">
+                  <input type="checkbox" value="<%= topics[i] %>" checked> <%= topics[i] %>
+                </label>
+            <% }; %>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="keyword">Network</label>
-        <div class="controls">
-            <select id="keyword-network" name="keyword-network">
-                <option value="twitter" selected>Twitter</option>
-                <option value="weibo">Weibo</option>
-            </select>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="keyword">Date at beginning</label>
-        <div class="controls">
-            <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="keyword">Time at beginning</label>
-        <div class="controls">
-            <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="keyword">Date at end</label>
-        <div class="controls">
-            <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-end-date" />
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="keyword">Time at end</label>
-        <div class="controls">
-            <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />
-        </div>
-    </div>
-    <button class="btn btn-search keyword-search">Search keyword or athlete</button>
+
+    <p class="error"></p>
+
+    <button class="btn btn-search keyword-search">Filter</button>
 </div>

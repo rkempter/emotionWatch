@@ -95,7 +95,6 @@ define([
         },
 
         resumeTime: function() {
-            console.log('resume');
             var width = $('.'+this.network+' .time-block').width();
             this.model.set('timeState', 'running');
             this.model.set('label', 'Pause');

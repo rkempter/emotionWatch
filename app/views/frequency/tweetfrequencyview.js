@@ -184,7 +184,6 @@ define([
           // Clicking on a timeslots changes the global time and jumps to
           // the time of the timeslot!
           hoverSlotElement.click(function() {
-            console.log('click');
             params = {};
             params.dateTime = self.model.get("localStartDateTime");
             params.cid = self.model.cid;

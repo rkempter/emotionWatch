@@ -25,6 +25,7 @@ define([
                 var newDateTime = new Date(oldDateTime.getTime() + self.collection.timeStep*1000);
                 self.collection.currentDateTime = dateTime;
 
+                // Jump
                 if(dateTime.getTime() != newDateTime.getTime()) {
                     this.$el.empty();
                     this.$el.find('li').removeClass('stop-animation');
@@ -66,6 +67,7 @@ define([
             if(this.collection) {
                 this.collection.stopListening();
                 this.collection.remove();
+                this.collection.unbind();
             }
 
             this.unbind();

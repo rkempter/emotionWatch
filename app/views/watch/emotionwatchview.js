@@ -203,7 +203,6 @@ define([
          * Changes the path of the emotion shape and animates the changement
          */
         animateEmotionShape: function() {
-            console.log('animate it again!');
             var options = {};
             var newPath = this.model.getCurrentEmotionShapePath(options);
 
@@ -337,7 +336,6 @@ define([
             var labelTexts = Constants.labels;
             // How many labels do we have? (configurable)
             var totalNbr = labelTexts.length;
-            console.log(totalNbr);
             // Load the canvas
             var paper = this.model.get("paper");
             // Center point of the circle

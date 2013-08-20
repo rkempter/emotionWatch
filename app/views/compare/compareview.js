@@ -44,6 +44,7 @@ define([
 
                 this.model = new model();
                 this.model.set('eventId', 513);
+                this.model.on('change', this.render, this);
 
                 if(options.eventId !== undefined) {
                     this.model.set('eventId', options.eventId);
@@ -65,12 +66,9 @@ define([
                 this.keywordTypeRight = 'keyword';
                 this.timeStep = 5;
 
-                console.log(this.keywordRight);
-                console.log(this.keywordLeft);
-
                 if('' === this.keywordLeft ||
                     '' === this.keywordRight) {
-                    $('.alert-error').text('Please select at least one keyword on each side!')
+                    $('.alert-error').text('Please select at least one keyword on each side!');
                 } else if(this.eventInfo === '') {
                     var url = "#compare/";
                     url += this.networkLeft.toLowerCase()+"/";
@@ -97,8 +95,6 @@ define([
                     url += this.timeStep+"/";
                     url += startDateTime.getTime()+"/";
                     url += endDateTime.getTime();
-
-                    console.log(url);
 
                     app.router.navigate(url, true);    
                 }
@@ -127,8 +123,6 @@ define([
 
                 this.model.set("keywords", keywords.split(","));
 
-                console.log(keywords);
-
                 this.render();
             },
 
@@ -138,15 +132,14 @@ define([
                     keywords.push($(this).val());
                 });
 
-                console.log(keywords);
-
                 return keywords.join(",");
             },
 
             render: function(template) {
-                console.log(this.model.toJSON());
-                var output = template(this.model.toJSON());
-                this.$el.html( output );
+                if(this.model.get('keywords') !== undefined) {
+                    var output = template(this.model.toJSON());
+                    this.$el.html( output );
+                }
             },
 
             close: function() {

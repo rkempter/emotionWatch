@@ -9,11 +9,11 @@
 @involvement: #f3913b;
 @amusement: #e4633a;
 @pride: #ffb014;
-@happiness: #fff028;
+@happiness: #e5d44a;
 @pleasure: #bac300;
-@love: #c9ff81;
+@love: #bbeb77;
 @awe: #46dc00;
-@relief: #91f790;
+@relief: #8ff28d;
 @surprise: #01c889;
 @nostalgia: #73efe8;
 @pity: #4da9f0;
@@ -86,6 +86,13 @@ body{
     -o-transition: background-color 500ms linear;
     -ms-transition: background-color 500ms linear;
     transition: background-color 500ms linear;
+
+    a{
+        color: @white;
+        &:hover{
+            color: @gray;
+        }
+    }
 
     #bottom, &.empty #bottom{
         background: @empty;
@@ -480,7 +487,7 @@ svg{
 
     .label{
         fill: @white;
-        opacity: 0.5;
+        opacity: 1;
     }
 
     .line{
@@ -521,22 +528,30 @@ svg{
 
 /** Frontpage **/
 
-#welcome-screen {
-    font-size: 18px;
-    font-weight: 300;
+#welcome{
     text-align: center;
-    .modal-header{
-        h3{
-            font-size: 24px;
-        }
-    }
-    ul{
-        list-style: none;
-    }
-    li{
-        margin: 5px 0;
+
+    h1{
+        margin-top: -50px;
     }
 
+    .events{
+        margin-top: 30px;
+    }
+
+    ul{
+        list-style-type: none;
+        width: 500px;
+        margin: 40px auto;
+    }
+
+    li{
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        padding: 10px 0;
+        a {
+            margin: 0 10px;
+        }
+    }
 }
 
 /** Watch **/
@@ -601,6 +616,31 @@ svg{
 }
 
 #compare{
+
+    .menu{
+        z-index: 1001;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 12px;
+
+        li{
+            display: inline;
+            margin: 0 10px;
+        }
+    }
+
+    #video{
+        z-index: 900;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        top: 50px;
+
+        video{
+            width: 300px;
+        }
+    }
 
     .navigation{
         text-align: center;
@@ -1311,17 +1351,6 @@ select{
 #compare .information{
     margin-top: -100px;
     min-height: 140px;
-
-    .video{
-        width: 100%;
-        position: absolute;
-        text-align: center;
-        top: 50px;
-
-        video{
-            width: 300px;
-        }
-    }
 
     .left-watch-info, .right-watch-info{
         text-align: center;

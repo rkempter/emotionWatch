@@ -37,7 +37,6 @@ define([
             // On date & time change, template needs to be rerendered!
             // If the time is not running, we need to start the watch
             this.listenTo(app, 'change:globalTime', function(dateTime) {
-                console.log(dateTime);
                 var oldDateTime = this.model.get('currentDateTime');
                 var newDateTime = new Date(oldDateTime.getTime() + this.model.get('timeStep')*1000);
 
@@ -196,17 +195,21 @@ define([
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
             var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
             
+            console.log('after render of timeview');
+
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
             }
 
-            if(this.model.get('timeState') == 'running' && this.model.get('jump') === false) {
+            if(this.model.get('timeState') === 'running' && this.model.get('jump') === false) {
                 $('.time-block').css('width', position+'px');
-            } else if(this.model.get('timeState') == 'running' && this.model.get('jump') === true) {
+            } else if(this.model.get('timeState') === 'running' && this.model.get('jump') === true) {
                 $('.time-block').removeClass('is-transitioning').css('width', position+'px').delay(100).queue(function(next){
                     $(this).addClass('is-transitioning');
                     next();
                 });
+            } else if(this.model.get('jump') === true) {
+                $('.time-block').css('width', position+'px');
             }
 
             if(position > this.width) {

@@ -47,7 +47,6 @@ define([
             }
 
             this.listenTo(this, 'sync', function() {
-                console.log('synced');
                 app.trigger('loaded');
             });
 

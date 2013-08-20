@@ -52,8 +52,6 @@ define([
         },
 
         parse: function(response) {
-            console.log(response);
-
             // Delete tweets from the dom
             if(this.viewPointer.length > 30) {
                 for(var j = 0; j < 10; j++) {
