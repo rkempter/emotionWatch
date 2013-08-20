@@ -1,11 +1,25 @@
 <div class="top">
     <div class="left-watch-info info-column">
-        <h2><%= keywordLeft %> <small>Network: <%= networkLeft %></small></h2>
-        <a href="<%= leftLink %>">Analyze in Single Watch View</a>
+        <h2 title="<%= keywordLeft%>">
+        <% if(keywordLeft.length < 25) { %>
+            <%= keywordLeft %>
+        <% } else { %>
+            <%= keywordLeft.substring(0, 25) %>...
+        <% } %>
+            <small>Network: <%= networkLeft %></small>
+        </h2>
+        <a href="<%= leftLink %>">Analyze this in detail</a>
     </div>
     <div class="right-watch-info info-column">
-        <h2><%= keywordRight %> <small>Network: <%= networkRight %></small></h2>
-        <a href="<%= rightLink %>">Analyze in Single Watch View</a>
+        <h2 title="<%= keywordRight%>">
+        <% if(keywordRight.length < 25) { %>
+            <%= keywordRight %>
+        <% } else { %>
+            <%= keywordRight.substring(0, 25) %>...
+        <% } %>
+             <small> Network: <%= networkRight %></small>
+        </h2>
+        <a href="<%= rightLink %>">Analyze this in detail</a>
     </div>
 </div>
  

@@ -1375,12 +1375,25 @@ select{
         z-index: 900;
 
         a{
+            position: relative;
+            z-index: 1002;
             color: @white;
             font-size: 13px;
             display: block;
             margin-top: 15px;
         }
     }
+
+    .left-watch-info a{
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .right-watch-info a {
+        text-align: right;
+        margin-right: 20px;
+    }
+
     #middle-info{
         position: absolute;
         bottom: 120px;
