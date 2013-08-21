@@ -194,8 +194,6 @@ define([
         afterRender: function() {
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
             var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
-            
-            console.log('after render of timeview');
 
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');

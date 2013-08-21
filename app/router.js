@@ -227,6 +227,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.keywordRight = keywordRight;
       options.networkLeft = networkLeft;
       options.networkRight = networkRight;
+      options.eventId = eventId;
 
       options.mode = 'compare';
 
@@ -303,6 +304,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
             'keyword': keywordRight,
+            'keywordType': keywordTypeRight,
             'network': options.networkRight,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -316,6 +318,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
             'keyword': keywordLeft,
+            'keywordType': keywordTypeLeft,
             'network': options.networkLeft,
             'timeStep': options.timeStep,
             'mode': options.mode,

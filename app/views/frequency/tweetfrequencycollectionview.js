@@ -3,15 +3,15 @@ define([
     "raphael",
     "backbone",
     "lodash",
-    "jquery",
+    "jquery"
 ], function(app, Raphael, Backbone, _, $) {
 
     var tweetFrequencyCollectionView = Backbone.View.extend({
 
-    	initialize: function() {
-    		var self = this;
-    		this.listenTo(app, 'close', self.close);
-    	},
+        initialize: function() {
+            var self = this;
+            this.listenTo(app, 'close', self.close);
+        },
 
         close: function() {
 

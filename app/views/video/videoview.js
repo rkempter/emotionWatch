@@ -12,7 +12,6 @@ define([
         template: "videotemplate",
 
         initialize: function() {
-            console.log('creating video views');
             var self = this;
             this.listenTo(app, 'close', this.close);
             _.bindAll(this, 'render');
@@ -30,7 +29,6 @@ define([
         },
           
         close: function() {
-            console.log('closing');
             if(this.model.get('video-element') !== undefined)
                 this.model.get('video-element').pause();
             this.remove();
@@ -39,11 +37,9 @@ define([
         },
 
         render: function(template) {
-            console.log(this.model.cid);
             var output = template({ 
                 videoUrl: app.server+"videos/"+this.model.get("video")
             });
-            console.log(this.$el);
             this.$el.html( output );
         },
 
@@ -54,7 +50,6 @@ define([
             if(this.model.get('video-element') === undefined || this.model.get('video-element') === null) {
                 // Get the video dom element
                 var video = document.querySelector('video');
-                console.log(video);
                 if(video !== null && this.model.get('video') !== undefined) {
                     // Save the video dom element
                     this.model.set('video-element', video);

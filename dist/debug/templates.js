@@ -75,7 +75,7 @@ return __p;
 this['JST']['app/templates/compare-init.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#searchhome">Single Watch View Search</a>\n            </li>\n        </ul>\n    </div>\n    <div class="navigation">\n        <h1 class="title">Compare events, topics or athletes</h1>\n    </div>\n\n    <div id="initialization-form">\n        <div class="init-column" id="left-watch">\n            <h2>Left watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkLeft">Network</label>\n                <div class="controls">\n                    <select id="networkLeft" name="networkLeft">\n                        <option>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <label class="control-label" for="keywordLeft">Search term</label>\n                <div id="keywordLeft" class="keywords">\n                    ';
+__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n        </ul>\n    </div>\n    <div class="navigation">\n        <h1 class="title">Compare events, topics or athletes</h1>\n    </div>\n\n    <div id="initialization-form">\n        <div class="init-column" id="left-watch">\n            <h2>Left watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkLeft">Network</label>\n                <div class="controls">\n                    <select id="networkLeft" name="networkLeft">\n                        <option>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <input type="checkbox" id="toggle-left" title="Toggle all" class="toggle"><label class="control-label" for="keywordLeft">Search term</label>\n                <div id="keywordLeft" class="keywords">\n                    ';
  for(var i = 0; i < keywords.length; i++) { 
 ;__p+='\n                        <label class="checkbox">\n                          <input type="checkbox" value="'+
 ( keywords[i] )+
@@ -99,7 +99,7 @@ __p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>
 (events[event].gender)+
 '</option>\n                        ';
  } 
-;__p+='\n                    </select>\n                </div>\n            </div>\n            <div class="submit">\n                <button id="load-visualization" class="btn btn-primary">Load visualization</button>\n                <div class="alert alert-error">\n                </div>\n            </div>\n        </div>\n        <div class="init-column" id="right-watch">\n            <h2>Right watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkRight">Network</label>\n                <div class="controls">\n                    <select id="networkRight" name="networkRight">\n                        <option selected>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <label class="control-label" for="keywordRight">Search term</label>\n                <div id="keywordRight" class="keywords">\n                    ';
+;__p+='\n                    </select>\n                </div>\n            </div>\n            <div class="submit">\n                <button id="load-visualization" class="btn btn-primary">Load visualization</button>\n                <div class="alert alert-error">\n                </div>\n            </div>\n        </div>\n        <div class="init-column" id="right-watch">\n            <h2>Right watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkRight">Network</label>\n                <div class="controls">\n                    <select id="networkRight" name="networkRight">\n                        <option selected>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <input type="checkbox" id="toggle-right"  title="Toggle all" class="toggle"><label class="control-label" for="keywordRight">Search term</label>\n                <div id="keywordRight" class="keywords">\n                    ';
  for(var i = 0; i < keywords.length; i++) { 
 ;__p+='\n                        <label class="checkbox">\n                          <input type="checkbox" value="'+
 ( keywords[i] )+
@@ -115,7 +115,7 @@ return __p;
 this['JST']['app/templates/compare-layout.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#searchhome">Single Watch View Search</a>\n            </li>\n        </ul>\n    </div>\n    <div class="information">\n    \n    </div>\n    <div id="video"></div>\n    <div class="middle-separator"></div>\n    <div id="loading">\n        <div class="loading-background"></div>\n        <div class="loading-text">\n            <h2>Loading...</h2>\n            <button id="start-all" class="btn btn-primary">Start Visualisation</button>\n        </div>\n    </div>\n\n    <div class="visualization">\n        <div class="left-watch columns" id="left-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="" id="middle-column">\n            <div class="keyword-title"></div>\n            <div class="time-block"></div>\n        </div>\n        <div class="right-watch columns" id="right-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="watches"></div>\n    </div>\n</div>';
+__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#comparesearch">Compare keywords</a>\n            </li>\n        </ul>\n    </div>\n    <div class="information">\n    \n    </div>\n    <div id="video"></div>\n    <div class="middle-separator"></div>\n    <div id="loading">\n        <div class="loading-background"></div>\n        <div class="loading-text">\n            <h2>Loading...</h2>\n            <button id="start-all" class="btn btn-primary">Start Visualisation</button>\n        </div>\n    </div>\n\n    <div class="visualization">\n        <div class="left-watch columns" id="left-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="" id="middle-column">\n            <div class="keyword-title"></div>\n            <div class="time-block"></div>\n        </div>\n        <div class="right-watch columns" id="right-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="watches"></div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -123,19 +123,55 @@ return __p;
 this['JST']['app/templates/compare-title-template.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="top">\n    <div class="left-watch-info info-column">\n        <h2>'+
+__p+='<div class="top">\n    <div class="left-watch-info info-column">\n        <h2 title="'+
+( keywordLeft)+
+'">\n        ';
+ if(keywordTypeLeft === 'event') { 
+;__p+='\n            '+
+(eventLeft)+
+', '+
+(sportLeft)+
+', '+
+(genderLeft)+
+'\n        ';
+ } else if(keywordLeft.length < 25) { 
+;__p+='\n            '+
 ( keywordLeft )+
-' <small>Network: '+
+'\n        ';
+ } else { 
+;__p+='\n            '+
+( keywordLeft.substring(0, 25) )+
+'...\n        ';
+ } 
+;__p+='\n            <small>Network: '+
 ( networkLeft )+
-'</small></h2>\n        <a href="'+
+'</small>\n        </h2>\n        <a href="'+
 ( leftLink )+
-'">Analyze in Single Watch View</a>\n    </div>\n    <div class="right-watch-info info-column">\n        <h2>'+
+'">Analyze this in detail</a>\n    </div>\n    <div class="right-watch-info info-column">\n        <h2 title="'+
+( keywordRight)+
+'">\n        ';
+ if(keywordTypeRight === 'event') { 
+;__p+='\n            '+
+(eventRight)+
+', '+
+(sportRight)+
+', '+
+(genderRight)+
+'\n        ';
+ } else if(keywordRight.length < 25) { 
+;__p+='\n            '+
 ( keywordRight )+
-' <small>Network: '+
+'\n        ';
+ } else { 
+;__p+='\n            '+
+( keywordRight.substring(0, 25) )+
+'...\n        ';
+ } 
+;__p+='\n             <small> Network: '+
 ( networkRight )+
-'</small></h2>\n        <a href="'+
+'</small>\n        </h2>\n        <a href="'+
 ( rightLink )+
-'">Analyze in Single Watch View</a>\n    </div>\n</div>\n \n<div class="middle info-column">\n    <div id="middle-info">\n        <ul>\n            <li>\n                <h3>Current</h3>\n                <span class="dateTime">\n                    '+
+'">Analyze this in detail</a>\n    </div>\n</div>\n \n<div class="middle info-column">\n    <div id="middle-info">\n        <ul>\n            <li>\n                <h3>Current</h3>\n                <span class="dateTime">\n                    '+
 ( firstDateTime )+
 ' - '+
 ( secondDateTime )+
@@ -208,6 +244,36 @@ __p+='<select id="events">\n     ';
 return __p;
 };
 
+this['JST']['app/templates/filterkeywordtemplate.html'] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="form-horizontal">\n    <h2>'+
+(event)+
+' ('+
+(sport)+
+') - '+
+(gender)+
+'</h2>\n    <p>Select search terms that you want to visualize of this specific event</p>\n    <div class="control-group">\n        <div id="keywords" class="keywords">\n            <div class="column">\n            ';
+ for(var i = 0; i < Math.ceil(topics.length/2); i++) { 
+;__p+='\n                <label class="checkbox">\n                  <input type="checkbox" value="'+
+( topics[i] )+
+'" checked> '+
+( topics[i] )+
+'\n                </label>\n            ';
+ }; 
+;__p+='\n            </div>\n            <div class="column">\n                ';
+ for(var i = Math.ceil(topics.length/2); i < topics.length; i++) { 
+;__p+='\n                <label class="checkbox">\n                  <input type="checkbox" value="'+
+( topics[i] )+
+'" checked> '+
+( topics[i] )+
+'\n                </label>\n            ';
+ }; 
+;__p+='\n            </div>\n        </div>\n    </div>\n\n    <p class="error"></p>\n\n    <button class="btn btn-search keyword-filter">Filter</button>\n</div>';
+}
+return __p;
+};
+
 this['JST']['app/templates/frontpage.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -227,7 +293,15 @@ return __p;
 this['JST']['app/templates/navbar.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div class="top-navigation">\n  <div class="title">\n\n    <div class="inside-title">\n      <div class="menu-left">\n        <ul>\n          <li><a href="#home">Home</a></li>\n          <li id="settings-btn" class="modal-link" data-toggle="modal">\n            Settings\n          </li>\n          <li id="search-event-btn" class="modal-link" data-toggle="modal">\n            Search event\n          </li>\n          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">\n            Search hashtag\n          </li>\n        </ul>\n      </div>\n      ';
+__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n';
+ if(keywordType === 'event' || eventId !== undefined) { 
+;__p+='\n<div id="filter-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="filterKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Filter athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n';
+ } 
+;__p+='\n\n<div class="top-navigation">\n  <div class="title">\n\n    <div class="inside-title">\n      <div class="menu-left">\n        <ul>\n          <li><a href="#home">Start Page</a></li>\n          <li id="search-event-btn" class="modal-link" data-toggle="modal">\n            Load event\n          </li>\n          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">Search keywords\n          </li>\n          ';
+ if(keywordType === 'event') { 
+;__p+='\n          ';
+ } 
+;__p+='\n        </ul>\n      </div>\n      ';
  if(keywordType === 'event' && event !== undefined) { 
 ;__p+='\n        <h1>'+
 ( sport, gender, event )+
@@ -247,15 +321,43 @@ __p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" ar
 ( timeStep )+
 '</h3>\n        </div>\n        <div class="subinfo-tab timestep">\n          <h2>Network</h2>\n          <h3>'+
 ( network )+
-'</h3>\n        </div>\n      </div>\n      <div class="menu-right">\n        <ul>\n          <li><a href="'+
-( urlSingle )+
-'">Single watch view</a></li>\n          ';
- if(keywordType == 'event') { 
+'</h3>\n        </div>\n      </div>\n      <div class="menu-right">\n        <ul>\n          ';
+ if (keywordType !== 'event') { 
+;__p+='\n          <li id="settings-btn" class="modal-link" data-toggle="modal">\n            Settings\n          </li>\n          ';
+ } 
+;__p+='\n          ';
+ if(eventId !== undefined) { 
+;__p+='\n          <li><a href="#comparesearch/'+
+( eventId )+
+'">Compare keywords</a></li>\n          <li><a href="#compare/event/'+
+(eventId )+
+'/twitter/event/'+
+(eventId)+
+'/weibo/event/'+
+(eventId)+
+'/5/'+
+(startDateTime.getTime())+
+'/'+
+(endDateTime.getTime())+
+'">Compare Twitter & Weibo</a></li>\n          ';
+ } else if(keywordType === 'event') {
 ;__p+='\n          <li><a href="#comparesearch/'+
 ( keyword )+
+'">Compare keywords</a></li>\n          <li><a href="#compare/event/'+
+(keyword )+
+'/twitter/event/'+
+(keyword)+
+'/weibo/event/'+
+(keyword)+
+'/5/'+
+(startDateTime.getTime())+
+'/'+
+(endDateTime.getTime())+
 '">Compare Twitter & Weibo</a></li>\n          ';
- } else { 
-;__p+='\n          <li><a href="#comparesearch">Compare Twitter & Weibo</a></li>\n          ';
+ } 
+;__p+='\n          ';
+ if(keywordType === 'event' || eventId !== undefined) { 
+;__p+='\n          <li id="filter-keyword-btn" class="modal-link" data-toggle="modal">\n            Filter by keywords\n          </li>\n          ';
  } 
 ;__p+='\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>';
 }
@@ -301,7 +403,7 @@ return __p;
 this['JST']['app/templates/searchkeywordtemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="form-horizontal">\n    <h2>Filter a keyword</h2>\n\n    <button class="btn btn-search keyword-search">Filter</button>\n</div>';
+__p+='<div class="form-horizontal">\n    <h2>Search a keyword</h2>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Hashtag (with #)</label>\n        <div class="controls">\n            <input type="text" id="keyword" name="keyword" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Network</label>\n        <div class="controls">\n            <select id="keyword-network" name="keyword-network">\n                <option value="twitter" selected>Twitter</option>\n                <option value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at beginning</label>\n        <div class="controls">\n            <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at beginning</label>\n        <div class="controls">\n            <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at end</label>\n        <div class="controls">\n            <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-end-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at end</label>\n        <div class="controls">\n            <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />\n        </div>\n    </div>\n    <button class="btn btn-search keyword-search">Search keyword or athlete</button>\n</div>';
 }
 return __p;
 };
@@ -470,34 +572,26 @@ this['JST']['app/templates/welcome.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div id="welcome">\n  <h1 class="title">The Olympic Emotion Project</h1>\n\n  <div class="events">\n  <h2>The most interesting picks of the Olympic Games 2012 in London</h2>\n\n    <ul>\n      ';
+ var k = 1 
+;__p+='\n      ';
  for(var i in events) { 
-;__p+='\n      <li>\n        <h3>'+
+;__p+='\n        <a href="#search/twitter/event/'+
+(events[i].id)+
+'/5/'+
+(new Date(events[i].startDateTime).getTime())+
+'/'+
+(new Date(events[i].endDateTime).getTime())+
+'">\n          <li>\n            <div class="number">'+
+( k++ )+
+'</div>\n            <h4>'+
 (events[i].sport)+
-', '+
-(events[i].event)+
-', '+
+' - '+
 (events[i].gender)+
-'</h3>\n        <a href="#search/twitter/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Twitter</a> <a href="#search/weibo/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Weibo</a> <a href="#search/both/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Both</a>\n        <a href="#comparesearch/'+
-(events[i].id)+
-'">Compare</a>\n      </li>\n      ';
+'</h4>\n            <h3>'+
+(events[i].event)+
+'</h3>\n            <p>'+
+(events[i].desc)+
+'</p>\n          </li>\n        </a>\n      ';
  } 
 ;__p+='\n    </ul>\n  </div>\n\n  <p class="lead">To get more information about this project, visit the <a href="http://grpupc1.epfl.ch/~valentina/OlympicProjectPage/OlympicProject.html">project page</a></p>\n\n</div>';
 }

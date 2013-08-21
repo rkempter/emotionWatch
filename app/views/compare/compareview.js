@@ -4,7 +4,7 @@ define([
     'lodash',
     'backbone',
     'raphael',
-    'jquery',
+    'jquery'
     ], 
     function(util, app, _, Backbone, Raphael, $) {
 

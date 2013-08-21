@@ -460,7 +460,7 @@ return __p;
 this['JST']['app/templates/compare-init.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#searchhome">Single Watch View Search</a>\n            </li>\n        </ul>\n    </div>\n    <div class="navigation">\n        <h1 class="title">Compare events, topics or athletes</h1>\n    </div>\n\n    <div id="initialization-form">\n        <div class="init-column" id="left-watch">\n            <h2>Left watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkLeft">Network</label>\n                <div class="controls">\n                    <select id="networkLeft" name="networkLeft">\n                        <option>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <label class="control-label" for="keywordLeft">Search term</label>\n                <div id="keywordLeft" class="keywords">\n                    ';
+__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n        </ul>\n    </div>\n    <div class="navigation">\n        <h1 class="title">Compare events, topics or athletes</h1>\n    </div>\n\n    <div id="initialization-form">\n        <div class="init-column" id="left-watch">\n            <h2>Left watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkLeft">Network</label>\n                <div class="controls">\n                    <select id="networkLeft" name="networkLeft">\n                        <option>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <input type="checkbox" id="toggle-left" title="Toggle all" class="toggle"><label class="control-label" for="keywordLeft">Search term</label>\n                <div id="keywordLeft" class="keywords">\n                    ';
  for(var i = 0; i < keywords.length; i++) { 
 ;__p+='\n                        <label class="checkbox">\n                          <input type="checkbox" value="'+
 ( keywords[i] )+
@@ -484,7 +484,7 @@ __p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>
 (events[event].gender)+
 '</option>\n                        ';
  } 
-;__p+='\n                    </select>\n                </div>\n            </div>\n            <div class="submit">\n                <button id="load-visualization" class="btn btn-primary">Load visualization</button>\n                <div class="alert alert-error">\n                </div>\n            </div>\n        </div>\n        <div class="init-column" id="right-watch">\n            <h2>Right watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkRight">Network</label>\n                <div class="controls">\n                    <select id="networkRight" name="networkRight">\n                        <option selected>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <label class="control-label" for="keywordRight">Search term</label>\n                <div id="keywordRight" class="keywords">\n                    ';
+;__p+='\n                    </select>\n                </div>\n            </div>\n            <div class="submit">\n                <button id="load-visualization" class="btn btn-primary">Load visualization</button>\n                <div class="alert alert-error">\n                </div>\n            </div>\n        </div>\n        <div class="init-column" id="right-watch">\n            <h2>Right watch</h2>\n            <div class="control-group">\n                <label class="control-label" for="networkRight">Network</label>\n                <div class="controls">\n                    <select id="networkRight" name="networkRight">\n                        <option selected>Twitter</option>\n                        <option>Weibo</option>\n                        <option>Both</option>\n                    </select>\n                </div>\n            </div>\n            <div class="control-group">\n                <input type="checkbox" id="toggle-right"  title="Toggle all" class="toggle"><label class="control-label" for="keywordRight">Search term</label>\n                <div id="keywordRight" class="keywords">\n                    ';
  for(var i = 0; i < keywords.length; i++) { 
 ;__p+='\n                        <label class="checkbox">\n                          <input type="checkbox" value="'+
 ( keywords[i] )+
@@ -500,7 +500,7 @@ return __p;
 this['JST']['app/templates/compare-layout.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#searchhome">Single Watch View Search</a>\n            </li>\n        </ul>\n    </div>\n    <div class="information">\n    \n    </div>\n    <div id="video"></div>\n    <div class="middle-separator"></div>\n    <div id="loading">\n        <div class="loading-background"></div>\n        <div class="loading-text">\n            <h2>Loading...</h2>\n            <button id="start-all" class="btn btn-primary">Start Visualisation</button>\n        </div>\n    </div>\n\n    <div class="visualization">\n        <div class="left-watch columns" id="left-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="" id="middle-column">\n            <div class="keyword-title"></div>\n            <div class="time-block"></div>\n        </div>\n        <div class="right-watch columns" id="right-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="watches"></div>\n    </div>\n</div>';
+__p+='<div id="compare">\n    <div class="menu">\n        <ul>\n            <li>\n                <a href="#home">Start page</a>\n            </li>\n            <li>\n                <a href="#comparesearch">Compare keywords</a>\n            </li>\n        </ul>\n    </div>\n    <div class="information">\n    \n    </div>\n    <div id="video"></div>\n    <div class="middle-separator"></div>\n    <div id="loading">\n        <div class="loading-background"></div>\n        <div class="loading-text">\n            <h2>Loading...</h2>\n            <button id="start-all" class="btn btn-primary">Start Visualisation</button>\n        </div>\n    </div>\n\n    <div class="visualization">\n        <div class="left-watch columns" id="left-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="" id="middle-column">\n            <div class="keyword-title"></div>\n            <div class="time-block"></div>\n        </div>\n        <div class="right-watch columns" id="right-column">\n            <div class="watch">\n                <h2></h2>\n                <div class="paper"></div>\n                <div class="watch-view"></div>\n            </div>\n            <div class="bottom">\n                <div class="time-block">\n                    <div class="curtain"></div>\n                    <div class="current-time-box"></div>\n                </div>\n                <div class="date-time-freq">\n                    <div class="paper"></div>\n                </div>\n                <div class="freq"></div>\n            </div>\n        </div>\n        <div class="watches"></div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -508,19 +508,55 @@ return __p;
 this['JST']['app/templates/compare-title-template.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="top">\n    <div class="left-watch-info info-column">\n        <h2>'+
+__p+='<div class="top">\n    <div class="left-watch-info info-column">\n        <h2 title="'+
+( keywordLeft)+
+'">\n        ';
+ if(keywordTypeLeft === 'event') { 
+;__p+='\n            '+
+(eventLeft)+
+', '+
+(sportLeft)+
+', '+
+(genderLeft)+
+'\n        ';
+ } else if(keywordLeft.length < 25) { 
+;__p+='\n            '+
 ( keywordLeft )+
-' <small>Network: '+
+'\n        ';
+ } else { 
+;__p+='\n            '+
+( keywordLeft.substring(0, 25) )+
+'...\n        ';
+ } 
+;__p+='\n            <small>Network: '+
 ( networkLeft )+
-'</small></h2>\n        <a href="'+
+'</small>\n        </h2>\n        <a href="'+
 ( leftLink )+
-'">Analyze in Single Watch View</a>\n    </div>\n    <div class="right-watch-info info-column">\n        <h2>'+
+'">Analyze this in detail</a>\n    </div>\n    <div class="right-watch-info info-column">\n        <h2 title="'+
+( keywordRight)+
+'">\n        ';
+ if(keywordTypeRight === 'event') { 
+;__p+='\n            '+
+(eventRight)+
+', '+
+(sportRight)+
+', '+
+(genderRight)+
+'\n        ';
+ } else if(keywordRight.length < 25) { 
+;__p+='\n            '+
 ( keywordRight )+
-' <small>Network: '+
+'\n        ';
+ } else { 
+;__p+='\n            '+
+( keywordRight.substring(0, 25) )+
+'...\n        ';
+ } 
+;__p+='\n             <small> Network: '+
 ( networkRight )+
-'</small></h2>\n        <a href="'+
+'</small>\n        </h2>\n        <a href="'+
 ( rightLink )+
-'">Analyze in Single Watch View</a>\n    </div>\n</div>\n \n<div class="middle info-column">\n    <div id="middle-info">\n        <ul>\n            <li>\n                <h3>Current</h3>\n                <span class="dateTime">\n                    '+
+'">Analyze this in detail</a>\n    </div>\n</div>\n \n<div class="middle info-column">\n    <div id="middle-info">\n        <ul>\n            <li>\n                <h3>Current</h3>\n                <span class="dateTime">\n                    '+
 ( firstDateTime )+
 ' - '+
 ( secondDateTime )+
@@ -593,6 +629,36 @@ __p+='<select id="events">\n     ';
 return __p;
 };
 
+this['JST']['app/templates/filterkeywordtemplate.html'] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="form-horizontal">\n    <h2>'+
+(event)+
+' ('+
+(sport)+
+') - '+
+(gender)+
+'</h2>\n    <p>Select search terms that you want to visualize of this specific event</p>\n    <div class="control-group">\n        <div id="keywords" class="keywords">\n            <div class="column">\n            ';
+ for(var i = 0; i < Math.ceil(topics.length/2); i++) { 
+;__p+='\n                <label class="checkbox">\n                  <input type="checkbox" value="'+
+( topics[i] )+
+'" checked> '+
+( topics[i] )+
+'\n                </label>\n            ';
+ }; 
+;__p+='\n            </div>\n            <div class="column">\n                ';
+ for(var i = Math.ceil(topics.length/2); i < topics.length; i++) { 
+;__p+='\n                <label class="checkbox">\n                  <input type="checkbox" value="'+
+( topics[i] )+
+'" checked> '+
+( topics[i] )+
+'\n                </label>\n            ';
+ }; 
+;__p+='\n            </div>\n        </div>\n    </div>\n\n    <p class="error"></p>\n\n    <button class="btn btn-search keyword-filter">Filter</button>\n</div>';
+}
+return __p;
+};
+
 this['JST']['app/templates/frontpage.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -612,7 +678,15 @@ return __p;
 this['JST']['app/templates/navbar.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div class="top-navigation">\n  <div class="title">\n\n    <div class="inside-title">\n      <div class="menu-left">\n        <ul>\n          <li><a href="#home">Home</a></li>\n          <li id="settings-btn" class="modal-link" data-toggle="modal">\n            Settings\n          </li>\n          <li id="search-event-btn" class="modal-link" data-toggle="modal">\n            Search event\n          </li>\n          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">\n            Search hashtag\n          </li>\n        </ul>\n      </div>\n      ';
+__p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Change settings</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n<div id="search-event" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchEvent" aria-hidden="true">\n  <div class="search-event-header modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search Event</h3>\n  </div>\n  <div class="search-event-body modal-body">\n    \n  </div>\n</div>\n\n<div id="search-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Search athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n\n';
+ if(keywordType === 'event' || eventId !== undefined) { 
+;__p+='\n<div id="filter-keyword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="filterKeyword" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n    <h3 id="myModalLabel">Filter athlete or hashtag</h3>\n  </div>\n  <div class="modal-body">\n  </div>\n</div>\n';
+ } 
+;__p+='\n\n<div class="top-navigation">\n  <div class="title">\n\n    <div class="inside-title">\n      <div class="menu-left">\n        <ul>\n          <li><a href="#home">Start Page</a></li>\n          <li id="search-event-btn" class="modal-link" data-toggle="modal">\n            Load event\n          </li>\n          <li id="search-keyword-btn" class="modal-link" data-toggle="modal">Search keywords\n          </li>\n          ';
+ if(keywordType === 'event') { 
+;__p+='\n          ';
+ } 
+;__p+='\n        </ul>\n      </div>\n      ';
  if(keywordType === 'event' && event !== undefined) { 
 ;__p+='\n        <h1>'+
 ( sport, gender, event )+
@@ -632,15 +706,43 @@ __p+='<div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" ar
 ( timeStep )+
 '</h3>\n        </div>\n        <div class="subinfo-tab timestep">\n          <h2>Network</h2>\n          <h3>'+
 ( network )+
-'</h3>\n        </div>\n      </div>\n      <div class="menu-right">\n        <ul>\n          <li><a href="'+
-( urlSingle )+
-'">Single watch view</a></li>\n          ';
- if(keywordType == 'event') { 
+'</h3>\n        </div>\n      </div>\n      <div class="menu-right">\n        <ul>\n          ';
+ if (keywordType !== 'event') { 
+;__p+='\n          <li id="settings-btn" class="modal-link" data-toggle="modal">\n            Settings\n          </li>\n          ';
+ } 
+;__p+='\n          ';
+ if(eventId !== undefined) { 
+;__p+='\n          <li><a href="#comparesearch/'+
+( eventId )+
+'">Compare keywords</a></li>\n          <li><a href="#compare/event/'+
+(eventId )+
+'/twitter/event/'+
+(eventId)+
+'/weibo/event/'+
+(eventId)+
+'/5/'+
+(startDateTime.getTime())+
+'/'+
+(endDateTime.getTime())+
+'">Compare Twitter & Weibo</a></li>\n          ';
+ } else if(keywordType === 'event') {
 ;__p+='\n          <li><a href="#comparesearch/'+
 ( keyword )+
+'">Compare keywords</a></li>\n          <li><a href="#compare/event/'+
+(keyword )+
+'/twitter/event/'+
+(keyword)+
+'/weibo/event/'+
+(keyword)+
+'/5/'+
+(startDateTime.getTime())+
+'/'+
+(endDateTime.getTime())+
 '">Compare Twitter & Weibo</a></li>\n          ';
- } else { 
-;__p+='\n          <li><a href="#comparesearch">Compare Twitter & Weibo</a></li>\n          ';
+ } 
+;__p+='\n          ';
+ if(keywordType === 'event' || eventId !== undefined) { 
+;__p+='\n          <li id="filter-keyword-btn" class="modal-link" data-toggle="modal">\n            Filter by keywords\n          </li>\n          ';
  } 
 ;__p+='\n        </ul>\n      </div>\n    </div>\n  </div>\n</div>';
 }
@@ -686,7 +788,7 @@ return __p;
 this['JST']['app/templates/searchkeywordtemplate.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="form-horizontal">\n    <h2>Filter a keyword</h2>\n\n    <button class="btn btn-search keyword-search">Filter</button>\n</div>';
+__p+='<div class="form-horizontal">\n    <h2>Search a keyword</h2>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Hashtag (with #)</label>\n        <div class="controls">\n            <input type="text" id="keyword" name="keyword" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Network</label>\n        <div class="controls">\n            <select id="keyword-network" name="keyword-network">\n                <option value="twitter" selected>Twitter</option>\n                <option value="weibo">Weibo</option>\n            </select>\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at beginning</label>\n        <div class="controls">\n            <input type="date" name="keyword-start-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-start-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at beginning</label>\n        <div class="controls">\n            <input type="time" name="keyword-start-time" class="date-time" value="09:00" id="keyword-start-time" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Date at end</label>\n        <div class="controls">\n            <input type="date" name="keyword-end-date" class="date-time" value="2012-07-26" min="2012-07-26" max="2012-08-14" id="keyword-end-date" />\n        </div>\n    </div>\n    <div class="control-group">\n        <label class="control-label" for="keyword">Time at end</label>\n        <div class="controls">\n            <input type="time" name="keyword-end-time" class="date-time" step="60" value="12:00" id="keyword-end-time" />\n        </div>\n    </div>\n    <button class="btn btn-search keyword-search">Search keyword or athlete</button>\n</div>';
 }
 return __p;
 };
@@ -855,34 +957,26 @@ this['JST']['app/templates/welcome.html'] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div id="welcome">\n  <h1 class="title">The Olympic Emotion Project</h1>\n\n  <div class="events">\n  <h2>The most interesting picks of the Olympic Games 2012 in London</h2>\n\n    <ul>\n      ';
+ var k = 1 
+;__p+='\n      ';
  for(var i in events) { 
-;__p+='\n      <li>\n        <h3>'+
+;__p+='\n        <a href="#search/twitter/event/'+
+(events[i].id)+
+'/5/'+
+(new Date(events[i].startDateTime).getTime())+
+'/'+
+(new Date(events[i].endDateTime).getTime())+
+'">\n          <li>\n            <div class="number">'+
+( k++ )+
+'</div>\n            <h4>'+
 (events[i].sport)+
-', '+
-(events[i].event)+
-', '+
+' - '+
 (events[i].gender)+
-'</h3>\n        <a href="#search/twitter/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Twitter</a> <a href="#search/weibo/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Weibo</a> <a href="#search/both/event/'+
-(events[i].id)+
-'/5/'+
-(new Date(events[i].startDateTime).getTime())+
-'/'+
-(new Date(events[i].endDateTime).getTime())+
-'">Both</a>\n        <a href="#comparesearch/'+
-(events[i].id)+
-'">Compare</a>\n      </li>\n      ';
+'</h4>\n            <h3>'+
+(events[i].event)+
+'</h3>\n            <p>'+
+(events[i].desc)+
+'</p>\n          </li>\n        </a>\n      ';
  } 
 ;__p+='\n    </ul>\n  </div>\n\n  <p class="lead">To get more information about this project, visit the <a href="http://grpupc1.epfl.ch/~valentina/OlympicProjectPage/OlympicProject.html">project page</a></p>\n\n</div>';
 }
@@ -14591,7 +14685,7 @@ define('constants',['backbone'], function(Backbone) {
 
         //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
         //labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
-        labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride / Elation', 'Happiness', 'Pleasure'],
+        labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure'],
 
 
         nullEmotion: {
@@ -16268,7 +16362,7 @@ define('Constants',['backbone'], function(Backbone) {
 
         //labels: ['Love', 'Pride', 'Surprise', 'Excitement', 'Joy', 'Like', 'Anger', 'Shame', 'Shock', 'Anxiety', 'Sadness', 'Dislike'],
         //labels: ['Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure', 'Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger'],
-        labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride / Elation', 'Happiness', 'Pleasure'],
+        labels: ['Love', 'Awe', 'Relief', 'Surprise', 'Nostalgia', 'Pity', 'Sadness', 'Worry', 'Shame', 'Guilt', 'Regret', 'Envy', 'Disgust', 'Contempt', 'Anger', 'Involvement', 'Amusement', 'Pride', 'Happiness', 'Pleasure'],
 
 
         nullEmotion: {
@@ -16852,6 +16946,7 @@ define('emotionwatchview',[
                 // The angle between consecutive labels
                 var angle = 360 / totalNbr / 2 + i * 360 / totalNbr;
                 var textToPrint = labelTexts[i];
+
                 // THe point where we start drawing the label
                 var point = this.model.getPoint(1.5, i);
                 // At the same time, we draw a small line from the center to the label
@@ -17364,7 +17459,6 @@ define('videoview',[
         template: "videotemplate",
 
         initialize: function() {
-            console.log('creating video views');
             var self = this;
             this.listenTo(app, 'close', this.close);
             _.bindAll(this, 'render');
@@ -17382,7 +17476,6 @@ define('videoview',[
         },
           
         close: function() {
-            console.log('closing');
             if(this.model.get('video-element') !== undefined)
                 this.model.get('video-element').pause();
             this.remove();
@@ -17391,11 +17484,9 @@ define('videoview',[
         },
 
         render: function(template) {
-            console.log(this.model.cid);
             var output = template({ 
                 videoUrl: app.server+"videos/"+this.model.get("video")
             });
-            console.log(this.$el);
             this.$el.html( output );
         },
 
@@ -17406,7 +17497,6 @@ define('videoview',[
             if(this.model.get('video-element') === undefined || this.model.get('video-element') === null) {
                 // Get the video dom element
                 var video = document.querySelector('video');
-                console.log(video);
                 if(video !== null && this.model.get('video') !== undefined) {
                     // Save the video dom element
                     this.model.set('video-element', video);
@@ -17770,8 +17860,6 @@ define('timeview',[
         afterRender: function() {
             var currentTimeSpan = this.model.get('currentDateTime').getTime() + this.model.get('timeStep')*1000 - this.model.get("startDateTime").getTime();
             var position = currentTimeSpan / this.model.get('timeSpan') * this.width;
-            
-            console.log('after render of timeview');
 
             if(position > this.width / 2) {
                 $('.time-block .dates').css('text-align', 'right').css('right', '45px');
@@ -17888,7 +17976,6 @@ define('searchkeywordview',[
     "lodash",
     "util",
     "constants"
-
 ], function(app, Backbone, $, _, util, Constants) {
     
     var searchKeywordView = Backbone.View.extend({
@@ -18030,6 +18117,90 @@ define('settingsview',[
     });
 
     return settingsView;
+});
+define('filterkeywordview',[
+    "app",
+    "backbone",
+    "jquery",
+    "lodash",
+    "util",
+    "constants"
+], function(app, Backbone, $, _, util, Constants) {
+    
+    var filterKeywordView = Backbone.View.extend({
+
+        template: 'filterkeywordtemplate',
+
+        events: {
+            'click .keyword-filter': 'evaluateForm'
+        },
+
+        initialize: function(options) {
+            var self = this;
+            options = options || {};
+            this.id = options.id || 0;
+
+            var model = Backbone.Model.extend({
+                urlRoot: function() {
+                    return app.server+"event/";
+                },
+                parse: function(data) {
+                    this.set(data);
+                    var topics = data.topics.split(",");
+                    this.set('topics', topics);
+                }
+            });
+
+            this.model = new model(options);
+            this.model.fetch();
+
+            this.model.on('change', this.render, this);
+            this.listenTo(app, 'close', this.close);
+        },
+
+        extractKeywords: function($element) {
+            var keywords = [];
+            $element.each(function(i) {
+                keywords.push($(this).val());
+            });
+
+            return keywords.join(",");
+        },
+
+        evaluateForm: function() {
+            var keywords = this.extractKeywords($('#keywords input:checked'));
+
+            if(keywords !== '') {
+                var url = '#search/event/';
+                url += this.id + "/";
+                url += this.model.get('network') + "/";
+                url += "keyword/";
+                url += keywords + "/";
+                url += this.model.get('timeStep') + "/";
+                url += new Date(this.model.get('startDateTime')).getTime() + "/";
+                url += new Date(this.model.get('endDateTime')).getTime();
+
+                app.router.navigate(url, true);
+            } else {
+                $('.error').text('You need to select at least one keyword!');
+            }
+        },
+
+        render: function(template) {
+            if(this.model.get('topics') !== undefined) {
+                var output = template(this.model.toJSON());
+                this.$el.html(output);
+            }
+        },
+
+        close: function() {
+            this.remove();
+            this.unbind();
+        }
+        
+    });
+
+    return filterKeywordView;
 });
 /* =========================================================
  * bootstrap-modal.js v2.2.1
@@ -18278,9 +18449,10 @@ define('navigationview',[
     "searcheventview",
     "searchkeywordview",
     "settingsview",
+    "filterkeywordview",
     "util",
     "plugins/bootstrap-modal"
-], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, util) {
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, filterKeywordView, util) {
 
     var navigationView = Backbone.View.extend({
 
@@ -18289,7 +18461,8 @@ define('navigationview',[
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal'
+            'click #settings-btn': 'triggerSettingsModal',
+            'click #filter-keyword-btn': 'triggerFilterKeywordModal'
         },
 
         initialize: function() {
@@ -18338,10 +18511,17 @@ define('navigationview',[
             $('#search-keyword').modal('show');
         },
 
+        // Show keyword filter modal window when triggered
+        triggerFilterKeywordModal: function(e) {
+            $('#filter-keyword').modal('show');
+        },
+
         close: function() {
             this.searchEvent.close();
-            this.searchKeyword.close();
+            if(this.filterKeyword !== undefined)
+                this.filterKeyword.close();
             this.settings.close();
+            this.searchKeyword.close();
 
             // Remove view
             this.remove();
@@ -18351,13 +18531,28 @@ define('navigationview',[
         beforeRender: function() {
             this.searchEvent = new searchEventView();
             this.searchKeyword = new searchKeywordView();
+
+            if(this.model.get('keywordType') === 'event' || this.model.get('eventId') !== undefined) {
+                var id = this.model.get('keywordType') === 'event' ? this.model.get('keyword') : this.model.get('eventId');
+
+                this.filterKeyword = new filterKeywordView({
+                    id: id,
+                    network: this.model.get('network'),
+                    timeStep: this.model.get('timeStep'),
+                    "event": this.model.get('event'),
+                    gender: this.model.get('gender'),
+                    sport: this.model.get('sport')
+                });
+                this.insertView('#filter-keyword .modal-body', this.filterKeyword);
+            }
+
             this.settings = new settingsView({
                 model: new Backbone.Model(this.model.toJSON())
             });
 
             this.insertViews({
-                '#search-event .modal-body': this.searchEvent,
                 '#search-keyword .modal-body': this.searchKeyword,
+                '#search-event .modal-body': this.searchEvent,
                 '#settings-modal .modal-body': this.settings
             });
         },
@@ -20307,7 +20502,7 @@ define('timeview_compare',[
                 secondDateTime: this.model.get('secondDateTime')
             });
             this.$el.html(output);
-        },
+        }
         
     });
 
@@ -20319,7 +20514,7 @@ define('compareview',[
     'lodash',
     'backbone',
     'raphael',
-    'jquery',
+    'jquery'
     ], 
     function(util, app, _, Backbone, Raphael, $) {
 
@@ -20457,6 +20652,20 @@ define('compareview',[
                 }
             },
 
+            afterRender: function() {
+                $('.toggle').click(function(e) {
+                    $el = $(this);
+
+                    var elements = $el.is('#toggle-left') ? '#keywordLeft input' : '#keywordRight input';
+
+                    if($el.prop('checked')) {
+                        $(elements).prop('checked', true);
+                    } else {
+                        $(elements).prop('checked', false);
+                    }
+                });
+            },
+
             close: function() {
                 this.remove();
                 this.unbind();
@@ -20491,15 +20700,46 @@ define('comparetitleview',[
 
             this.listenTo(app, 'close', this.close);
             this.listenTo(app, 'loaded', self.showStart);
+            this.model.on('change', this.render, this);
 
             this.model.set("firstDateTime", moment(this.model.get("currentDateTime")).format("Do MMM YYYY HH:mm:ss"));
             this.model.set("secondDateTime", moment(new Date(this.model.get("currentDateTime").getTime() + this.model.get('timeStep')*1000)).format("Do MMM YYYY HH:mm:ss"));
 
             this.generateLinks();
+            this.loadEventData();
 
             this.listenTo(app, 'change:globalTime', function(dateTime) {
                 self.changeCurrentDateTime(dateTime);
             });
+        },
+
+        loadEventData: function() {
+            var self = this;
+            if(this.model.get('keywordTypeLeft') === 'event') {
+                $.get(app.server+"getEventInfo", {
+                    id: this.model.get('keywordLeft')
+                }, function(data) {
+                    console.log(data);
+                    if(data.length === 1) {
+                        self.model.set('sportLeft', data[0].sport);
+                        self.model.set('eventLeft', data[0].event);
+                        self.model.set('genderLeft', data[0].gender);
+                    }
+                });
+            }
+
+            if(this.model.get('keywordTypeRight') === 'event') {
+                $.get(app.server+"getEventInfo", {
+                    id: this.model.get('keywordRight')
+                }, function(data) {
+                    console.log(data);
+                    if(data.length === 1) {
+                        self.model.set('sportRight', data[0].sport);
+                        self.model.set('eventRight', data[0].event);
+                        self.model.set('genderRight', data[0].gender);
+                    }
+                });
+            }
         },
 
         changeCurrentDateTime: function(dateTime) {
@@ -20539,9 +20779,14 @@ define('comparetitleview',[
         },
 
         generateLinks: function() {
+
             var urlLeft = '#search/';
+            if(this.model.get('keywordTypeLeft') !== 'event') {
+                urlLeft += 'event/';
+                urlLeft += this.model.get('eventId')+'/';
+            }
             urlLeft += this.model.get('networkLeft')+'/';
-            urlLeft += 'keyword/';
+            urlLeft += this.model.get('keywordTypeLeft') + '/';
             urlLeft += this.model.get('keywordLeft')+'/';
             urlLeft += this.model.get('timeStep')+'/';
             urlLeft += this.model.get('startDateTime').getTime()+'/';
@@ -20549,8 +20794,12 @@ define('comparetitleview',[
             this.model.set('leftLink', urlLeft);
 
             var urlRight = '#search/';
+            if(this.model.get('keywordTypeRight') !== 'event') {
+                urlRight += 'event/';
+                urlRight += this.model.get('eventId')+'/';
+            }
             urlRight += this.model.get('networkRight')+'/';
-            urlRight += 'keyword/';
+            urlRight += this.model.get('keywordTypeRight') + '/';
             urlRight += this.model.get('keywordRight')+'/';
             urlRight += this.model.get('timeStep')+'/';
             urlRight += this.model.get('startDateTime').getTime()+'/';
@@ -20559,8 +20808,14 @@ define('comparetitleview',[
         },
 
         render: function(template) {
-            var output = template(this.model.toJSON());
-            this.$el.html(output);
+            console.log(this.model.toJSON());
+             if(this.model.get('leftLink') === undefined || this.model.get('rightLink') === undefined || (this.model.get('keywordTypeLeft') === 'event' && this.model.get('genderLeft') === undefined)
+                || (this.model.get('keywordTypeRight') === 'event' && this.model.get('genderRight') === undefined )) {
+                return;
+            } else {
+                var output = template(this.model.toJSON());
+                this.$el.html(output);
+            }
         },
 
         afterRender: function() {
@@ -20581,15 +20836,15 @@ define('tweetfrequencycollectionview',[
     "raphael",
     "backbone",
     "lodash",
-    "jquery",
+    "jquery"
 ], function(app, Raphael, Backbone, _, $) {
 
     var tweetFrequencyCollectionView = Backbone.View.extend({
 
-    	initialize: function() {
-    		var self = this;
-    		this.listenTo(app, 'close', self.close);
-    	},
+        initialize: function() {
+            var self = this;
+            this.listenTo(app, 'close', self.close);
+        },
 
         close: function() {
 
@@ -20649,6 +20904,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       "search": "search",
       "search/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'search',
       "search/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'search',
+      "search/event/:eventId/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'searchEvent',
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'pattern',
       "pattern/:network/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime/:currentDateTime": 'pattern',
       "compare/:keywordType/:keyword/:timeStep/:startDateTime/:endDateTime": 'compare',
@@ -20680,6 +20936,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.network = network || 'twitter';
       options.keyword = keyword;
       options.keywordType = keywordType;
+      options.eventId = undefined;
 
       options.mode = 'regular';
       options.timeStep = timeStep;
@@ -20736,28 +20993,34 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       }).render();
     },
 
-    pattern: function(network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime ) {
+    searchEvent: function(eventId, network, keywordType, keyword, timeStep, startDateTime, endDateTime, currentDateTime) {
       this.close();
 
       var options = {};
+      options.network = network || 'twitter';
       options.keyword = keyword;
-      options.network = network || 'twitter',
       options.keywordType = keywordType;
-      options.mode = 'pattern';
-      startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
-      endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
+      options.eventId = eventId;
+
+      options.mode = 'regular';
       options.timeStep = timeStep;
-      currentDateTime_raw = parseInt(currentDateTime) || options.startDateTime;
+
+      var startDateTime_raw = parseInt(startDateTime) ||  new Date("2012-07-26 00:00:00");
+      var endDateTime_raw =  parseInt(endDateTime) ||  new Date("2012-08-13 24:00:00");
+      var currentDateTime_raw =  parseInt(currentDateTime) || startDateTime_raw;
 
       options.startDateTime = new Date(startDateTime_raw);
       options.endDateTime = new Date(endDateTime_raw);
       options.currentDateTime = new Date(currentDateTime_raw);
 
-      app.useLayout('pattern-layout').setViews({
+      app.useLayout('main-layout').setViews({
+        "#bottom .current-time-box": new timeView(options),
+
         ".detail-block": new detailView({
           model: new Backbone.Model()
         }),
 
+        ".watch .paper": new paperView( { "parent": ".watch .paper" } ),
         ".date-time-freq .paper": new frequencyPaperView({ 
           "parent": ".date-time-freq .paper",
         }),
@@ -20766,19 +21029,37 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
           model: new navigationModel(options)
         }),
 
-        ".bottom": new tweetFrequencyCollectionView({
-          collection: new tweetFrequencyCollection(options)
+        "#player": new videoView({
+          model: new videoModel({
+            startDateTime: options.startDateTime,
+            keyword: eventId,
+            keywordType: 'event',
+            endDateTime: options.endDateTime,
+            timeStep: options.timeStep,
+            currentDateTime: options.currentDateTime
+          })
         }),
         
-        ".watch": new emotionWatchCollectionView({ 
-          collection: new emotionWatchCollection({
-            'startDateTime': options.startDateTime,
-            'endDateTime': options.endDateTime,
-            'keyword': options.keyword,
-            'network': options.network,
-            'timeStep': options.timeStep,
-            'currentDateTime': options.currentDateTime
+        ".watches": new emotionWatchView({ 
+          model: new emotionWatch({ 
+            paper: app.paper, 
+            mode: options.mode,
+            emotionCircleRadius: 250,
+            timeStep: options.timeStep,
+            startDate: options.startDateTime,
+            currentDateTime: options.currentDateTime,
+            endDate: options.endDateTime,
+            centerPoint: Constants.centerPoint,
+            topic: options.keyword,
+            network: options.network,
+            keywordType: options.keywordType
           }) 
+        }),
+        ".tweets": new tweetCollectionView({
+          collection: new tweetCollection(options)
+        }),
+        ".bottom": new tweetFrequencyCollectionView({
+          collection: new tweetFrequencyCollection(options)
         })
       }).render();
     },
@@ -20796,138 +21077,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
         }).render();
     },
 
-    compare: function(networkLeft, keywordTypeLeft, keywordLeft, networkRight, keywordTypeRight, keywordRight, timeStep, startDateTime, endDateTime, currentDateTime) {
-      this.close();
 
-      var options = {};
-      options.leftId = 'left';
-      options.rightId = 'right';
-      options.keywordTypeLeft = keywordTypeLeft;
-      options.keywordTypeRight = keywordTypeRight;
-      options.keywordLeft = keywordLeft;
-      options.keywordRight = keywordRight;
-      options.networkLeft = networkLeft;
-      options.networkRight = networkRight;
-
-      options.mode = 'compare';
-
-      startDateTime_raw = parseInt(startDateTime) || "2012-07-26 00:00:00";
-      endDateTime_raw = parseInt(endDateTime) || "2012-08-13 14:00:00";
-      options.timeStep = timeStep;
-      
-
-      options.startDateTime = new Date(startDateTime_raw);
-      options.endDateTime = new Date(endDateTime_raw);
-      options.currentDateTime = options.startDateTime;
-
-      app.useLayout('compare-layout').setViews({
-        // title
-        ".information": new compareTitleView({
-          model: new Backbone.Model(options)
-        }),
-
-        // left bottom
-        ".left-watch .bottom .current-time-box": new timeCompareView({
-          startDateTime: options.startDateTime,
-          endDateTime: options.endDateTime,
-          currentDateTime: options.currentDateTime,
-          timeStep: options.timeStep,
-          clockMode: 'active',
-          keyword: options.keywordLeft,
-          keywordType: options.keywordTypeLeft,
-          network: options.networkLeft
-        }),
-        // right bottom
-        ".right-watch .bottom .current-time-box": new timeCompareView({
-          startDateTime: options.startDateTime,
-          endDateTime: options.endDateTime,
-          currentDateTime: options.currentDateTime,
-          timeStep: options.timeStep,
-          clockMode: 'passiv',
-          keyword: options.keywordRight,
-          keywordType: options.keywordTypeRight,
-          network: options.networkRight
-        }),
-        // right paper
-        ".left-watch .watch .paper": new paperView({ 
-          "parent": ".left-watch .watch .paper",
-          "mode": "compare",
-          "id": options.leftId
-        }),
-        // left paper
-        ".right-watch .watch .paper": new paperView({ 
-          "parent": ".right-watch .watch .paper",
-          "mode": "compare",
-          "id": options.rightId
-        }),
-        ".left-watch .date-time-freq .paper": new frequencyPaperView({ 
-          "parent": ".left-watch .date-time-freq .paper", 
-          "id": options.leftId
-        }),
-        ".right-watch .date-time-freq .paper": new frequencyPaperView({
-          "parent": ".right-watch .date-time-freq .paper", 
-          "id": options.rightId
-        }),
-        ".right-watch .bottom .freq": new tweetFrequencyCollectionView({
-          collection: new tweetFrequencyCollection({
-            'startDateTime': options.startDateTime,
-            'endDateTime': options.endDateTime,
-            'keyword': keywordRight,
-            'network': options.networkRight,
-            'timeStep': options.timeStep,
-            'mode': options.mode,
-            'currentDateTime': options.currentDateTime,
-            'id': options.rightId
-          }),
-          mode: 'compare'
-        }),
-        ".left-watch .bottom .freq": new tweetFrequencyCollectionView({
-          collection: new tweetFrequencyCollection({
-            'startDateTime': options.startDateTime,
-            'endDateTime': options.endDateTime,
-            'keyword': keywordLeft,
-            'network': options.networkLeft,
-            'timeStep': options.timeStep,
-            'mode': options.mode,
-            'currentDateTime': options.currentDateTime,
-            'id': options.leftId
-          }),
-          mode: 'compare'
-        }),
-        ".right-watch .watch .watch-view": new emotionWatchView({ 
-          model: new emotionWatch({
-            paper: app.paper[options.rightId], 
-            mode: options.mode,
-            emotionCircleRadius: 250,
-            timeStep: options.timeStep,
-            startDate: options.startDateTime,
-            currentDateTime: options.currentDateTime,
-            endDate: options.endDateTime,
-            centerPoint: Constants.centerPoint,
-            topic: keywordRight,
-            network: options.networkRight,
-            keywordType: keywordTypeRight
-          }),
-          mode: 'compare'
-        }),
-        ".left-watch .watch .watch-view": new emotionWatchView({ 
-          model: new emotionWatch({
-            paper: app.paper[options.leftId], 
-            mode: options.mode,
-            emotionCircleRadius: 250,
-            timeStep: options.timeStep,
-            startDate: options.startDateTime,
-            currentDateTime: options.currentDateTime,
-            endDate: options.endDateTime,
-            centerPoint: Constants.centerPoint,
-            topic: keywordLeft,
-            network: options.networkLeft,
-            keywordType: keywordTypeLeft
-          }),
-          mode: 'compare'
-        })
-      }).render();
-    },
 
     compareEvent: function(eventId, networkLeft, keywordTypeLeft, keywordLeft, networkRight, keywordTypeRight, keywordRight, timeStep, startDateTime, endDateTime, currentDateTime) {
       this.close();
@@ -20941,6 +21091,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
       options.keywordRight = keywordRight;
       options.networkLeft = networkLeft;
       options.networkRight = networkRight;
+      options.eventId = eventId;
 
       options.mode = 'compare';
 
@@ -21017,6 +21168,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
             'keyword': keywordRight,
+            'keywordType': keywordTypeRight,
             'network': options.networkRight,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -21030,6 +21182,7 @@ function(util, app, _, $, Backbone, Raphael, Constants, emotionWatch, emotionWat
             'startDateTime': options.startDateTime,
             'endDateTime': options.endDateTime,
             'keyword': keywordLeft,
+            'keywordType': keywordTypeLeft,
             'network': options.networkLeft,
             'timeStep': options.timeStep,
             'mode': options.mode,
@@ -21184,6 +21337,7 @@ require.config({
     tweetfrequencyview: "views/frequency/tweetfrequencyview",
     compareview: "views/compare/compareview",
     comparetitleview: "views/compare/comparetitleview",
+    filterkeywordview: "views/search/filterkeywordview",
     tweetfrequencycollectionview: "views/frequency/tweetfrequencycollectionview",
 
     templates: "templates"

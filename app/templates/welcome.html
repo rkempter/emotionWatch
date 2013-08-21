@@ -5,12 +5,16 @@
   <h2>The most interesting picks of the Olympic Games 2012 in London</h2>
 
     <ul>
+      <% var k = 1 %>
       <% for(var i in events) { %>
-      <li>
-        <h3><%=events[i].sport%>, <%=events[i].event%>, <%=events[i].gender%></h3>
-        <a href="#search/twitter/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Twitter</a> <a href="#search/weibo/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Weibo</a> <a href="#search/both/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">Both</a>
-        <a href="#comparesearch/<%=events[i].id%>">Compare</a>
-      </li>
+        <a href="#search/twitter/event/<%=events[i].id%>/5/<%=new Date(events[i].startDateTime).getTime()%>/<%=new Date(events[i].endDateTime).getTime()%>">
+          <li>
+            <div class="number"><%= k++ %></div>
+            <h4><%=events[i].sport%> - <%=events[i].gender%></h4>
+            <h3><%=events[i].event%></h3>
+            <p><%=events[i].desc%></p>
+          </li>
+        </a>
       <% } %>
     </ul>
   </div>

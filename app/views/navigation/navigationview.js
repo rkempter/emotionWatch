@@ -8,9 +8,10 @@ define([
     "searcheventview",
     "searchkeywordview",
     "settingsview",
+    "filterkeywordview",
     "util",
     "plugins/bootstrap-modal"
-], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, util) {
+], function(app, _, $, Backbone, Raphael, Constants, searchEventView, searchKeywordView, settingsView, filterKeywordView, util) {
 
     var navigationView = Backbone.View.extend({
 
@@ -19,7 +20,8 @@ define([
         events: {
             'click #search-keyword-btn': 'triggerSearchKeywordModal',
             'click #search-event-btn': 'triggerSearchEventModal',
-            'click #settings-btn': 'triggerSettingsModal'
+            'click #settings-btn': 'triggerSettingsModal',
+            'click #filter-keyword-btn': 'triggerFilterKeywordModal'
         },
 
         initialize: function() {
@@ -68,11 +70,17 @@ define([
             $('#search-keyword').modal('show');
         },
 
+        // Show keyword filter modal window when triggered
+        triggerFilterKeywordModal: function(e) {
+            $('#filter-keyword').modal('show');
+        },
+
         close: function() {
             this.searchEvent.close();
-            if(this.searchKeyword !== undefined)
-                this.searchKeyword.close();
+            if(this.filterKeyword !== undefined)
+                this.filterKeyword.close();
             this.settings.close();
+            this.searchKeyword.close();
 
             // Remove view
             this.remove();
@@ -81,11 +89,12 @@ define([
 
         beforeRender: function() {
             this.searchEvent = new searchEventView();
+            this.searchKeyword = new searchKeywordView();
 
             if(this.model.get('keywordType') === 'event' || this.model.get('eventId') !== undefined) {
                 var id = this.model.get('keywordType') === 'event' ? this.model.get('keyword') : this.model.get('eventId');
 
-                this.searchKeyword = new searchKeywordView({
+                this.filterKeyword = new filterKeywordView({
                     id: id,
                     network: this.model.get('network'),
                     timeStep: this.model.get('timeStep'),
@@ -93,14 +102,15 @@ define([
                     gender: this.model.get('gender'),
                     sport: this.model.get('sport')
                 });
-                this.insertView('#search-keyword .modal-body', this.searchKeyword);
-            };
+                this.insertView('#filter-keyword .modal-body', this.filterKeyword);
+            }
 
             this.settings = new settingsView({
                 model: new Backbone.Model(this.model.toJSON())
             });
 
             this.insertViews({
+                '#search-keyword .modal-body': this.searchKeyword,
                 '#search-event .modal-body': this.searchEvent,
                 '#settings-modal .modal-body': this.settings
             });
@@ -113,7 +123,6 @@ define([
             options.urlPattern = '#pattern/'+options.network+'/'+this.model.get('keywordType')+'/'+this.model.get('keyword')+'/'+this.model.get('timeStep')+'/'+this.model.get('startDateTime').getTime()+'/'+this.model.get('endDateTime').getTime()+'/'+this.model.get('currentDateTime').getTime();
             options.urlCompare = '#compareinit/'+this.model.get('keyword');
             if(options.keywordType !== 'event' || options.sport !== undefined) {
-                console.log(options);
                 var output = template(options);
                 this.$el.html( output );
             }

@@ -186,7 +186,7 @@ define([
                 secondDateTime: this.model.get('secondDateTime')
             });
             this.$el.html(output);
-        },
+        }
         
     });
 

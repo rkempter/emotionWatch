@@ -316,7 +316,6 @@ define([
       }
 
       if(null !== dataSet) {
-        console.log(dataSet);
         var firstPoint = this.getPoint(dataSet[Constants.labels[0].toLowerCase()], 0);
         var pathString = "M "+firstPoint.x+" "+firstPoint.y;
         var previous = firstPoint;
