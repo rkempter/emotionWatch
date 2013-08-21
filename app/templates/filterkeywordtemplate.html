@@ -1,0 +1,26 @@
+<div class="form-horizontal">
+    <h2><%=event%> (<%=sport%>) - <%=gender%></h2>
+    <p>Select search terms that you want to visualize of this specific event</p>
+    <div class="control-group">
+        <div id="keywords" class="keywords">
+            <div class="column">
+            <% for(var i = 0; i < Math.ceil(topics.length/2); i++) { %>
+                <label class="checkbox">
+                  <input type="checkbox" value="<%= topics[i] %>" checked> <%= topics[i] %>
+                </label>
+            <% }; %>
+            </div>
+            <div class="column">
+                <% for(var i = Math.ceil(topics.length/2); i < topics.length; i++) { %>
+                <label class="checkbox">
+                  <input type="checkbox" value="<%= topics[i] %>" checked> <%= topics[i] %>
+                </label>
+            <% }; %>
+            </div>
+        </div>
+    </div>
+
+    <p class="error"></p>
+
+    <button class="btn btn-search keyword-filter">Filter</button>
+</div>
