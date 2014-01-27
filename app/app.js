@@ -23,8 +23,8 @@ function($, _, Backbone, Raphael, Constants) {
 
     windowWidth: $(window).width(),
 
-    server: "http://grpupc1.epfl.ch:8124/"
-    // server: "http://localhost:8124/"
+    // server: "http://grpupc1.epfl.ch:8124/"
+    server: "http://localhost:8124/"
 
     // Global SVG Canvas
   };

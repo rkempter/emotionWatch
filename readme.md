@@ -1,36 +1,42 @@
-![Boilerplate](https://github.com/tbranyen/backbone-boilerplate/raw/assets/header.png)
+# SocialEmotionEye Application
 
-Backbone Boilerplate
-====================
+## Introduction
 
-This boilerplate is the product of much research and frustration.  Existing
-boilerplates freely modify Backbone core, lack a build process, and are very
-prescriptive; Backbone Boilerplate changes that.
+SocialEmotionEye is an application which visualizes emotions expressed on Twitter during the Olympic Games 2012 in London. It requires the SocialEmotionEye Server (<https://github.com/rkempter/emotionWatchServer>) and access to the database with the >40 mio tweets.
 
-Organize your application in a logical filesystem, develop your
-Models/Collections/Views/Routers inside modules, and build knowing you have
-efficient code that will not bottleneck your users.
+## Installation
 
-Thanks to our
-[Contributors](https://github.com/tbranyen/backbone-boilerplate/contributors)!
+1. Clone the repository to your computer
+2. In ``àpp/app.js```, adjust the variable 'server' to the correct host and port on which the server is running.
+3. Add a virtual host (not sure if this is optional or not!)
 
-Special Thanks to: [cowboy](http://github.com/cowboy),
-[iros](http://github.com/iros), [nimbupani](http://github.com/nimbupani),
-[wookiehangover](http://github.com/wookiehangover), and
-[jugglinmike](http://github.com/jugglinmike) for helping me create this project.
+In httpd-vhosts.conf (Mac Configuration)
+```
+<VirtualHost *:80>
+    ServerName example.dev
+    DocumentRoot "/your/path/to/the/application/"
+    DirectoryIndex index.html
+    <Directory "/your/path/to/the/application/">
+        AllowOverride All
+        Allow from all
+    </Directory>
+</VirtualHost>
+```
+and add ```127.0.0.1   example.dev``` to your host file. Restart apache
+4. Run the server, access the site. It should work.
 
-Extra Special Thanks to: [Paul Guinan](http://bigredhair.com/work/paul.html)
-for giving me usage rights to his fantastic Boilerplate character.
+## Requirements
 
-## Documentation ##
+The application was created using Backbone.js, Raphaël.js, lowdash.js, jQuery, Moment.js, and it is based on the Backbone Boilerplate, which used the Backbone Layout Manager. I believe that in newer versions of the Backbone Boilerplate, the Layout Manager is not used anymore...
 
-View the Backbone Boilerplate documentation here:
+## Additional notes
 
-[GitHub Wiki](https://github.com/tbranyen/backbone-boilerplate/wiki)
+For production, there is a grunt-file coming with the Backbone Boilerplate distribution. running the command ```bbb release -force``` lints the javascript files and generates one single file. There is a problem with the LESS to CSS compilation based on grunt and some copy-paste is required.
 
-## Build process ##
+I wasn't finding a proper production solution, therefore, you have to switch the server url in the app.js file manually before compilation... (Big TODO).
 
-To use the new and improved build process, please visit the 
-[grunt-bbb](https://github.com/backbone-boilerplate/grunt-bbb)
-plugin repo and follow the instructions to install.  Basing your project off
-this repo will allow the `bbb` commands to work out-of-the-box.
+Unit and functional Tests would be a good idea as well...
+
+## Architecture
+
+Basically, the 'router.js' file generates all the views by calling the needed models, collections and views. Models are filled up with data coming from the server API. The view files focus on displaying this information.
