@@ -40,3 +40,11 @@ Unit and functional Tests would be a good idea as well...
 ## Architecture
 
 Basically, the 'router.js' file generates all the views by calling the needed models, collections and views. Models are filled up with data coming from the server API. The view files focus on displaying this information.
+
+### Timing
+
+Timing is handled by the view 'timeview.js', respectively 'timeview_compare.js'. The view uses a timer and triggers events such as 'start:watch', 'stop:time', 'change:globalTime' with the date & time attached as a parameter. Those events are propagated using the global 'app' variable.
+
+### EmotionWatch
+
+The emotion watch can be found in the folder '/models/emotionWatch.js' and '/views/watch/emotionwatchview.js'. For using the watch, a Raphael canvas object is required. Those can be found in 'views/canvas/'.
