@@ -9,6 +9,11 @@ define([
 
 ], function(app, Backbone, $, _, util, Constants) {
     
+    // The timeview handles the timing of all elements through the propagation of
+    // events. The event 'change:globalTime' triggers the change to another date & time (sent
+    // as a parameter). The event 'start:watch' starts the animation, whereas the event
+    // 'stop:time' stops everything.
+
     var timeView = Backbone.View.extend({
 
         template: 'timetemplate',
